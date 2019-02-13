@@ -22,7 +22,7 @@ using namespace log;
 // ================================================================
 void iofile::File::close_ofile() {
 	if (ofile.is_open() == true) {
-		log::LOG_INFO(log::verb_level_e::MEDIUM, "[Close file] Closing ofile ", name);
+		LOG_INFO(log::verb_level_e::MEDIUM, "[Close file] Closing ofile ", name);
 		ofile.close();
 	}
 }
@@ -36,7 +36,7 @@ void iofile::File::open_ofile() {
 			if ((ofile.rdstate() & std::ostream::failbit) != 0) {
 				log::log_error("Can't open file ", name, " for write");
 			}
-			log::LOG_INFO(log::verb_level_e::MEDIUM, "[LOG INFO] Opened file ", name, " for write.");
+			LOG_INFO(log::verb_level_e::MEDIUM, "[LOG INFO] Opened file ", name, " for write.");
 		}
 	} else {
 		log::log_error("Can't open file ", name, " for write because write flag is set to ", std::boolalpha, write_flag);
@@ -58,7 +58,7 @@ void iofile::File::open_ifile() {
 			if ((ifile.rdstate() & std::istream::failbit) != 0) {
 				log::log_error("Can't open file ", name, " for read");
 			}
-			log::LOG_INFO(log::verb_level_e::MEDIUM, "[LOG INFO] Opened file ", "dada", " for read.");
+			LOG_INFO(log::verb_level_e::MEDIUM, "[LOG INFO] Opened file ", "dada", " for read.");
 		}
 	} else {
 		log::log_error("Can't open file ", name, " for read because read flag is set to ", std::boolalpha, read_flag);
@@ -66,7 +66,7 @@ void iofile::File::open_ifile() {
 }
 
 void iofile::File::close_ifile() {
-	log::LOG_INFO(log::verb_level_e::MEDIUM, "[Close file] Closing file ", name);
+	LOG_INFO(log::verb_level_e::MEDIUM, "[Close file] Closing file ", name);
 	if (ifile.is_open() == true) {
 		ifile.close();
 	}
@@ -127,13 +127,13 @@ iofile::mode_e iofile::File::get_access_mode() {
 // Set functions
 // ================================================================
 void iofile::File::set_filename(std::string filename) {
-	log::LOG_INFO(log::verb_level_e::ZERO, "[Access Mode] Changing name of file ", name, " to " , filename, ". File ", name, " will be closed.");
+	LOG_INFO(log::verb_level_e::ZERO, "[Access Mode] Changing name of file ", name, " to " , filename, ". File ", name, " will be closed.");
 	name.assign(filename);
 }
 
 void iofile::File::set_access_mode(iofile::mode_e access_mode) {
 	if (mode == access_mode) {
-		log::LOG_INFO(log::verb_level_e::ZERO, "[Access Mode] Access mode for file ", name, " unchnaged.");
+		LOG_INFO(log::verb_level_e::ZERO, "[Access Mode] Access mode for file ", name, " unchnaged.");
 	} else {
 		iofile::File::close_ofile();
 		iofile::File::close_ifile();

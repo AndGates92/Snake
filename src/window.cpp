@@ -34,9 +34,9 @@ window::Window::~Window() {
 // Create window
 // ================================================================
 int window::Window::create_window(std::string title, int width, int height, int xpos, int ypos) {
-	log::LOG_INFO(log::verb_level_e::LOW, "[Create window] Create window at ", xpos, ", ", ypos, ". Dimensions: width ", width, " height ", height, ". Title: ", title);
-	log::ASSERT(width > 0);
-	log::ASSERT(height > 0);
+	LOG_INFO(log::verb_level_e::LOW, "[Create window] Create window at ", xpos, ", ", ypos, ". Dimensions: width ", width, " height ", height, ". Title: ", title);
+	ASSERT(width > 0)
+	ASSERT(height > 0)
 	glutInitWindowSize(width, height);
 	glutInitWindowPosition(xpos, ypos);
 

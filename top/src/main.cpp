@@ -16,11 +16,11 @@ using namespace graphics;
 
 int main (int argc, char ** argv) {
 
-	log::LOG_INFO(log::verb_level_e::ZERO, "Start program Snake");
+	LOG_INFO(log::verb_level_e::ZERO, "Start program Snake");
 
 	init_gl(argc, argv);
 
-	log::LOG_INFO(log::verb_level_e::ZERO, "End program Snake");
+	LOG_INFO(log::verb_level_e::ZERO, "End program Snake");
 
 	return EXIT_SUCCESS;
 }

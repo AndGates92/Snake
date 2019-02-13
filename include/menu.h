@@ -37,9 +37,7 @@ namespace menu {
 	class Menu {
 		public:
 			// Constructor
-			Menu(std::function<void (&EntryFunc)(entry_e)> = nullptr, void (*ItemsFunc)() = nullptr): {
-				id = create_menu(EntryFunc, ItemsFunc);
-			};
+			Menu(void (&EntryFunc)(entry_e) = nullptr, void (*ItemsFunc)() = nullptr);
 
 			// Destructor
 			~Menu();
@@ -56,7 +54,7 @@ namespace menu {
 }
 
 template <typename entry_e>
-int menu::Menu::create_menu(void (*EntryFunc)(entry_e), void (*ItemsFunc)()) {
+int menu::Menu<entry_e>::create_menu(void (*EntryFunc)(entry_e), void (*ItemsFunc)()) {
 	int menu_id;
 	menu_id = glutCreateMenu(EntryFunc);
 	ItemsFunc();
@@ -64,6 +62,31 @@ int menu::Menu::create_menu(void (*EntryFunc)(entry_e), void (*ItemsFunc)()) {
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
 
 	return menu_id;
+}
+
+// ================================================================
+// Destroy window
+// ================================================================
+
+template <typename entry_e>
+void menu::Menu<entry_e>::destroy_menu() {
+	glutDestroyMenu(id);
+}
+
+// ================================================================
+// Destructor
+// ================================================================
+template <typename entry_e>
+menu::Menu<entry_e>::~Menu() {
+	menu::Menu<entry_e>::destroy_menu();
+}
+
+// ================================================================
+// Constructor
+// ================================================================
+template <typename entry_e>
+menu::Menu<entry_e>::Menu(void (&EntryFunc)(entry_e), void (*ItemsFunc)()) {
+	id = menu::Menu<entry_e>::create_menu(EntryFunc, ItemsFunc);
 }
 
 #endif // MENU_H

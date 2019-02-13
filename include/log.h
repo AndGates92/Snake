@@ -13,15 +13,6 @@
 #include "file.h"
 #include "utility.h"
 
-namespace log {
-
-	using iofile::mode_e;
-	using iofile::File;
-
-	/** @defgroup LogGroup Log Doxygen Group
-	 *  Functions and defines logging progress
-	 *  @{
-	 */
 	/**
 	 * @brief log filename
 	 *
@@ -47,9 +38,9 @@ namespace log {
 	 * Print an message message to the log file if the chosen verbosity is less or equal to the default verbosity
 	 */
 	#define LOG_INFO(VERBOSITY, ...)\
-		log_info(VERBOSITY, "File ", __FILE__, " at line ", __LINE__, ": ");\
-		log_info(VERBOSITY, __VA_ARGS__);\
-		log_info(VERBOSITY, "\n");
+		log::log_info(VERBOSITY, "File ", __FILE__, " at line ", __LINE__, ": ");\
+		log::log_info(VERBOSITY, __VA_ARGS__);\
+		log::log_info(VERBOSITY, "\n");
 
 	/**
 	 * @brief ASSERT(EXPR)
@@ -61,15 +52,26 @@ namespace log {
 	#ifdef ENABLE_ASSERTIONS
 	#define ASSERT(EXPR)\
 		if (!(EXPR)) {\
-			log_error("ASSERTION FAILED (", STRINGIFY_EXPR(EXPR), ")");\
+			log::log_error("ASSERTION FAILED (", STRINGIFY(EXPR), ")");\
 		}
 	#else
 	#define ASSERT(EXPR)\
 		if (!(EXPR)) {\
-			LOG_INFO(log::verb_level_e::ZERO,"ASSERTION FAILED (", STRINGIFY_EXPR(EXPR), ")");\
+			LOG_INFO(log::verb_level_e::ZERO,"ASSERTION FAILED (", STRINGIFY(EXPR), ")");\
 		}
 	#endif // ENABLE_ASSERTIONS
 
+
+
+namespace log {
+
+	using iofile::mode_e;
+	using iofile::File;
+
+	/** @defgroup LogGroup Log Doxygen Group
+	 *  Functions and defines logging progress
+	 *  @{
+	 */
 	/**
 	 * @brief Verbosity levels
 	 *
@@ -175,7 +177,7 @@ void log::logfileobj::add (info_type... info) {
 
 	if (log::logfileobj::logstream.ofile_is_open() == false) {
 		log::logfileobj::logstream.open_ofile();
-		log::LOG_INFO(log::verb_level_e::ZERO, "Opened sucesfully log file ", STRINGIFY(LOGFILE));
+		LOG_INFO(log::verb_level_e::ZERO, "Opened sucesfully log file ", STRINGIFY(LOGFILE));
 	}
 
 	log::logfileobj::logstream.write_ofile(info...);
