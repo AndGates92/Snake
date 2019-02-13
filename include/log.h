@@ -13,60 +13,55 @@
 #include "file.h"
 #include "utility.h"
 
-	/**
-	 * @brief log filename
-	 *
-	 */
-	#if !defined(LOGFILE)
-		#define LOGFILE snake.log
-	#endif
+/**
+ * @brief log filename
+ *
+ */
+#if !defined(LOGFILE)
+	#define LOGFILE snake.log
+#endif
 
-	/**
-	 * @brief Default verbosity level
-	 *
-	 */
-	#if !defined(VERBOSITY)
-		#define VERBOSITY MEDIUM
-	#endif
+/**
+ * @brief Default verbosity level
+ *
+ */
+#if !defined(VERBOSITY)
+	#define VERBOSITY MEDIUM
+#endif
 
-	/**
-	 * @brief LOG_INFO(VERBOSITY, ...)
-	 *
-	 * \param VERBOSITY : verbosity level
-	 * \param ... :       variable number of arguments to provide to log_info
-	 *
-	 * Print an message message to the log file if the chosen verbosity is less or equal to the default verbosity
-	 */
-	#define LOG_INFO(VERBOSITY, ...)\
-		log::log_info(VERBOSITY, "File ", __FILE__, " at line ", __LINE__, ": ");\
-		log::log_info(VERBOSITY, __VA_ARGS__);\
-		log::log_info(VERBOSITY, "\n");
+/**
+ * @brief LOG_INFO(VERBOSITY, ...)
+ *
+ * \param VERBOSITY : verbosity level
+ * \param ... :       variable number of arguments to provide to log_info
+ *
+ * Print an message message to the log file if the chosen verbosity is less or equal to the default verbosity
+ */
+#define LOG_INFO(VERBOSITY, ...)\
+	log::log_info(VERBOSITY, "File ", __FILE__, " at line ", __LINE__, ": ");\
+	log::log_info(VERBOSITY, __VA_ARGS__);\
+	log::log_info(VERBOSITY, "\n");
 
-	/**
-	 * @brief ASSERT(EXPR)
-	 *
-	 * \param EXPR : expression to assert
-	 *
-	 * Assert the expression and if it fails, an error message is printed to stderr and the program exits with EXIT_FAILURE status
-	 */
-	#ifdef ENABLE_ASSERTIONS
-	#define ASSERT(EXPR)\
-		if (!(EXPR)) {\
-			log::log_error("ASSERTION FAILED (", STRINGIFY(EXPR), ")");\
-		}
-	#else
-	#define ASSERT(EXPR)\
-		if (!(EXPR)) {\
-			LOG_INFO(log::verb_level_e::ZERO,"ASSERTION FAILED (", STRINGIFY(EXPR), ")");\
-		}
-	#endif // ENABLE_ASSERTIONS
-
-
+/**
+ * @brief ASSERT(EXPR)
+ *
+ * \param EXPR : expression to assert
+ *
+ * Assert the expression and if it fails, an error message is printed to stderr and the program exits with EXIT_FAILURE status
+ */
+#ifdef ENABLE_ASSERTIONS
+#define ASSERT(EXPR)\
+	if (!(EXPR)) {\
+		log::log_error("ASSERTION FAILED (", STRINGIFY(EXPR), ")");\
+	}
+#else
+#define ASSERT(EXPR)\
+	if (!(EXPR)) {\
+		LOG_INFO(log::verb_level_e::ZERO,"ASSERTION FAILED (", STRINGIFY(EXPR), ")");\
+	}
+#endif // ENABLE_ASSERTIONS
 
 namespace log {
-
-	using iofile::mode_e;
-	using iofile::File;
 
 	/** @defgroup LogGroup Log Doxygen Group
 	 *  Functions and defines logging progress

@@ -5,7 +5,7 @@
  * @file window_list.h
  * @author Andrea Gianarda
  * @date 12th of February 2019
- * @brief Window header file
+ * @brief Window list header file
 */
 
 #include "menu.h"
@@ -16,9 +16,6 @@ namespace window_list {
 	 *  Window List functions and classes
 	 *  @{
 	 */
-
-	using window::Window;
-	using menu::Menu;
 
 	template <typename entry_e>
 	class WindowObj {
@@ -35,7 +32,7 @@ namespace window_list {
 			window::Window drawing;
 			menu::Menu<entry_e> action_list;
 	};
-	/** @} */ // End of WindowGroup group
+	/** @} */ // End of WindowListGroup group
 }
 
 template <typename entry_e>
