@@ -28,7 +28,7 @@ namespace window_list {
 		protected:
 
 		private:
-			WindowList * prev;
+			WindowNode * prev;
 			window_obj::WindowObj<entry_e> node;
 			WindowNode *next;
 	};
