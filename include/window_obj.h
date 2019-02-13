@@ -1,19 +1,19 @@
-#ifndef WINDOW_LIST_H
-#define WINDOW_LIST_H
+#ifndef WINDOW_OBJ_H
+#define WINDOW_OBJ_H
 /**
  * @copyright
- * @file window_list.h
+ * @file window_obj.h
  * @author Andrea Gianarda
  * @date 12th of February 2019
- * @brief Window list header file
+ * @brief Window Object header file
 */
 
 #include "menu.h"
 #include "window.h"
 
-namespace window_list {
-	/** @defgroup WindowListGroup Window List Doxygen Group
-	 *  Window List functions and classes
+namespace window_obj {
+	/** @defgroup WindowObjectGroup Window Object Doxygen Group
+	 *  Window Object functions and classes
 	 *  @{
 	 */
 
@@ -32,12 +32,12 @@ namespace window_list {
 			window::Window drawing;
 			menu::Menu<entry_e> action_list;
 	};
-	/** @} */ // End of WindowListGroup group
+	/** @} */ // End of WindowObjectGroup group
 }
 
 template <typename entry_e>
-window_list::WindowObj<entry_e>::~WindowObj() {
-	window_list::WindowObj<entry_e>::drawing.~Window();
-	window_list::WindowObj<entry_e>::action_list.~Menu();
+window_obj::WindowObj<entry_e>::~WindowObj() {
+	window_obj::WindowObj<entry_e>::drawing.~Window();
+	window_obj::WindowObj<entry_e>::action_list.~Menu();
 }
-#endif // WINDOW_LIST_H
+#endif // WINDOW_OBJ_H
