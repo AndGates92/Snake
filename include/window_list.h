@@ -17,20 +17,20 @@ namespace window_list {
 	 */
 
 	template <typename entry_e>
-	class WindowList {
+	class WindowNode {
 		public:
 			// Constructor
-			WindowList(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (&EntryFunc)(entry_e) = nullptr, void (*ItemsFunc)() = nullptr);
+			WindowNode(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (&EntryFunc)(entry_e) = nullptr, void (*ItemsFunc)() = nullptr);
 
 			// Destructor
-			~WindowList();
+			~WindowNode();
 
 		protected:
 
 		private:
 			WindowList * prev;
 			window_obj::WindowObj<entry_e> node;
-			WindowList *next;
+			WindowNode *next;
 	};
 	/** @} */ // End of WindowListGroup group
 }
