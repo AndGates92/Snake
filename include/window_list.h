@@ -28,7 +28,7 @@ namespace window_list {
 		protected:
 
 		private:
-			WindowNode * head;
+			window_node::WindowNode<entry_e> * head;
 	};
 	/** @} */ // End of WindowListGroup group
 }
@@ -36,8 +36,7 @@ namespace window_list {
 template <typename entry_e>
 window_list::WindowList<entry_e>::~WindowList() {
 
-	LOG_INFO(log::verb_level_e::HIGH, "Window node destroyed");
-	delete[] node;
+	LOG_INFO(log::verb_level_e::HIGH, "Window list destroyed");
 
 }
 
