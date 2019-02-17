@@ -27,6 +27,8 @@ using namespace log;
 // Destructor
 // ================================================================
 window::Window::~Window() {
+	std::string pretext ("Window Destructor");
+	window::Window::print_info(log::verb_level_e::LOW, pretext);
 	window::Window::destroy_window();
 }
 
@@ -34,7 +36,7 @@ window::Window::~Window() {
 // Create window
 // ================================================================
 int window::Window::create_window(std::string title, int width, int height, int xpos, int ypos) {
-	LOG_INFO(log::verb_level_e::LOW, "[Create window] Create window at ", xpos, ", ", ypos, ". Dimensions: width ", width, " height ", height, ". Title: ", title);
+	LOG_INFO(log::verb_level_e::HIGH, "[Create window] Create window at ", xpos, ", ", ypos, ". Dimensions: width ", width, " height ", height, ". Title: ", title);
 	ASSERT(width > 0)
 	ASSERT(height > 0)
 	glutInitWindowSize(width, height);
@@ -56,4 +58,8 @@ int window::Window::create_window(std::string title, int width, int height, int 
 
 void window::Window::destroy_window() {
 	glutDestroyWindow(id);
+}
+
+void window::Window::print_info(log::verb_level_e verbosity, std::string pretext) {
+	LOG_INFO(verbosity, "[", pretext, "] Window ID ", id, " at ", pos_x, ", ", pos_y, ". Dimensions: width ", width, " height ", height, ". Title: ", title);
 }

@@ -12,6 +12,8 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+#include "log.h"
+
 namespace menu {
 	/** @defgroup MenuGroup Menu Doxygen Group
 	 *  Menu functions and classes
@@ -45,6 +47,7 @@ namespace menu {
 		protected:
 			int create_menu(void (*EntryFunc)(entry_e), void (*ItemsFunc)());
 			void destroy_menu();
+			void print_info(log::verb_level_e verbosity, std::string pretext);
 
 		private:
 			int id;
@@ -78,6 +81,8 @@ void menu::Menu<entry_e>::destroy_menu() {
 // ================================================================
 template <typename entry_e>
 menu::Menu<entry_e>::~Menu() {
+	std::string pretext ("Menu Destructor");
+	menu::Menu<entry_e>::print_info(log::verb_level_e::LOW, pretext);
 	menu::Menu<entry_e>::destroy_menu();
 }
 
@@ -87,6 +92,12 @@ menu::Menu<entry_e>::~Menu() {
 template <typename entry_e>
 menu::Menu<entry_e>::Menu(void (&EntryFunc)(entry_e), void (*ItemsFunc)()) {
 	id = menu::Menu<entry_e>::create_menu(EntryFunc, ItemsFunc);
+	std::string pretext ("Menu Constructor");
+	menu::Menu<entry_e>::print_info(log::verb_level_e::LOW, pretext);
 }
 
+template <typename entry_e>
+void menu::Menu<entry_e>::print_info(log::verb_level_e verbosity, std::string pretext) {
+	LOG_INFO(verbosity, "[", pretext, "] Menu ID ", id);
+}
 #endif // MENU_H

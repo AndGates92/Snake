@@ -8,6 +8,7 @@
  * @brief Window Object header file
 */
 
+#include "log.h"
 #include "menu.h"
 #include "window.h"
 
@@ -27,6 +28,7 @@ namespace window_obj {
 			~WindowObj();
 
 		protected:
+			void print_info(log::verb_level_e verbosity, std::string pretext);
 
 		private:
 			window::Window drawing;
@@ -39,5 +41,11 @@ template <typename entry_e>
 window_obj::WindowObj<entry_e>::~WindowObj() {
 	window_obj::WindowObj<entry_e>::drawing.~Window();
 	window_obj::WindowObj<entry_e>::action_list.~Menu();
+}
+
+template <typename entry_e>
+void window_obj::WindowObj<entry_e>::print_info(log::verb_level_e verbosity, std::string pretext) {
+	window_obj::WindowObj<entry_e>::drawing.print_info(verbosity, pretext);
+	window_obj::WindowObj<entry_e>::action_list.print_info(verbosity, pretext);
 }
 #endif // WINDOW_OBJ_H
