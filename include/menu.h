@@ -39,7 +39,10 @@ namespace menu {
 	class Menu {
 		public:
 			// Constructor
-			Menu(void (&EntryFunc)(entry_e) = nullptr, void (*ItemsFunc)() = nullptr);
+			Menu(void (&EntryFunc)(entry_e) = nullptr, void (*ItemsFunc)() = nullptr): id(menu::Menu<entry_e>::create_menu(EntryFunc, ItemsFunc)) {
+				std::string pretext ("Menu Constructor");
+				menu::Menu<entry_e>::print_info(log::verb_level_e::LOW, pretext);
+			}
 
 			// Destructor
 			~Menu();
@@ -84,16 +87,6 @@ menu::Menu<entry_e>::~Menu() {
 	std::string pretext ("Menu Destructor");
 	menu::Menu<entry_e>::print_info(log::verb_level_e::LOW, pretext);
 	menu::Menu<entry_e>::destroy_menu();
-}
-
-// ================================================================
-// Constructor
-// ================================================================
-template <typename entry_e>
-menu::Menu<entry_e>::Menu(void (&EntryFunc)(entry_e), void (*ItemsFunc)()) {
-	id = menu::Menu<entry_e>::create_menu(EntryFunc, ItemsFunc);
-	std::string pretext ("Menu Constructor");
-	menu::Menu<entry_e>::print_info(log::verb_level_e::LOW, pretext);
 }
 
 template <typename entry_e>
