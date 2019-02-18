@@ -20,18 +20,22 @@ namespace window_node {
 	class WindowNode {
 		public:
 			// Constructor
-			WindowNode(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (&EntryFunc)(entry_e) = nullptr, void (*ItemsFunc)() = nullptr): node(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc) {};
+			WindowNode(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (&EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr): node(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc), prev(nullptr), next(nullptr) {};
 
 			WindowNode(const WindowNode<entry_e>& copy) : node(copy.node), prev(copy.prev), next(copy.next) { LOG_INFO(log::verb_level_e::LOW, "Window node copy contructor") };
 
 			// Destructor
 			~WindowNode();
 
+			// Get functions
 			WindowNode * get_next();
-
 			WindowNode * get_prev();
+			window_obj::WindowObj<entry_e> get_node();
 
-			WindowNode get_node();
+			// Set functions
+			void set_next(WindowNode * next_ptr);
+			void set_prev(WindowNode * prev_ptr);
+			void set_node(window_obj::WindowObj<entry_e> node);
 
 		protected:
 
@@ -56,10 +60,11 @@ window_node::WindowNode<entry_e> * window_node::WindowNode<entry_e>::get_prev() 
 }
 
 template <typename entry_e>
-window_node::WindowNode<entry_e> window_node::WindowNode<entry_e>::get_node() {
+window_obj::WindowObj<entry_e> window_node::WindowNode<entry_e>::get_node() {
 	this.node.print_info(log::verb_level_e::DEBUG, "Get current node");
 	return this.node;
 }
+
 template <typename entry_e>
 window_node::WindowNode<entry_e> * window_node::WindowNode<entry_e>::get_next() {
 
@@ -67,4 +72,20 @@ window_node::WindowNode<entry_e> * window_node::WindowNode<entry_e>::get_next() 
 	return this.prev;
 
 }
+
+template <typename entry_e>
+void window_node::WindowNode<entry_e>::set_next(window_node::WindowNode<entry_e> * next_ptr) {
+	this->next = next_ptr;
+}
+
+template <typename entry_e>
+void window_node::WindowNode<entry_e>::set_prev(window_node::WindowNode<entry_e> * prev_ptr) {
+	this->prev = prev_ptr;
+}
+
+template <typename entry_e>
+void window_node::WindowNode<entry_e>::set_node(window_obj::WindowObj<entry_e> node) {
+	this->node = node;
+}
+
 #endif // WINDOW_NODE_H

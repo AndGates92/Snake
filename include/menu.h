@@ -23,15 +23,15 @@ namespace menu {
 	 * @brief Snake menu entries
 	 *
 	 */
-	typedef enum snake_menu_list {
-		RESTART,
-		START_PAUSE,
-		FASTER,
-		SLOWER,
-		QUIT
+	typedef enum class snake_menu_list {
+		RESTART = 0,
+		START_PAUSE = 1,
+		FASTER = 2,
+		SLOWER = 3,
+		QUIT = 4
 	} snake_menu_e;
 
-	void menu_snake(menu::snake_menu_e entry);
+	void menu_snake(int entry);
 
 	void menu_snake_items();
 
@@ -39,7 +39,7 @@ namespace menu {
 	class Menu {
 		public:
 			// Constructor
-			Menu(void (&EntryFunc)(entry_e) = nullptr, void (*ItemsFunc)() = nullptr): id(menu::Menu<entry_e>::create_menu(EntryFunc, ItemsFunc)) {
+			Menu(void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr): id(create_menu(EntryFunc, ItemsFunc)) {
 				std::string pretext ("Menu Constructor");
 				menu::Menu<entry_e>::print_info(log::verb_level_e::LOW, pretext);
 			}
@@ -52,7 +52,7 @@ namespace menu {
 			int get_id();
 
 		protected:
-			int create_menu(void (*EntryFunc)(entry_e), void (*ItemsFunc)());
+			int create_menu(void (*EntryFunc)(int), void (*ItemsFunc)());
 			void destroy_menu();
 			void print_info(log::verb_level_e verbosity, std::string pretext);
 
@@ -64,7 +64,7 @@ namespace menu {
 }
 
 template <typename entry_e>
-int menu::Menu<entry_e>::create_menu(void (*EntryFunc)(entry_e), void (*ItemsFunc)()) {
+int menu::Menu<entry_e>::create_menu(void (*EntryFunc)(int), void (*ItemsFunc)()) {
 	int menu_id;
 	menu_id = glutCreateMenu(EntryFunc);
 	ItemsFunc();

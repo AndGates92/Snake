@@ -22,29 +22,29 @@ using namespace log;
 // ================================================================
 // Snake menu
 // ================================================================
-void menu::menu_snake(menu::snake_menu_e entry) {
+void menu::menu_snake(int entry) {
 	switch (entry) {
-		case menu::snake_menu_e::RESTART:
+		case static_cast<int>(menu::snake_menu_e::RESTART):
 			LOG_INFO(log::verb_level_e::ZERO,"[Menu snake] Restart game");
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
-		case menu::snake_menu_e::START_PAUSE:
+		case static_cast<int>(menu::snake_menu_e::START_PAUSE):
 			LOG_INFO(log::verb_level_e::ZERO,"[Menu snake] Start/Pause snake");
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
-		case menu::snake_menu_e::FASTER:
+		case static_cast<int>(menu::snake_menu_e::FASTER):
 			LOG_INFO(log::verb_level_e::ZERO,"[Menu snake] Increease speed of snake");
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
-		case menu::snake_menu_e::SLOWER:
+		case static_cast<int>(menu::snake_menu_e::SLOWER):
 			LOG_INFO(log::verb_level_e::ZERO,"[Menu snake] Decrease speed of snake");
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
-		case menu::snake_menu_e::QUIT:
+		case static_cast<int>(menu::snake_menu_e::QUIT):
 			LOG_INFO(log::verb_level_e::ZERO,"[Menu snake] Close window and exits program");
 			exit(EXIT_SUCCESS);
 			break;
@@ -55,11 +55,11 @@ void menu::menu_snake(menu::snake_menu_e entry) {
 }
 
 void menu::menu_snake_items() {
-	glutAddMenuEntry("Restart", menu::snake_menu_e::RESTART);
-	glutAddMenuEntry("Start/Pause", menu::snake_menu_e::START_PAUSE);
-	glutAddMenuEntry("Faster", menu::snake_menu_e::FASTER);
-	glutAddMenuEntry("Slower", menu::snake_menu_e::SLOWER);
-	glutAddMenuEntry("Quit", menu::snake_menu_e::QUIT);
+	glutAddMenuEntry("Restart", static_cast<int>(menu::snake_menu_e::RESTART));
+	glutAddMenuEntry("Start/Pause", static_cast<int>(menu::snake_menu_e::START_PAUSE));
+	glutAddMenuEntry("Faster", static_cast<int>(menu::snake_menu_e::FASTER));
+	glutAddMenuEntry("Slower", static_cast<int>(menu::snake_menu_e::SLOWER));
+	glutAddMenuEntry("Quit", static_cast<int>(menu::snake_menu_e::QUIT));
 }
 
 

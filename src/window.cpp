@@ -14,6 +14,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+#include "graphics.h"
 #include "window.h"
 #include "log.h"
 

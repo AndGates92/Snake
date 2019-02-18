@@ -20,14 +20,14 @@ namespace window_list {
 	class WindowList {
 		public:
 			// Constructor
-			WindowList();
+			WindowList(): head(nullptr) {};
 
-			WindowList(const WindowList<entry_e>& copy): head(copy,head) { LOG_INFO(log::verb_level_e::LOW, "Window list copy contructor") };
+			WindowList(const WindowList<entry_e>& copy): head(copy.head) { LOG_INFO(log::verb_level_e::LOW, "Window list copy contructor") };
 
 			// Destructor
 			~WindowList();
 
-			void add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (&EntryFunc)(entry_e), void (*ItemsFunc)());
+			void add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (&EntryFunc)(int), void (*ItemsFunc)());
 			void remove_node(window_node::WindowNode<entry_e> * node);
 
 			window_obj::WindowObj<entry_e> search_by_win_id(int win_id);
@@ -53,27 +53,40 @@ window_list::WindowList<entry_e>::~WindowList() {
 
 }
 
-template <typename entry_e>
+/*template <typename entry_e>
 window_list::WindowList<entry_e>::WindowList() {
-	LOG_INFO(log::verb_level_e::HIGH, "Window list destroyed");
-	head = (window_node::WindowNode<entry_e> *) ::operator new (sizeof(window_node::WindowNode<entry_e> *)) ;
+	LOG_INFO(log::verb_level_e::HIGH, "Window list constructor");
+	// Allocate memory without calling constructor
+	head = (window_node::WindowNode<entry_e> *) ::operator new (sizeof(window_node::WindowNode<entry_e> *));
 }
-
+*/
 template <typename entry_e>
-void window_list::WindowList<entry_e>::add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (&EntryFunc)(entry_e), void (*ItemsFunc)()) {
+void window_list::WindowList<entry_e>::add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (&EntryFunc)(int), void (*ItemsFunc)()) {
+
+	window_node::WindowNode<entry_e> * new_window = (window_node::WindowNode<entry_e> *) ::operator new (sizeof(window_node::WindowNode<entry_e> *));
+	window_obj::WindowObj<entry_e> node(window_title, window_width, window_height, window_x_pos, window_y_pos , EntryFunc, ItemsFunc);
+
+	new_window->set_node(node);
+	new_window->set_prev(nullptr);
+
+	if(head != nullptr) {
+		head->set_prev(new_window);
+	}
+
+	new_window->set_next(head);
+	head = new_window;
 
 }
 
 template <typename entry_e>
 window_obj::WindowObj<entry_e> window_list::WindowList<entry_e>::search_by_win_id(int win_id) {
 
-	window_list::WindowList<entry_e> * window_list = NULL;
+	window_list::WindowList<entry_e> * window_list = nullptr;
 	// Initially point to the head
 	window_list = head;
 
-	window_obj::WindowObj<entry_e> window_found = NULL;
 
-	while (window_list != NULL) {
+	while (window_list != nullptr) {
 
 		window_obj::WindowObj<entry_e> node;
 		node = head->get_node();
@@ -83,7 +96,7 @@ window_obj::WindowObj<entry_e> window_list::WindowList<entry_e>::search_by_win_i
 		LOG_INFO(log::verb_level_e::DEBUG,"[New search by windows ID] Window ID: current %0d searched %0d",  curr_win_id, win_id);
 
 		if (curr_win_id == win_id) {
-			window_found = node;
+			window_obj::WindowObj<entry_e> window_found = node;
 			return window_found;
 		}
 
@@ -92,6 +105,6 @@ window_obj::WindowObj<entry_e> window_list::WindowList<entry_e>::search_by_win_i
 	}
 
 	log::log_error("Couldn't find window matching window ID ", win_id);
-	return NULL;
+	return nullptr;
 }
 #endif // WINDOW_LIST_H

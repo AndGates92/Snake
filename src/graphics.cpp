@@ -17,7 +17,7 @@
 #include "log.h"
 #include "graphics.h"
 #include "menu.h"
-	#include "window_list.h"
+#include "window_list.h"
 
 using namespace std;
 using namespace log;
