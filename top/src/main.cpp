@@ -18,7 +18,7 @@ int main (int argc, char ** argv) {
 
 	LOG_INFO(log::verb_level_e::ZERO, "Start program Snake");
 
-	init_gl(argc, argv);
+	init_graphics(argc, argv);
 
 	LOG_INFO(log::verb_level_e::ZERO, "End program Snake");
 

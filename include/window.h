@@ -42,8 +42,12 @@ namespace window {
 				window::Window::print_info(log::verb_level_e::LOW, pretext);
 			};
 
+			Window(const Window& copy) : width(copy.width), height(copy.height), pos_x(copy.pos_x), pos_y(copy.pos_y), id(copy.id) {};
+
 			// Destructor
 			~Window();
+
+			int get_id();
 
 		protected:
 			int create_window(std::string title, int width, int height, int xpos, int ypos);

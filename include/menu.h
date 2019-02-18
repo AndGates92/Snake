@@ -44,8 +44,12 @@ namespace menu {
 				menu::Menu<entry_e>::print_info(log::verb_level_e::LOW, pretext);
 			}
 
+			Menu(const Menu& copy): id(copy.id) {};
+
 			// Destructor
 			~Menu();
+
+			int get_id();
 
 		protected:
 			int create_menu(void (*EntryFunc)(entry_e), void (*ItemsFunc)());
@@ -92,5 +96,10 @@ menu::Menu<entry_e>::~Menu() {
 template <typename entry_e>
 void menu::Menu<entry_e>::print_info(log::verb_level_e verbosity, std::string pretext) {
 	LOG_INFO(verbosity, "[", pretext, "] Menu ID ", id);
+}
+
+template <typename entry_e>
+int menu::Menu<entry_e>::get_id() {
+	return id;
 }
 #endif // MENU_H

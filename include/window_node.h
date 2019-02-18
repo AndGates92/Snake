@@ -22,8 +22,16 @@ namespace window_node {
 			// Constructor
 			WindowNode(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (&EntryFunc)(entry_e) = nullptr, void (*ItemsFunc)() = nullptr): node(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc) {};
 
+			WindowNode(const WindowNode<entry_e>& copy) : node(copy.node), prev(copy.prev), next(copy.next) { LOG_INFO(log::verb_level_e::LOW, "Window node copy contructor") };
+
 			// Destructor
 			~WindowNode();
+
+			WindowNode * get_next();
+
+			WindowNode * get_prev();
+
+			WindowNode get_node();
 
 		protected:
 
@@ -37,10 +45,26 @@ namespace window_node {
 
 template <typename entry_e>
 window_node::WindowNode<entry_e>::~WindowNode() {
-
 	LOG_INFO(log::verb_level_e::HIGH, "Window node destroyed");
 	delete[] node;
-
 }
 
+template <typename entry_e>
+window_node::WindowNode<entry_e> * window_node::WindowNode<entry_e>::get_prev() {
+	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer next", this.next);
+	return this.next;
+}
+
+template <typename entry_e>
+window_node::WindowNode<entry_e> window_node::WindowNode<entry_e>::get_node() {
+	this.node.print_info(log::verb_level_e::DEBUG, "Get current node");
+	return this.node;
+}
+template <typename entry_e>
+window_node::WindowNode<entry_e> * window_node::WindowNode<entry_e>::get_next() {
+
+	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer prev", this.prev);
+	return this.prev;
+
+}
 #endif // WINDOW_NODE_H

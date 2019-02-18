@@ -20,6 +20,7 @@
 using namespace std;
 using namespace window;
 using namespace log;
+using namespace graphics;
 
 #define __STD_WANT_LIB_EXT1__ 1
 
@@ -53,6 +54,8 @@ int window::Window::create_window(std::string title, int width, int height, int 
 	int win_id = 0;
 	win_id = glutCreateWindow(win_name);
 
+	wrapper_dataset_cb();
+
 	return win_id;
 }
 
@@ -62,4 +65,8 @@ void window::Window::destroy_window() {
 
 void window::Window::print_info(log::verb_level_e verbosity, std::string pretext) {
 	LOG_INFO(verbosity, "[", pretext, "] Window ID ", id, " at ", pos_x, ", ", pos_y, ". Dimensions: width ", width, " height ", height, ". Title: ", title);
+}
+
+int window::Window::get_id() {
+	return id;
 }
