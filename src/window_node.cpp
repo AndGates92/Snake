@@ -17,12 +17,11 @@
 using namespace std;
 using namespace log;
 using namespace window_obj;
-using namespace window_node;
 
 
 window_node::WindowNode::~WindowNode() {
 	LOG_INFO(log::verb_level_e::HIGH, "Window node destroyed");
-	node.~WindowObj();
+	this->node.~WindowObj();
 }
 
 window_node::WindowNode * window_node::WindowNode::get_prev() {
@@ -31,7 +30,8 @@ window_node::WindowNode * window_node::WindowNode::get_prev() {
 }
 
 window_obj::WindowObj window_node::WindowNode::get_node() {
-	this->node.print_info(log::verb_level_e::DEBUG, "Get current node");
+	std::string pretext ("Get current node");
+	this->node.print_info(log::verb_level_e::DEBUG, pretext);
 	return this->node;
 }
 
@@ -56,5 +56,5 @@ void window_node::WindowNode::set_node(window_obj::WindowObj node) {
 
 
 void window_node::WindowNode::print_info(log::verb_level_e verbosity, std::string pretext) {
-	window_node::WindowNode::node.print_info(verbosity, pretext);
+	this->node.print_info(verbosity, pretext);
 }

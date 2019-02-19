@@ -31,6 +31,8 @@ namespace window_list {
 
 			window_obj::WindowObj search_by_win_id(int win_id);
 
+			void print_info(log::verb_level_e verbosity, std::string pretext);
+
 		protected:
 
 		private:

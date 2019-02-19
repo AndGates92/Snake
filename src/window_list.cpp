@@ -22,10 +22,10 @@ using namespace window_node;
 window_list::WindowList::~WindowList() {
 
 	window_node::WindowNode * node_ptr = nullptr;
-	while (head != nullptr) {
-		node_ptr = head->get_next();
-		head->~WindowNode();
-		head = node_ptr;
+	while (this->head != nullptr) {
+		node_ptr = this->head->get_next();
+		this->head->~WindowNode();
+		this->head = node_ptr;
 	}
 	LOG_INFO(log::verb_level_e::HIGH, "Window list destroyed");
 
@@ -40,12 +40,12 @@ void window_list::WindowList::add_node(std::string window_title, int window_widt
 	new_window->set_node(node);
 	new_window->set_prev(nullptr);
 
-	if(head != nullptr) {
-		head->set_prev(new_window);
+	if(this->head != nullptr) {
+		this->head->set_prev(new_window);
 	}
 
-	new_window->set_next(head);
-	head = new_window;
+	new_window->set_next(this->head);
+	this->head = new_window;
 
 }
 
@@ -53,13 +53,12 @@ window_obj::WindowObj window_list::WindowList::search_by_win_id(int win_id) {
 
 	window_node::WindowNode * window_list = nullptr;
 	// Initially point to the head
-	window_list = head;
-
+	window_list = this->head;
 
 	while (window_list != nullptr) {
 
 		window_obj::WindowObj node;
-		node = head->get_node();
+		node = this->head->get_node();
 		int curr_win_id = 0;
 		curr_win_id = node.get_win_id();
 
@@ -77,4 +76,17 @@ window_obj::WindowObj window_list::WindowList::search_by_win_id(int win_id) {
 	log::log_error("Couldn't find window matching window ID ", win_id);
 	window_obj::WindowObj obj_err("Error");
 	return obj_err;
+}
+
+void window_list::WindowList::print_info(log::verb_level_e verbosity, std::string pretext) {
+	window_node::WindowNode * window_list = nullptr;
+	// Initially point to the head
+	window_list = this->head;
+
+	while (window_list != nullptr) {
+		window_obj::WindowObj node;
+		node = this->head->get_node();
+		node.print_info(verbosity, pretext);
+		window_list = window_list->get_next();
+	}
 }

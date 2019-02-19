@@ -30,8 +30,8 @@ using namespace graphics;
 // ================================================================
 window::Window::~Window() {
 	std::string pretext ("Window Destructor");
-	window::Window::print_info(log::verb_level_e::LOW, pretext);
-	window::Window::destroy_window();
+	this->print_info(log::verb_level_e::LOW, pretext);
+	this->destroy_window();
 }
 
 // ================================================================
@@ -61,7 +61,7 @@ int window::Window::create_window(std::string title, int width, int height, int 
 }
 
 void window::Window::destroy_window() {
-	glutDestroyWindow(id);
+	glutDestroyWindow(this->id);
 }
 
 void window::Window::print_info(log::verb_level_e verbosity, std::string pretext) {
@@ -69,5 +69,5 @@ void window::Window::print_info(log::verb_level_e verbosity, std::string pretext
 }
 
 int window::Window::get_id() {
-	return id;
+	return this->id;
 }

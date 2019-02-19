@@ -17,19 +17,19 @@ using namespace window_obj;
 
 
 window_obj::WindowObj::~WindowObj() {
-	window_obj::WindowObj::drawing.~Window();
-	window_obj::WindowObj::action_list.~Menu();
+	this->drawing.~Window();
+	this->action_list.~Menu();
 }
 
 void window_obj::WindowObj::print_info(log::verb_level_e verbosity, std::string pretext) {
-	window_obj::WindowObj::drawing.print_info(verbosity, pretext);
-	window_obj::WindowObj::action_list.print_info(verbosity, pretext);
+	this->drawing.print_info(verbosity, pretext);
+	this->action_list.print_info(verbosity, pretext);
 }
 
 int window_obj::WindowObj::get_win_id() {
-	return drawing.get_id();
+	return this->drawing.get_id();
 }
 
 int window_obj::WindowObj::get_menu_id() {
-	return action_list.get_id();
+	return this->action_list.get_id();
 }
