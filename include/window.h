@@ -48,11 +48,11 @@ namespace window {
 			~Window();
 
 			int get_id();
+			void print_info(log::verb_level_e verbosity, std::string pretext);
 
 		protected:
 			int create_window(std::string title, int width, int height, int xpos, int ypos);
 			void destroy_window();
-			void print_info(log::verb_level_e verbosity, std::string pretext);
 
 		private:
 			std::string title;

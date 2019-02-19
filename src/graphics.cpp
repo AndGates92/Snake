@@ -26,7 +26,7 @@ using namespace menu;
 using namespace window_list;
 using namespace window_node;
 
-WindowList<menu::snake_menu_e> * windows;
+WindowList * windows;
 
 /** @addtogroup GraphicsGroup
  *  @{
@@ -55,7 +55,7 @@ static GLfloat zFar = 1.0;
 void graphics::init_graphics(int argc, char** argv) {
 	LOG_INFO(log::verb_level_e::ZERO, "Initialize GLUT");
 	glutInit( &argc, argv );
-	windows = new WindowList<menu::snake_menu_e>;
+	windows = new WindowList;
 
 	windows->add_node("test", 50, 50, 50, 50, menu_snake, menu_snake_items);
 }
