@@ -57,7 +57,7 @@ void graphics::init_graphics(int argc, char** argv) {
 	glutInit( &argc, argv );
 	windows = new WindowList;
 
-	windows->add_node("test", 50, 50, 50, 50, menu_snake, menu_snake_items);
+	windows->add_node("test", 100, 50, 100, 50, menu_snake, menu_snake_items);
 }
 
 void graphics::display_dataset_cb() {

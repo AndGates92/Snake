@@ -21,9 +21,15 @@ namespace window_obj {
 	class WindowObj {
 		public:
 			// Constructor
-			WindowObj(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr): drawing(window_title, window_width, window_height, window_x_pos, window_y_pos), action_list(EntryFunc, ItemsFunc) {};
+			WindowObj(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr): drawing(window_title, window_width, window_height, window_x_pos, window_y_pos), action_list(EntryFunc, ItemsFunc) {
+				std::string pretext ("Window Object Constructor");
+				window_obj::WindowObj::print_info(log::verb_level_e::LOW, pretext);
+			};
 
-			WindowObj(const WindowObj& copy): drawing(copy.drawing), action_list(copy.action_list) {};
+			WindowObj(const WindowObj& copy): drawing(copy.drawing), action_list(copy.action_list) {
+				std::string pretext ("Window Object Constructor");
+				window_obj::WindowObj::print_info(log::verb_level_e::LOW, pretext);
+			};
 
 			// Destructor
 			~WindowObj();

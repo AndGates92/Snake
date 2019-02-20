@@ -20,7 +20,8 @@ using namespace window_obj;
 
 
 window_node::WindowNode::~WindowNode() {
-	LOG_INFO(log::verb_level_e::HIGH, "Window node destroyed");
+	std::string pretext ("Window Node Destructor");
+	this->print_info(log::verb_level_e::LOW, pretext);
 	this->node.~WindowObj();
 }
 

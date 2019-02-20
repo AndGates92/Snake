@@ -17,6 +17,8 @@ using namespace window_obj;
 
 
 window_obj::WindowObj::~WindowObj() {
+	std::string pretext ("Window Object Destructor");
+	this->print_info(log::verb_level_e::LOW, pretext);
 	this->drawing.~Window();
 	this->action_list.~Menu();
 }

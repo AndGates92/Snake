@@ -19,7 +19,7 @@ namespace window_list {
 	class WindowList {
 		public:
 			// Constructor
-			WindowList(): head(nullptr) {};
+			WindowList(): head(nullptr) { LOG_INFO(log::verb_level_e::LOW, "Window list contructed") };
 
 			WindowList(const WindowList& copy): head(copy.head) { LOG_INFO(log::verb_level_e::LOW, "Window list copy contructor") };
 
