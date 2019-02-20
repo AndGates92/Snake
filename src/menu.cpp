@@ -62,4 +62,37 @@ void menu::menu_snake_items() {
 	glutAddMenuEntry("Quit", static_cast<int>(menu::snake_menu_e::QUIT));
 }
 
+int menu::Menu::create_menu(void (*EntryFunc)(int), void (*ItemsFunc)()) {
+	int menu_id;
+	menu_id = glutCreateMenu(EntryFunc);
+	ItemsFunc();
 
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+	return menu_id;
+}
+
+// ================================================================
+// Destroy window
+// ================================================================
+
+void menu::Menu::destroy_menu() {
+	glutDestroyMenu(id);
+}
+
+// ================================================================
+// Destructor
+// ================================================================
+menu::Menu::~Menu() {
+	std::string pretext ("Menu Destructor");
+	print_info(log::verb_level_e::LOW, pretext);
+	destroy_menu();
+}
+
+void menu::Menu::print_info(log::verb_level_e verbosity, std::string pretext) {
+	LOG_INFO(verbosity, "[", pretext, "] Menu ID ", id);
+}
+
+int menu::Menu::get_id() {
+	return id;
+}

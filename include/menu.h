@@ -14,6 +14,8 @@
 
 #include "log.h"
 
+using namespace log;
+
 namespace menu {
 	/** @defgroup MenuGroup Menu Doxygen Group
 	 *  Menu functions and classes
@@ -62,38 +64,4 @@ namespace menu {
 	/** @} */ // End of MenuGroup group
 }
 
-int menu::Menu::create_menu(void (*EntryFunc)(int), void (*ItemsFunc)()) {
-	int menu_id;
-	menu_id = glutCreateMenu(EntryFunc);
-	ItemsFunc();
-
-	glutAttachMenu(GLUT_RIGHT_BUTTON);
-
-	return menu_id;
-}
-
-// ================================================================
-// Destroy window
-// ================================================================
-
-void menu::Menu::destroy_menu() {
-	glutDestroyMenu(id);
-}
-
-// ================================================================
-// Destructor
-// ================================================================
-menu::Menu::~Menu() {
-	std::string pretext ("Menu Destructor");
-	menu::Menu::print_info(log::verb_level_e::LOW, pretext);
-	menu::Menu::destroy_menu();
-}
-
-void menu::Menu::print_info(log::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Menu ID ", id);
-}
-
-int menu::Menu::get_id() {
-	return id;
-}
 #endif // MENU_H

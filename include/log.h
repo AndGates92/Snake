@@ -38,9 +38,7 @@
  * Print an message message to the log file if the chosen verbosity is less or equal to the default verbosity
  */
 #define LOG_INFO(VERBOSITY, ...)\
-	log::log_info(VERBOSITY, "File ", __FILE__, " at line ", __LINE__, ": ");\
-	log::log_info(VERBOSITY, __VA_ARGS__);\
-	log::log_info(VERBOSITY, "\n");
+	log::log_info(VERBOSITY, "File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
 
 /**
  * @brief ASSERT(EXPR)
@@ -80,7 +78,7 @@ namespace log {
 	} verb_level_e;
 
 	/** 
-	 * @brief Function: inline void log_error (err_type... err)
+	 * @brief Function: void log_error (err_type... err)
 	 *
 	 * \param err:        string to print using std::cerr
 	 *
@@ -90,7 +88,7 @@ namespace log {
 	void log_error (err_type... err);
 
 	/** 
-	 * @brief Function: inline void log_info (verb_lvl_e verbosity, info_type&... info)
+	 * @brief Function: void log_info (verb_lvl_e verbosity, info_type&... info)
 	 *
 	 * \param verbosity:   specify the minimum verbosity level required to print a message
 	 * \param info:        string to print using std::cout
@@ -98,10 +96,10 @@ namespace log {
 	 * Log information to a logfile if desired verbosity level is higher than the requested one
 	 */
 	template <typename... info_type>
-	inline void log_info (log::verb_level_e verbosity, info_type... info);
+	void log_info (log::verb_level_e verbosity, info_type... info);
 
 	/** 
-	 * @brief Function: void print_info (info_type... info)
+	 * @brief Function: void print_str(info_type... info)
 	 *
 	 * \param info:        string to print using std::cout
 	 *
@@ -109,42 +107,25 @@ namespace log {
 	 * If log file is not opened, it will open for write
 	 */
 	template <typename file_type, typename first_str_type, typename... other_str_type>
-	inline void print_str(file_type& file, first_str_type first_str, other_str_type ... str);
+	void print_str(file_type& file, first_str_type first_str, other_str_type ... str);
 
 	template <typename file_type, typename str_type>
-	inline void print_str(file_type& file, str_type str);
-
-		class logfileobj {
-			public:
-
-				// Constructor
-				logfileobj(std::string filename = "", iofile::mode_e access_mode = iofile::mode_e::NO_ACCESS): logstream(filename, access_mode) {};
-				// Destructor
-				~logfileobj();
-
-				template <typename... info_type>
-				void add (info_type... info);
-
-				void close ();
-
-			private:
-				iofile::File logstream;
-		};
+	void print_str(file_type& file, str_type str);
 
 	namespace {
-		logfileobj logfile(STRINGIFY(LOGFILE), iofile::mode_e::WO);
+		iofile::File logfile(STRINGIFY(LOGFILE), iofile::mode_e::WO);
 	}
 
 /** @} */ // End of LogGroup group
 }
 
 template <typename file_type, typename str_type>
-inline void log::print_str(file_type& file, str_type str) {
+void log::print_str(file_type& file, str_type str) {
 	file << str;
 }
 
 template <typename file_type, typename first_str_type, typename... other_str_type>
-inline void log::print_str(file_type& file, first_str_type first_str, other_str_type ... str) {
+void log::print_str(file_type& file, first_str_type first_str, other_str_type ... str) {
 	file << first_str;
 	log::print_str(file, str...);
 }
@@ -153,7 +134,7 @@ template <typename... err_type>
 void log::log_error(err_type... err) {
 	using std::cerr;
 
-	log::logfile.close();
+	log::logfile.~File();
 	log::print_str(std::cerr, "File ",  __FILE__ , " at line ",  __LINE__,  ": ERROR ");
 	log::print_str(std::cerr, err...);
 	log::print_str(std::cerr, "\n");
@@ -161,20 +142,10 @@ void log::log_error(err_type... err) {
 }
 
 template <typename... info_type>
-inline void log::log_info (log::verb_level_e verbosity, info_type... info) {
+void log::log_info (log::verb_level_e verbosity, info_type... info) {
 	if (verbosity <= static_cast<log::verb_level_e>(VERBOSITY)) {
-		log::logfile.add(info...);
+		log::logfile.write_ofile(info...);
 	}
 }
 
-template <typename... info_type>
-void log::logfileobj::add (info_type... info) {
-
-	if (log::logfileobj::logstream.ofile_is_open() == false) {
-		log::logfileobj::logstream.open_ofile();
-		LOG_INFO(log::verb_level_e::ZERO, "Opened sucesfully log file ", STRINGIFY(LOGFILE));
-	}
-
-	log::logfileobj::logstream.write_ofile(info...);
-}
 #endif // LOG_H

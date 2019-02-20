@@ -36,7 +36,7 @@ void iofile::File::open_ofile() {
 			if ((this->ofile.rdstate() & std::ostream::failbit) != 0) {
 				log::log_error("Can't open file ", this->name, " for write");
 			}
-			LOG_INFO(log::verb_level_e::MEDIUM, "[LOG INFO] Opened file ", this->name, " for write.");
+			LOG_INFO(log::verb_level_e::LOW, "[LOG INFO] Opened file ", this->name, " for write.");
 		}
 	} else {
 		log::log_error("Can't open file ", this->name, " for write because write flag is set to ", std::boolalpha, this->write_flag);
@@ -80,8 +80,8 @@ bool iofile::File::ifile_is_open() {
 // Destructors
 // ================================================================
 iofile::File::~File() {
-	iofile::File::close_ofile();
-	iofile::File::close_ifile();
+	this->close_ofile();
+	this->close_ifile();
 }
 
 // ================================================================
@@ -108,8 +108,8 @@ void iofile::File::set_write_access() {
 }
 
 void iofile::File::set_access_flags() {
-	iofile::File::set_write_access();
-	iofile::File::set_read_access();
+	this->set_write_access();
+	this->set_read_access();
 }
 
 // ================================================================
@@ -135,8 +135,8 @@ void iofile::File::set_access_mode(iofile::mode_e access_mode) {
 	if (this->mode == access_mode) {
 		LOG_INFO(log::verb_level_e::ZERO, "[Access Mode] Access mode for file ", this->name, " unchnaged.");
 	} else {
-		iofile::File::close_ofile();
-		iofile::File::close_ifile();
+		this->close_ofile();
+		this->close_ifile();
 		this->mode = access_mode;
 		iofile::File::set_access_flags();
 	}

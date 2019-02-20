@@ -37,12 +37,12 @@ namespace window {
 		public:
 			// Constructor
 			Window(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y): title(window_title), width(window_width), height(window_height), pos_x(window_x_pos), pos_y(window_y_pos) {
-				id = create_window(title, width, height, pos_x, pos_y);
+				id = window::Window::create_window(title, width, height, pos_x, pos_y);
 				std::string pretext ("Window Constructor");
 				window::Window::print_info(log::verb_level_e::LOW, pretext);
 			};
 
-			Window(const Window& copy) : width(copy.width), height(copy.height), pos_x(copy.pos_x), pos_y(copy.pos_y), id(copy.id) {};
+			Window(const Window& copy) : title(copy.title), width(copy.width), height(copy.height), pos_x(copy.pos_x), pos_y(copy.pos_y), id(copy.id) {};
 
 			// Destructor
 			~Window();

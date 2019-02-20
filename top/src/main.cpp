@@ -7,6 +7,7 @@
  */
 
 #include <iostream>
+#include <unistd.h>
 #include "log.h"
 #include "graphics.h"
 
@@ -19,6 +20,8 @@ int main (int argc, char ** argv) {
 	LOG_INFO(log::verb_level_e::ZERO, "Start program Snake");
 
 	init_graphics(argc, argv);
+
+	sleep(10);
 
 	LOG_INFO(log::verb_level_e::ZERO, "End program Snake");
 
