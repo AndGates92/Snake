@@ -10,6 +10,8 @@
 
 namespace graphics {
 
+	void test_graphics();
+
 	void init_graphics(int argc, char** argv);
 
 	/**
