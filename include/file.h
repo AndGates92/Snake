@@ -30,7 +30,9 @@ namespace iofile {
 	class File {
 		public:
 			// Constructor
-			File(std::string filename = "", mode_e access_mode = iofile::mode_e::NO_ACCESS): name(filename), mode(access_mode) { set_access_flags(); };
+			File(std::string filename = "", mode_e access_mode = iofile::mode_e::NO_ACCESS): name(filename), mode(access_mode) {
+				set_access_flags();
+			};
 
 			// Destructor
 			~File();
