@@ -22,7 +22,7 @@ using namespace log;
 // ================================================================
 void iofile::File::close_ofile() {
 	if (this->ofile_is_open() == true) {
-		ofile << "[Close ofile] Closing ofile " << this->name << " for write." << std::endl;
+		ofile << "File " << __FILE__ << " at line " << __LINE__ << ": " << "[Close ofile] Closing ofile " << this->name << " for write." << std::endl;
 		this->ofile.close();
 	}
 }
@@ -34,7 +34,7 @@ void iofile::File::open_ofile() {
 			if ((this->ofile.rdstate() & std::ostream::failbit) != 0) {
 				LOG_ERROR("Can't open file ", this->name, " for write");
 			}
-			LOG_INFO(log::verb_level_e::HIGH, "[LOG INFO] Opened file ", this->name, " for write.");
+			LOG_INFO(log::verb_level_e::HIGH, "[Open ofile] Opened file ", this->name, " for write.");
 		}
 	} else {
 		LOG_ERROR("Can't open file ", this->name, " for write because write flag is set to ", std::boolalpha, this->write_flag);
@@ -56,7 +56,7 @@ void iofile::File::open_ifile() {
 			if ((this->ifile.rdstate() & std::istream::failbit) != 0) {
 				LOG_ERROR("Can't open file ", this->name, " for read");
 			}
-			LOG_INFO(log::verb_level_e::HIGH, "[LOG INFO] Opened file ", this->name, " for read.");
+			LOG_INFO(log::verb_level_e::HIGH, "[Open ifile] Opened file ", this->name, " for read.");
 		}
 	} else {
 		LOG_ERROR("Can't open file ", this->name, " for read because read flag is set to ", std::boolalpha, this->read_flag);
@@ -66,7 +66,7 @@ void iofile::File::open_ifile() {
 void iofile::File::close_ifile() {
 	if (this->ofile_is_open() == true) {
 	//	LOG_INFO(log::verb_level_e::MEDIUM, "[Close file] Closing ifile ", this->name, " for read.");
-		ofile << "[Close ifile] Closing ifile " << this->name << " for read." << std::endl;
+		ofile << "File " << __FILE__ << " at line " << __LINE__ << ": " << "[Close ifile] Closing ifile " << this->name << " for read." << std::endl;
 	}
 	if (this->ifile_is_open() == true) {
 		this->ifile.close();
@@ -96,7 +96,7 @@ void iofile::File::set_read_access() {
 	} else {
 		LOG_ERROR("Can't set read access flag because unknown mode ");
 	}
-//	LOG_INFO(log::verb_level_e::HIGH, "[Set Read Mode] Read access: ", this->read_flag, ".");
+//	LOG_INFO(log::verb_level_e::HIGH, "[Set Read Mode] Read access: ", std::boolalpha, this->read_flag, ".");
 }
 
 void iofile::File::set_write_access() {
@@ -107,7 +107,7 @@ void iofile::File::set_write_access() {
 	} else {
 		LOG_ERROR("Can't set write access flag because unknown mode ");
 	}
-//	LOG_INFO(log::verb_level_e::HIGH, "[Set Write Mode] Write access: ", this->write_flag, ".");
+//	LOG_INFO(log::verb_level_e::HIGH, "[Set Write Mode] Write access: ", std::boolalpha, this->write_flag, ".");
 }
 
 void iofile::File::set_access_flags() {
@@ -142,7 +142,7 @@ void iofile::File::set_access_mode(iofile::mode_e access_mode) {
 		this->close_ifile();
 		this->mode = access_mode;
 		iofile::File::set_access_flags();
-		LOG_INFO(log::verb_level_e::ZERO, "[Access Flags] Access flags for file ", this->name, " are: write: ", this->write_flag, " read: ", this->read_flag, ".");
+		LOG_INFO(log::verb_level_e::ZERO, "[Access Flags] Access flags for file ", this->name, " are: write->", std::boolalpha, this->write_flag, " read->", std::boolalpha, this->read_flag, ".");
 	}
 }
 
