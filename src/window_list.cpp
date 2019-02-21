@@ -21,11 +21,15 @@ using namespace window_node;
 
 window_list::WindowList::~WindowList() {
 
+	std::string pretext ("Window List Destructor");
+	this->print_info(log::verb_level_e::LOW, pretext);
+
 	window_node::WindowNode * node_ptr = nullptr;
 	while (this->head != nullptr) {
-		node_ptr = this->head->get_next();
-		this->head->~WindowNode();
-		this->head = node_ptr;
+		node_ptr = this->head;
+		this->head = this->head->get_next();
+		node_ptr->~WindowNode();
+		delete [] node_ptr;
 	}
 	LOG_INFO(log::verb_level_e::HIGH, "Window list destroyed");
 
@@ -34,10 +38,9 @@ window_list::WindowList::~WindowList() {
 
 void window_list::WindowList::add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (*EntryFunc)(int), void (*ItemsFunc)()) {
 
-	window_node::WindowNode * new_window = (window_node::WindowNode *) ::operator new (sizeof(window_node::WindowNode *));
-	window_obj::WindowObj node(window_title, window_width, window_height, window_x_pos, window_y_pos , EntryFunc, ItemsFunc);
+	LOG_INFO(log::verb_level_e::LOW, "[Add node] Create node at ", window_x_pos, ", ", window_y_pos, ". Dimensions: width ", window_width, " height ", window_height, ". Title: ", window_title);
+	window_node::WindowNode * new_window = new window_node::WindowNode(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc);
 
-	new_window->set_node(node);
 	new_window->set_prev(nullptr);
 
 	if(this->head != nullptr) {
