@@ -81,20 +81,24 @@ namespace iofile {
 
 template <typename str_type>
 void iofile::File::write_ofile(str_type str) {
-	if (ofile.is_open() == false) {
-		// Automatically try to open ofile if still closed
-		this->open_ofile();
+	if (this->write_flag == true) {
+		if (ofile_is_open() == false) {
+			// Automatically try to open ofile if still closed
+			this->open_ofile();
+		}
+		ofile << str;
 	}
-	ofile << str;
 }
 
 template <typename first_str_type, typename... other_str_type>
 void iofile::File::write_ofile(first_str_type first_str, other_str_type ... str) {
-	if (ofile.is_open() == false) {
-		// Automatically try to open ofile if still closed
-		this->open_ofile();
+	if (this->write_flag == true) {
+		if (ofile_is_open() == false) {
+			// Automatically try to open ofile if still closed
+			this->open_ofile();
+		}
+		ofile << first_str;
+		this->write_ofile(str...);
 	}
-	ofile << first_str;
-	this->write_ofile(str...);
 }
 #endif // FILE_H
