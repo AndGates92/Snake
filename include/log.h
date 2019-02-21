@@ -47,7 +47,7 @@
  *
  * Print an error message to std::cerr
  */
-#define LOG_ERROR( ...)\
+#define LOG_ERROR(...)\
 	log::log_error("File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
 
 /**
