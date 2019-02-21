@@ -10,6 +10,8 @@
 #include <iostream>
 #include <fstream>
 
+#include <unistd.h>
+
 // include graphical libraries (OPENGL)
 #include <GL/glut.h>
 #include <GL/gl.h>
@@ -51,12 +53,20 @@ static GLfloat zFar = 1.0;
 /** @} */ // End of addtogroup GraphicsGroup
 
 
+void graphics::test_graphics() {
+	windows->add_node("test", 100, 50, 100, 50, menu_snake, menu_snake_items);
+
+	sleep(10);
+
+//	windows->add_node("test1", 300, 50, 500, 50, menu_snake, menu_snake_items);
+
+//	sleep(10);
+}
+
 void graphics::init_graphics(int argc, char** argv) {
 	LOG_INFO(log::verb_level_e::ZERO, "Initialize GLUT");
 	glutInit( &argc, argv );
 	windows = new WindowList;
-
-	windows->add_node("test", 100, 50, 100, 50, menu_snake, menu_snake_items);
 }
 
 void graphics::display_dataset_cb() {
