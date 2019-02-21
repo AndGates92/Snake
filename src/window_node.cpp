@@ -18,7 +18,6 @@ using namespace std;
 using namespace log;
 using namespace window_obj;
 
-
 window_node::WindowNode::~WindowNode() {
 	std::string pretext ("Window Node Destructor");
 	this->print_info(log::verb_level_e::LOW, pretext);

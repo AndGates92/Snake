@@ -73,7 +73,7 @@ window_obj::WindowObj window_list::WindowList::search_by_win_id(int win_id) {
 
 	}
 
-	log::log_error("Couldn't find window matching window ID ", win_id);
+	LOG_ERROR("Couldn't find window matching window ID ", win_id);
 	window_obj::WindowObj obj_err("Error");
 	return obj_err;
 }

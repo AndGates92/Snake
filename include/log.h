@@ -35,10 +35,20 @@
  * \param VERBOSITY : verbosity level
  * \param ... :       variable number of arguments to provide to log_info
  *
- * Print an message message to the log file if the chosen verbosity is less or equal to the default verbosity
+ * Print a message to the log file if the chosen verbosity is less or equal to the default verbosity
  */
 #define LOG_INFO(VERBOSITY, ...)\
 	log::log_info(VERBOSITY, "File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
+
+/**
+ * @brief LOG_ERROR(...)
+ *
+ * \param ... :       variable number of arguments to provide to log_info
+ *
+ * Print an error message to std::cerr
+ */
+#define LOG_ERROR( ...)\
+	log::log_error("File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
 
 /**
  * @brief ASSERT(EXPR)
@@ -50,7 +60,7 @@
 #ifdef ENABLE_ASSERTIONS
 #define ASSERT(EXPR)\
 	if (!(EXPR)) {\
-		log::log_error("ASSERTION FAILED (", STRINGIFY(EXPR), ")");\
+		LOG_ERROR("ASSERTION FAILED (", STRINGIFY(EXPR), ")");\
 	}
 #else
 #define ASSERT(EXPR)\
@@ -135,10 +145,7 @@ void log::log_error(err_type... err) {
 	using std::cerr;
 
 	log::logfile.~File();
-	log::print_str(std::cerr, "File ",  __FILE__ , " at line ",  __LINE__,  ": ERROR ");
 	log::print_str(std::cerr, err...);
-	log::print_str(std::cerr, "\n");
-
 }
 
 template <typename... info_type>
