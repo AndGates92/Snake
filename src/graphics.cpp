@@ -24,7 +24,6 @@ using namespace log;
 using namespace graphics;
 using namespace menu;
 using namespace window_list;
-using namespace window_node;
 
 WindowList * windows;
 
