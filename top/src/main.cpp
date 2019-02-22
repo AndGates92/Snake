@@ -9,6 +9,7 @@
 #include <iostream>
 #include "log.h"
 #include "graphics.h"
+#include "file.h"
 
 using namespace std;
 using namespace log;
