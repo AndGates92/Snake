@@ -122,10 +122,9 @@ namespace log {
 	template <typename file_type, typename str_type>
 	void print_str(file_type& file, str_type str);
 
-//	namespace {
-		//iofile::File logfile(STRINGIFY(LOGFILE), iofile::mode_e::WO);
-		static iofile::File * logfile = new iofile::File(STRINGIFY(LOGFILE), iofile::mode_e::WO);
-//	}
+	namespace {
+		static iofile::File logfile(STRINGIFY(LOGFILE), iofile::mode_e::WO);
+	}
 
 /** @} */ // End of LogGroup group
 }
@@ -145,14 +144,14 @@ template <typename... err_type>
 void log::log_error(err_type... err) {
 	using std::cerr;
 
-	log::logfile->~File();
+	log::logfile.~File();
 	log::print_str(std::cerr, err...);
 }
 
 template <typename... info_type>
 void log::log_info (log::verb_level_e verbosity, info_type... info) {
 	if (verbosity <= static_cast<log::verb_level_e>(VERBOSITY)) {
-		log::logfile->write_ofile(info...);
+		log::logfile.write_ofile(info...);
 	}
 }
 
