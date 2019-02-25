@@ -54,25 +54,24 @@ void window_list::WindowList::add_node(std::string window_title, int window_widt
 
 window_obj::WindowObj window_list::WindowList::search_by_win_id(int &win_id) {
 
-	window_node::WindowNode * window_list = nullptr;
+	window_node::WindowNode * window_nodes = nullptr;
 	// Initially point to the head
-	window_list = this->head;
+	window_nodes = this->head;
 
-	while (window_list != nullptr) {
+	while (window_nodes != nullptr) {
 
-		window_obj::WindowObj node;
-		node = this->head->get_node();
+		window_obj::WindowObj node = window_nodes->get_node();
 		int curr_win_id = 0;
 		curr_win_id = node.get_win_id();
 
-		LOG_INFO(log::verb_level_e::DEBUG,"[New search by windows ID] Window ID: current %0d searched %0d",  curr_win_id, win_id);
+		LOG_INFO(log::verb_level_e::DEBUG,"[New search by windows ID] Window ID: current ", curr_win_id, " searched ", win_id);
 
 		if (curr_win_id == win_id) {
 			window_obj::WindowObj window_found = node;
 			return window_found;
 		}
 
-		window_list = window_list->get_next();
+		window_nodes = window_nodes->get_next();
 
 	}
 

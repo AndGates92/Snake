@@ -24,22 +24,20 @@ window_node::WindowNode::~WindowNode() {
 	this->node.~WindowObj();
 }
 
-window_node::WindowNode * window_node::WindowNode::get_prev() {
-	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer next", this->next);
+window_node::WindowNode * window_node::WindowNode::get_next() {
+	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer next: ", this->next);
 	return this->next;
+}
+
+window_node::WindowNode * window_node::WindowNode::get_prev() {
+	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer prev: ", this->prev);
+	return this->prev;
 }
 
 window_obj::WindowObj window_node::WindowNode::get_node() {
 	std::string pretext ("Get current node");
 	this->node.print_info(log::verb_level_e::DEBUG, pretext);
 	return this->node;
-}
-
-window_node::WindowNode * window_node::WindowNode::get_next() {
-
-	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer prev", this->prev);
-	return this->prev;
-
 }
 
 void window_node::WindowNode::set_next(window_node::WindowNode * next_ptr) {
