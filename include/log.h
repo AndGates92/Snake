@@ -122,9 +122,7 @@ namespace log {
 	template <typename file_type, typename str_type>
 	void print_str(file_type& file, str_type str);
 
-	namespace {
-		static iofile::File logfile(STRINGIFY(LOGFILE), iofile::mode_e::WO);
-	}
+	static iofile::File logfile(STRINGIFY(LOGFILE), iofile::mode_e::WO);
 
 /** @} */ // End of LogGroup group
 }
