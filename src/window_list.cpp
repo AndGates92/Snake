@@ -52,7 +52,7 @@ void window_list::WindowList::add_node(std::string window_title, int window_widt
 
 }
 
-window_obj::WindowObj window_list::WindowList::search_by_win_id(int win_id) {
+window_obj::WindowObj window_list::WindowList::search_by_win_id(int &win_id) {
 
 	window_node::WindowNode * window_list = nullptr;
 	// Initially point to the head

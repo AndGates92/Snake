@@ -29,7 +29,7 @@ namespace window_list {
 			void add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (*EntryFunc)(int), void (*ItemsFunc)());
 			void remove_node(window_node::WindowNode * node);
 
-			window_obj::WindowObj search_by_win_id(int win_id);
+			window_obj::WindowObj search_by_win_id(int &win_id);
 
 			void print_info(log::verb_level_e verbosity, std::string pretext);
 
