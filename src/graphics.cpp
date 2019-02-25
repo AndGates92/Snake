@@ -20,14 +20,16 @@
 #include "graphics.h"
 #include "menu.h"
 #include "window_list.h"
+#include "window_obj.h"
 
 using namespace std;
 using namespace log;
 using namespace graphics;
 using namespace menu;
 using namespace window_list;
+using namespace window_obj;
 
-WindowList * windows;
+static WindowList * windows;
 
 /** @addtogroup GraphicsGroup
  *  @{
@@ -56,32 +58,35 @@ static GLfloat zFar = 1.0;
 void graphics::test_graphics() {
 	windows->add_node("test", 100, 50, 100, 50, menu_snake, menu_snake_items);
 
-	sleep(10);
-
-//	windows->add_node("test1", 300, 50, 500, 50, menu_snake, menu_snake_items);
-
 //	sleep(10);
+
+	windows->add_node("test1", 300, 50, 500, 50, menu_snake, menu_snake_items);
+
+	sleep(5);
 }
 
 void graphics::init_graphics(int argc, char** argv) {
 	LOG_INFO(log::verb_level_e::ZERO, "Initialize GLUT");
 	glutInit( &argc, argv );
-	windows = new WindowList;
+	windows = new WindowList();
+
+	test_graphics();
+
+	glutMainLoop();
 }
 
-void graphics::display_dataset_cb() {
+void graphics::display_cb() {
 	glClear( GL_COLOR_BUFFER_BIT );
 
 	// set matrix mode to modelview 
 	glMatrixMode( GL_MODELVIEW );
 
-//	int win_id = 0;
-//	win_id = glutGetWindow();
+	int win_id = 0;
+	win_id = glutGetWindow();
 
-	LOG_INFO(log::verb_level_e::DEBUG,"[Display cb] Display cb");
+	LOG_INFO(log::verb_level_e::DEBUG,"[Display Callback] Display Callback for window ID: ", win_id);
 
-//	WindowNode * window = NULL;
-//	window = windows->search_by_win_id(win_id);
+	WindowObj window = windows->search_by_win_id(win_id);
 
 	double win_width = 0;
 	win_width = glutGet(GLUT_WINDOW_WIDTH);
@@ -91,13 +96,26 @@ void graphics::display_dataset_cb() {
 
 	glPixelStoref(GL_PACK_ALIGNMENT, 1);
 	glPixelStoref(GL_UNPACK_ALIGNMENT, 1);
-	glDrawPixels((int)win_width, (int)win_height, GL_RGB, GL_UNSIGNED_BYTE, 0);
+
+	unsigned char * bytes = new unsigned char[(int)win_width*(int)win_height];
+	for (int wi=0; wi<(int)win_width;wi++) {
+		for (int he=0; he<(int)win_height;he++) {
+			//bytes[wi+(int)win_height*he] = ((int)win_width + 2*win_id) % 16;
+			bytes[wi+(int)win_height*he] = 10;
+		}
+	}
+
+	glDrawPixels((int)win_width, (int)win_height, GL_RGB, GL_UNSIGNED_BYTE, bytes);
+
+	delete [] bytes;
 
 	// swap buffers to display the frame
 	glutSwapBuffers();
 }
 
-void graphics::reshape_dataset_cb(int width, int height) {
+void graphics::reshape_cb(int width, int height) {
+	LOG_INFO(log::verb_level_e::DEBUG,"[Reshape Callback] Reshape Callback window width to ", width, " and window height to ", height);
+
 	// set viewport to new width and height 
 	glViewport( 0, 0, width, height );
 
@@ -114,20 +132,20 @@ void graphics::reshape_dataset_cb(int width, int height) {
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-void graphics::keyboard_dataset_cb(unsigned char key, int x, int y) {
+void graphics::keyboard_cb(unsigned char key, int x, int y) {
 	switch (key) {
 		case 'n':
-			LOG_INFO(log::verb_level_e::ZERO,"[Keyboard callbak] Increase image pointer because of pressing key %c", key);
+			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard callbak] Increase image pointer because of pressing key ", key);
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
 		case 'p':
-			LOG_INFO(log::verb_level_e::ZERO,"[Keyboard callbak] Decrease image pointer because of pressing key %c", key);
+			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard callbak] Decrease image pointer because of pressing key ", key);
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
 		case 'q':
-			LOG_INFO(log::verb_level_e::ZERO,"[Keyboard callbak] Exit program because of pressing key %c", key);
+			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard callbak] Exit program because of pressing key ", key);
 			break;
 		default:
 			glutPostRedisplay();
@@ -138,15 +156,15 @@ void graphics::keyboard_dataset_cb(unsigned char key, int x, int y) {
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-void graphics::specialkey_dataset_cb(int key, int x, int y) {
+void graphics::specialkey_cb(int key, int x, int y) {
 	switch (key) {
 		case GLUT_KEY_UP:
-			LOG_INFO(log::verb_level_e::ZERO,"[Keyboard callbak] Increase image pointer because of pressing key Arrow Up");
+			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard callbak] Increase image pointer because of pressing key Arrow Up");
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
 		case GLUT_KEY_DOWN:
-			LOG_INFO(log::verb_level_e::ZERO,"[Keyboard callbak] Decrease image pointer because of pressing key Arrow Down");
+			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard callbak] Decrease image pointer because of pressing key Arrow Down");
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
@@ -159,7 +177,7 @@ void graphics::specialkey_dataset_cb(int key, int x, int y) {
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-void graphics::mouse_dataset_cb(int button, int state, int x, int y) {
+void graphics::mouse_cb(int button, int state, int x, int y) {
 	switch (button) {
 		default:
 			break;
@@ -167,18 +185,19 @@ void graphics::mouse_dataset_cb(int button, int state, int x, int y) {
 }
 #pragma GCC diagnostic pop
 
-void graphics::idle_dataset_cb() {
+void graphics::idle_cb() {
 
 	// force glut to call the display function
-	//glutPostRedisplay();
+//	glutPostRedisplay();
 
 }
 
-void graphics::wrapper_dataset_cb() {
-	glutDisplayFunc( display_dataset_cb );
-	glutKeyboardFunc( keyboard_dataset_cb );
-	glutReshapeFunc( reshape_dataset_cb );
-	glutIdleFunc( idle_dataset_cb );
-	glutSpecialFunc( specialkey_dataset_cb );
-	glutMouseFunc( mouse_dataset_cb );
+void graphics::wrapper_cb() {
+	LOG_INFO(log::verb_level_e::DEBUG,"[Graphics Wrapper] Enter graphics wrapper");
+	glutDisplayFunc( display_cb );
+	glutKeyboardFunc( keyboard_cb );
+	glutReshapeFunc( reshape_cb );
+	glutIdleFunc( idle_cb );
+	glutSpecialFunc( specialkey_cb );
+	glutMouseFunc( mouse_cb );
 }
