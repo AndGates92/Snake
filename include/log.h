@@ -144,6 +144,8 @@ void log::log_error(err_type... err) {
 
 	log::logfile.~File();
 	log::print_str(std::cerr, err...);
+
+	exit(1);
 }
 
 template <typename... info_type>
