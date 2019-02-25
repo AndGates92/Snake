@@ -55,7 +55,7 @@ int window::Window::create_window(std::string title, int width, int height, int 
 	int win_id = 0;
 	win_id = glutCreateWindow(win_name);
 
-	wrapper_dataset_cb();
+	wrapper_cb();
 
 	return win_id;
 }
