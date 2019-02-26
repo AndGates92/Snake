@@ -85,12 +85,12 @@ void menu::Menu::destroy_menu() {
 // ================================================================
 menu::Menu::~Menu() {
 	std::string pretext ("Menu Destructor");
-	print_info(log::verb_level_e::LOW, pretext);
-	destroy_menu();
+	menu::Menu::print_info(log::verb_level_e::LOW, pretext);
+//	this->destroy_menu();
 }
 
 void menu::Menu::print_info(log::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Menu ID ", id);
+	LOG_INFO(verbosity, "[", pretext, "] Menu ID: ", id);
 }
 
 int menu::Menu::get_id() {

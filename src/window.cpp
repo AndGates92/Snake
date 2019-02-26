@@ -31,7 +31,7 @@ using namespace graphics;
 window::Window::~Window() {
 	std::string pretext ("Window Destructor");
 	this->print_info(log::verb_level_e::LOW, pretext);
-	this->destroy_window();
+//	this->destroy_window();
 }
 
 // ================================================================

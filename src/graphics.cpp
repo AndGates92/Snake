@@ -100,8 +100,7 @@ void graphics::display_cb() {
 	unsigned char * bytes = new unsigned char[(int)win_width*(int)win_height];
 	for (int wi=0; wi<(int)win_width;wi++) {
 		for (int he=0; he<(int)win_height;he++) {
-			//bytes[wi+(int)win_height*he] = ((int)win_width + 2*win_id) % 16;
-			bytes[wi+(int)win_height*he] = 10;
+			bytes[wi+(int)win_height*he] = ((int)win_width + 2*win_id) % 16;
 		}
 	}
 
@@ -115,6 +114,11 @@ void graphics::display_cb() {
 
 void graphics::reshape_cb(int width, int height) {
 	LOG_INFO(log::verb_level_e::DEBUG,"[Reshape Callback] Reshape Callback window width to ", width, " and window height to ", height);
+
+	int win_id = 0;
+	win_id = glutGetWindow();
+
+	WindowObj window = windows->search_by_win_id(win_id);
 
 	// set viewport to new width and height 
 	glViewport( 0, 0, width, height );

@@ -12,8 +12,10 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+#include <iostream>
 #include "log.h"
 
+using namespace std;
 using namespace log;
 
 namespace menu {
