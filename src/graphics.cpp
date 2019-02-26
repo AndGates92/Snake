@@ -56,11 +56,11 @@ static GLfloat zFar = 1.0;
 
 
 void graphics::test_graphics() {
-	windows->add_node("test", 100, 50, 100, 50, menu_snake, menu_snake_items);
+	windows->add_node("test", 100, 50, 100, 50, menu_snake, menu_snake_items, wrapper_cb);
 
 //	sleep(10);
 
-	windows->add_node("test1", 300, 50, 500, 50, menu_snake, menu_snake_items);
+	windows->add_node("test1", 300, 50, 500, 50, menu_snake, menu_snake_items, wrapper_cb);
 
 	sleep(5);
 }
@@ -98,10 +98,8 @@ void graphics::display_cb() {
 	glPixelStoref(GL_UNPACK_ALIGNMENT, 1);
 
 	unsigned char * bytes = new unsigned char[(int)win_width*(int)win_height];
-	for (int wi=0; wi<(int)win_width;wi++) {
-		for (int he=0; he<(int)win_height;he++) {
-			bytes[wi+(int)win_height*he] = ((int)win_width + 2*win_id) % 16;
-		}
+	for (int wi=0; wi<(int)win_width*(int)win_height;wi++) {
+		bytes[wi] = (8 + (((int)win_width + 2*win_id)*wi)/16) % 16;
 	}
 
 	glDrawPixels((int)win_width, (int)win_height, GL_RGB, GL_UNSIGNED_BYTE, bytes);

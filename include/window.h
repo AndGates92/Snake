@@ -36,8 +36,8 @@ namespace window {
 	class Window {
 		public:
 			// Constructor
-			Window(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y): title(window_title), width(window_width), height(window_height), pos_x(window_x_pos), pos_y(window_y_pos) {
-				id = window::Window::create_window(title, width, height, pos_x, pos_y);
+			Window(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*WrapperFunc)() = nullptr): title(window_title), width(window_width), height(window_height), pos_x(window_x_pos), pos_y(window_y_pos) {
+				id = window::Window::create_window(title, width, height, pos_x, pos_y, WrapperFunc);
 				std::string pretext ("Window Constructor");
 				window::Window::print_info(log::verb_level_e::LOW, pretext);
 			};
@@ -51,7 +51,7 @@ namespace window {
 			void print_info(log::verb_level_e verbosity, std::string pretext);
 
 		protected:
-			int create_window(std::string title, int width, int height, int xpos, int ypos);
+			int create_window(std::string title, int width, int height, int xpos, int ypos, void (*WrapperFunc)());
 			void destroy_window();
 
 		private:

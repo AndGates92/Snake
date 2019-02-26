@@ -16,6 +16,14 @@ using namespace log;
 using namespace window_obj;
 
 
+void window_obj::WindowObj::destroy_obj() {
+	this->drawing.destroy_grahics();
+	this->action_list.destroy_menu();
+	
+	glutDestroyMenu(id);
+	glutDestroyMenu(id);
+}
+
 window_obj::WindowObj::~WindowObj() {
 	std::string pretext ("Window Object Destructor");
 	this->print_info(log::verb_level_e::LOW, pretext);

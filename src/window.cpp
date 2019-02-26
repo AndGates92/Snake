@@ -37,7 +37,7 @@ window::Window::~Window() {
 // ================================================================
 // Create window
 // ================================================================
-int window::Window::create_window(std::string title, int width, int height, int xpos, int ypos) {
+int window::Window::create_window(std::string title, int width, int height, int xpos, int ypos, void (*WrapperFunc)()) {
 	LOG_INFO(log::verb_level_e::HIGH, "[Create window] Create window at ", xpos, ", ", ypos, ". Dimensions: width ", width, " height ", height, ". Title: ", title);
 	ASSERT(width > 0)
 	ASSERT(height > 0)
@@ -55,7 +55,7 @@ int window::Window::create_window(std::string title, int width, int height, int 
 	int win_id = 0;
 	win_id = glutCreateWindow(win_name);
 
-	wrapper_cb();
+	WrapperFunc();
 
 	return win_id;
 }
