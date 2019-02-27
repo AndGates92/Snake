@@ -17,6 +17,11 @@
 using namespace std;
 using namespace log;
 using namespace window_obj;
+using namespace window_node;
+
+void window_node::WindowNode::destroy_node() {
+	this->node.destroy_obj();
+}
 
 window_node::WindowNode::~WindowNode() {
 	std::string pretext ("Window Node Destructor");
@@ -24,12 +29,12 @@ window_node::WindowNode::~WindowNode() {
 	this->node.~WindowObj();
 }
 
-window_node::WindowNode * window_node::WindowNode::get_next() {
+window_node::WindowNode * & window_node::WindowNode::get_next() {
 	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer next: ", this->next);
 	return this->next;
 }
 
-window_node::WindowNode * window_node::WindowNode::get_prev() {
+window_node::WindowNode * & window_node::WindowNode::get_prev() {
 	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer prev: ", this->prev);
 	return this->prev;
 }

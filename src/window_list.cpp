@@ -28,6 +28,7 @@ window_list::WindowList::~WindowList() {
 	while (this->head != nullptr) {
 		node_ptr = this->head;
 		this->head = this->head->get_next();
+		node_ptr->destroy_node();
 		node_ptr->~WindowNode();
 		delete [] node_ptr;
 	}
@@ -52,11 +53,55 @@ void window_list::WindowList::add_node(std::string window_title, int window_widt
 
 }
 
+void window_list::WindowList::delete_by_win_id(int &win_id) {
+
+	window_node::WindowNode * window_nodes = this->head;
+
+	while (window_nodes != nullptr) {
+
+		window_obj::WindowObj node = window_nodes->get_node();
+		int curr_win_id = 0;
+		curr_win_id = node.get_win_id();
+
+		LOG_INFO(log::verb_level_e::DEBUG,"[New search by windows ID] Window ID: current ", curr_win_id, " searched ", win_id);
+
+		if (curr_win_id == win_id) {
+			remove_node(window_nodes);
+			return;
+		}
+
+		window_nodes = window_nodes->get_next();
+
+	}
+
+	LOG_ERROR("Couldn't find window matching window ID ", win_id);
+}
+
+void window_list::WindowList::remove_node(window_node::WindowNode * & node) {
+	window_node::WindowNode * node_saved = node;
+
+	if (node == this->head) {
+		// Move head pointer as window list to delete is the head
+		if (node->get_next() == nullptr) {
+			this->head = nullptr;
+		} else {
+			this->head = this->head->get_next();
+			this->head->get_prev() = nullptr;
+		}
+	} else {
+		node->get_prev()->get_next() = node->get_next();
+		if (node->get_next() != nullptr) {
+			node->get_next()->get_prev() = node->get_prev();
+		}
+	}
+
+	node_saved->destroy_node();
+	node_saved->~WindowNode();
+}
+
 window_obj::WindowObj window_list::WindowList::search_by_win_id(int &win_id) {
 
-	window_node::WindowNode * window_nodes = nullptr;
-	// Initially point to the head
-	window_nodes = this->head;
+	window_node::WindowNode * window_nodes = this->head;
 
 	while (window_nodes != nullptr) {
 

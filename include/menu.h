@@ -55,9 +55,10 @@ namespace menu {
 			int get_id();
 			void print_info(log::verb_level_e verbosity, std::string pretext);
 
+			void destroy_menu();
+
 		protected:
 			int create_menu(void (*EntryFunc)(int), void (*ItemsFunc)());
-			void destroy_menu();
 
 		private:
 			int id;

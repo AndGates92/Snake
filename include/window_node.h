@@ -30,8 +30,8 @@ namespace window_node {
 			~WindowNode();
 
 			// Get functions
-			WindowNode * get_next();
-			WindowNode * get_prev();
+			WindowNode * & get_next();
+			WindowNode * & get_prev();
 			window_obj::WindowObj get_node();
 
 			// Set functions
@@ -40,6 +40,7 @@ namespace window_node {
 			void set_node(window_obj::WindowObj node);
 
 			void print_info(log::verb_level_e verbosity, std::string pretext);
+			void destroy_node();
 
 		protected:
 

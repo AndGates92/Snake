@@ -27,13 +27,15 @@ namespace window_list {
 			~WindowList();
 
 			void add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)());
-			void remove_node(window_node::WindowNode * node);
 
 			window_obj::WindowObj search_by_win_id(int &win_id);
+
+			void delete_by_win_id(int &win_id);
 
 			void print_info(log::verb_level_e verbosity, std::string pretext);
 
 		protected:
+			void remove_node(window_node::WindowNode * & node);
 
 		private:
 			window_node::WindowNode * head;

@@ -50,9 +50,10 @@ namespace window {
 			int get_id();
 			void print_info(log::verb_level_e verbosity, std::string pretext);
 
+			void destroy_window();
+
 		protected:
 			int create_window(std::string title, int width, int height, int xpos, int ypos, void (*WrapperFunc)());
-			void destroy_window();
 
 		private:
 			std::string title;

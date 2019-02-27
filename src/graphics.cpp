@@ -102,6 +102,8 @@ void graphics::display_cb() {
 		bytes[wi] = (8 + (((int)win_width + 2*win_id)*wi)/16) % 16;
 	}
 
+cout << "display_cb: width " << win_width << " heigth " << win_height << std::endl;
+
 	glDrawPixels((int)win_width, (int)win_height, GL_RGB, GL_UNSIGNED_BYTE, bytes);
 
 	delete [] bytes;
@@ -130,6 +132,16 @@ void graphics::reshape_cb(int width, int height) {
 	gluPerspective( zoom, (GLdouble)width/(GLdouble)height, zNear, zFar );
 
 //	glClear(GL_COLOR_BUFFER_BIT);
+
+cout << "reshape_cb: width " << width << " heigth " << height << std::endl;
+
+}
+
+void graphics::delete_window() {
+	int win_id = 0;
+	win_id = glutGetWindow();
+
+	windows->delete_by_win_id(win_id);
 }
 
 #pragma GCC diagnostic push
@@ -147,6 +159,7 @@ void graphics::keyboard_cb(unsigned char key, int x, int y) {
 			glutPostRedisplay();
 			break;
 		case 'q':
+			delete_window();
 			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard callbak] Exit program because of pressing key ", key);
 			break;
 		default:

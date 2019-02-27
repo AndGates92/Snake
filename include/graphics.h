@@ -14,6 +14,8 @@ namespace graphics {
 
 	void init_graphics(int argc, char** argv);
 
+	void delete_window();
+
 	/**
 	 * @brief Function: void wrapper_cb()
 	 *

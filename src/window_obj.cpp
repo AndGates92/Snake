@@ -17,11 +17,8 @@ using namespace window_obj;
 
 
 void window_obj::WindowObj::destroy_obj() {
-	this->drawing.destroy_grahics();
+	this->drawing.destroy_window();
 	this->action_list.destroy_menu();
-	
-	glutDestroyMenu(id);
-	glutDestroyMenu(id);
 }
 
 window_obj::WindowObj::~WindowObj() {

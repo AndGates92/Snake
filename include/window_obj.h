@@ -33,7 +33,7 @@ namespace window_obj {
 
 			// Destructor
 			~WindowObj();
-			void destroy_obt();
+			void destroy_obj();
 
 			int get_win_id();
 			int get_menu_id();
