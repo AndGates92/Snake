@@ -19,9 +19,7 @@ DEBUGLOG=debug.log
 COMPLOG=compile.log
 DOCLOG=doc.log
 EXELOG=${EXENAME}.log
-VALGRINDTESLOG=valgrind_tes.log
-VALGRINDTELLOG=valgrind_tel.log
-VALGRINDALLLOG=valgrind_all.log
+VALGRINDNOINPUTLOG=valgrind_noinput.log
 EXEVALGRINDLOG=${EXENAME}_valgrind.log
 
 VERBOSITY=5
@@ -118,7 +116,7 @@ fi
 
 if [ ${memleak} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Valgrind test set logfile name: ${VALGRINDTESLOG}"
-	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Valgrind test label logfile name: ${VALGRINDTELLOG}"
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Valgrind test label logfile name: ${VALGRINDNOINPUTLOG}"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Valgrind all input files logfile name: ${VALGRINDALLLOG}"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Valgrind executable logfile name: ${EXEVALGRINDLOG}"
 fi
