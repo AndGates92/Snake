@@ -41,11 +41,11 @@ void graphics::init_graphics(int argc, char** argv) {
 }
 
 void graphics::test_graphics() {
-	graphics_utils::win_node_add("test", 100, 50, 100, 50, menu::menu_snake, menu::menu_snake_items, snake_graphics::wrapper_snake_cb);
+	graphics_utils::win_node_add("test", 1100, 450, 100, 50, menu::menu_snake, menu::menu_snake_items, snake_graphics::wrapper_snake_cb);
 
 //	sleep(10);
 
-	graphics_utils::win_node_add("test1", 300, 50, 500, 50, menu::menu_snake, menu::menu_snake_items, snake_graphics::wrapper_snake_cb);
+	graphics_utils::win_node_add("test1", 1300, 350, 500, 50, menu::menu_snake, menu::menu_snake_items, snake_graphics::wrapper_snake_cb);
 
 	sleep(5);
 }

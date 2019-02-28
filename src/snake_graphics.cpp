@@ -60,6 +60,7 @@ void snake_graphics::display_snake_cb() {
 	win_id = glutGetWindow();
 
 	LOG_INFO(log::verb_level_e::DEBUG,"[Display Snake Callback] Display Snake Callback for window ID: ", win_id);
+cout << "[Display Snake Callback] Display Snake Callback for window ID: " << win_id << endl;
 
 	window_obj::WindowObj window = graphics_utils::search_win_id(win_id);
 
@@ -72,9 +73,9 @@ void snake_graphics::display_snake_cb() {
 	glPixelStoref(GL_PACK_ALIGNMENT, 1);
 	glPixelStoref(GL_UNPACK_ALIGNMENT, 1);
 
-	unsigned char * bytes = new unsigned char[(int)win_width*(int)win_height];
+	char * bytes = new char[(int)win_width*(int)win_height];
 	for (int wi=0; wi<(int)win_width*(int)win_height;wi++) {
-		bytes[wi] = (unsigned char) ((8 + (((int)win_width + 2*win_id)*wi)/16) % 16);
+		bytes[wi] = (char) ((8 + (((int)win_width + 2*win_id)*wi)/16) % 256);
 	}
 
 	glDrawPixels((int)win_width, (int)win_height, GL_RGB, GL_UNSIGNED_BYTE, bytes);
@@ -87,6 +88,7 @@ void snake_graphics::display_snake_cb() {
 
 void snake_graphics::reshape_snake_cb(int width, int height) {
 	LOG_INFO(log::verb_level_e::DEBUG,"[Reshape Snake Callback] Reshape Snake Callback window width to ", width, " and window height to ", height);
+cout << "[Reshape Snake Callback] Reshape Snake Callback window width to " << width << " and window height to " << height << endl;
 
 	int win_id = 0;
 	win_id = glutGetWindow();
@@ -174,6 +176,7 @@ void snake_graphics::idle_snake_cb() {
 
 void snake_graphics::wrapper_snake_cb() {
 	LOG_INFO(log::verb_level_e::DEBUG,"[Snake Graphics Wrapper] Enter snake graphics wrapper");
+cout << "[Snake Graphics Wrapper] Enter snake graphics wrapper" << endl;
 	glutDisplayFunc( display_snake_cb );
 	glutKeyboardFunc( keyboard_snake_cb );
 	glutReshapeFunc( reshape_snake_cb );
