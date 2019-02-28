@@ -30,24 +30,6 @@ using namespace window_obj;
 /** @addtogroup SnakeGraphicsGroup
  *  @{
  */
-/**
- * @brief FIeld of view
- *
- */
-const static GLfloat zoom = 50.0;
-
-/**
- * @brief Near clip
- *
- */
-const static GLfloat zNear = 1.0;
-
-/**
- * @brief Far clip
- *
- */
-const static GLfloat zFar = 1.0;
-
 /** @} */ // End of addtogroup SnakeGraphicsGroup
 
 void snake_graphics::display_snake_cb() {
@@ -73,14 +55,11 @@ cout << "[Display Snake Callback] Display Snake Callback for window ID: " << win
 	glPixelStoref(GL_PACK_ALIGNMENT, 1);
 	glPixelStoref(GL_UNPACK_ALIGNMENT, 1);
 
-	char * bytes = new char[(int)win_width*(int)win_height];
-	for (int wi=0; wi<(int)win_width*(int)win_height;wi++) {
-		bytes[wi] = (char) ((8 + (((int)win_width + 2*win_id)*wi)/16) % 256);
-	}
+	char * pixels = get_pixel_array<char>((int)win_width, (int)win_height);
 
-	glDrawPixels((int)win_width, (int)win_height, GL_RGB, GL_UNSIGNED_BYTE, bytes);
+	glDrawPixels((int)win_width, (int)win_height, GL_RGB, GL_UNSIGNED_BYTE, pixels);
 
-	delete [] bytes;
+	delete [] pixels;
 
 	// swap buffers to display the frame
 	glutSwapBuffers();
@@ -104,7 +83,7 @@ cout << "[Reshape Snake Callback] Reshape Snake Callback window width to " << wi
 	glLoadIdentity();
 
 	// perspective parameters: field of view, aspect, near clip, far clip 
-	gluPerspective( zoom, (GLdouble)width/(GLdouble)height, zNear, zFar );
+	gluPerspective( snake_graphics::zoom, (GLdouble)width/(GLdouble)height, snake_graphics::zNear, snake_graphics::zFar );
 
 //	glClear(GL_COLOR_BUFFER_BIT);
 
