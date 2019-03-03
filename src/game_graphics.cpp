@@ -1,6 +1,6 @@
 /**
  * @copyright
- * @file snake_graphics.cpp
+ * @file game_graphics.cpp
  * @author Andrea Gianarda
  * @date 27th February 2019
  * @brief Snake graphics functions
@@ -17,13 +17,13 @@
 #include "log.h"
 #include "menu.h"
 #include "graphics_utils.h"
-#include "snake_graphics.h"
+#include "game_graphics.h"
 #include "window_obj.h"
 
 using namespace std;
 using namespace log;
 using namespace menu;
-using namespace snake_graphics;
+using namespace game_graphics;
 using namespace graphics_utils;
 using namespace window_obj;
 
@@ -32,7 +32,7 @@ using namespace window_obj;
  */
 /** @} */ // End of addtogroup SnakeGraphicsGroup
 
-void snake_graphics::display_snake_cb() {
+void game_graphics::display_game_cb() {
 	glClear( GL_COLOR_BUFFER_BIT );
 
 	// set matrix mode to modelview 
@@ -54,7 +54,7 @@ void snake_graphics::display_snake_cb() {
 	glPixelStoref(GL_PACK_ALIGNMENT, 1);
 	glPixelStoref(GL_UNPACK_ALIGNMENT, 1);
 
-	unsigned char * pixels = snake_graphics::get_snake_pixel_array<unsigned char>((int)win_width, (int)win_height);
+	unsigned char * pixels = game_graphics::get_snake_pixel_array<unsigned char>((int)win_width, (int)win_height);
 
 	glDrawPixels((int)win_width, (int)win_height, GL_RGB, GL_UNSIGNED_BYTE, pixels);
 
@@ -64,7 +64,7 @@ void snake_graphics::display_snake_cb() {
 	glutSwapBuffers();
 }
 
-void snake_graphics::reshape_snake_cb(int width, int height) {
+void game_graphics::reshape_game_cb(int width, int height) {
 	LOG_INFO(log::verb_level_e::DEBUG,"[Reshape Snake Callback] Reshape Snake Callback window width to ", width, " and window height to ", height);
 
 	int win_id = 0;
@@ -81,7 +81,7 @@ void snake_graphics::reshape_snake_cb(int width, int height) {
 	glLoadIdentity();
 
 	// perspective parameters: field of view, aspect, near clip, far clip 
-	gluPerspective( snake_graphics::zoom, (GLdouble)width/(GLdouble)height, snake_graphics::zNear, snake_graphics::zFar );
+	gluPerspective( game_graphics::zoom, (GLdouble)width/(GLdouble)height, game_graphics::zNear, game_graphics::zFar );
 
 //	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -90,7 +90,7 @@ void snake_graphics::reshape_snake_cb(int width, int height) {
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-void snake_graphics::keyboard_snake_cb(unsigned char key, int x, int y) {
+void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 	switch (key) {
 		case 'n':
 			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Snake Callback] Increase image pointer because of pressing key ", key);
@@ -115,7 +115,7 @@ void snake_graphics::keyboard_snake_cb(unsigned char key, int x, int y) {
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-void snake_graphics::specialkey_snake_cb(int key, int x, int y) {
+void game_graphics::specialkey_game_cb(int key, int x, int y) {
 	switch (key) {
 		case GLUT_KEY_UP:
 			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Snake Callback] Increase image pointer because of pressing key Arrow Up");
@@ -136,7 +136,7 @@ void snake_graphics::specialkey_snake_cb(int key, int x, int y) {
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-void snake_graphics::mouse_snake_cb(int button, int state, int x, int y) {
+void game_graphics::mouse_game_cb(int button, int state, int x, int y) {
 	switch (button) {
 		default:
 			break;
@@ -144,19 +144,19 @@ void snake_graphics::mouse_snake_cb(int button, int state, int x, int y) {
 }
 #pragma GCC diagnostic pop
 
-void snake_graphics::idle_snake_cb() {
+void game_graphics::idle_game_cb() {
 
 	// force glut to call the display function
 //	glutPostRedisplay();
 
 }
 
-void snake_graphics::wrapper_snake_cb() {
+void game_graphics::wrapper_game_cb() {
 	LOG_INFO(log::verb_level_e::DEBUG,"[Snake Graphics Wrapper] Enter snake graphics wrapper");
-	glutDisplayFunc( display_snake_cb );
-	glutKeyboardFunc( keyboard_snake_cb );
-	glutReshapeFunc( reshape_snake_cb );
-	glutIdleFunc( idle_snake_cb );
-	glutSpecialFunc( specialkey_snake_cb );
-	glutMouseFunc( mouse_snake_cb );
+	glutDisplayFunc( display_game_cb );
+	glutKeyboardFunc( keyboard_game_cb );
+	glutReshapeFunc( reshape_game_cb );
+	glutIdleFunc( idle_game_cb );
+	glutSpecialFunc( specialkey_game_cb );
+	glutMouseFunc( mouse_game_cb );
 }

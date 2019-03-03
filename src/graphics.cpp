@@ -20,14 +20,14 @@
 #include "log.h"
 #include "graphics.h"
 #include "graphics_utils.h"
-#include "snake_graphics.h"
+#include "game_graphics.h"
 
 using namespace std;
 using namespace log;
 using namespace menu;
 using namespace graphics;
 using namespace graphics_utils;
-using namespace snake_graphics;
+using namespace game_graphics;
 
 void graphics::init_graphics(int argc, char** argv) {
 	LOG_INFO(log::verb_level_e::ZERO, "Initialize GLUT");
@@ -41,11 +41,11 @@ void graphics::init_graphics(int argc, char** argv) {
 }
 
 void graphics::test_graphics() {
-	graphics_utils::win_node_add("test", 1100, 450, 100, 50, menu::menu_snake, menu::menu_snake_items, snake_graphics::wrapper_snake_cb);
+	graphics_utils::win_node_add("test", 1100, 450, 100, 50, menu::menu_snake, menu::menu_snake_items, game_graphics::wrapper_game_cb);
 
 //	sleep(10);
 
-	graphics_utils::win_node_add("test1", 1300, 350, 500, 50, menu::menu_snake, menu::menu_snake_items, snake_graphics::wrapper_snake_cb);
+	graphics_utils::win_node_add("test1", 1300, 350, 500, 50, menu::menu_snake, menu::menu_snake_items, game_graphics::wrapper_game_cb);
 
 	sleep(5);
 }
