@@ -54,7 +54,7 @@ void snake_graphics::display_snake_cb() {
 	glPixelStoref(GL_PACK_ALIGNMENT, 1);
 	glPixelStoref(GL_UNPACK_ALIGNMENT, 1);
 
-	char * pixels = snake_graphics::get_snake_pixel_array<char>((int)win_width, (int)win_height);
+	unsigned char * pixels = snake_graphics::get_snake_pixel_array<unsigned char>((int)win_width, (int)win_height);
 
 	glDrawPixels((int)win_width, (int)win_height, GL_RGB, GL_UNSIGNED_BYTE, pixels);
 

@@ -39,6 +39,16 @@ namespace graphics_utils {
 		BLACK
 	} palette_e;
 
+	/**
+	 * @brief Colour Index
+	 *
+	 */
+	typedef enum class colour_idx_list {
+		RED,
+		GREEN,
+		BLUE
+	} colour_idx_e;
+
 	template <typename pixel_type>
 	pixel_type * get_pixel_colour (palette_e colour_name);
 
@@ -56,21 +66,101 @@ namespace graphics_utils {
 }
 
 template <typename pixel_type>
-pixel_type * graphics_utils::get_pixel_colour (palette_e colour_name) {
-	
+pixel_type * graphics_utils::get_pixel_colour (graphics_utils::palette_e colour_name) {
+
+	ASSERT((graphics_utils::no_colours == 3) || (graphics_utils::no_colours == 1));
 	pixel_type * colour = new pixel_type[graphics_utils::no_colours];
-	int max_value_pixel_type = std::numeric_limits<pixel_type>::max;
-	int min_value_pixel_type = std::numeric_limits<pixel_type>::min;
+	static pixel_type max_value_pixel_type = std::numeric_limits<pixel_type>::max();
+	static pixel_type min_value_pixel_type = std::numeric_limits<pixel_type>::min();
 
 	switch (colour_name) {
 		case graphics_utils::palette_e::RED:
 			if (graphics_utils::no_colours == 3) {
-				colour = {max_value_pixel_type, 0, 0};
+				colour[(int)graphics_utils::colour_idx_e::RED] =  max_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::BLUE] =  min_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::GREEN] =  min_value_pixel_type;
 			} else if (graphics_utils::no_colours == 1) {
-				colour = max_value_pixel_type;
+				colour[0] =  max_value_pixel_type;
 			}
 			break;
+		case graphics_utils::palette_e::BLUE:
+			if (graphics_utils::no_colours == 3) {
+				colour[(int)graphics_utils::colour_idx_e::RED] =  min_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::BLUE] =  max_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::GREEN] =  min_value_pixel_type;
+			} else if (graphics_utils::no_colours == 1) {
+				colour[0] =  max_value_pixel_type;
+			}
+			break;
+		case graphics_utils::palette_e::GREEN:
+			if (graphics_utils::no_colours == 3) {
+				colour[(int)graphics_utils::colour_idx_e::RED] =  min_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::BLUE] =  min_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::GREEN] =  max_value_pixel_type;
+			} else if (graphics_utils::no_colours == 1) {
+				colour[0] =  max_value_pixel_type;
+			}
+			break;
+		case graphics_utils::palette_e::YELLOW:
+			if (graphics_utils::no_colours == 3) {
+				colour[(int)graphics_utils::colour_idx_e::RED] =  max_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::BLUE] =  min_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::GREEN] =  min_value_pixel_type;
+			} else if (graphics_utils::no_colours == 1) {
+				colour[0] =  max_value_pixel_type;
+			}
+			break;
+		case graphics_utils::palette_e::PURPLE:
+			if (graphics_utils::no_colours == 3) {
+				colour[(int)graphics_utils::colour_idx_e::RED] =  min_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::BLUE] =  max_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::GREEN] =  min_value_pixel_type;
+			} else if (graphics_utils::no_colours == 1) {
+				colour[0] =  max_value_pixel_type;
+			}
+			break;
+		case graphics_utils::palette_e::PINK:
+			if (graphics_utils::no_colours == 3) {
+				colour[(int)graphics_utils::colour_idx_e::RED] =  min_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::BLUE] =  min_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::GREEN] =  max_value_pixel_type;
+			} else if (graphics_utils::no_colours == 1) {
+				colour[0] =  max_value_pixel_type;
+			}
+			break;
+		case graphics_utils::palette_e::BROWN:
+			if (graphics_utils::no_colours == 3) {
+				colour[(int)graphics_utils::colour_idx_e::RED] =  max_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::BLUE] =  min_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::GREEN] =  min_value_pixel_type;
+			} else if (graphics_utils::no_colours == 1) {
+				colour[0] =  max_value_pixel_type;
+			}
+			break;
+		case graphics_utils::palette_e::WHITE:
+			if (graphics_utils::no_colours == 3) {
+				colour[(int)graphics_utils::colour_idx_e::RED] =  max_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::BLUE] =  max_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::GREEN] =  max_value_pixel_type;
+			} else if (graphics_utils::no_colours == 1) {
+				colour[0] =  max_value_pixel_type;
+			}
+			break;
+		case graphics_utils::palette_e::BLACK:
+			if (graphics_utils::no_colours == 3) {
+				colour[(int)graphics_utils::colour_idx_e::RED] =  min_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::BLUE] =  min_value_pixel_type;
+				colour[(int)graphics_utils::colour_idx_e::GREEN] =  min_value_pixel_type;
+			} else if (graphics_utils::no_colours == 1) {
+				colour[0] =  max_value_pixel_type;
+			}
+			break;
+		default:
+			LOG_ERROR("Invalid colour chosen.");
+			break;
 	}
+
+	return colour;
 }
 
 #endif // GRAPHICS_UTILS_H
