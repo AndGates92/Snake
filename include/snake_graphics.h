@@ -8,6 +8,8 @@
  * @brief Snake graphics header file
 */
 
+#include "graphics_utils.h"
+
 namespace snake_graphics {
 
 	/**
@@ -28,14 +30,8 @@ namespace snake_graphics {
 	 */
 	const static GLfloat zFar = 1.0;
 
-	/**
-	 * @brief Number of colours: 1 means black and white and 3 means RGB
-	 *
-	 */
-	const static int no_colours = 3;
-
-	template <typename pixel_type>
-	pixel_type * get_pixel_array (int win_width, int win_height);
+	template <typename snake_pixel_type>
+	snake_pixel_type * get_snake_pixel_array (int win_width, int win_height);
 
 	/**
 	 * @brief Function: void wrapper_snake_cb()
@@ -104,19 +100,19 @@ namespace snake_graphics {
 
 }
 
-template <typename pixel_type>
-pixel_type * get_pixel_array (int win_width, int win_height) { 
+template <typename snake_pixel_type>
+snake_pixel_type * snake_graphics::get_snake_pixel_array (int win_width, int win_height) {
 
 	int win_area = win_width*win_height;
 
-	pixel_type * pixels = new pixel_type[snake_graphics::no_colours*win_area];
+	snake_pixel_type * pixels = new snake_pixel_type[graphics_utils::no_colours*win_area];
 	for (int width_idx=0; width_idx<win_width; width_idx++) {
 
 		for (int height_idx=0; height_idx<win_height; height_idx++) {
 			int pixel_loc = height_idx * win_width + width_idx;
 
-			for (int colour_idx=0; colour_idx<snake_graphics::no_colours; colour_idx++) {
-				pixels[snake_graphics::no_colours * pixel_loc + colour_idx] = (pixel_type) 50*colour_idx;
+			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
+				pixels[graphics_utils::no_colours * pixel_loc + colour_idx] = (snake_pixel_type) height_idx*colour_idx;
 			}
 
 		}
@@ -126,6 +122,5 @@ pixel_type * get_pixel_array (int win_width, int win_height) {
 	return pixels;
 
 }
-
 
 #endif // SNAKE_GRAPHICS_H
