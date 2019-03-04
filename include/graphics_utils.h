@@ -39,6 +39,8 @@ namespace graphics_utils {
 		BLACK
 	} palette_e;
 
+	std::ostream& operator<< (std::ostream& os, graphics_utils::palette_e palette);
+
 	/**
 	 * @brief Colour Index
 	 *
@@ -159,7 +161,7 @@ pixel_type * graphics_utils::get_pixel_colour (graphics_utils::palette_e colour_
 			}
 			break;
 		default:
-			LOG_ERROR("Invalid colour chosen.");
+			LOG_ERROR("Invalid colour chosen: ", colour_name);
 			break;
 	}
 

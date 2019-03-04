@@ -24,7 +24,7 @@ snake_unit::SnakeUnit::~SnakeUnit() {
 }
 
 void snake_unit::SnakeUnit::print_info(log::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Centre coordinares: (X ", this->x_centre, ", Y ", this->y_centre, "), direction ", this->direction, ".");
+	LOG_INFO(verbosity, "[", pretext, "] Centre coordinares: (X ", this->x_centre, ", Y ", this->y_centre, "), direction ", this->direction, " colour ", this->colour, ".");
 }
 
 std::ostream& snake_unit::operator<< (std::ostream& os, snake_unit::direction_e direction) {
