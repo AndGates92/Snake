@@ -64,7 +64,7 @@ void window::Window::destroy_window() {
 }
 
 void window::Window::print_info(log::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Window ID ", id, " at ", pos_x, ", ", pos_y, ". Dimensions: width ", width, " height ", height, ". Title: ", title);
+	LOG_INFO(verbosity, "[", pretext, "] Window ID ", this->id, " at ", this->pos_x, ", ", this->pos_y, ". Dimensions: width ", this->width, " height ", this->height, ". Title: ", this->title);
 }
 
 int window::Window::get_id() {
