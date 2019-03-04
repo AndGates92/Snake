@@ -27,7 +27,7 @@ namespace graphics_utils {
 	 * @brief Palette
 	 *
 	 */
-	typedef enum class palette_list {
+	typedef enum class palette_type {
 		RED,
 		BLUE,
 		GREEN,
@@ -43,7 +43,7 @@ namespace graphics_utils {
 	 * @brief Colour Index
 	 *
 	 */
-	typedef enum class colour_idx_list {
+	typedef enum class colour_idx_type {
 		RED,
 		GREEN,
 		BLUE
