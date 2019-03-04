@@ -42,7 +42,10 @@ namespace window {
 				window::Window::print_info(log::verb_level_e::LOW, pretext);
 			};
 
-			Window(const Window& copy) : title(copy.title), width(copy.width), height(copy.height), pos_x(copy.pos_x), pos_y(copy.pos_y), id(copy.id) {};
+			Window(const Window& copy) : title(copy.title), width(copy.width), height(copy.height), pos_x(copy.pos_x), pos_y(copy.pos_y), id(copy.id) {
+				std::string pretext ("Window Copy Constructor");
+				window::Window::print_info(log::verb_level_e::LOW, pretext);
+			};
 
 			// Destructor
 			~Window();
