@@ -27,25 +27,26 @@ void snake_unit::SnakeUnit::print_info(log::verb_level_e verbosity, std::string 
 	LOG_INFO(verbosity, "[", pretext, "] Centre coordinares: (X ", this->x_centre, ", Y ", this->y_centre, "), direction ", this->direction, " colour ", this->colour, ".");
 }
 
+// Overload << operator for direction_e
 std::ostream& snake_unit::operator<< (std::ostream& os, snake_unit::direction_e direction) {
 
 	switch (direction) {
 		case snake_unit::direction_e::UP:
-			return os << "UP";
+			os << "UP";
 			break;
 		case snake_unit::direction_e::DOWN:
-			return os << "DOWN";
+			os << "DOWN";
 			break;
 		case snake_unit::direction_e::LEFT:
-			return os << "LEFT";
+			os << "LEFT";
 			break;
 		case snake_unit::direction_e::RIGHT:
-			return os << "LEFT";
+			os << "RIGHT";
 			break;
 		default:
-			return os << "UNKNOWN";
+			os << "Unknown direction";
 			break;
 	}
 
-	return os << static_cast<std::uint32_t>(direction);
+	return os;
 }

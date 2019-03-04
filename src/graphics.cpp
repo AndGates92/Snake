@@ -33,6 +33,7 @@ void graphics::init_graphics(int argc, char** argv) {
 	LOG_INFO(log::verb_level_e::ZERO, "Initialize GLUT");
 	glutInit( &argc, argv );
 
+	// Initialize window list
 	graphics_utils::init_window_list();
 
 	graphics::test_graphics();

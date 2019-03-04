@@ -29,7 +29,9 @@ window_obj::WindowObj::~WindowObj() {
 }
 
 void window_obj::WindowObj::print_info(log::verb_level_e verbosity, std::string pretext) {
+	// Window content
 	this->drawing.print_info(verbosity, pretext);
+	// Menu
 	this->action_list.print_info(verbosity, pretext);
 }
 

@@ -90,9 +90,36 @@ menu::Menu::~Menu() {
 }
 
 void menu::Menu::print_info(log::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Menu ID: ", id);
+	LOG_INFO(verbosity, "[", pretext, "] Menu ID: ", this->id);
 }
 
 int menu::Menu::get_id() {
 	return id;
+}
+
+// Overload << operator for snake_menu_e
+std::ostream& menu::operator<< (std::ostream& os, menu::snake_menu_e menu_items) {
+
+	switch (menu_items) {
+		case menu::snake_menu_e::RESTART:
+			os << "RESTART";
+			break;
+		case menu::snake_menu_e::START_PAUSE:
+			os << "START/PAUSE";
+			break;
+		case menu::snake_menu_e::FASTER:
+			os << "FASTER";
+			break;
+		case menu::snake_menu_e::SLOWER:
+			os << "SLOWER";
+			break;
+		case menu::snake_menu_e::QUIT:
+			os << "QUIT";
+			break;
+		default:
+			os << "Unknown menu item";
+			break;
+	}
+
+	return os;
 }

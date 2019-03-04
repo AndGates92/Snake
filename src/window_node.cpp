@@ -29,6 +29,10 @@ window_node::WindowNode::~WindowNode() {
 	this->node.~WindowObj();
 }
 
+// ================================================================
+// Get functions
+// ================================================================
+
 window_node::WindowNode * & window_node::WindowNode::get_next() {
 	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer next: ", this->next);
 	return this->next;
@@ -44,6 +48,10 @@ window_obj::WindowObj window_node::WindowNode::get_node() {
 	this->node.print_info(log::verb_level_e::DEBUG, pretext);
 	return this->node;
 }
+
+// ================================================================
+// Set functions
+// ================================================================
 
 void window_node::WindowNode::set_next(window_node::WindowNode * next_ptr) {
 	this->next = next_ptr;

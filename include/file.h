@@ -27,6 +27,8 @@ namespace iofile {
 		NO_ACCESS, /**< No access */
 	} mode_e;
 
+	std::ostream& operator<< (std::ostream& os, mode_e mode);
+
 	class File {
 		public:
 			// Constructor

@@ -27,11 +27,6 @@ using namespace game_graphics;
 using namespace graphics_utils;
 using namespace window_obj;
 
-/** @addtogroup SnakeGraphicsGroup
- *  @{
- */
-/** @} */ // End of addtogroup SnakeGraphicsGroup
-
 void game_graphics::display_game_cb() {
 	glClear( GL_COLOR_BUFFER_BIT );
 
@@ -54,6 +49,7 @@ void game_graphics::display_game_cb() {
 	glPixelStoref(GL_PACK_ALIGNMENT, 1);
 	glPixelStoref(GL_UNPACK_ALIGNMENT, 1);
 
+	// Store pixels in pixels array
 	unsigned char * pixels = game_graphics::get_snake_pixel_array<unsigned char>((int)win_width, (int)win_height);
 
 	glDrawPixels((int)win_width, (int)win_height, GL_RGB, GL_UNSIGNED_BYTE, pixels);

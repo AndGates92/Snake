@@ -6,7 +6,6 @@
  * @brief File function
  */
 
-#include <string>
 #include <cstring>
 #include <iostream>
 
@@ -45,14 +44,16 @@ int window::Window::create_window(std::string title, int width, int height, int 
 
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
 
+	// Create window
 	char * win_name = new char [WIN_NAME_LENGTH_MAX];
-//	ASSERT(title.length() < WIN_NAME_LENGTH_MAX);
+	ASSERT(title.length() < WIN_NAME_LENGTH_MAX);
 
-	//std::strcpy_s(win_name, WIN_NAME_LENGTH_MAX, title.c_str());
 	std::strcpy(win_name, title.c_str());
 
 	int win_id = 0;
 	win_id = glutCreateWindow(win_name);
+
+	delete [] win_name;
 
 	WrapperFunc();
 

@@ -35,6 +35,8 @@ namespace menu {
 		QUIT = 4
 	} snake_menu_e;
 
+	std::ostream& operator<< (std::ostream& os, menu::snake_menu_e menu_items);
+
 	void menu_snake(int entry);
 
 	void menu_snake_items();

@@ -59,13 +59,16 @@ void window_list::WindowList::delete_by_win_id(int &win_id) {
 
 	while (window_nodes != nullptr) {
 
+		// temporary node
 		window_obj::WindowObj node = window_nodes->get_node();
 		int curr_win_id = 0;
 		curr_win_id = node.get_win_id();
 
 		LOG_INFO(log::verb_level_e::DEBUG,"[New search by windows ID] Window ID: current ", curr_win_id, " searched ", win_id);
 
+		// Current ID matches searched ID
 		if (curr_win_id == win_id) {
+			// Delete node from linked list
 			remove_node(window_nodes);
 			return;
 		}
@@ -111,6 +114,7 @@ window_obj::WindowObj window_list::WindowList::search_by_win_id(int &win_id) {
 
 		LOG_INFO(log::verb_level_e::DEBUG,"[New search by windows ID] Window ID: current ", curr_win_id, " searched ", win_id);
 
+		// Current ID matches searched ID
 		if (curr_win_id == win_id) {
 			window_obj::WindowObj window_found = node;
 			return window_found;
