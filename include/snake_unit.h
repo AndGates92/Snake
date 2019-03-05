@@ -50,6 +50,18 @@ namespace snake_unit {
 				snake_unit::SnakeUnit::print_info(log::verb_level_e::LOW, pretext);
 			};
 
+			// Get functions
+			int get_x_centre();
+			int get_y_centre();
+			snake_unit::direction_e get_direction();
+			graphics_utils::palette_e get_colour();
+
+			// Set functions
+			void set_x_centre(int new_x_centre);
+			void set_y_centre(int new_y_centre);
+			void set_direction(snake_unit::direction_e new_direction);
+			void set_colour(graphics_utils::palette_e new_colour);
+
 			// Destructor
 			~SnakeUnit();
 
