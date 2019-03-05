@@ -3,7 +3,7 @@
  * @file window_list.cpp
  * @author Andrea Gianarda
  * @date 13th February 2019
- * @brief File function
+ * @brief Window List function
  */
 
 #include <iostream>
