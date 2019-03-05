@@ -75,6 +75,36 @@ namespace snake_unit {
 
 		protected:
 	};
+
+	class SnakeNode : public SnakeUnit {
+		public:
+			// Constructor
+			SnakeNode(int centre_x = 0, int centre_y = 0, snake_unit::direction_e snake_direction = snake_unit::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::RED): SnakeUnit(centre_x, centre_y, snake_direction, snake_colour), prev(nullptr), next(nullptr) {
+				std::string pretext ("Snake Node Constructor");
+				snake_unit::SnakeNode::print_info(log::verb_level_e::LOW, pretext);
+			};
+
+			SnakeNode(const SnakeNode& copy) : SnakeUnit(copy), prev(copy.prev), next(copy.next) { LOG_INFO(log::verb_level_e::LOW, "Snake node copy contructor") };
+
+			// Destructor
+			~SnakeNode();
+
+			// Get functions
+			SnakeNode * & get_next();
+			SnakeNode * & get_prev();
+
+			// Set functions
+			void set_next(SnakeNode * next_ptr);
+			void set_prev(SnakeNode * prev_ptr);
+
+			void print_info(log::verb_level_e verbosity, std::string pretext);
+
+		protected:
+
+		private:
+			SnakeNode * prev;
+			SnakeNode * next;
+	};
 	/** @} */ // End of SnakeUnitGroup group
 }
 
