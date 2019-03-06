@@ -8,6 +8,7 @@
  * @brief Snake List header file
 */
 
+#include "graphics_utils.h"
 #include "snake_node.h"
 
 namespace snake_list {

@@ -28,7 +28,7 @@ namespace window_list {
 
 			void add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)());
 
-			window_obj::WindowObj search_by_win_id(int &win_id);
+			window_node::WindowNode search_by_win_id(int &win_id);
 
 			void delete_by_win_id(int &win_id);
 

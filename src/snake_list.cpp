@@ -8,6 +8,7 @@
 
 #include <iostream>
 
+#include "graphics_utils.h"
 #include "snake_list.h"
 #include "snake_node.h"
 #include "log.h"

@@ -38,7 +38,8 @@ void game_graphics::display_game_cb() {
 
 	LOG_INFO(log::verb_level_e::DEBUG,"[Display Game Callback] Display Game Callback for window ID: ", win_id);
 
-	window_obj::WindowObj window = graphics_utils::search_win_id(win_id);
+	window_node::WindowNode node = graphics_utils::search_win_id(win_id);
+	window_obj::WindowObj window = node.get_node();
 
 	double win_width = 0;
 	win_width = glutGet(GLUT_WINDOW_WIDTH);
@@ -66,7 +67,8 @@ void game_graphics::reshape_game_cb(int width, int height) {
 	int win_id = 0;
 	win_id = glutGetWindow();
 
-	window_obj::WindowObj window = graphics_utils::search_win_id(win_id);
+	window_node::WindowNode node = graphics_utils::search_win_id(win_id);
+	window_obj::WindowObj window = node.get_node();
 
 	// set viewport to new width and height 
 	glViewport( 0, 0, width, height );
@@ -158,6 +160,7 @@ void game_graphics::wrapper_game_cb() {
 }
 
 
-void game_graphics::init_snake_list() {
-	snake = new snake_list::SnakeList();
+void game_raphics::init_window_list() {
+	snakes = new snake_list::SnakeList();
 }
+

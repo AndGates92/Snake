@@ -102,7 +102,7 @@ void window_list::WindowList::remove_node(window_node::WindowNode * & node) {
 	node_saved->~WindowNode();
 }
 
-window_obj::WindowObj window_list::WindowList::search_by_win_id(int &win_id) {
+window_node::WindowNode window_list::WindowList::search_by_win_id(int &win_id) {
 
 	window_node::WindowNode * window_nodes = this->head;
 
@@ -116,7 +116,7 @@ window_obj::WindowObj window_list::WindowList::search_by_win_id(int &win_id) {
 
 		// Current ID matches searched ID
 		if (curr_win_id == win_id) {
-			window_obj::WindowObj window_found = node;
+			window_node::WindowNode window_found = window_nodes;
 			return window_found;
 		}
 

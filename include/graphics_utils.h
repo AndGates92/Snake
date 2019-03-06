@@ -60,7 +60,7 @@ namespace graphics_utils {
 
 	void delete_win_id(int& id);
 
-	window_obj::WindowObj search_win_id(int& id );
+	window_node::WindowNode search_win_id(int& id );
 
 	void win_node_add(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos, void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)());
 

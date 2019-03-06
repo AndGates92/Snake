@@ -40,7 +40,7 @@ namespace snake_node {
 	class SnakeUnit {
 		public:
 			// Constructor
-			SnakeUnit(int centre_x = 0, int centre_y = 0, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::RED): x_centre(centre_x), y_centre(centre_y), direction(snake_direction), colour(snake_colour) {
+			SnakeUnit(int centre_x = 0, int centre_y = 0, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): x_centre(centre_x), y_centre(centre_y), direction(snake_direction), colour(snake_colour) {
 				std::string pretext ("Snake Unit Constructor");
 				snake_node::SnakeUnit::print_info(log::verb_level_e::LOW, pretext);
 			};
@@ -79,7 +79,7 @@ namespace snake_node {
 	class SnakeNode : public SnakeUnit {
 		public:
 			// Constructor
-			SnakeNode(int centre_x = 0, int centre_y = 0, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::RED): SnakeUnit(centre_x, centre_y, snake_direction, snake_colour), prev(nullptr), next(nullptr) {
+			SnakeNode(int centre_x = 0, int centre_y = 0, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): SnakeUnit(centre_x, centre_y, snake_direction, snake_colour), prev(nullptr), next(nullptr) {
 				std::string pretext ("Snake Node Constructor");
 				snake_node::SnakeNode::print_info(log::verb_level_e::LOW, pretext);
 			};

@@ -10,6 +10,7 @@
 
 #include "snake_node.h"
 #include "log.h"
+#include "graphics_utils.h"
 
 using namespace std;
 using namespace snake_node;

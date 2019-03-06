@@ -36,8 +36,6 @@ void graphics::init_graphics(int argc, char** argv) {
 	// Initialize window list
 	graphics_utils::init_window_list();
 
-	game_graphics::init_snake_list();
-
 	graphics::test_graphics();
 
 	glutMainLoop();
