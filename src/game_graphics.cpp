@@ -50,7 +50,7 @@ void game_graphics::display_game_cb() {
 	glPixelStoref(GL_UNPACK_ALIGNMENT, 1);
 
 	// Store pixels in pixels array
-	unsigned char * pixels = game_graphics::get_snake_pixel_array<unsigned char>((int)win_width, (int)win_height);
+	unsigned char * pixels = game_graphics::get_game_pixel_array<unsigned char>((int)win_width, (int)win_height);
 
 	glDrawPixels((int)win_width, (int)win_height, GL_RGB, GL_UNSIGNED_BYTE, pixels);
 

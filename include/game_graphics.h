@@ -31,7 +31,7 @@ namespace game_graphics {
 	const static GLfloat zFar = 1.0;
 
 	template <typename snake_pixel_type>
-	snake_pixel_type * get_snake_pixel_array (int win_width, int win_height);
+	snake_pixel_type * get_game_pixel_array (int win_width, int win_height);
 
 	/**
 	 * @brief Function: void wrapper_game_cb()
@@ -101,7 +101,7 @@ namespace game_graphics {
 }
 
 template <typename snake_pixel_type>
-snake_pixel_type * game_graphics::get_snake_pixel_array (int win_width, int win_height) {
+snake_pixel_type * game_graphics::get_game_pixel_array (int win_width, int win_height) {
 
 	int win_area = win_width*win_height;
 
