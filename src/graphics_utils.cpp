@@ -24,7 +24,7 @@ using namespace graphics_utils;
 static window_list::WindowList * windows;
 
 void graphics_utils::init_window_list() {
-	windows = new WindowList();
+	windows = new window_list::WindowList();
 }
 
 // Delete window having the ID passed as input

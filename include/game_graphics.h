@@ -10,28 +10,40 @@
 
 #include "graphics_utils.h"
 
+#include "snake_list.h"
+
 namespace game_graphics {
 
-	/**
-	 * @brief FIeld of view
-	 *
-	 */
-	const static GLfloat zoom = 50.0;
+	namespace {
+		/**
+		 * @brief FIeld of view
+		 *
+		 */
+		const static GLfloat zoom = 50.0;
 
-	/**
-	 * @brief Near clip
-	 *
-	 */
-	const static GLfloat zNear = 1.0;
+		/**
+		 * @brief Near clip
+		 *
+		 */
+		const static GLfloat zNear = 1.0;
 
-	/**
-	 * @brief Far clip
-	 *
-	 */
-	const static GLfloat zFar = 1.0;
+		/**
+		 * @brief Far clip
+		 *
+		 */
+		const static GLfloat zFar = 1.0;
 
-	template <typename snake_pixel_type>
-	snake_pixel_type * get_game_pixel_array (int win_width, int win_height);
+		static snake_list::SnakeList * snake;
+
+	}
+
+	void init_snake_list();
+
+	template <typename game_pixel_type>
+	game_pixel_type * get_game_pixel_array (int win_width, int win_height);
+
+	template <typename game_pixel_type>
+	void draw_snake (game_pixel_type * & pixels);
 
 	/**
 	 * @brief Function: void wrapper_game_cb()
@@ -100,31 +112,40 @@ namespace game_graphics {
 
 }
 
-template <typename snake_pixel_type>
-snake_pixel_type * game_graphics::get_game_pixel_array (int win_width, int win_height) {
+template <typename game_pixel_type>
+game_pixel_type * game_graphics::get_game_pixel_array (int win_width, int win_height) {
 
 	int win_area = win_width*win_height;
 
-	snake_pixel_type * pixels = new snake_pixel_type[graphics_utils::no_colours*win_area];
+	game_pixel_type * pixels = new game_pixel_type[graphics_utils::no_colours*win_area];
+
+	game_pixel_type * colour = graphics_utils::get_pixel_colour<game_pixel_type> (graphics_utils::palette_e::BLACK);
+
 	for (int width_idx=0; width_idx<win_width; width_idx++) {
 
 		for (int height_idx=0; height_idx<win_height; height_idx++) {
 			int pixel_loc = height_idx * win_width + width_idx;
 
-			//snake_pixel_type * colour = graphics_utils::get_pixel_colour<snake_pixel_type> (graphics_utils::palette_e::RED);
-			snake_pixel_type * colour = graphics_utils::get_pixel_colour<snake_pixel_type> ((graphics_utils::palette_e) (9*height_idx/win_height));
 			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
 				pixels[graphics_utils::no_colours * pixel_loc + colour_idx] = colour[colour_idx];
 			}
-
-			delete [] colour;
 
 		}
 
 	}
 
+	delete [] colour;
+
+	game_graphics::draw_snake<game_pixel_type> (pixels);
+
 	return pixels;
 
+}
+
+template <typename game_pixel_type>
+void game_graphics::draw_snake (game_pixel_type * & pixels) {
+
+	snake->draw<game_pixel_type>(pixels);
 }
 
 #endif // SNAKE_GRAPHICS_H

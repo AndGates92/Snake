@@ -26,6 +26,9 @@ namespace snake_list {
 			// Destructor
 			~SnakeList();
 
+			template <typename pixel_type>
+			void draw(pixel_type * & pixels);
+
 			void add_node(int centre_x, int centre_y, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
 
 			void print_info(log::verb_level_e verbosity, std::string pretext);
@@ -37,6 +40,11 @@ namespace snake_list {
 			snake_node::SnakeNode * head;
 	};
 	/** @} */ // End of SnakeListGroup group
+}
+
+template <typename pixel_type>
+void snake_list::SnakeList::draw(pixel_type * & pixels) {
+
 }
 
 #endif // SNAKE_LIST_H
