@@ -33,7 +33,7 @@ void graphics_utils::delete_win_id(int& win_id) {
 }
 
 // Search window having the ID passed as input
-window_obj::WindowObj graphics_utils::search_win_id(int& win_id) {
+window_node::WindowNode * graphics_utils::search_win_id(int& win_id) {
 	return windows->search_by_win_id(win_id);
 }
 
@@ -43,7 +43,6 @@ void graphics_utils::delete_window() {
 
 	graphics_utils::delete_win_id(win_id);
 }
-
 
 window_list::WindowList * & graphics_utils::get_window_ptr() {
 	return windows;

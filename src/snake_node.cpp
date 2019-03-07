@@ -25,26 +25,34 @@ snake_node::SnakeUnit::~SnakeUnit() {
 }
 
 void snake_node::SnakeUnit::print_info(log::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Centre coordinares: (X ", this->x_centre, ", Y ", this->y_centre, "), direction ", this->direction, " colour ", this->colour, ".");
+	LOG_INFO(verbosity, "[", pretext, "] Centre coordinares: (X ", this->x_centre, ", Y ", this->y_centre, "), width ", this->width, ", height ", this->height, ", direction ", this->direction, " colour ", this->colour, ".");
 }
 
 // ================================================================
 // Get functions
 // ================================================================
 int snake_node::SnakeUnit::get_x_centre() {
-	return x_centre;
+	return this->x_centre;
 }
 
 int snake_node::SnakeUnit::get_y_centre() {
-	return y_centre;
+	return this->y_centre;
+}
+
+int snake_node::SnakeUnit::get_width() {
+	return this->width;
+}
+
+int snake_node::SnakeUnit::get_height() {
+	return this->height;
 }
 
 snake_node::direction_e snake_node::SnakeUnit::get_direction() {
-	return direction;
+	return this->direction;
 }
 
 graphics_utils::palette_e snake_node::SnakeUnit::get_colour() {
-	return colour;
+	return this->colour;
 }
 
 // ================================================================
@@ -56,6 +64,14 @@ void snake_node::SnakeUnit::set_x_centre(int new_x_centre) {
 
 void snake_node::SnakeUnit::set_y_centre(int new_y_centre) {
 	this->y_centre = new_y_centre;
+}
+
+void snake_node::SnakeUnit::set_width(int new_width) {
+	this->width = new_width;
+}
+
+void snake_node::SnakeUnit::set_height(int new_height) {
+	this->height = new_height;
 }
 
 void snake_node::SnakeUnit::set_direction(snake_node::direction_e new_direction) {

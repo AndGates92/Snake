@@ -55,12 +55,12 @@ void window_list::WindowList::add_node(std::string window_title, int window_widt
 
 void window_list::WindowList::delete_by_win_id(int &win_id) {
 
-	window_node::WindowNode * window_nodes = this->head;
+	window_node::WindowNode * window_node = this->head;
 
-	while (window_nodes != nullptr) {
+	while (window_node != nullptr) {
 
 		// temporary node
-		window_obj::WindowObj node = window_nodes->get_node();
+		window_obj::WindowObj node = window_node->get_obj();
 		int curr_win_id = 0;
 		curr_win_id = node.get_win_id();
 
@@ -69,11 +69,11 @@ void window_list::WindowList::delete_by_win_id(int &win_id) {
 		// Current ID matches searched ID
 		if (curr_win_id == win_id) {
 			// Delete node from linked list
-			remove_node(window_nodes);
+			remove_node(window_node);
 			return;
 		}
 
-		window_nodes = window_nodes->get_next();
+		window_node = window_node->get_next();
 
 	}
 
@@ -102,13 +102,13 @@ void window_list::WindowList::remove_node(window_node::WindowNode * & node) {
 	node_saved->~WindowNode();
 }
 
-window_node::WindowNode window_list::WindowList::search_by_win_id(int &win_id) {
+window_node::WindowNode * window_list::WindowList::search_by_win_id(int &win_id) {
 
-	window_node::WindowNode * window_nodes = this->head;
+	window_node::WindowNode * window_node = this->head;
 
-	while (window_nodes != nullptr) {
+	while (window_node != nullptr) {
 
-		window_obj::WindowObj node = window_nodes->get_node();
+		window_obj::WindowObj node = window_node->get_obj();
 		int curr_win_id = 0;
 		curr_win_id = node.get_win_id();
 
@@ -116,17 +116,17 @@ window_node::WindowNode window_list::WindowList::search_by_win_id(int &win_id) {
 
 		// Current ID matches searched ID
 		if (curr_win_id == win_id) {
-			window_node::WindowNode window_found = window_nodes;
+			window_node::WindowNode * window_found = window_node;
 			return window_found;
 		}
 
-		window_nodes = window_nodes->get_next();
+		window_node = window_node->get_next();
 
 	}
 
 	LOG_ERROR("Couldn't find window matching window ID ", win_id);
-	window_obj::WindowObj obj_err("Error");
-	return obj_err;
+	window_node::WindowNode * node_err = new window_node::WindowNode("Error");
+	return node_err;
 }
 
 void window_list::WindowList::print_info(log::verb_level_e verbosity, std::string pretext) {
@@ -136,7 +136,7 @@ void window_list::WindowList::print_info(log::verb_level_e verbosity, std::strin
 
 	while (window_list != nullptr) {
 		window_obj::WindowObj node;
-		node = this->head->get_node();
+		node = this->head->get_obj();
 		node.print_info(verbosity, pretext);
 		window_list = window_list->get_next();
 	}

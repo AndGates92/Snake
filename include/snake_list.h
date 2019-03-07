@@ -28,9 +28,9 @@ namespace snake_list {
 			~SnakeList();
 
 			template <typename pixel_type>
-			void draw(pixel_type * & pixels);
+			void draw(pixel_type * & pixels, int & win_width);
 
-			void add_node(int centre_x, int centre_y, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
+			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
 
 			void print_info(log::verb_level_e verbosity, std::string pretext);
 
@@ -44,7 +44,16 @@ namespace snake_list {
 }
 
 template <typename pixel_type>
-void snake_list::SnakeList::draw(pixel_type * & pixels) {
+void snake_list::SnakeList::draw(pixel_type * & pixels, int & win_width) {
+	snake_node::SnakeNode * snake_node = this->head;
+
+	while (snake_node != nullptr) {
+
+		snake_node->draw(pixels, win_width);
+
+		snake_node = snake_node->get_next();
+
+	}
 
 }
 

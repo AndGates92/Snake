@@ -36,16 +36,28 @@ namespace snake_node {
 	 */
 	const static snake_node::direction_e init_direction = snake_node::direction_e::RIGHT;
 
+	/**
+	 * @brief Node Height
+	 *
+	 */
+	const static int init_node_height = 10;
+
+	/**
+	 * @brief Node Width
+	 *
+	 */
+	const static int init_node_width = 10;
+
 
 	class SnakeUnit {
 		public:
 			// Constructor
-			SnakeUnit(int centre_x = 0, int centre_y = 0, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): x_centre(centre_x), y_centre(centre_y), direction(snake_direction), colour(snake_colour) {
+			SnakeUnit(int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): x_centre(centre_x), y_centre(centre_y), width(snake_width), height(snake_height), direction(snake_direction), colour(snake_colour) {
 				std::string pretext ("Snake Unit Constructor");
 				snake_node::SnakeUnit::print_info(log::verb_level_e::LOW, pretext);
 			};
 
-			SnakeUnit(const SnakeUnit& copy) : x_centre(copy.x_centre), y_centre(copy.y_centre), direction(copy.direction), colour(copy.colour) {
+			SnakeUnit(const SnakeUnit& copy) : x_centre(copy.x_centre), y_centre(copy.y_centre), width(copy.width), height(copy.height), direction(copy.direction), colour(copy.colour) {
 				std::string pretext ("Snake Unit Copy Constructor");
 				snake_node::SnakeUnit::print_info(log::verb_level_e::LOW, pretext);
 			};
@@ -53,14 +65,21 @@ namespace snake_node {
 			// Get functions
 			int get_x_centre();
 			int get_y_centre();
+			int get_width();
+			int get_height();
 			snake_node::direction_e get_direction();
 			graphics_utils::palette_e get_colour();
 
 			// Set functions
 			void set_x_centre(int new_x_centre);
 			void set_y_centre(int new_y_centre);
+			void set_width(int new_width);
+			void set_height(int new_height);
 			void set_direction(snake_node::direction_e new_direction);
 			void set_colour(graphics_utils::palette_e new_colour);
+
+			template <typename pixel_type>
+			void draw(pixel_type * & pixels, int & win_width);
 
 			// Destructor
 			~SnakeUnit();
@@ -70,6 +89,8 @@ namespace snake_node {
 		private:
 			int x_centre;
 			int y_centre;
+			int width;
+			int height;
 			snake_node::direction_e direction;
 			graphics_utils::palette_e colour;
 
@@ -79,7 +100,7 @@ namespace snake_node {
 	class SnakeNode : public SnakeUnit {
 		public:
 			// Constructor
-			SnakeNode(int centre_x = 0, int centre_y = 0, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): SnakeUnit(centre_x, centre_y, snake_direction, snake_colour), prev(nullptr), next(nullptr) {
+			SnakeNode(int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): SnakeUnit(centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour), prev(nullptr), next(nullptr) {
 				std::string pretext ("Snake Node Constructor");
 				snake_node::SnakeNode::print_info(log::verb_level_e::LOW, pretext);
 			};
@@ -108,4 +129,21 @@ namespace snake_node {
 	/** @} */ // End of SnakeNodeGroup group
 }
 
+template <typename pixel_type>
+void snake_node::SnakeUnit::draw(pixel_type * & pixels, int & win_width) {
+
+	pixel_type * colour_ptr = graphics_utils::get_pixel_colour<pixel_type> (this->colour);
+
+	for (int x_coord = (-(this->width/2)); x_coord < (this->width/2); x_coord++) {
+		for (int y_coord = (-(this->height/2)); y_coord < (this->height/2); y_coord++) {
+			int abs_coord = (this->y_centre + y_coord) * win_width + (x_centre + x_coord);
+			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
+				pixels[abs_coord] = colour_ptr[colour_idx];
+			}
+		}
+	}
+
+	delete [] colour_ptr;
+
+}
 #endif // SNAKE_NODE_H

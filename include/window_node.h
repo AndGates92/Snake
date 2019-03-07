@@ -19,12 +19,12 @@ namespace window_node {
 	class WindowNode {
 		public:
 			// Constructor
-			WindowNode(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr, void (*WrapperFunc)()=nullptr): node(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc), prev(nullptr), next(nullptr) {
+			WindowNode(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr, void (*WrapperFunc)()=nullptr): obj(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc), prev(nullptr), next(nullptr) {
 				std::string pretext ("Window Node Constructor");
 				window_node::WindowNode::print_info(log::verb_level_e::LOW, pretext);
 			};
 
-			WindowNode(const WindowNode& copy) : node(copy.node), prev(copy.prev), next(copy.next) { LOG_INFO(log::verb_level_e::LOW, "Window node copy contructor") };
+			WindowNode(const WindowNode& copy) : obj(copy.obj), prev(copy.prev), next(copy.next) { LOG_INFO(log::verb_level_e::LOW, "Window node copy contructor") };
 
 			// Destructor
 			~WindowNode();
@@ -32,12 +32,12 @@ namespace window_node {
 			// Get functions
 			WindowNode * & get_next();
 			WindowNode * & get_prev();
-			window_obj::WindowObj get_node();
+			window_obj::WindowObj get_obj();
 
 			// Set functions
 			void set_next(WindowNode * next_ptr);
 			void set_prev(WindowNode * prev_ptr);
-			void set_node(window_obj::WindowObj node);
+			void set_obj(window_obj::WindowObj obj);
 
 			void print_info(log::verb_level_e verbosity, std::string pretext);
 			void destroy_node();
@@ -45,7 +45,7 @@ namespace window_node {
 		protected:
 
 		private:
-			window_obj::WindowObj node;
+			window_obj::WindowObj obj;
 			WindowNode * prev;
 			WindowNode * next;
 	};
