@@ -139,7 +139,7 @@ void snake_node::SnakeUnit::draw(pixel_type * & pixels, int & win_width) {
 		for (int y_coord = (-(this->height/2)); y_coord < (this->height/2); y_coord++) {
 			int abs_coord = (this->y_centre + y_coord) * win_width + (x_centre + x_coord);
 			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
-				pixels[abs_coord] = colour_ptr[colour_idx];
+				pixels[graphics_utils::no_colours * abs_coord + colour_idx] = colour_ptr[colour_idx];
 			}
 		}
 	}

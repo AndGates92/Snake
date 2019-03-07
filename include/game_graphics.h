@@ -39,15 +39,15 @@ namespace game_graphics {
 		 * @brief Node Height
 		 *
 		 */
-		const static int snake_node_height = 40;
+		const static int snake_node_height = 10;
 
 		/**
 		 * @brief Node Width
 		 *
 		 */
-		const static int snake_node_width = 40;
+		const static int snake_node_width = 10;
 
-		const static int init_units = 2;
+		const static int init_units = 5;
 
 	}
 
