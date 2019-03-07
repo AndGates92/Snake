@@ -39,13 +39,13 @@ namespace game_graphics {
 		 * @brief Node Height
 		 *
 		 */
-		const static int snake_node_height = 10;
+		const static int snake_node_height = 40;
 
 		/**
 		 * @brief Node Width
 		 *
 		 */
-		const static int snake_node_width = 10;
+		const static int snake_node_width = 40;
 
 		const static int init_units = 2;
 
@@ -162,23 +162,8 @@ game_pixel_type * game_graphics::get_game_pixel_array (int & win_width, int & wi
 template <typename game_pixel_type>
 void game_graphics::draw_snake (game_pixel_type * & pixels, int & win_width) {
 
-	for (int width_idx=0; width_idx<50; width_idx++) {
-
-		for (int height_idx=0; height_idx<50; height_idx++) {
-			int pixel_loc = height_idx * 50 + width_idx;
-
-			game_pixel_type * colour = graphics_utils::get_pixel_colour<game_pixel_type> ((graphics_utils::palette_e)(9*height_idx/50));
-
-			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
-				pixels[graphics_utils::no_colours * pixel_loc + colour_idx] = colour[colour_idx];
-			}
-
-		}
-
-	}
-
-
 	game_graphics::snake->draw<game_pixel_type>(pixels, win_width);
+
 }
 
 #endif // SNAKE_GRAPHICS_H
