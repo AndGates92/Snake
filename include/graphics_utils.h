@@ -17,11 +17,14 @@ using namespace std;
 
 namespace graphics_utils {
 
-	/**
-	 * @brief Number of colours: 1 means black and white and 3 means RGB
-	 *
-	 */
-	const static int no_colours = 3;
+	namespace {
+		/**
+		 * @brief Number of colours: 1 means black and white and 3 means RGB
+		 *
+		 */
+		const static int no_colours = 3;
+
+	}
 
 	/**
 	 * @brief Palette

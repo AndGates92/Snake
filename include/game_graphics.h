@@ -14,7 +14,7 @@
 
 namespace game_graphics {
 
-//	namespace {
+	namespace {
 		/**
 		 * @brief FIeld of view
 		 *
@@ -49,7 +49,7 @@ namespace game_graphics {
 
 		const static int init_units = 2;
 
-//	}
+	}
 
 	void init_snake_list();
 	void populate_snake_list();

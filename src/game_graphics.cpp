@@ -172,7 +172,7 @@ void game_graphics::init_snake_list() {
 }
 
 snake_list::SnakeList * & game_graphics::get_snake_ptr() {
-	return snake;
+	return game_graphics::snake;
 }
 
 void game_graphics::populate_snake_list() {

@@ -30,24 +30,25 @@ namespace snake_node {
 
 	std::ostream& operator<< (std::ostream& os, direction_e direction);
 
-	/**
-	 * @brief Initial speed
-	 *
-	 */
-	const static snake_node::direction_e init_direction = snake_node::direction_e::RIGHT;
+	namespace {
+		/**
+		 * @brief Initial speed
+		 *
+		 */
+		const static snake_node::direction_e init_direction = snake_node::direction_e::RIGHT;
 
-	/**
-	 * @brief Node Height
-	 *
-	 */
-	const static int init_node_height = 10;
+		/**
+		 * @brief Node Height
+		 *
+		 */
+		const static int init_node_height = 10;
 
-	/**
-	 * @brief Node Width
-	 *
-	 */
-	const static int init_node_width = 10;
-
+		/**
+		 * @brief Node Width
+		 *
+		 */
+		const static int init_node_width = 10;
+	}
 
 	class SnakeUnit {
 		public:

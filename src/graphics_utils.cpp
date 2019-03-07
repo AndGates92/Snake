@@ -21,7 +21,9 @@ using namespace window_list;
 using namespace window_obj;
 using namespace graphics_utils;
 
-static window_list::WindowList * windows;
+namespace {
+	static window_list::WindowList * windows;
+}
 
 void graphics_utils::init_window_list() {
 	windows = new window_list::WindowList();
@@ -50,7 +52,7 @@ window_list::WindowList * & graphics_utils::get_window_ptr() {
 
 // Create new window
 void graphics_utils::win_node_add(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos, void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)()) {
-	graphics_utils::get_window_ptr()->add_node(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc);
+	windows->add_node(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc);
 }
 
 // Overload << operator for palette_e
