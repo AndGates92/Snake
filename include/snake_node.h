@@ -28,7 +28,15 @@ namespace snake_node {
 		RIGHT
 	} direction_e;
 
-	std::ostream& operator<< (std::ostream& os, direction_e direction);
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, snake_menu::direction_e direction)
+	 *
+	 * \param os: output stream
+	 * \param direction: direction to be printed
+	 *
+	 * Overload << operator to print direction 
+	 */
+	std::ostream& operator<< (std::ostream& os, snake_node::direction_e direction);
 
 	namespace {
 		/**

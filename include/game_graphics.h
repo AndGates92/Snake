@@ -47,20 +47,58 @@ namespace game_graphics {
 		 */
 		const static int snake_node_width = 10;
 
+		/**
+		 * @brief Initial number of snake units
+		 *
+		 */
 		const static int init_units = 5;
 
 	}
 
+	/**
+	 * @brief Function: void init_snake_list()
+	 *
+	 * Allocate memory for snake_list class
+	 */
 	void init_snake_list();
+
+	/**
+	 * @brief Function: void populate_snake_list()
+	 *
+	 * Create initial snake units
+	 */
 	void populate_snake_list();
 
+	/**
+	 * @brief Function: snake_list::SnakeList * & get_snake_ptr()
+	 *
+	 * This function returns the pointer to the head of the snake
+	 */
 	snake_list::SnakeList * & get_snake_ptr();
 
+	/**
+	 * @brief Function: game_pixel_type * get_game_pixel_array(int & win_width, int & win_height)
+	 *
+	 * \param win_width: width of the reshaped window
+	 * \param win_height: height of the reshaped window
+	 *
+	 * This function
+	 * - fill window background with the designated colour
+	 * - returns the pointer to the array of pixels to draw
+	 */
 	template <typename game_pixel_type>
-	game_pixel_type * get_game_pixel_array (int & win_width, int & win_height);
+	game_pixel_type * get_game_pixel_array(int & win_width, int & win_height);
 
+	/**
+	 * @brief Function: void draw_snake(game_pixel_type * & win_width, int & win_height)
+	 *
+	 * \param win_width: width of the reshaped window
+	 * \param pixels: pointer to pixels to draw passed by reference
+	 *
+	 * This function returns the pointer to the array of pixels to draw
+	 */
 	template <typename game_pixel_type>
-	void draw_snake (game_pixel_type * & pixels, int & win_width);
+	void draw_snake(game_pixel_type * & pixels, int & win_width);
 
 	/**
 	 * @brief Function: void wrapper_game_cb()

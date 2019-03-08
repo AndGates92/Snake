@@ -42,6 +42,14 @@ namespace graphics_utils {
 		BLACK
 	} palette_e;
 
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, graphics_utils::palette_e palette)
+	 *
+	 * \param os: output stream
+	 * \param palette: colour in the palette to print
+	 *
+	 * Overload << operator to print access mode 
+	 */
 	std::ostream& operator<< (std::ostream& os, graphics_utils::palette_e palette);
 
 	/**

@@ -35,10 +35,30 @@ namespace menu {
 		QUIT = 4
 	} snake_menu_e;
 
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, menu::snake_menu_e menu_items)
+	 *
+	 * \param os: output stream
+	 * \param menu_items: menu items in game window
+	 *
+	 * Overload << operator to print game menu items
+	 */
 	std::ostream& operator<< (std::ostream& os, menu::snake_menu_e menu_items);
 
+	/**
+	 * @brief Function: void menu_snake(int entry)
+	 *
+	 * \param entry: menu entry
+	 *
+	 * Select menu entry
+	 */
 	void menu_snake(int entry);
 
+	/**
+	 * @brief Function: void menu_snake_items()
+	 *
+	 * List menu items
+	 */
 	void menu_snake_items();
 
 	class Menu {
