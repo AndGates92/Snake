@@ -44,7 +44,7 @@ void graphics::init_graphics(int argc, char** argv) {
 }
 
 void graphics::test_graphics() {
-	graphics_utils::win_node_add("test", 1100, 450, 100, 50, menu::menu_snake, menu::menu_snake_items, game_graphics::wrapper_game_cb);
+	graphics_utils::win_node_add("test", 1100, 450, 100, 50, menu::menu_game, menu::menu_game_items, game_graphics::wrapper_game_cb);
 
 	game_graphics::populate_snake_list();
 

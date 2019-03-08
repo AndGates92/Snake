@@ -27,39 +27,39 @@ namespace menu {
 	 * @brief Snake menu entries
 	 *
 	 */
-	typedef enum class snake_menu_list {
+	typedef enum class game_menu_list {
 		RESTART = 0,
 		START_PAUSE = 1,
 		FASTER = 2,
 		SLOWER = 3,
 		QUIT = 4
-	} snake_menu_e;
+	} game_menu_e;
 
 	/**
-	 * @brief Function: std::ostream& operator<< (std::ostream& os, menu::snake_menu_e menu_items)
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, menu::game_menu_e menu_items)
 	 *
 	 * \param os: output stream
 	 * \param menu_items: menu items in game window
 	 *
 	 * Overload << operator to print game menu items
 	 */
-	std::ostream& operator<< (std::ostream& os, menu::snake_menu_e menu_items);
+	std::ostream& operator<< (std::ostream& os, menu::game_menu_e menu_items);
 
 	/**
-	 * @brief Function: void menu_snake(int entry)
+	 * @brief Function: void menu_game(int entry)
 	 *
 	 * \param entry: menu entry
 	 *
-	 * Select menu entry
+	 * Select menu entry  in game window
 	 */
-	void menu_snake(int entry);
+	void menu_game(int entry);
 
 	/**
-	 * @brief Function: void menu_snake_items()
+	 * @brief Function: void menu_game_items()
 	 *
-	 * List menu items
+	 * List menu items in game window
 	 */
-	void menu_snake_items();
+	void menu_game_items();
 
 	class Menu {
 		public:
