@@ -80,7 +80,7 @@ BIN_DIR ?= bin
 # Doxygen variables
 DOXYGEN = doxygen
 DOX_DIR = doxygen
-DOX_CFG_FILENAME = ${EXE_NANME}.config
+DOX_CFG_FILENAME = ${PROJ_NAME}.config
 
 DOX_CFG_FILE = $(DOX_DIR)/$(DOX_CFG_FILENAME)
 
