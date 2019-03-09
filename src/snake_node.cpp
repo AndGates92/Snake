@@ -152,3 +152,24 @@ void snake_node::SnakeNode::print_info(log::verb_level_e verbosity, std::string 
 		this->next->print_info(verbosity, pretext);
 	}
 }
+
+void snake_node::SnakeUnit::move(int increment, int win_width, int win_height) {
+
+	switch (this->direction) {
+		case snake_node::direction_e::RIGHT:
+			this->x_centre = (this->x_centre + increment) % win_width;
+			break;
+		case snake_node::direction_e::LEFT:
+			this->x_centre = (this->x_centre - increment) % win_width;
+			break;
+		case snake_node::direction_e::UP:
+			this->y_centre = (this->y_centre + increment) % win_height;
+			break;
+		case snake_node::direction_e::DOWN:
+			this->y_centre = (this->y_centre - increment) % win_height;
+			break;
+		default:
+			LOG_ERROR("Unknown direction");
+			break;
+	}
+}

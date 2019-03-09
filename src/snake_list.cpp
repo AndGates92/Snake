@@ -80,3 +80,13 @@ void snake_list::SnakeList::print_info(log::verb_level_e verbosity, std::string 
 		snake_list = snake_list->get_next();
 	}
 }
+
+void snake_list::SnakeList::move(int increment, int win_width, int win_height) {
+	snake_node::SnakeNode * snake_list = this->head;
+
+	while (snake_list != nullptr) {
+		snake_list->move(increment, win_width, win_height);
+		snake_list = snake_list->get_next();
+	}
+}
+
