@@ -35,6 +35,10 @@ namespace snake_list {
 
 			void print_info(log::verb_level_e verbosity, std::string pretext);
 
+			snake_node::direction_e get_head_direction();
+
+			void set_head_direction(snake_node::direction_e direction);
+
 		protected:
 			void remove_node(snake_node::SnakeNode * & node);
 

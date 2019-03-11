@@ -137,14 +137,39 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 void game_graphics::specialkey_game_cb(int key, int x, int y) {
+
+	snake_node::direction_e head_dir = game_graphics::snake->get_head_direction();
+
 	switch (key) {
 		case GLUT_KEY_UP:
-			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Increase image pointer because of pressing key Arrow Up");
+			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to UP because of pressing key Arrow Up");
+			if ((head_dir == snake_node::direction_e::RIGHT) | (head_dir == snake_node::direction_e::LEFT)) {
+				game_graphics::snake->set_head_direction(snake_node::direction_e::UP);
+			}
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
 		case GLUT_KEY_DOWN:
-			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Decrease image pointer because of pressing key Arrow Down");
+			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to DOWN because of pressing key Arrow Down");
+			if ((head_dir == snake_node::direction_e::RIGHT) | (head_dir == snake_node::direction_e::LEFT)) {
+				game_graphics::snake->set_head_direction(snake_node::direction_e::DOWN);
+			}
+			// force glut to call the display function
+			glutPostRedisplay();
+			break;
+		case GLUT_KEY_LEFT:
+			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to LEFT because of pressing key Arrow Down");
+			if ((head_dir == snake_node::direction_e::UP) | (head_dir == snake_node::direction_e::DOWN)) {
+				game_graphics::snake->set_head_direction(snake_node::direction_e::LEFT);
+			}
+			// force glut to call the display function
+			glutPostRedisplay();
+			break;
+		case GLUT_KEY_RIGHT:
+			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to RIGHTT because of pressing key Arrow Down");
+			if ((head_dir == snake_node::direction_e::UP) | (head_dir == snake_node::direction_e::DOWN)) {
+				game_graphics::snake->set_head_direction(snake_node::direction_e::RIGHT);
+			}
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;

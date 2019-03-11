@@ -7,6 +7,7 @@
  */
 
 #include <iostream>
+#include <cmath>
 
 #include "graphics_utils.h"
 #include "snake_list.h"
@@ -83,10 +84,88 @@ void snake_list::SnakeList::print_info(log::verb_level_e verbosity, std::string 
 
 void snake_list::SnakeList::move(int increment, int win_width, int win_height) {
 	snake_node::SnakeNode * snake_list = this->head;
+	snake_node::SnakeNode * snake_list_prev = this->head;
+
+	snake_node::direction_e direction_prev = this->head->get_direction();
+	int x_centre_prev = this->head->get_x_centre();
+	int y_centre_prev = this->head->get_y_centre();
+	int width_prev = this->head->get_width();
+	int height_prev = this->head->get_height();
+
+	snake_node::direction_e direction_curr = this->head->get_direction();
+	int x_centre_curr = this->head->get_x_centre();
+	int y_centre_curr = this->head->get_y_centre();
+	int width_curr = this->head->get_width();
+	int height_curr = this->head->get_height();
 
 	while (snake_list != nullptr) {
+
+		// Store values of previous element
+		direction_prev = direction_curr;
+		x_centre_prev = x_centre_curr;
+		y_centre_prev = y_centre_curr;
+		height_prev = height_curr;
+		width_prev = width_curr;
+
+		direction_curr = snake_list->get_direction();
+		x_centre_curr = snake_list->get_x_centre();
+		y_centre_curr = snake_list->get_y_centre();
+		height_curr = snake_list->get_height();
+		width_curr = snake_list->get_width();
+
+		// if get_prev == nullptr means that we are looking at the 1st element in linked list
+		if (snake_list->get_prev() != nullptr) {
+			int distance_units = 0;
+			int distance_measured = 0;
+			// Check distance between units is correct
+			if ((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) {
+				distance_units = (width_prev/2) + (width_curr/2);
+				distance_measured = ((int) abs(x_centre_prev - x_centre_curr));
+cout << "X prev " << x_centre_prev << " X curr " << x_centre_curr << " ditance " << distance_units << endl;
+				ASSERT((x_centre_prev - x_centre_curr) == distance_units)
+			} else if ((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) {
+				distance_units = (height_prev/2) + (height_curr/2);
+				distance_measured = ((int) abs(y_centre_prev - y_centre_curr));
+cout << "Y prev " << x_centre_prev << " Y curr " << x_centre_curr << " ditance " << distance_units << endl;
+			} else {
+				LOG_ERROR("Unknown direction")
+			}
+			ASSERT(distance_measured  == distance_units)
+		}
+
 		snake_list->move(increment, win_width, win_height);
+
+		if (direction_prev == direction_curr) {
+			snake_list_prev->set_direction(direction_curr);
+		}
+
+		snake_list_prev = snake_list;
 		snake_list = snake_list->get_next();
 	}
 }
 
+snake_node::direction_e snake_list::SnakeList::get_head_direction() {
+
+	snake_node::SnakeNode * snake_list = this->head;
+	snake_node::direction_e direction = this->head->get_direction();
+
+	while (snake_list != nullptr) {
+		direction = snake_list->get_direction();
+		snake_list = snake_list->get_next();
+	}
+
+	return direction;
+}
+
+
+void snake_list::SnakeList::set_head_direction(snake_node::direction_e direction) {
+
+	snake_node::SnakeNode * snake_list = this->head;
+
+	while (snake_list->get_next() != nullptr) {
+		snake_list = snake_list->get_next();
+	}
+
+
+	snake_list->set_direction(direction);
+}
