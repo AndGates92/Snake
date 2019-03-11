@@ -119,7 +119,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			if (game_graphics::speed > 1) {
 				game_graphics::speed -= game_graphics::speed_incr;
 			}
-			ASSERT(game_graphics::speed > 0);
+			ASSERT(game_graphics::speed > 0)
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
