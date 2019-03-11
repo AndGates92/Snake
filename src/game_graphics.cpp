@@ -31,6 +31,17 @@ using namespace window_obj;
 using namespace snake_list;
 using namespace snake_node;
 
+namespace game_graphics {
+
+	namespace {
+		/**
+		 * @brief Speed of snake (in pixels/loop iter)
+		 *
+		 */
+		static int speed;
+	}
+}
+
 void game_graphics::display_game_cb() {
 	glClear( GL_COLOR_BUFFER_BIT );
 
@@ -97,13 +108,18 @@ void game_graphics::reshape_game_cb(int width, int height) {
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 	switch (key) {
-		case 'n':
-			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Increase image pointer because of pressing key ", key);
+		case 'f':
+			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Speed up snake because of pressing key ", key);
+			game_graphics::speed += game_graphics::speed_incr;
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
-		case 'p':
-			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Decrease image pointer because of pressing key ", key);
+		case 's':
+			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Slow down snake because of pressing key ", key);
+			if (game_graphics::speed > 1) {
+				game_graphics::speed -= game_graphics::speed_incr;
+			}
+			ASSERT(game_graphics::speed > 0);
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
@@ -151,8 +167,12 @@ void game_graphics::mouse_game_cb(int button, int state, int x, int y) {
 
 void game_graphics::idle_game_cb() {
 
+	int win_width = glutGet(GLUT_WINDOW_WIDTH);
+	int win_height = glutGet(GLUT_WINDOW_HEIGHT);
+
+	game_graphics::snake->move(game_graphics::speed, win_width, win_height);
 	// force glut to call the display function
-//	glutPostRedisplay();
+	glutPostRedisplay();
 
 }
 
@@ -187,4 +207,15 @@ void game_graphics::populate_snake_list() {
 
 	}
 
+}
+
+void game_graphics::init_game_parameters() {
+	game_graphics::speed = game_graphics::init_speed;
+}
+
+void game_graphics::init_game() {
+	game_graphics::init_snake_list();
+	game_graphics::init_game_parameters();
+
+	game_graphics::populate_snake_list();
 }

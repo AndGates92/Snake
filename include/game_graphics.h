@@ -53,7 +53,26 @@ namespace game_graphics {
 		 */
 		const static int init_units = 5;
 
+		/**
+		 * @brief Initial speed of snake (in pixels/loop iter)
+		 *
+		 */
+		const static int init_speed = 2;
+
+		/**
+		 * @brief Speed increment of snake (in pixels/loop iter)
+		 *
+		 */
+		const static int speed_incr = 1;
+
 	}
+
+	/**
+	 * @brief Function: void init_game()
+	 *
+	 * Initialize game function
+	 */
+	void init_game();
 
 	/**
 	 * @brief Function: void init_snake_list()
@@ -61,6 +80,13 @@ namespace game_graphics {
 	 * Allocate memory for snake_list class
 	 */
 	void init_snake_list();
+
+	/**
+	 * @brief Function: void init_game()
+	 *
+	 * Initialize game function
+	 */
+	void init_game_parameters();
 
 	/**
 	 * @brief Function: void populate_snake_list()
