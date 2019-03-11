@@ -10,12 +10,12 @@
 #include <iostream>
 #include <fstream>
 
-#include "log.h"
+#include "logging.h"
 #include "window_node.h"
 #include "window_obj.h"
 
 using namespace std;
-using namespace log;
+using namespace logging;
 using namespace window_obj;
 using namespace window_node;
 
@@ -25,7 +25,7 @@ void window_node::WindowNode::destroy_node() {
 
 window_node::WindowNode::~WindowNode() {
 	std::string pretext ("Window Node Destructor");
-	this->print_info(log::verb_level_e::LOW, pretext);
+	this->print_info(logging::verb_level_e::LOW, pretext);
 	this->obj.~WindowObj();
 }
 
@@ -34,18 +34,18 @@ window_node::WindowNode::~WindowNode() {
 // ================================================================
 
 window_node::WindowNode * & window_node::WindowNode::get_next() {
-	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer next: ", this->next);
+	LOG_INFO(logging::verb_level_e::DEBUG, "Get pointer next: ", this->next);
 	return this->next;
 }
 
 window_node::WindowNode * & window_node::WindowNode::get_prev() {
-	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer prev: ", this->prev);
+	LOG_INFO(logging::verb_level_e::DEBUG, "Get pointer prev: ", this->prev);
 	return this->prev;
 }
 
 window_obj::WindowObj window_node::WindowNode::get_obj() {
 	std::string pretext ("Get current obj");
-	this->obj.print_info(log::verb_level_e::DEBUG, pretext);
+	this->obj.print_info(logging::verb_level_e::DEBUG, pretext);
 	return this->obj;
 }
 
@@ -66,6 +66,6 @@ void window_node::WindowNode::set_obj(window_obj::WindowObj obj) {
 }
 
 
-void window_node::WindowNode::print_info(log::verb_level_e verbosity, std::string pretext) {
+void window_node::WindowNode::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	this->obj.print_info(verbosity, pretext);
 }

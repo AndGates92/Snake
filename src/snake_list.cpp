@@ -12,17 +12,17 @@
 #include "graphics_utils.h"
 #include "snake_list.h"
 #include "snake_node.h"
-#include "log.h"
+#include "logging.h"
 
 using namespace std;
-using namespace log;
+using namespace logging;
 using namespace snake_list;
 using namespace snake_node;
 
 snake_list::SnakeList::~SnakeList() {
 
 	std::string pretext ("Snake List Destructor");
-	this->print_info(log::verb_level_e::LOW, pretext);
+	this->print_info(logging::verb_level_e::LOW, pretext);
 
 	snake_node::SnakeNode * node_ptr = nullptr;
 	while (this->head != nullptr) {
@@ -31,14 +31,14 @@ snake_list::SnakeList::~SnakeList() {
 		node_ptr->~SnakeNode();
 		delete [] node_ptr;
 	}
-	LOG_INFO(log::verb_level_e::HIGH, "Snake list destroyed");
+	LOG_INFO(logging::verb_level_e::HIGH, "Snake list destroyed");
 
 }
 
 
 void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour) {
 
-	LOG_INFO(log::verb_level_e::LOW, "[Add Node] Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
+	LOG_INFO(logging::verb_level_e::LOW, "[Add Node] Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
 	snake_node::SnakeNode * new_snake = new snake_node::SnakeNode(centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
 
 	new_snake->set_prev(nullptr);
@@ -73,7 +73,7 @@ void snake_list::SnakeList::remove_node(snake_node::SnakeNode * & node) {
 	node_saved->~SnakeNode();
 }
 
-void snake_list::SnakeList::print_info(log::verb_level_e verbosity, std::string pretext) {
+void snake_list::SnakeList::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	snake_node::SnakeNode * snake_list = this->head;
 
 	while (snake_list != nullptr) {

@@ -9,10 +9,10 @@
 #include <iostream>
 
 #include "window_obj.h"
-#include "log.h"
+#include "logging.h"
 
 using namespace std;
-using namespace log;
+using namespace logging;
 using namespace window_obj;
 
 
@@ -23,12 +23,12 @@ void window_obj::WindowObj::destroy_obj() {
 
 window_obj::WindowObj::~WindowObj() {
 	std::string pretext ("Window Object Destructor");
-	this->print_info(log::verb_level_e::LOW, pretext);
+	this->print_info(logging::verb_level_e::LOW, pretext);
 	this->drawing.~Window();
 	this->action_list.~Menu();
 }
 
-void window_obj::WindowObj::print_info(log::verb_level_e verbosity, std::string pretext) {
+void window_obj::WindowObj::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	// Window content
 	this->drawing.print_info(verbosity, pretext);
 	// Menu

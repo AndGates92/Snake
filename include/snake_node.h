@@ -63,12 +63,12 @@ namespace snake_node {
 			// Constructor
 			SnakeUnit(int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): x_centre(centre_x), y_centre(centre_y), width(snake_width), height(snake_height), direction(snake_direction), colour(snake_colour) {
 				std::string pretext ("Snake Unit Constructor");
-				snake_node::SnakeUnit::print_info(log::verb_level_e::LOW, pretext);
+				snake_node::SnakeUnit::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
 			SnakeUnit(const SnakeUnit& copy) : x_centre(copy.x_centre), y_centre(copy.y_centre), width(copy.width), height(copy.height), direction(copy.direction), colour(copy.colour) {
 				std::string pretext ("Snake Unit Copy Constructor");
-				snake_node::SnakeUnit::print_info(log::verb_level_e::LOW, pretext);
+				snake_node::SnakeUnit::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
 			// Get functions
@@ -94,7 +94,7 @@ namespace snake_node {
 			// Destructor
 			~SnakeUnit();
 
-			void print_info(log::verb_level_e verbosity, std::string pretext);
+			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 		private:
 			int x_centre;
@@ -112,10 +112,10 @@ namespace snake_node {
 			// Constructor
 			SnakeNode(int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): SnakeUnit(centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour), prev(nullptr), next(nullptr) {
 				std::string pretext ("Snake Node Constructor");
-				snake_node::SnakeNode::print_info(log::verb_level_e::LOW, pretext);
+				snake_node::SnakeNode::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
-			SnakeNode(const SnakeNode& copy) : SnakeUnit(copy), prev(copy.prev), next(copy.next) { LOG_INFO(log::verb_level_e::LOW, "Snake node copy contructor") };
+			SnakeNode(const SnakeNode& copy) : SnakeUnit(copy), prev(copy.prev), next(copy.next) { LOG_INFO(logging::verb_level_e::LOW, "Snake node copy contructor") };
 
 			// Destructor
 			~SnakeNode();
@@ -128,7 +128,7 @@ namespace snake_node {
 			void set_next(SnakeNode * next_ptr);
 			void set_prev(SnakeNode * prev_ptr);
 
-			void print_info(log::verb_level_e verbosity, std::string pretext);
+			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 		protected:
 

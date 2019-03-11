@@ -11,11 +11,11 @@
 #include <fstream>
 
 #include "file.h"
-#include "log.h"
+#include "logging.h"
 
 using namespace std;
 using namespace iofile;
-using namespace log;
+using namespace logging;
 
 // ================================================================
 // Output stream (write)
@@ -35,7 +35,7 @@ void iofile::File::open_ofile() {
 			if ((this->ofile.rdstate() & std::ostream::failbit) != 0) {
 				LOG_ERROR("Can't open file ", this->name, " for write");
 			}
-			LOG_INFO(log::verb_level_e::HIGH, "[Open ofile] Opened file ", this->name, " for write.");
+			LOG_INFO(logging::verb_level_e::HIGH, "[Open ofile] Opened file ", this->name, " for write.");
 		}
 	} else {
 		LOG_ERROR("Can't open file ", this->name, " for write because write flag is set to ", std::boolalpha, this->write_flag);
@@ -67,7 +67,7 @@ void iofile::File::open_ifile() {
 			if ((this->ifile.rdstate() & std::istream::failbit) != 0) {
 				LOG_ERROR("Can't open file ", this->name, " for read");
 			}
-			LOG_INFO(log::verb_level_e::HIGH, "[Open ifile] Opened file ", this->name, " for read.");
+			LOG_INFO(logging::verb_level_e::HIGH, "[Open ifile] Opened file ", this->name, " for read.");
 		}
 	} else {
 		LOG_ERROR("Can't open file ", this->name, " for read because read flag is set to ", std::boolalpha, this->read_flag);
@@ -133,7 +133,7 @@ iofile::mode_e iofile::File::get_access_mode() {
 // Set functions
 // ================================================================
 void iofile::File::set_filename(std::string filename) {
-	LOG_INFO(log::verb_level_e::ZERO, "[Access Mode] Changing name of file ", this->name, " to " , filename, ". File ", this->name, " will be closed.");
+	LOG_INFO(logging::verb_level_e::ZERO, "[Access Mode] Changing name of file ", this->name, " to " , filename, ". File ", this->name, " will be closed.");
 	// Set filename
 	this->name.assign(filename);
 }
@@ -141,14 +141,14 @@ void iofile::File::set_filename(std::string filename) {
 void iofile::File::set_access_mode(iofile::mode_e access_mode) {
 	if (this->mode == access_mode) {
 		// If access mode doesn't change, don't do anything
-		LOG_INFO(log::verb_level_e::ZERO, "[Access Mode] Access mode for file ", this->name, " unchnaged.");
+		LOG_INFO(logging::verb_level_e::ZERO, "[Access Mode] Access mode for file ", this->name, " unchnaged.");
 	} else {
 		// If access mode is different, close ifile and ofile and update it
 		this->close_ofile();
 		this->close_ifile();
 		this->mode = access_mode;
 		iofile::File::set_access_flags();
-		LOG_INFO(log::verb_level_e::ZERO, "[Access Flags] Access flags for file ", this->name, " are: write->", std::boolalpha, this->write_flag, " read->", std::boolalpha, this->read_flag, ".");
+		LOG_INFO(logging::verb_level_e::ZERO, "[Access Flags] Access flags for file ", this->name, " are: write->", std::boolalpha, this->write_flag, " read->", std::boolalpha, this->read_flag, ".");
 	}
 }
 

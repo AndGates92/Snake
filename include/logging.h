@@ -2,7 +2,7 @@
 #define LOG_H
 /**
  * @copyright
- * @file log.h
+ * @file logging.h
  * @author Andrea Gianarda
  * @date 04th of February 2019
  * @brief Log handling header file
@@ -38,7 +38,7 @@
  * Print a message to the log file if the chosen verbosity is less or equal to the default verbosity
  */
 #define LOG_INFO(VERBOSITY, ...)\
-	log::log_info(VERBOSITY, "File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
+	logging::log_info(VERBOSITY, "File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
 
 /**
  * @brief LOG_ERROR(...)
@@ -48,7 +48,7 @@
  * Print an error message to std::cerr
  */
 #define LOG_ERROR(...)\
-	log::log_error("File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
+	logging::log_error("File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
 
 /**
  * @brief ASSERT(EXPR)
@@ -65,11 +65,11 @@
 #else
 #define ASSERT(EXPR)\
 	if (!(EXPR)) {\
-		LOG_INFO(log::verb_level_e::ZERO,"ASSERTION FAILED (", STRINGIFY(EXPR), ")");\
+		LOG_INFO(logging::verb_level_e::ZERO,"ASSERTION FAILED (", STRINGIFY(EXPR), ")");\
 	}
 #endif // ENABLE_ASSERTIONS
 
-namespace log {
+namespace logging {
 
 	/** @defgroup LogGroup Log Doxygen Group
 	 *  Functions and defines logging progress
@@ -106,7 +106,7 @@ namespace log {
 	 * Log information to a logfile if desired verbosity level is higher than the requested one
 	 */
 	template <typename... info_type>
-	void log_info (log::verb_level_e verbosity, info_type... info);
+	void log_info (logging::verb_level_e verbosity, info_type... info);
 
 	/** 
 	 * @brief Function: void print_str(info_type... info)
@@ -128,30 +128,30 @@ namespace log {
 }
 
 template <typename file_type, typename str_type>
-void log::print_str(file_type& file, str_type str) {
+void logging::print_str(file_type& file, str_type str) {
 	file << str;
 }
 
 template <typename file_type, typename first_str_type, typename... other_str_type>
-void log::print_str(file_type& file, first_str_type first_str, other_str_type ... str) {
+void logging::print_str(file_type& file, first_str_type first_str, other_str_type ... str) {
 	file << first_str;
-	log::print_str(file, str...);
+	logging::print_str(file, str...);
 }
 
 template <typename... err_type>
-void log::log_error(err_type... err) {
+void logging::log_error(err_type... err) {
 	using std::cerr;
 
-	log::logfile.~File();
-	log::print_str(std::cerr, err...);
+	logging::logfile.~File();
+	logging::print_str(std::cerr, err...);
 
 	exit(1);
 }
 
 template <typename... info_type>
-void log::log_info (log::verb_level_e verbosity, info_type... info) {
-	if (verbosity <= static_cast<log::verb_level_e>(VERBOSITY)) {
-		log::logfile.write_ofile(info...);
+void logging::log_info (logging::verb_level_e verbosity, info_type... info) {
+	if (verbosity <= static_cast<logging::verb_level_e>(VERBOSITY)) {
+		logging::logfile.write_ofile(info...);
 	}
 }
 

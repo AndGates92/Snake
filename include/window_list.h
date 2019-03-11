@@ -19,9 +19,9 @@ namespace window_list {
 	class WindowList {
 		public:
 			// Constructor
-			WindowList(): head(nullptr) { LOG_INFO(log::verb_level_e::LOW, "Window list contructed") };
+			WindowList(): head(nullptr) { LOG_INFO(logging::verb_level_e::LOW, "Window list contructed") };
 
-			WindowList(const WindowList& copy): head(copy.head) { LOG_INFO(log::verb_level_e::LOW, "Window list copy contructor") };
+			WindowList(const WindowList& copy): head(copy.head) { LOG_INFO(logging::verb_level_e::LOW, "Window list copy contructor") };
 
 			// Destructor
 			~WindowList();
@@ -32,7 +32,7 @@ namespace window_list {
 
 			void delete_by_win_id(int &win_id);
 
-			void print_info(log::verb_level_e verbosity, std::string pretext);
+			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 		protected:
 			void remove_node(window_node::WindowNode * & node);

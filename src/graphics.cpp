@@ -17,20 +17,20 @@
 #include <GL/gl.h>
 
 #include "menu.h"
-#include "log.h"
+#include "logging.h"
 #include "graphics.h"
 #include "graphics_utils.h"
 #include "game_graphics.h"
 
 using namespace std;
-using namespace log;
+using namespace logging;
 using namespace menu;
 using namespace graphics;
 using namespace graphics_utils;
 using namespace game_graphics;
 
 void graphics::init_graphics(int argc, char** argv) {
-	LOG_INFO(log::verb_level_e::ZERO, "Initialize GLUT");
+	LOG_INFO(logging::verb_level_e::ZERO, "Initialize GLUT");
 	glutInit( &argc, argv );
 
 	// Initialize window list

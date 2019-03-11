@@ -14,7 +14,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
-#include "log.h"
+#include "logging.h"
 #include "menu.h"
 #include "graphics_utils.h"
 #include "game_graphics.h"
@@ -23,7 +23,7 @@
 #include "snake_node.h"
 
 using namespace std;
-using namespace log;
+using namespace logging;
 using namespace menu;
 using namespace game_graphics;
 using namespace graphics_utils;
@@ -51,7 +51,7 @@ void game_graphics::display_game_cb() {
 	int win_id = 0;
 	win_id = glutGetWindow();
 
-	LOG_INFO(log::verb_level_e::DEBUG,"[Display Game Callback] Display Game Callback for window ID: ", win_id);
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Display Game Callback] Display Game Callback for window ID: ", win_id);
 
 	window_node::WindowNode * node = graphics_utils::search_win_id(win_id);
 	window_obj::WindowObj window = node->get_obj();
@@ -80,7 +80,7 @@ void game_graphics::display_game_cb() {
 }
 
 void game_graphics::reshape_game_cb(int width, int height) {
-	LOG_INFO(log::verb_level_e::DEBUG,"[Reshape Game Callback] Reshape Game Callback window width to ", width, " and window height to ", height);
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Reshape Game Callback] Reshape Game Callback window width to ", width, " and window height to ", height);
 
 	int win_id = 0;
 	win_id = glutGetWindow();
@@ -109,13 +109,13 @@ void game_graphics::reshape_game_cb(int width, int height) {
 void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 	switch (key) {
 		case 'f':
-			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Speed up snake because of pressing key ", key);
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Speed up snake because of pressing key ", key);
 			game_graphics::speed += game_graphics::speed_incr;
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
 		case 's':
-			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Slow down snake because of pressing key ", key);
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Slow down snake because of pressing key ", key);
 			if (game_graphics::speed > 1) {
 				game_graphics::speed -= game_graphics::speed_incr;
 			}
@@ -125,7 +125,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			break;
 		case 'q':
 			graphics_utils::delete_window();
-			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Exit program because of pressing key ", key);
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Exit program because of pressing key ", key);
 			break;
 		default:
 			glutPostRedisplay();
@@ -142,7 +142,7 @@ void game_graphics::specialkey_game_cb(int key, int x, int y) {
 
 	switch (key) {
 		case GLUT_KEY_UP:
-			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to UP because of pressing key Arrow Up");
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to UP because of pressing key Arrow Up");
 			if ((head_dir == snake_node::direction_e::RIGHT) | (head_dir == snake_node::direction_e::LEFT)) {
 				game_graphics::snake->set_head_direction(snake_node::direction_e::UP);
 			}
@@ -150,7 +150,7 @@ void game_graphics::specialkey_game_cb(int key, int x, int y) {
 			glutPostRedisplay();
 			break;
 		case GLUT_KEY_DOWN:
-			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to DOWN because of pressing key Arrow Down");
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to DOWN because of pressing key Arrow Down");
 			if ((head_dir == snake_node::direction_e::RIGHT) | (head_dir == snake_node::direction_e::LEFT)) {
 				game_graphics::snake->set_head_direction(snake_node::direction_e::DOWN);
 			}
@@ -158,7 +158,7 @@ void game_graphics::specialkey_game_cb(int key, int x, int y) {
 			glutPostRedisplay();
 			break;
 		case GLUT_KEY_LEFT:
-			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to LEFT because of pressing key Arrow Down");
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to LEFT because of pressing key Arrow Down");
 			if ((head_dir == snake_node::direction_e::UP) | (head_dir == snake_node::direction_e::DOWN)) {
 				game_graphics::snake->set_head_direction(snake_node::direction_e::LEFT);
 			}
@@ -166,7 +166,7 @@ void game_graphics::specialkey_game_cb(int key, int x, int y) {
 			glutPostRedisplay();
 			break;
 		case GLUT_KEY_RIGHT:
-			LOG_INFO(log::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to RIGHTT because of pressing key Arrow Down");
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to RIGHTT because of pressing key Arrow Down");
 			if ((head_dir == snake_node::direction_e::UP) | (head_dir == snake_node::direction_e::DOWN)) {
 				game_graphics::snake->set_head_direction(snake_node::direction_e::RIGHT);
 			}
@@ -202,7 +202,7 @@ void game_graphics::idle_game_cb() {
 }
 
 void game_graphics::wrapper_game_cb() {
-	LOG_INFO(log::verb_level_e::DEBUG,"[Game Graphics Wrapper] Enter game graphics wrapper");
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Game Graphics Wrapper] Enter game graphics wrapper");
 	glutDisplayFunc( display_game_cb );
 	glutKeyboardFunc( keyboard_game_cb );
 	glutReshapeFunc( reshape_game_cb );

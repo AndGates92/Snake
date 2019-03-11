@@ -21,10 +21,10 @@ namespace window_node {
 			// Constructor
 			WindowNode(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr, void (*WrapperFunc)()=nullptr): obj(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc), prev(nullptr), next(nullptr) {
 				std::string pretext ("Window Node Constructor");
-				window_node::WindowNode::print_info(log::verb_level_e::LOW, pretext);
+				window_node::WindowNode::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
-			WindowNode(const WindowNode& copy) : obj(copy.obj), prev(copy.prev), next(copy.next) { LOG_INFO(log::verb_level_e::LOW, "Window node copy contructor") };
+			WindowNode(const WindowNode& copy) : obj(copy.obj), prev(copy.prev), next(copy.next) { LOG_INFO(logging::verb_level_e::LOW, "Window node copy contructor") };
 
 			// Destructor
 			~WindowNode();
@@ -39,7 +39,7 @@ namespace window_node {
 			void set_prev(WindowNode * prev_ptr);
 			void set_obj(window_obj::WindowObj obj);
 
-			void print_info(log::verb_level_e verbosity, std::string pretext);
+			void print_info(logging::verb_level_e verbosity, std::string pretext);
 			void destroy_node();
 
 		protected:

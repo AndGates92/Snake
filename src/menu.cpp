@@ -13,11 +13,11 @@
 #include <GL/gl.h>
 
 #include "menu.h"
-#include "log.h"
+#include "logging.h"
 
 using namespace std;
 using namespace menu;
-using namespace log;
+using namespace logging;
 
 // ================================================================
 // Snake menu
@@ -25,27 +25,27 @@ using namespace log;
 void menu::menu_game(int entry) {
 	switch (entry) {
 		case static_cast<int>(menu::game_menu_e::RESTART):
-			LOG_INFO(log::verb_level_e::ZERO,"[Menu snake] Restart game");
+			LOG_INFO(logging::verb_level_e::ZERO,"[Menu snake] Restart game");
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
 		case static_cast<int>(menu::game_menu_e::START_PAUSE):
-			LOG_INFO(log::verb_level_e::ZERO,"[Menu snake] Start/Pause snake");
+			LOG_INFO(logging::verb_level_e::ZERO,"[Menu snake] Start/Pause snake");
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
 		case static_cast<int>(menu::game_menu_e::FASTER):
-			LOG_INFO(log::verb_level_e::ZERO,"[Menu snake] Increease speed of snake");
+			LOG_INFO(logging::verb_level_e::ZERO,"[Menu snake] Increease speed of snake");
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
 		case static_cast<int>(menu::game_menu_e::SLOWER):
-			LOG_INFO(log::verb_level_e::ZERO,"[Menu snake] Decrease speed of snake");
+			LOG_INFO(logging::verb_level_e::ZERO,"[Menu snake] Decrease speed of snake");
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
 		case static_cast<int>(menu::game_menu_e::QUIT):
-			LOG_INFO(log::verb_level_e::ZERO,"[Menu snake] Close window and exits program");
+			LOG_INFO(logging::verb_level_e::ZERO,"[Menu snake] Close window and exits program");
 			exit(EXIT_SUCCESS);
 			break;
 		default:
@@ -85,11 +85,11 @@ void menu::Menu::destroy_menu() {
 // ================================================================
 menu::Menu::~Menu() {
 	std::string pretext ("Menu Destructor");
-	menu::Menu::print_info(log::verb_level_e::LOW, pretext);
+	menu::Menu::print_info(logging::verb_level_e::LOW, pretext);
 //	this->destroy_menu();
 }
 
-void menu::Menu::print_info(log::verb_level_e verbosity, std::string pretext) {
+void menu::Menu::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	LOG_INFO(verbosity, "[", pretext, "] Menu ID: ", this->id);
 }
 

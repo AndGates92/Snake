@@ -10,13 +10,13 @@
 #include <iostream>
 #include <fstream>
 
-#include "log.h"
+#include "logging.h"
 #include "window_list.h"
 #include "window_obj.h"
 #include "graphics_utils.h"
 
 using namespace std;
-using namespace log;
+using namespace logging;
 using namespace window_list;
 using namespace window_obj;
 using namespace graphics_utils;

@@ -9,22 +9,22 @@
 #include <iostream>
 
 #include "snake_node.h"
-#include "log.h"
+#include "logging.h"
 #include "graphics_utils.h"
 
 using namespace std;
 using namespace snake_node;
-using namespace log;
+using namespace logging;
 
 // ================================================================
 // Destructor
 // ================================================================
 snake_node::SnakeUnit::~SnakeUnit() {
 	std::string pretext ("Window Destructor");
-	this->print_info(log::verb_level_e::LOW, pretext);
+	this->print_info(logging::verb_level_e::LOW, pretext);
 }
 
-void snake_node::SnakeUnit::print_info(log::verb_level_e verbosity, std::string pretext) {
+void snake_node::SnakeUnit::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	LOG_INFO(verbosity, "[", pretext, "] Centre coordinares: (X ", this->x_centre, ", Y ", this->y_centre, "), width ", this->width, ", height ", this->height, ", direction ", this->direction, " colour ", this->colour, ".");
 }
 
@@ -113,7 +113,7 @@ std::ostream& snake_node::operator<< (std::ostream& os, snake_node::direction_e 
 // ================================================================
 snake_node::SnakeNode::~SnakeNode() {
 	std::string pretext ("Snake Node Destructor");
-	this->print_info(log::verb_level_e::LOW, pretext);
+	this->print_info(logging::verb_level_e::LOW, pretext);
 }
 
 // ================================================================
@@ -121,12 +121,12 @@ snake_node::SnakeNode::~SnakeNode() {
 // ================================================================
 
 snake_node::SnakeNode * & snake_node::SnakeNode::get_next() {
-	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer next: ", this->next);
+	LOG_INFO(logging::verb_level_e::DEBUG, "Get pointer next: ", this->next);
 	return this->next;
 }
 
 snake_node::SnakeNode * & snake_node::SnakeNode::get_prev() {
-	LOG_INFO(log::verb_level_e::DEBUG, "Get pointer prev: ", this->prev);
+	LOG_INFO(logging::verb_level_e::DEBUG, "Get pointer prev: ", this->prev);
 	return this->prev;
 }
 
@@ -142,7 +142,7 @@ void snake_node::SnakeNode::set_prev(snake_node::SnakeNode * prev_ptr) {
 	this->prev = prev_ptr;
 }
 
-void snake_node::SnakeNode::print_info(log::verb_level_e verbosity, std::string pretext) {
+void snake_node::SnakeNode::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	SnakeUnit::print_info(verbosity, pretext);
 	if (this->prev != nullptr) {
 		this->prev->print_info(verbosity, pretext);

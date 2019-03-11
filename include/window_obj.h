@@ -8,7 +8,7 @@
  * @brief Window Object header file
 */
 
-#include "log.h"
+#include "logging.h"
 #include "menu.h"
 #include "window.h"
 
@@ -23,12 +23,12 @@ namespace window_obj {
 			// Constructor
 			WindowObj(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr, void (*WrapperFunc)()=nullptr): drawing(window_title, window_width, window_height, window_x_pos, window_y_pos, WrapperFunc), action_list(EntryFunc, ItemsFunc) {
 				std::string pretext ("Window Object Constructor");
-				window_obj::WindowObj::print_info(log::verb_level_e::LOW, pretext);
+				window_obj::WindowObj::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
 			WindowObj(const WindowObj& copy): drawing(copy.drawing), action_list(copy.action_list) {
 				std::string pretext ("Window Object Constructor");
-				window_obj::WindowObj::print_info(log::verb_level_e::LOW, pretext);
+				window_obj::WindowObj::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
 			// Destructor
@@ -37,7 +37,7 @@ namespace window_obj {
 
 			int get_win_id();
 			int get_menu_id();
-			void print_info(log::verb_level_e verbosity, std::string pretext);
+			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 		protected:
 

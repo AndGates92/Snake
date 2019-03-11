@@ -7,21 +7,21 @@
  */
 
 #include <iostream>
-#include "log.h"
+#include "logging.h"
 #include "graphics.h"
 #include "file.h"
 
 using namespace std;
-using namespace log;
+using namespace logging;
 using namespace graphics;
 
 int main (int argc, char ** argv) {
 
-	LOG_INFO(log::verb_level_e::ZERO, "Start program Snake");
+	LOG_INFO(logging::verb_level_e::ZERO, "Start program Snake");
 
 	init_graphics(argc, argv);
 
-	LOG_INFO(log::verb_level_e::ZERO, "End program Snake");
+	LOG_INFO(logging::verb_level_e::ZERO, "End program Snake");
 
 	return EXIT_SUCCESS;
 }

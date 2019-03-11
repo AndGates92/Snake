@@ -15,11 +15,11 @@
 
 #include "graphics.h"
 #include "window.h"
-#include "log.h"
+#include "logging.h"
 
 using namespace std;
 using namespace window;
-using namespace log;
+using namespace logging;
 using namespace graphics;
 
 #define __STD_WANT_LIB_EXT1__ 1
@@ -29,14 +29,14 @@ using namespace graphics;
 // ================================================================
 window::Window::~Window() {
 	std::string pretext ("Window Destructor");
-	this->print_info(log::verb_level_e::LOW, pretext);
+	this->print_info(logging::verb_level_e::LOW, pretext);
 }
 
 // ================================================================
 // Create window
 // ================================================================
 int window::Window::create_window(std::string title, int width, int height, int xpos, int ypos, void (*WrapperFunc)()) {
-	LOG_INFO(log::verb_level_e::HIGH, "[Create window] Create window at ", xpos, ", ", ypos, ". Dimensions: width ", width, " height ", height, ". Title: ", title);
+	LOG_INFO(logging::verb_level_e::HIGH, "[Create window] Create window at ", xpos, ", ", ypos, ". Dimensions: width ", width, " height ", height, ". Title: ", title);
 	ASSERT(width > 0)
 	ASSERT(height > 0)
 	glutInitWindowSize(width, height);
@@ -64,7 +64,7 @@ void window::Window::destroy_window() {
 	glutDestroyWindow(this->id);
 }
 
-void window::Window::print_info(log::verb_level_e verbosity, std::string pretext) {
+void window::Window::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	LOG_INFO(verbosity, "[", pretext, "] Window ID ", this->id, " at ", this->pos_x, ", ", this->pos_y, ". Dimensions: width ", this->width, " height ", this->height, ". Title: ", this->title);
 }
 

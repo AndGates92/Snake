@@ -13,10 +13,10 @@
 #include <GL/gl.h>
 
 #include <iostream>
-#include "log.h"
+#include "logging.h"
 
 using namespace std;
-using namespace log;
+using namespace logging;
 
 namespace menu {
 	/** @defgroup MenuGroup Menu Doxygen Group
@@ -66,7 +66,7 @@ namespace menu {
 			// Constructor
 			Menu(void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr): id(create_menu(EntryFunc, ItemsFunc)) {
 				std::string pretext ("Menu Constructor");
-				menu::Menu::print_info(log::verb_level_e::LOW, pretext);
+				menu::Menu::print_info(logging::verb_level_e::LOW, pretext);
 			}
 
 			Menu(const Menu& copy): id(copy.id) {};
@@ -75,7 +75,7 @@ namespace menu {
 			~Menu();
 
 			int get_id();
-			void print_info(log::verb_level_e verbosity, std::string pretext);
+			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 			void destroy_menu();
 

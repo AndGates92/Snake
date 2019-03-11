@@ -20,9 +20,9 @@ namespace snake_list {
 	class SnakeList {
 		public:
 			// Constructor
-			SnakeList(): head(nullptr) { LOG_INFO(log::verb_level_e::LOW, "Snake list contructed") };
+			SnakeList(): head(nullptr) { LOG_INFO(logging::verb_level_e::LOW, "Snake list contructed") };
 
-			SnakeList(const SnakeList& copy): head(copy.head) { LOG_INFO(log::verb_level_e::LOW, "Snake list copy contructor") };
+			SnakeList(const SnakeList& copy): head(copy.head) { LOG_INFO(logging::verb_level_e::LOW, "Snake list copy contructor") };
 
 			// Destructor
 			~SnakeList();
@@ -33,7 +33,7 @@ namespace snake_list {
 
 			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
 
-			void print_info(log::verb_level_e verbosity, std::string pretext);
+			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 			snake_node::direction_e get_head_direction();
 
