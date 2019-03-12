@@ -41,10 +41,9 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 	LOG_INFO(logging::verb_level_e::LOW, "[Add Node] Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
 	snake_node::SnakeNode * new_snake = new snake_node::SnakeNode(centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
 
-	new_snake->set_prev(nullptr);
-
 	if(this->head != nullptr) {
-		this->head->set_prev(new_snake);
+		snake_node::SnakeNode * snake_list = this->head;
+		snake_node::SnakeNode * snake_found = nullptr;
 
 		int width_head = this->head->get_width();
 		ASSERT(width_head == snake_width)
@@ -52,34 +51,77 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 		int height_head = this->head->get_height();
 		ASSERT(height_head == snake_height)
 
-		snake_node::direction_e direction_head = this->head->get_direction();
-		ASSERT(direction_head == snake_direction)
 
-		int x_centre_head = this->head->get_x_centre();
-		int y_centre_head = this->head->get_y_centre();
 
-		int hdistance_units = 0;
-		int hdistance_measured = 0;
-		int vdistance_units = 0;
-		int vdistance_measured = 0;
-		if ((direction_head == snake_node::direction_e::RIGHT) | (direction_head == snake_node::direction_e::LEFT)) {
-			hdistance_units = (snake_width/2) + (width_head/2);
-			hdistance_measured = ((int) abs(centre_x - x_centre_head));
-			vdistance_units = 0;
-			vdistance_measured = ((int) abs(centre_y - y_centre_head));
-		} else if ((direction_head == snake_node::direction_e::UP) | (direction_head == snake_node::direction_e::DOWN)) {
-			hdistance_units = 0;
-			hdistance_measured = ((int) abs(centre_x - x_centre_head));
-			vdistance_units = (snake_height/2) + (height_head/2);
-			vdistance_measured = ((int) abs(centre_y - y_centre_head));
+		while (snake_list != nullptr) {
+			int prev_x = 0;
+			int prev_y = 0;
+
+			int curr_x = snake_list->get_x_centre();
+			int curr_y = snake_list->get_y_centre();
+
+			if (snake_list->get_prev() != nullptr) {
+				prev_x = snake_list->get_prev()->get_x_centre();
+				prev_y = snake_list->get_prev()->get_y_centre();
+
+				if ((((int) abs(curr_x - centre_x)) <= snake_width) && (((int) abs(prev_x - centre_x)) <= snake_width) && (((int) abs(curr_y - centre_y)) <= snake_height) && (((int) abs(prev_y - centre_y)) <= snake_height)) {
+					snake_found = snake_list;
+				}
+			}
+			snake_list = snake_list->get_next();
 		}
 
-		ASSERT(hdistance_units == hdistance_measured)
-		ASSERT(vdistance_units == vdistance_measured)
-	}
+		if (snake_found == nullptr) {
+			snake_node::SnakeNode * snake_last = this->head;
 
-	new_snake->set_next(this->head);
-	this->head = new_snake;
+			while (snake_last->get_next() != nullptr) {
+				snake_last = snake_last->get_next();
+			}
+			new_snake->set_prev(snake_last);
+			new_snake->set_next(nullptr);
+			snake_last->set_next(new_snake);
+		} else {
+			int width_found = snake_found->get_width();
+			ASSERT(width_found == snake_width)
+
+			int height_found = snake_found->get_height();
+			ASSERT(height_found == snake_height)
+
+			snake_node::direction_e direction_found = snake_found->get_direction();
+			ASSERT(direction_found == snake_direction)
+
+			int x_centre_found = snake_found->get_x_centre();
+			int y_centre_found = snake_found->get_y_centre();
+
+			int hdistance_units = 0;
+			int hdistance_measured = 0;
+			int vdistance_units = 0;
+			int vdistance_measured = 0;
+			if ((direction_found == snake_node::direction_e::RIGHT) | (direction_found == snake_node::direction_e::LEFT)) {
+				hdistance_units = (snake_width/2) + (width_found/2);
+				hdistance_measured = ((int) abs(centre_x - x_centre_found));
+				vdistance_units = 0;
+				vdistance_measured = ((int) abs(centre_y - y_centre_found));
+			} else if ((direction_found == snake_node::direction_e::UP) | (direction_found == snake_node::direction_e::DOWN)) {
+				hdistance_units = 0;
+				hdistance_measured = ((int) abs(centre_x - x_centre_found));
+				vdistance_units = (snake_height/2) + (height_found/2);
+				vdistance_measured = ((int) abs(centre_y - y_centre_found));
+			}
+
+			ASSERT(hdistance_units == hdistance_measured)
+			ASSERT(vdistance_units == vdistance_measured)
+
+			new_snake->set_prev(snake_found->get_prev());
+			new_snake->set_next(snake_found);
+			snake_found->set_prev(new_snake);
+			snake_found->get_prev()->set_next(new_snake);
+		}
+	} else {
+		new_snake->set_prev(nullptr);
+		new_snake->set_next(nullptr);
+		this->head = new_snake;
+	}
 
 }
 
@@ -186,6 +228,20 @@ void snake_list::SnakeList::set_head_direction(snake_node::direction_e direction
 		snake_list = snake_list->get_next();
 	}
 
+	snake_node::direction_e direction_head = this->head->get_direction();
+/*	int x_centre_head = this->head->get_x_centre();
+	int y_centre_head = this->head->get_y_centre();
 
-	snake_list->set_direction(direction);
+	snake_node::direction_e direction_end = this->head->get_direction();
+	int x_centre_end = snake_list->get_x_centre();
+	int y_centre_end = snake_list->get_y_centre();
+*/
+
+	if ((direction_head == snake_node::direction_e::DOWN) | (direction_head == snake_node::direction_e::LEFT)) {
+		this->head->set_direction(direction);
+	} else if ((direction_head == snake_node::direction_e::UP) | (direction_head == snake_node::direction_e::RIGHT)) {
+		snake_list->set_direction(direction);
+	} else {
+		LOG_ERROR("Unknow direction");
+	}
 }
