@@ -60,9 +60,13 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 			int curr_x = snake_list->get_x_centre();
 			int curr_y = snake_list->get_y_centre();
 
+cout << "Before if curr X " << curr_x << " Y " << curr_y << " prev X " << prev_x << " Y " << prev_y << endl;
+
 			if (snake_list->get_prev() != nullptr) {
 				prev_x = snake_list->get_prev()->get_x_centre();
 				prev_y = snake_list->get_prev()->get_y_centre();
+
+cout << "curr X " << curr_x << " Y " << curr_y << " prev X " << prev_x << " Y " << prev_y << endl;
 
 				if ((((int) abs(curr_x - centre_x)) <= snake_width) && (((int) abs(prev_x - centre_x)) <= snake_width) && (((int) abs(curr_y - centre_y)) <= snake_height) && (((int) abs(prev_y - centre_y)) <= snake_height)) {
 					snake_found = snake_list;
@@ -72,14 +76,16 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 		}
 
 		if (snake_found == nullptr) {
-			snake_node::SnakeNode * snake_last = this->head;
+cout << "snake_found is NULL" << endl;
+			snake_node::SnakeNode * snake_head = this->head;
 
-			while (snake_last->get_next() != nullptr) {
-				snake_last = snake_last->get_next();
+			new_snake->set_next(snake_head);
+			new_snake->set_prev(nullptr);
+			snake_head->set_prev(new_snake);
+
+			if (snake_head == this->head) {
+				this->head = new_snake;
 			}
-			new_snake->set_prev(snake_last);
-			new_snake->set_next(nullptr);
-			snake_last->set_next(new_snake);
 		} else {
 			int width_found = snake_found->get_width();
 			ASSERT(width_found == snake_width)
@@ -157,52 +163,43 @@ void snake_list::SnakeList::print_info(logging::verb_level_e verbosity, std::str
 
 void snake_list::SnakeList::move(int increment, int win_width, int win_height) {
 	snake_node::SnakeNode * snake_list = this->head;
-/*	snake_node::SnakeNode * snake_list_prev = this->head;
+//	snake_node::SnakeNode * snake_list_prev = this->head;
+
+//	int width = this->head->get_width();
+//	int height = this->head->get_height();
 
 	snake_node::direction_e direction_prev = this->head->get_direction();
 	int x_centre_prev = this->head->get_x_centre();
 	int y_centre_prev = this->head->get_y_centre();
-	int width_prev = this->head->get_width();
-	int height_prev = this->head->get_height();
 
 	snake_node::direction_e direction_curr = this->head->get_direction();
 	int x_centre_curr = this->head->get_x_centre();
 	int y_centre_curr = this->head->get_y_centre();
-	int width_curr = this->head->get_width();
-	int height_curr = this->head->get_height();
-*/
+
 	while (snake_list != nullptr) {
 
 		// Store values of previous element
-/*		direction_prev = direction_curr;
+		direction_prev = direction_curr;
 		x_centre_prev = x_centre_curr;
 		y_centre_prev = y_centre_curr;
-		height_prev = height_curr;
-		width_prev = width_curr;
 
 		direction_curr = snake_list->get_direction();
 		x_centre_curr = snake_list->get_x_centre();
 		y_centre_curr = snake_list->get_y_centre();
-		height_curr = snake_list->get_height();
-		width_curr = snake_list->get_width();
-*/
-		snake_list->move(increment, win_width, win_height);
 
-/*		if (direction_prev != direction_curr) {
-			if ((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT) & (x_centre_prev = x_centre_curr)) {
-				 
-
-			} else if ((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) {
-
-			} else {
-				LOG_ERROR("Unknown direction")
+		if (direction_prev != direction_curr) {
+cout << "curr X " << x_centre_curr << " Y " << y_centre_curr << " dir " << direction_curr << " prev X " << x_centre_prev << " Y " << y_centre_prev << " dir " << direction_prev << endl;
+			if (((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) & (x_centre_prev == x_centre_curr)) {
+				snake_list->set_direction(direction_prev);
+			} else if (((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) & (y_centre_prev == y_centre_curr)) {
+				snake_list->set_direction(direction_prev);
 			}
-
-			snake_list_prev->set_direction(direction_curr);
 		}
 
-		snake_list_prev = snake_list;
-*/		snake_list = snake_list->get_next();
+		snake_list->move(increment, win_width, win_height);
+
+//		snake_list_prev = snake_list;
+		snake_list = snake_list->get_next();
 	}
 }
 
@@ -221,20 +218,5 @@ snake_node::direction_e snake_list::SnakeList::get_head_direction() {
 
 
 void snake_list::SnakeList::set_head_direction(snake_node::direction_e direction) {
-
-	snake_node::SnakeNode * snake_list = this->head;
-
-	while (snake_list->get_next() != nullptr) {
-		snake_list = snake_list->get_next();
-	}
-
-	snake_node::direction_e direction_head = this->head->get_direction();
-
-	if ((direction_head == snake_node::direction_e::DOWN) | (direction_head == snake_node::direction_e::LEFT)) {
-		this->head->set_direction(direction);
-	} else if ((direction_head == snake_node::direction_e::UP) | (direction_head == snake_node::direction_e::RIGHT)) {
-		snake_list->set_direction(direction);
-	} else {
-		LOG_ERROR("Unknow direction");
-	}
+	this->head->set_direction(direction);
 }
