@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cmath>
 
+#include "game_graphics.h"
 #include "graphics_utils.h"
 #include "snake_list.h"
 #include "snake_node.h"
@@ -18,6 +19,8 @@ using namespace std;
 using namespace logging;
 using namespace snake_list;
 using namespace snake_node;
+using namespace graphics_utils;
+using namespace game_graphics;
 
 snake_list::SnakeList::~SnakeList() {
 
@@ -163,10 +166,6 @@ void snake_list::SnakeList::print_info(logging::verb_level_e verbosity, std::str
 
 void snake_list::SnakeList::move(int increment, int win_width, int win_height) {
 	snake_node::SnakeNode * snake_list = this->head;
-//	snake_node::SnakeNode * snake_list_prev = this->head;
-
-//	int width = this->head->get_width();
-//	int height = this->head->get_height();
 
 	snake_node::direction_e direction_prev = this->head->get_direction();
 	int x_centre_prev = this->head->get_x_centre();

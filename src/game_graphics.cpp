@@ -109,16 +109,16 @@ void game_graphics::reshape_game_cb(int width, int height) {
 void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 	switch (key) {
 		case 'f':
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Speed up snake because of pressing key ", key);
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Speed up snake to ", game_graphics::speed, " because of pressing key ", key);
 			game_graphics::speed += game_graphics::speed_incr;
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
 		case 's':
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Slow down snake because of pressing key ", key);
 			if (game_graphics::speed > 1) {
 				game_graphics::speed -= game_graphics::speed_incr;
 			}
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Slow down snake to ", game_graphics::speed, " because of pressing key ", key);
 			ASSERT(game_graphics::speed > 0)
 			// force glut to call the display function
 			glutPostRedisplay();
