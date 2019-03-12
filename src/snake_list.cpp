@@ -229,13 +229,6 @@ void snake_list::SnakeList::set_head_direction(snake_node::direction_e direction
 	}
 
 	snake_node::direction_e direction_head = this->head->get_direction();
-/*	int x_centre_head = this->head->get_x_centre();
-	int y_centre_head = this->head->get_y_centre();
-
-	snake_node::direction_e direction_end = this->head->get_direction();
-	int x_centre_end = snake_list->get_x_centre();
-	int y_centre_end = snake_list->get_y_centre();
-*/
 
 	if ((direction_head == snake_node::direction_e::DOWN) | (direction_head == snake_node::direction_e::LEFT)) {
 		this->head->set_direction(direction);

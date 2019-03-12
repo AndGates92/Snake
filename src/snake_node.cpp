@@ -161,12 +161,18 @@ void snake_node::SnakeUnit::move(int increment, int win_width, int win_height) {
 			break;
 		case snake_node::direction_e::LEFT:
 			this->x_centre = (this->x_centre - increment) % win_width;
+			if (this->x_centre < 0) {
+				this->x_centre = win_width;
+			}
 			break;
 		case snake_node::direction_e::UP:
 			this->y_centre = (this->y_centre + increment) % win_height;
 			break;
 		case snake_node::direction_e::DOWN:
 			this->y_centre = (this->y_centre - increment) % win_height;
+			if (this->y_centre < 0) {
+				this->y_centre = win_height;
+			}
 			break;
 		default:
 			LOG_ERROR("Unknown direction");
