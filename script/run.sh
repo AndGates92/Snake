@@ -22,7 +22,7 @@ EXELOG=${EXENAME}.log
 VALGRINDNOINPUTLOG=valgrind_noinput.log
 EXEVALGRINDLOG=${EXENAME}_valgrind.log
 
-VERBOSITY=5
+VERBOSITY=6
 
 CEXTRAFLAGS=-DENABLE_ASSERTIONS
 
@@ -183,6 +183,6 @@ if [ ${memleak} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] START: Valgrind with no input file"
 	(set -x; \
-	 make memleak LOG_DIR=${LOGDIR} LOGFILENAME=${EXEVALGRINDLOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENAME} BIN_DIR=${EXEDIR} VALGRINDLOGFILENAME=${VALGRINDTELLOG} VALGRINDEXEARGS="")
+	 make memleak LOG_DIR=${LOGDIR} LOGFILENAME=${EXEVALGRINDLOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENAME} BIN_DIR=${EXEDIR} VALGRINDLOGFILENAME=${VALGRINDNOINPUTLOG} VALGRINDEXEARGS="")
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] COMPLETED: Valgrind with no input file"
 fi
