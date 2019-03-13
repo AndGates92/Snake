@@ -115,7 +115,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			glutPostRedisplay();
 			break;
 		case 's':
-			if (game_graphics::speed > 1) {
+			if (game_graphics::speed > game_graphics::speed_incr) {
 				game_graphics::speed -= game_graphics::speed_incr;
 			}
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Slow down snake to ", game_graphics::speed, " because of pressing key ", key);
@@ -124,6 +124,8 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			glutPostRedisplay();
 			break;
 		case 'q':
+			game_graphics::snake->~SnakeList();
+			//delete [] game_graphics::snake;
 			graphics_utils::delete_window();
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Exit program because of pressing key ", key);
 			break;

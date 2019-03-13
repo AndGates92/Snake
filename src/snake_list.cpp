@@ -27,12 +27,12 @@ snake_list::SnakeList::~SnakeList() {
 	std::string pretext ("Snake List Destructor");
 	this->print_info(logging::verb_level_e::LOW, pretext);
 
-	snake_node::SnakeNode * node_ptr = nullptr;
+	snake_node::SnakeNode * node_ptr = this->head;
 	while (this->head != nullptr) {
 		node_ptr = this->head;
+		node_ptr->print_info(logging::verb_level_e::LOW, pretext);
 		this->head = this->head->get_next();
 		node_ptr->~SnakeNode();
-		delete [] node_ptr;
 	}
 	LOG_INFO(logging::verb_level_e::HIGH, "Snake list destroyed");
 
@@ -63,13 +63,9 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 			int curr_x = snake_list->get_x_centre();
 			int curr_y = snake_list->get_y_centre();
 
-cout << "Before if curr X " << curr_x << " Y " << curr_y << " prev X " << prev_x << " Y " << prev_y << endl;
-
 			if (snake_list->get_prev() != nullptr) {
 				prev_x = snake_list->get_prev()->get_x_centre();
 				prev_y = snake_list->get_prev()->get_y_centre();
-
-cout << "curr X " << curr_x << " Y " << curr_y << " prev X " << prev_x << " Y " << prev_y << endl;
 
 				if ((((int) abs(curr_x - centre_x)) <= snake_width) && (((int) abs(prev_x - centre_x)) <= snake_width) && (((int) abs(curr_y - centre_y)) <= snake_height) && (((int) abs(prev_y - centre_y)) <= snake_height)) {
 					snake_found = snake_list;
@@ -79,7 +75,6 @@ cout << "curr X " << curr_x << " Y " << curr_y << " prev X " << prev_x << " Y " 
 		}
 
 		if (snake_found == nullptr) {
-cout << "snake_found is NULL" << endl;
 			snake_node::SnakeNode * snake_head = this->head;
 
 			new_snake->set_next(snake_head);

@@ -144,13 +144,7 @@ void snake_node::SnakeNode::set_prev(snake_node::SnakeNode * prev_ptr) {
 
 void snake_node::SnakeNode::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	SnakeUnit::print_info(verbosity, pretext);
-	if (this->prev != nullptr) {
-		this->prev->print_info(verbosity, pretext);
-	}
-
-	if (this->next != nullptr) {
-		this->next->print_info(verbosity, pretext);
-	}
+ 	LOG_INFO(verbosity, "[", pretext, "] Pointer addresses: next ", this->next, " previous " , this->prev, ".");
 }
 
 void snake_node::SnakeUnit::move(int increment, int win_width, int win_height) {
