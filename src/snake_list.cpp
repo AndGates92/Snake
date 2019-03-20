@@ -181,6 +181,9 @@ void snake_list::SnakeList::move(int increment, int win_width, int win_height) {
 		x_centre_curr = snake_list->get_x_centre();
 		y_centre_curr = snake_list->get_y_centre();
 
+		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Current Unit: X ", x_centre_curr, " Y ", y_centre_curr, " Direction ", direction_curr);
+		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Previous Unit: X ", x_centre_prev, " Y ", y_centre_prev, " Direction ", direction_prev);
+
 		if (direction_prev != direction_curr) {
 cout << "curr X " << x_centre_curr << " Y " << y_centre_curr << " dir " << direction_curr << " prev X " << x_centre_prev << " Y " << y_centre_prev << " dir " << direction_prev << endl;
 			if (((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) & (x_centre_prev == x_centre_curr)) {
