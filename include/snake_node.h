@@ -89,7 +89,7 @@ namespace snake_node {
 
 			template <typename pixel_type>
 			void draw(pixel_type * & pixels, int & win_width);
-			void move(int increment, int win_width, int win_height);
+			void move(int speed, int win_width, int win_height);
 
 			// Destructor
 			~SnakeUnit();

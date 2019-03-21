@@ -20,7 +20,7 @@ using namespace logging;
 // Destructor
 // ================================================================
 snake_node::SnakeUnit::~SnakeUnit() {
-	std::string pretext ("Window Destructor");
+	std::string pretext ("Snake Unit");
 	this->print_info(logging::verb_level_e::LOW, pretext);
 }
 
@@ -147,23 +147,23 @@ void snake_node::SnakeNode::print_info(logging::verb_level_e verbosity, std::str
  	LOG_INFO(verbosity, "[", pretext, "] Pointer addresses: next ", this->next, " previous " , this->prev, ".");
 }
 
-void snake_node::SnakeUnit::move(int increment, int win_width, int win_height) {
+void snake_node::SnakeUnit::move(int speed, int win_width, int win_height) {
 
 	switch (this->direction) {
 		case snake_node::direction_e::RIGHT:
-			this->x_centre = (this->x_centre + increment) % win_width;
+			this->x_centre = (this->x_centre + speed) % win_width;
 			break;
 		case snake_node::direction_e::LEFT:
-			this->x_centre = (this->x_centre - increment) % win_width;
+			this->x_centre = (this->x_centre - speed) % win_width;
 			if (this->x_centre < 0) {
 				this->x_centre = win_width;
 			}
 			break;
 		case snake_node::direction_e::UP:
-			this->y_centre = (this->y_centre + increment) % win_height;
+			this->y_centre = (this->y_centre + speed) % win_height;
 			break;
 		case snake_node::direction_e::DOWN:
-			this->y_centre = (this->y_centre - increment) % win_height;
+			this->y_centre = (this->y_centre - speed) % win_height;
 			if (this->y_centre < 0) {
 				this->y_centre = win_height;
 			}

@@ -159,7 +159,7 @@ void snake_list::SnakeList::print_info(logging::verb_level_e verbosity, std::str
 	}
 }
 
-void snake_list::SnakeList::move(int increment, int win_width, int win_height) {
+void snake_list::SnakeList::move(int speed, int win_width, int win_height) {
 	snake_node::SnakeNode * snake_list = this->head;
 
 	snake_node::direction_e direction_prev = this->head->get_direction();
@@ -181,19 +181,21 @@ void snake_list::SnakeList::move(int increment, int win_width, int win_height) {
 		x_centre_curr = snake_list->get_x_centre();
 		y_centre_curr = snake_list->get_y_centre();
 
-		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Current Unit: X ", x_centre_curr, " Y ", y_centre_curr, " Direction ", direction_curr);
+		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Current Unit: X ", x_centre_curr, " Y ", y_centre_curr, " Direction ", direction_curr, " speed ", speed);
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Previous Unit: X ", x_centre_prev, " Y ", y_centre_prev, " Direction ", direction_prev);
 
 		if (direction_prev != direction_curr) {
 cout << "curr X " << x_centre_curr << " Y " << y_centre_curr << " dir " << direction_curr << " prev X " << x_centre_prev << " Y " << y_centre_prev << " dir " << direction_prev << endl;
-			if (((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) & (x_centre_prev == x_centre_curr)) {
+			if (((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) & ((int) abs(x_centre_prev -x_centre_curr) < speed)) {
 				snake_list->set_direction(direction_prev);
-			} else if (((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) & (y_centre_prev == y_centre_curr)) {
+				snake_list->set_x_centre(x_centre_prev);
+			} else if (((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) & ((int) abs(y_centre_prev - y_centre_curr) < speed)) {
 				snake_list->set_direction(direction_prev);
+				snake_list->set_y_centre(y_centre_prev);
 			}
 		}
 
-		snake_list->move(increment, win_width, win_height);
+		snake_list->move(speed, win_width, win_height);
 
 //		snake_list_prev = snake_list;
 		snake_list = snake_list->get_next();

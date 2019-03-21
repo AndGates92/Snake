@@ -29,7 +29,7 @@ namespace snake_list {
 
 			template <typename pixel_type>
 			void draw(pixel_type * & pixels, int & win_width);
-			void move(int increment, int win_width, int win_height);
+			void move(int speed, int win_width, int win_height);
 
 			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
 
