@@ -165,10 +165,14 @@ void snake_list::SnakeList::move(int speed, int win_width, int win_height) {
 	snake_node::direction_e direction_prev = this->head->get_direction();
 	int x_centre_prev = this->head->get_x_centre();
 	int y_centre_prev = this->head->get_y_centre();
+	int height_prev = this->head->get_height();
+	int width_prev = this->head->get_width();
 
 	snake_node::direction_e direction_curr = this->head->get_direction();
 	int x_centre_curr = this->head->get_x_centre();
 	int y_centre_curr = this->head->get_y_centre();
+	int height_curr = this->head->get_height();
+	int width_curr = this->head->get_width();
 
 	while (snake_list != nullptr) {
 
@@ -176,10 +180,14 @@ void snake_list::SnakeList::move(int speed, int win_width, int win_height) {
 		direction_prev = direction_curr;
 		x_centre_prev = x_centre_curr;
 		y_centre_prev = y_centre_curr;
+		height_prev = height_curr;
+		width_prev = width_curr;
 
 		direction_curr = snake_list->get_direction();
 		x_centre_curr = snake_list->get_x_centre();
 		y_centre_curr = snake_list->get_y_centre();
+		height_curr = snake_list->get_height();
+		width_curr = snake_list->get_width();
 
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Current Unit: X ", x_centre_curr, " Y ", y_centre_curr, " Direction ", direction_curr, " speed ", speed);
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Previous Unit: X ", x_centre_prev, " Y ", y_centre_prev, " Direction ", direction_prev);
@@ -189,9 +197,11 @@ cout << "curr X " << x_centre_curr << " Y " << y_centre_curr << " dir " << direc
 			if (((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) & ((int) abs(x_centre_prev -x_centre_curr) < speed)) {
 				snake_list->set_direction(direction_prev);
 				snake_list->set_x_centre(x_centre_prev);
+				ASSERT((int) abs(y_centre_prev - y_centre_curr) == ((height_curr + height_prev)/2));
 			} else if (((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) & ((int) abs(y_centre_prev - y_centre_curr) < speed)) {
 				snake_list->set_direction(direction_prev);
 				snake_list->set_y_centre(y_centre_prev);
+				ASSERT((int) abs(x_centre_prev - x_centre_curr) == ((width_curr + width_prev)/2));
 			}
 		}
 
