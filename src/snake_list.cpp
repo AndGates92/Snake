@@ -160,6 +160,7 @@ void snake_list::SnakeList::print_info(logging::verb_level_e verbosity, std::str
 }
 
 void snake_list::SnakeList::move(int speed, int win_width, int win_height) {
+	LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Window dimensions: Width ", win_width, " Height ", win_height, " Speed: ", speed);
 	snake_node::SnakeNode * snake_list = this->head;
 
 	snake_node::direction_e direction_prev = this->head->get_direction();
@@ -189,25 +190,46 @@ void snake_list::SnakeList::move(int speed, int win_width, int win_height) {
 		height_curr = snake_list->get_height();
 		width_curr = snake_list->get_width();
 
-		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Current Unit: X ", x_centre_curr, " Y ", y_centre_curr, " Direction ", direction_curr, " speed ", speed);
+		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Current Unit: X ", x_centre_curr, " Y ", y_centre_curr, " Direction ", direction_curr);
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Previous Unit: X ", x_centre_prev, " Y ", y_centre_prev, " Direction ", direction_prev);
 
 		if (direction_prev != direction_curr) {
-cout << "curr X " << x_centre_curr << " Y " << y_centre_curr << " dir " << direction_curr << " prev X " << x_centre_prev << " Y " << y_centre_prev << " dir " << direction_prev << endl;
-			if (((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) & ((int) abs(x_centre_prev -x_centre_curr) < speed)) {
+			int sign = 0;
+			if ((direction_prev == snake_node::direction_e::UP) | (direction_prev == snake_node::direction_e::RIGHT)) {
+				sign = -1;
+			} else {
+				sign = 1;
+			}
+
+			int centre_distance = 0;
+			int adjustment = 0;
+			if (((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) & ((int) abs(x_centre_prev - x_centre_curr) < speed)) {
+				centre_distance = ((height_curr + height_prev)/2);
+				adjustment = centre_distance - ((int) abs(y_centre_curr - y_centre_prev));
+				ASSERT(adjustment >= 0);
+				int y_centre_adj = y_centre_curr + sign * adjustment;
+
+				LOG_INFO(logging::verb_level_e::HIGH, "[Snake List Move] Change drection to ", direction_prev,  " adjustment on Y ", adjustment, " New coordinates X ", x_centre_prev, " Y ", y_centre_adj);
 				snake_list->set_direction(direction_prev);
 				snake_list->set_x_centre(x_centre_prev);
-				ASSERT((int) abs(y_centre_prev - y_centre_curr) == ((height_curr + height_prev)/2));
+				snake_list->set_y_centre(y_centre_adj);
+				ASSERT((int) abs(y_centre_prev - y_centre_adj) == centre_distance);
 			} else if (((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) & ((int) abs(y_centre_prev - y_centre_curr) < speed)) {
+				centre_distance = ((width_curr + width_prev)/2);
+				adjustment = centre_distance - ((int) abs(x_centre_curr - x_centre_prev));
+				ASSERT(adjustment >= 0);
+				int x_centre_adj = x_centre_curr + sign * adjustment;
+
+				LOG_INFO(logging::verb_level_e::HIGH, "[Snake List Move] Change drection to ", direction_prev,  " adjustment on X ", adjustment, " New coordinates X ", x_centre_adj, " Y ", y_centre_prev);
 				snake_list->set_direction(direction_prev);
+				snake_list->set_x_centre(x_centre_adj);
 				snake_list->set_y_centre(y_centre_prev);
-				ASSERT((int) abs(x_centre_prev - x_centre_curr) == ((width_curr + width_prev)/2));
+				ASSERT((int) abs(x_centre_prev - x_centre_adj) == centre_distance);
 			}
 		}
 
 		snake_list->move(speed, win_width, win_height);
 
-//		snake_list_prev = snake_list;
 		snake_list = snake_list->get_next();
 	}
 }
