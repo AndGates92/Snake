@@ -230,7 +230,7 @@ void game_graphics::populate_snake_list() {
 	for (int unit_no=0; unit_no < game_graphics::init_units; unit_no++) {
 
 //		game_graphics::snake->add_node(centre_x, centre_y, snake_node_width, snake_node_height, snake_node::direction_e::RIGHT, (graphics_utils::palette_e)unit_no);
-		game_graphics::snake->add_node(centre_x, centre_y, snake_node_width, snake_node_height, snake_node::direction_e::RIGHT, graphics_utils::palette_e::RED);
+		game_graphics::snake->add_node(centre_x, centre_y, game_graphics::snake_node_width, game_graphics::snake_node_height, snake_node::direction_e::RIGHT, graphics_utils::palette_e::RED);
 
 		centre_x += snake_node_width;
 
