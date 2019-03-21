@@ -163,7 +163,7 @@ void game_graphics::specialkey_game_cb(int key, int x, int y) {
 			// force glut to call the display function
 			break;
 		case GLUT_KEY_RIGHT:
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to RIGHTT because of pressing key Arrow Down");
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to RIGHT because of pressing key Arrow Down");
 			if ((head_dir == snake_node::direction_e::UP) | (head_dir == snake_node::direction_e::DOWN)) {
 				game_graphics::snake->set_head_direction(snake_node::direction_e::RIGHT);
 			}
@@ -196,7 +196,10 @@ void game_graphics::idle_game_cb() {
 	int win_width = glutGet(GLUT_WINDOW_WIDTH);
 	int win_height = glutGet(GLUT_WINDOW_HEIGHT);
 
-	game_graphics::snake->move(game_graphics::speed, win_width, win_height);
+	// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round
+	int snake_speed = game_graphics::speed;
+
+	game_graphics::snake->move(snake_speed, win_width, win_height);
 	// force glut to call the display function
 	glutPostRedisplay();
 
