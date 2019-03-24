@@ -7,6 +7,7 @@
  */
 
 #include <iostream>
+#include <ctime>
 #include "logging.h"
 #include "graphics.h"
 #include "file.h"
@@ -18,6 +19,8 @@ using namespace graphics;
 int main (int argc, char ** argv) {
 
 	LOG_INFO(logging::verb_level_e::ZERO, "Start program Snake");
+
+	srand(time(NULL));
 
 	init_graphics(argc, argv);
 
