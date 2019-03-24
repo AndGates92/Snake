@@ -5,12 +5,13 @@
  * @file game_graphics.h
  * @author Andrea Gianarda
  * @date 27th of February 2019
- * @brief Snake graphics header file
+ * @brief Game graphics header file
 */
 
 #include "graphics_utils.h"
 
 #include "snake_list.h"
+#include "obstacle_list.h"
 
 namespace game_graphics {
 
@@ -38,6 +39,12 @@ namespace game_graphics {
 		 *
 		 */
 		static snake_list::SnakeList * snake;
+
+		/**
+		 * @brief pointer to snake elements
+		 *
+		 */
+		static obstacle_list::ObstacleList * obstacles;
 
 		/**
 		 * @brief Node Height
@@ -129,6 +136,17 @@ namespace game_graphics {
 	 */
 	template <typename game_pixel_type>
 	void draw_snake(game_pixel_type * & pixels, int & win_width);
+
+	/**
+	 * @brief Function: void draw_obstacles(game_pixel_type * & win_width, int & win_height)
+	 *
+	 * \param win_width: width of the reshaped window
+	 * \param pixels: pointer to pixels to draw passed by reference
+	 *
+	 * This function returns the pointer to the array of pixels to draw
+	 */
+	template <typename game_pixel_type>
+	void draw_obstacles(game_pixel_type * & pixels, int & win_width);
 
 	/**
 	 * @brief Function: void wrapper_game_cb()
@@ -223,15 +241,23 @@ game_pixel_type * game_graphics::get_game_pixel_array (int & win_width, int & wi
 
 	game_graphics::draw_snake<game_pixel_type> (pixels, win_width);
 
+//	game_graphics::draw_obstacles<game_pixel_type> (pixels, win_width);
+
 	return pixels;
 
 }
 
 template <typename game_pixel_type>
-void game_graphics::draw_snake (game_pixel_type * & pixels, int & win_width) {
+void game_graphics::draw_snake(game_pixel_type * & pixels, int & win_width) {
 
 	game_graphics::snake->draw<game_pixel_type>(pixels, win_width);
 
 }
 
+template <typename game_pixel_type>
+void game_graphics::draw_obstacles(game_pixel_type * & pixels, int & win_width) {
+
+	game_graphics::obstacles->draw<game_pixel_type>(pixels, win_width);
+
+}
 #endif // SNAKE_GRAPHICS_H

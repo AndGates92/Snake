@@ -9,6 +9,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 
 // include graphical libraries (OPENGL)
 #include <GL/glut.h>
