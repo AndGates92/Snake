@@ -46,7 +46,9 @@ void obstacle_list::ObstacleList::add_node(int centre_x, int centre_y, int obsta
 
 	new_obstacle->set_prev(nullptr);
 	new_obstacle->set_next(this->head);
-	this->head->set_prev(new_obstacle);
+	if (this->head != nullptr) {
+		this->head->set_prev(new_obstacle);
+	}
 	this->head = new_obstacle;
 
 }

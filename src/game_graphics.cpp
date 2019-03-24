@@ -65,7 +65,6 @@ void game_graphics::display_game_cb() {
 	win_height = glutGet(GLUT_WINDOW_HEIGHT);
 	int win_height_int = (int) win_height;
 
-
 	glPixelStoref(GL_PACK_ALIGNMENT, 1);
 	glPixelStoref(GL_UNPACK_ALIGNMENT, 1);
 
@@ -221,6 +220,10 @@ void game_graphics::init_snake_list() {
 	game_graphics::snake = new snake_list::SnakeList();
 }
 
+void game_graphics::init_obstacle_list() {
+	game_graphics::obstacles = new obstacle_list::ObstacleList();
+}
+
 snake_list::SnakeList * & game_graphics::get_snake_ptr() {
 	return game_graphics::snake;
 }
@@ -228,13 +231,39 @@ snake_list::SnakeList * & game_graphics::get_snake_ptr() {
 void game_graphics::populate_snake_list() {
 	int centre_x = 100;
 	int centre_y = 100;
-	for (int unit_no=0; unit_no < game_graphics::init_units; unit_no++) {
+	for (int unit_no=0; unit_no < game_graphics::init_snake_units; unit_no++) {
 
 
-		game_graphics::snake->add_node(centre_x, centre_y, game_graphics::snake_node_width, game_graphics::snake_node_height, snake_node::direction_e::RIGHT, graphics_utils::palette_e::GREEN);
-		centre_x += game_graphics::snake_node_width;
-		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::snake_node_width, game_graphics::snake_node_height, snake_node::direction_e::UP, graphics_utils::palette_e::RED);
-		//centre_y += game_graphics::snake_node_height;
+		game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, snake_node::direction_e::RIGHT, graphics_utils::palette_e::GREEN);
+		centre_x += game_graphics::node_width;
+		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, snake_node::direction_e::UP, graphics_utils::palette_e::RED);
+		//centre_y += game_graphics::node_height;
+
+	}
+
+}
+
+void game_graphics::populate_obstacle_list() {
+
+	double win_width = 0.0;
+	win_width = glutGet(GLUT_WINDOW_WIDTH);
+	int win_width_int = (int) win_width;
+
+	double win_height = 0.0;
+	win_height = glutGet(GLUT_WINDOW_HEIGHT);
+	int win_height_int = (int) win_height;
+
+
+	for (int obs_no=0; obs_no < game_graphics::init_obs_no; obs_no++) {
+
+		// Random coordinates must be within node_width/2 and (win_width-node_width/2)
+		int centre_x = (rand() % (win_width_int - game_graphics::node_width)) + game_graphics::node_width/2;
+
+		// Random coordinates must be within node_height/2 and (win_height-node_height/2)
+		int centre_y = (rand() % (win_height_int - game_graphics::node_height)) + game_graphics::node_height/2;
+
+		game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PURPLE);
+		centre_x += game_graphics::node_width;
 
 	}
 
@@ -246,7 +275,9 @@ void game_graphics::init_game_parameters() {
 
 void game_graphics::init_game() {
 	game_graphics::init_snake_list();
+	game_graphics::init_obstacle_list();
 	game_graphics::init_game_parameters();
 
 	game_graphics::populate_snake_list();
+	game_graphics::populate_obstacle_list();
 }

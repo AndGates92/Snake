@@ -50,19 +50,25 @@ namespace game_graphics {
 		 * @brief Node Height
 		 *
 		 */
-		const static int snake_node_height = 10;
+		const static int node_height = 10;
 
 		/**
 		 * @brief Node Width
 		 *
 		 */
-		const static int snake_node_width = 10;
+		const static int node_width = 10;
 
 		/**
 		 * @brief Initial number of snake units
 		 *
 		 */
-		const static int init_units = 5;
+		const static int init_snake_units = 5;
+
+		/**
+		 * @brief Initial number of obstacles units
+		 *
+		 */
+		const static int init_obs_no = 1;
 
 		/**
 		 * @brief Initial speed of snake (in pixels/loop iter)
@@ -93,6 +99,13 @@ namespace game_graphics {
 	void init_snake_list();
 
 	/**
+	 * @brief Function: void init_obstacle_list()
+	 *
+	 * Allocate memory for obstacle_list class
+	 */
+	void init_obstacle_list();
+
+	/**
 	 * @brief Function: void init_game()
 	 *
 	 * Initialize game function
@@ -105,6 +118,13 @@ namespace game_graphics {
 	 * Create initial snake units
 	 */
 	void populate_snake_list();
+
+	/**
+	 * @brief Function: void populate_obstacle_list()
+	 *
+	 * Create initial obstacles
+	 */
+	void populate_obstacle_list();
 
 	/**
 	 * @brief Function: snake_list::SnakeList * & get_snake_ptr()
