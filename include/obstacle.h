@@ -4,7 +4,7 @@
  * @copyright
  * @file obstacle.h
  * @author Andrea Gianarda
- * @date 05th March 2019
+ * @date 22nd March 2019
  * @brief Obstacle header file
 */
 
@@ -21,20 +21,20 @@ namespace obstacle {
 		 * @brief Node Height
 		 *
 		 */
-		const static int init_obj_height = 10;
+		const static int init_obs_height = 10;
 
 		/**
 		 * @brief Node Width
 		 *
 		 */
-		const static int init_obj_width = 10;
+		const static int init_obs_width = 10;
 	}
 
 
 	class Obstacle {
 		public:
 			// Constructor
-			Obstacle(int centre_x = 0, int centre_y = 0, int obj_width = obstacle::init_obj_width, int obj_height = obstacle::init_obj_height, graphics_utils::palette_e obj_colour = graphics_utils::palette_e::BLACK): x_centre(centre_x), y_centre(centre_y), width(obj_width), height(obj_height), colour(obj_colour) {
+			Obstacle(int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): x_centre(centre_x), y_centre(centre_y), width(obs_width), height(obs_height), colour(obs_colour) {
 				std::string pretext ("Obstacle Constructor");
 				obstacle::Obstacle::print_info(logging::verb_level_e::LOW, pretext);
 			};
@@ -74,6 +74,36 @@ namespace obstacle {
 			graphics_utils::palette_e colour;
 
 		protected:
+	};
+
+	class ObstacleNode : public Obstacle {
+		public:
+			// Constructor
+			ObstacleNode(int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): Obstacle(centre_x, centre_y, obs_width, obs_height, obs_colour), prev(nullptr), next(nullptr) {
+				std::string pretext ("Obstacle Node Constructor");
+				obstacle::ObstacleNode::print_info(logging::verb_level_e::LOW, pretext);
+			};
+
+			ObstacleNode(const ObstacleNode& copy) : Obstacle(copy), prev(copy.prev), next(copy.next) { LOG_INFO(logging::verb_level_e::LOW, "Obstacle node copy contructor") };
+
+			// Destructor
+			~ObstacleNode();
+
+			// Get functions
+			ObstacleNode * & get_next();
+			ObstacleNode * & get_prev();
+
+			// Set functions
+			void set_next(ObstacleNode * next_ptr);
+			void set_prev(ObstacleNode * prev_ptr);
+
+			void print_info(logging::verb_level_e verbosity, std::string pretext);
+
+		protected:
+
+		private:
+			ObstacleNode * prev;
+			ObstacleNode * next;
 	};
 	/** @} */ // End of ObstacleGroup group
 }
