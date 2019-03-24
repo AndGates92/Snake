@@ -33,6 +33,10 @@ namespace game_graphics {
 		 */
 		const static GLfloat zFar = 1.0;
 
+		/**
+		 * @brief pointer to snake elements
+		 *
+		 */
 		static snake_list::SnakeList * snake;
 
 		/**
