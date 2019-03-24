@@ -261,7 +261,7 @@ game_pixel_type * game_graphics::get_game_pixel_array (int & win_width, int & wi
 
 	game_graphics::draw_snake<game_pixel_type> (pixels, win_width);
 
-//	game_graphics::draw_obstacles<game_pixel_type> (pixels, win_width);
+	game_graphics::draw_obstacles<game_pixel_type> (pixels, win_width);
 
 	return pixels;
 
