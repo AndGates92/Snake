@@ -263,8 +263,6 @@ void game_graphics::populate_obstacle_list() {
 		int centre_y = (rand() % (win_height_int - game_graphics::node_height)) + game_graphics::node_height/2;
 
 		game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PURPLE);
-		centre_x += game_graphics::node_width;
-
 	}
 
 }
