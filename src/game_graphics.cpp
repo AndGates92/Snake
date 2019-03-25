@@ -198,8 +198,6 @@ void game_graphics::idle_game_cb() {
 
 	if (obs_eaten == true) {
 
-		cout << "[Contact snake-obstacle] Contact between snake head and obstacle" << endl;
-
 	} else {
 		int win_width = glutGet(GLUT_WINDOW_WIDTH);
 		int win_height = glutGet(GLUT_WINDOW_HEIGHT);
@@ -322,12 +320,26 @@ bool game_graphics::contact_between_snake_obs() {
 		int obs_y_min = obs_y - obs_height/2;
 		int obs_y_max = obs_y + obs_height/2;
 
-		if (((snake_head_x_min < obs_x_max) | (snake_head_x_max > obs_x_min)) & ((snake_head_y_min < obs_y_max) | (snake_head_y_max > obs_y_min))) {
+		// Save temporary obstacle
+		obstacle::ObstacleNode * obs_tmp = obs;
+		obs = obs->get_next();
 
-		cout << "[Contact snake-obstacle] Contact between snake head at (" << snake_head_x << ", " << snake_head_y << ") and obstacle at (" << obs_x << ", " << obs_y << ")" << endl;
+		if (
+			(
+			// snake head X minimum coordinate is between obstacle X minimum and X maximum
+			((snake_head_x_min < obs_x_max) & (snake_head_x_min > obs_x_min)) |
+			// snake head X maximum coordinate is between obstacle X minimum and X maximum
+			((snake_head_x_max < obs_x_max) & (snake_head_x_max > obs_x_min))
+			) & (
+			// snake head Y minimum coordinate is between obstacle Y minimum and X maximum
+			((snake_head_y_min < obs_y_max) & (snake_head_y_min > obs_y_min)) |
+			// snake head Y maximum coordinate is between obstacle Y minimum and X maximum
+			((snake_head_y_max < obs_y_max) & (snake_head_y_max > obs_y_min))
+			)
+		) {
+
 			LOG_INFO(logging::verb_level_e::MEDIUM,"[Contact snake-obstacle] Contact between snake head at (", snake_head_x, ", ", snake_head_y, ") and obstacle at (", obs_x, ", ", obs_y, ")");
-			obstacle::ObstacleNode * obs_tmp = obs;
-			obs = obs->get_next();
+			// Delete obstacle after contact
 			game_graphics::obstacles->remove_node(obs_tmp);
 			contact = true;
 		}
