@@ -30,7 +30,7 @@ namespace obstacle_list {
 			template <typename pixel_type>
 			void draw(pixel_type * & pixels, int & win_width);
 
-			void add_node(int centre_x, int centre_y, int obstacle_width, int obstacle_height, graphics_utils::palette_e obstacle_colour);
+			void add_node(std::string name_obs, int centre_x, int centre_y, int obstacle_width, int obstacle_height, graphics_utils::palette_e obstacle_colour);
 			void remove_node(obstacle::ObstacleNode * & node);
 
 			void print_info(logging::verb_level_e verbosity, std::string pretext);

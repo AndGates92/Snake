@@ -39,10 +39,10 @@ obstacle_list::ObstacleList::~ObstacleList() {
 }
 
 
-void obstacle_list::ObstacleList::add_node(int centre_x, int centre_y, int obstacle_width, int obstacle_height, graphics_utils::palette_e obstacle_colour) {
+void obstacle_list::ObstacleList::add_node(std::string name_obs, int centre_x, int centre_y, int obstacle_width, int obstacle_height, graphics_utils::palette_e obstacle_colour) {
 
-	LOG_INFO(logging::verb_level_e::LOW, "[Add Node] Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", obstacle_width, ", height ", obstacle_height, " colour ", obstacle_colour, ".");
-	obstacle::ObstacleNode * new_obstacle = new obstacle::ObstacleNode(centre_x, centre_y, obstacle_width, obstacle_height, obstacle_colour);
+	LOG_INFO(logging::verb_level_e::LOW, "[Add Node] Name: ", name_obs, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", obstacle_width, ", height ", obstacle_height, " colour ", obstacle_colour, ".");
+	obstacle::ObstacleNode * new_obstacle = new obstacle::ObstacleNode(name_obs, centre_x, centre_y, obstacle_width, obstacle_height, obstacle_colour);
 
 	new_obstacle->set_prev(nullptr);
 	new_obstacle->set_next(this->head);

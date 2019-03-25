@@ -8,6 +8,7 @@
  * @brief Obstacle header file
 */
 
+#include "basic_object.h"
 #include "graphics_utils.h"
 
 namespace obstacle {
@@ -31,32 +32,18 @@ namespace obstacle {
 	}
 
 
-	class Obstacle {
+	class Obstacle : public basic_object::BasicObject {
 		public:
 			// Constructor
-			Obstacle(int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): x_centre(centre_x), y_centre(centre_y), width(obs_width), height(obs_height), colour(obs_colour) {
-				std::string pretext ("Obstacle Constructor");
+			Obstacle(std::string name_obs = "Obstacle", int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): basic_object::BasicObject(name_obs, centre_x, centre_y, obs_width, obs_height, obs_colour) {
+				std::string pretext ("Constructor");
 				obstacle::Obstacle::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
-			Obstacle(const Obstacle& copy) : x_centre(copy.x_centre), y_centre(copy.y_centre), width(copy.width), height(copy.height), colour(copy.colour) {
-				std::string pretext ("Obstacle Copy Constructor");
+			Obstacle(const Obstacle& copy) : basic_object::BasicObject(copy) {
+				std::string pretext ("Copy Constructor");
 				obstacle::Obstacle::print_info(logging::verb_level_e::LOW, pretext);
 			};
-
-			// Get functions
-			int get_x_centre();
-			int get_y_centre();
-			int get_width();
-			int get_height();
-			graphics_utils::palette_e get_colour();
-
-			// Set functions
-			void set_x_centre(int new_x_centre);
-			void set_y_centre(int new_y_centre);
-			void set_width(int new_width);
-			void set_height(int new_height);
-			void set_colour(graphics_utils::palette_e new_colour);
 
 			template <typename pixel_type>
 			void draw(pixel_type * & pixels, int & win_width);
@@ -67,11 +54,6 @@ namespace obstacle {
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 		private:
-			int x_centre;
-			int y_centre;
-			int width;
-			int height;
-			graphics_utils::palette_e colour;
 
 		protected:
 	};
@@ -79,7 +61,7 @@ namespace obstacle {
 	class ObstacleNode : public Obstacle {
 		public:
 			// Constructor
-			ObstacleNode(int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): Obstacle(centre_x, centre_y, obs_width, obs_height, obs_colour), prev(nullptr), next(nullptr) {
+			ObstacleNode(std::string name_obs = "Obstacle", int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): Obstacle(name_obs, centre_x, centre_y, obs_width, obs_height, obs_colour), prev(nullptr), next(nullptr) {
 				std::string pretext ("Obstacle Node Constructor");
 				obstacle::ObstacleNode::print_info(logging::verb_level_e::LOW, pretext);
 			};
@@ -111,11 +93,15 @@ namespace obstacle {
 template <typename pixel_type>
 void obstacle::Obstacle::draw(pixel_type * & pixels, int & win_width) {
 
-	pixel_type * colour_ptr = graphics_utils::get_pixel_colour<pixel_type> (this->colour);
+	pixel_type * colour_ptr = graphics_utils::get_pixel_colour<pixel_type> (this->get_colour());
+	int width = this->get_width();
+	int height = this->get_height();
+	int y_centre = this->get_y_centre();
+	int x_centre = this->get_x_centre();
 
-	for (int x_coord = (-(this->width/2)); x_coord < (this->width/2); x_coord++) {
-		for (int y_coord = (-(this->height/2)); y_coord < (this->height/2); y_coord++) {
-			int abs_coord = (this->y_centre + y_coord) * win_width + (x_centre + x_coord);
+	for (int x_coord = (-(width/2)); x_coord < (width/2); x_coord++) {
+		for (int y_coord = (-(height/2)); y_coord < (height/2); y_coord++) {
+			int abs_coord = (y_centre + y_coord) * win_width + (x_centre + x_coord);
 			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
 				pixels[graphics_utils::no_colours * abs_coord + colour_idx] = colour_ptr[colour_idx];
 			}
