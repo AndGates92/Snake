@@ -37,8 +37,6 @@ namespace snake_list {
 
 			snake_node::SnakeNode * get_head();
 
-			void set_head_direction(snake_node::direction_e direction);
-
 		protected:
 			void remove_node(snake_node::SnakeNode * & node);
 
