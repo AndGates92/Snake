@@ -234,19 +234,9 @@ void snake_list::SnakeList::move(int speed, int win_width, int win_height) {
 	}
 }
 
-snake_node::direction_e snake_list::SnakeList::get_head_direction() {
-
-	snake_node::SnakeNode * snake_list = this->head;
-	snake_node::direction_e direction = this->head->get_direction();
-
-	while (snake_list != nullptr) {
-		direction = snake_list->get_direction();
-		snake_list = snake_list->get_next();
+snake_node::SnakeNode * snake_list::SnakeList::get_head() {
+	return this->head;
 	}
-
-	return direction;
-}
-
 
 void snake_list::SnakeList::set_head_direction(snake_node::direction_e direction) {
 	this->head->set_direction(direction);

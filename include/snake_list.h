@@ -35,7 +35,7 @@ namespace snake_list {
 
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
-			snake_node::direction_e get_head_direction();
+			snake_node::SnakeNode * get_head();
 
 			void set_head_direction(snake_node::direction_e direction);
 
