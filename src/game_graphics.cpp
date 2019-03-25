@@ -194,18 +194,22 @@ void game_graphics::idle_game_cb() {
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Game Callback] Idle Game Callback for window ID: ", win_id);
 
-//	snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
-//	int snake_head_x = snake_head->get_x_centre();
-//	int snake_head_y = snake_head->get_y_centre();
-//	int snake_head_dir = snake_head->get_direction();
+	bool obs_eaten = contact_between_snake_obs();
 
-	int win_width = glutGet(GLUT_WINDOW_WIDTH);
-	int win_height = glutGet(GLUT_WINDOW_HEIGHT);
+	if (obs_eaten == true) {
 
-	// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round
-	int snake_speed = game_graphics::speed;
+		cout << "[Contact snake-obstacle] Contact between snake head and obstacle" << endl;
 
-	game_graphics::snake->move(snake_speed, win_width, win_height);
+	} else {
+		int win_width = glutGet(GLUT_WINDOW_WIDTH);
+		int win_height = glutGet(GLUT_WINDOW_HEIGHT);
+
+		// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round
+		int snake_speed = game_graphics::speed;
+
+		game_graphics::snake->move(snake_speed, win_width, win_height);
+	}
+
 	// force glut to call the display function
 	glutPostRedisplay();
 
@@ -288,4 +292,46 @@ void game_graphics::init_game() {
 
 	game_graphics::populate_snake_list();
 	game_graphics::populate_obstacle_list();
+}
+
+bool game_graphics::contact_between_snake_obs() {
+
+	// Retrieve snake head informations
+	snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
+	int snake_head_x = snake_head->get_x_centre();
+	int snake_head_width = snake_head->get_width();
+	int snake_head_x_min = snake_head_x - snake_head_width/2;
+	int snake_head_x_max = snake_head_x + snake_head_width/2;
+	int snake_head_y = snake_head->get_y_centre();
+	int snake_head_height = snake_head->get_height();
+	int snake_head_y_min = snake_head_y - snake_head_height/2;
+	int snake_head_y_max = snake_head_y + snake_head_height/2;
+
+	// obstacle pointer
+	obstacle::ObstacleNode * obs = game_graphics::obstacles->get_head();
+
+	bool contact = false;
+
+	while (obs != nullptr) {
+		int obs_x = obs->get_x_centre();
+		int obs_width = obs->get_width();
+		int obs_x_min = obs_x - obs_width/2;
+		int obs_x_max = obs_x + obs_width/2;
+		int obs_y = obs->get_y_centre();
+		int obs_height = obs->get_height();
+		int obs_y_min = obs_y - obs_height/2;
+		int obs_y_max = obs_y + obs_height/2;
+
+		if (((snake_head_x_min < obs_x_max) | (snake_head_x_max > obs_x_min)) & ((snake_head_y_min < obs_y_max) | (snake_head_y_max > obs_y_min))) {
+
+		cout << "[Contact snake-obstacle] Contact between snake head at (" << snake_head_x << ", " << snake_head_y << ") and obstacle at (" << obs_x << ", " << obs_y << ")" << endl;
+			LOG_INFO(logging::verb_level_e::MEDIUM,"[Contact snake-obstacle] Contact between snake head at (", snake_head_x, ", ", snake_head_y, ") and obstacle at (", obs_x, ", ", obs_y, ")");
+			obstacle::ObstacleNode * obs_tmp = obs;
+			obs = obs->get_next();
+			game_graphics::obstacles->remove_node(obs_tmp);
+			contact = true;
+		}
+	}
+
+	return contact;
 }

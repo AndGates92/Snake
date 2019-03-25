@@ -65,7 +65,9 @@ void obstacle_list::ObstacleList::remove_node(obstacle::ObstacleNode * & node) {
 			this->head->get_prev() = nullptr;
 		}
 	} else {
-		node->get_prev()->get_next() = node->get_next();
+		if (node->get_prev() != nullptr) {
+			node->get_prev()->get_next() = node->get_next();
+		}
 		if (node->get_next() != nullptr) {
 			node->get_next()->get_prev() = node->get_prev();
 		}
@@ -81,4 +83,8 @@ void obstacle_list::ObstacleList::print_info(logging::verb_level_e verbosity, st
 		obstacle_list->print_info(verbosity, pretext);
 		obstacle_list = obstacle_list->get_next();
 	}
+}
+
+obstacle::ObstacleNode * obstacle_list::ObstacleList::get_head() {
+	return this->head;
 }

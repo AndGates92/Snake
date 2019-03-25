@@ -129,6 +129,8 @@ namespace game_graphics {
 	/**
 	 * @brief Function: snake_list::SnakeList * & get_snake_ptr()
 	 *
+	 * \return Return the pointer to the head of the snake
+	 *
 	 * This function returns the pointer to the head of the snake
 	 */
 	snake_list::SnakeList * & get_snake_ptr();
@@ -138,6 +140,8 @@ namespace game_graphics {
 	 *
 	 * \param win_width: width of the reshaped window
 	 * \param win_height: height of the reshaped window
+	 *
+	 * \return Return the pointer to the array of pixels to draw
 	 *
 	 * This function
 	 * - fill window background with the designated colour
@@ -167,6 +171,15 @@ namespace game_graphics {
 	 */
 	template <typename game_pixel_type>
 	void draw_obstacles(game_pixel_type * & pixels, int & win_width);
+
+	/**
+	 * @brief Function: bool contact_between_snake_obs()
+	 *
+	 * \return Return whether there is contact between the snake and the obstacle
+	 *
+	 * This function returns whether there is contact between the snake and the obstacle
+	 */
+	bool contact_between_snake_obs();
 
 	/**
 	 * @brief Function: void wrapper_game_cb()
