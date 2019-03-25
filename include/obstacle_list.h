@@ -51,7 +51,8 @@ void obstacle_list::ObstacleList::draw(pixel_type * & pixels, int & win_width) {
 
 	while (obstacle_node != nullptr) {
 
-		obstacle_node->draw(pixels, win_width);
+		obstacle::Obstacle curr_obs = obstacle_node->get_obs();
+		curr_obs.draw(pixels, win_width);
 
 		obstacle_node = obstacle_node->get_next();
 

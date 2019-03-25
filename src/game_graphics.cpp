@@ -306,23 +306,24 @@ bool game_graphics::contact_between_snake_obs() {
 	int snake_head_y_max = snake_head_y + snake_head_height/2;
 
 	// obstacle pointer
-	obstacle::ObstacleNode * obs = game_graphics::obstacles->get_head();
+	obstacle::ObstacleNode * curr_node = game_graphics::obstacles->get_head();
 
 	bool contact = false;
 
-	while (obs != nullptr) {
-		int obs_x = obs->get_x_centre();
-		int obs_width = obs->get_width();
+	while (curr_node != nullptr) {
+		obstacle::Obstacle curr_obs = curr_node->get_obs();
+		int obs_x = curr_obs.get_x_centre();
+		int obs_width = curr_obs.get_width();
 		int obs_x_min = obs_x - obs_width/2;
 		int obs_x_max = obs_x + obs_width/2;
-		int obs_y = obs->get_y_centre();
-		int obs_height = obs->get_height();
+		int obs_y = curr_obs.get_y_centre();
+		int obs_height = curr_obs.get_height();
 		int obs_y_min = obs_y - obs_height/2;
 		int obs_y_max = obs_y + obs_height/2;
 
 		// Save temporary obstacle
-		obstacle::ObstacleNode * obs_tmp = obs;
-		obs = obs->get_next();
+		obstacle::ObstacleNode * node_tmp = curr_node;
+		curr_node = curr_node->get_next();
 
 		if (
 			(
@@ -340,7 +341,7 @@ bool game_graphics::contact_between_snake_obs() {
 
 			LOG_INFO(logging::verb_level_e::MEDIUM,"[Contact snake-obstacle] Contact between snake head at (", snake_head_x, ", ", snake_head_y, ") and obstacle at (", obs_x, ", ", obs_y, ")");
 			// Delete obstacle after contact
-			game_graphics::obstacles->remove_node(obs_tmp);
+			game_graphics::obstacles->remove_node(node_tmp);
 			contact = true;
 		}
 	}

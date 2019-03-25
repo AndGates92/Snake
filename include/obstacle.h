@@ -9,6 +9,7 @@
 */
 
 #include "basic_object.h"
+#include "basic_node.h"
 #include "graphics_utils.h"
 
 namespace obstacle {
@@ -58,34 +59,28 @@ namespace obstacle {
 		protected:
 	};
 
-	class ObstacleNode : public Obstacle {
+	class ObstacleNode : public basic_node::BasicNode<ObstacleNode> {
 		public:
 			// Constructor
-			ObstacleNode(std::string name_obs = "Obstacle", int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): Obstacle(name_obs, centre_x, centre_y, obs_width, obs_height, obs_colour), prev(nullptr), next(nullptr) {
-				std::string pretext ("Obstacle Node Constructor");
+			ObstacleNode(std::string name_obs = "Obstacle Node", int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): basic_node::BasicNode<ObstacleNode>(), obs(name_obs, centre_x, centre_y, obs_width, obs_height, obs_colour) {
+				std::string pretext ("Constructor");
 				obstacle::ObstacleNode::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
-			ObstacleNode(const ObstacleNode& copy) : Obstacle(copy), prev(copy.prev), next(copy.next) { LOG_INFO(logging::verb_level_e::LOW, "Obstacle node copy contructor") };
+			ObstacleNode(const ObstacleNode& copy) : basic_node::BasicNode<ObstacleNode>(copy), obs(copy.obs) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
 			~ObstacleNode();
 
-			// Get functions
-			ObstacleNode * & get_next();
-			ObstacleNode * & get_prev();
-
-			// Set functions
-			void set_next(ObstacleNode * next_ptr);
-			void set_prev(ObstacleNode * prev_ptr);
+			Obstacle get_obs();
+			void set_obs(Obstacle new_obs);
 
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 		protected:
 
 		private:
-			ObstacleNode * prev;
-			ObstacleNode * next;
+			Obstacle obs;
 	};
 	/** @} */ // End of ObstacleGroup group
 }
