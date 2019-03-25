@@ -21,20 +21,20 @@ namespace basic_object {
 		 * @brief Node Height
 		 *
 		 */
-		const static int init_obs_height = 10;
+		const static int init_obj_height = 10;
 
 		/**
 		 * @brief Node Width
 		 *
 		 */
-		const static int init_obs_width = 10;
+		const static int init_obj_width = 10;
 	}
 
 
 	class BasicObject {
 		public:
 			// Constructor
-			BasicObject(std::string name_obj = "Unknown", int centre_x = 0, int centre_y = 0, int obs_width = basic_object::init_obs_width, int obs_height = basic_object::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): name(name_obj),  x_centre(centre_x), y_centre(centre_y), width(obs_width), height(obs_height), colour(obs_colour) {
+			BasicObject(std::string name_obj = "Unknown", int centre_x = 0, int centre_y = 0, int obj_width = basic_object::init_obj_width, int obj_height = basic_object::init_obj_height, graphics_utils::palette_e obj_colour = graphics_utils::palette_e::BLACK): name(name_obj),  x_centre(centre_x), y_centre(centre_y), width(obj_width), height(obj_height), colour(obj_colour) {
 				std::string pretext ("Constructor");
 				basic_object::BasicObject::print_info(logging::verb_level_e::LOW, pretext);
 			};
