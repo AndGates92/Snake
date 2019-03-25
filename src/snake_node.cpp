@@ -8,6 +8,7 @@
 
 #include <iostream>
 
+#include "basic_object.h"
 #include "snake_node.h"
 #include "logging.h"
 #include "graphics_utils.h"
@@ -20,66 +21,28 @@ using namespace logging;
 // Destructor
 // ================================================================
 snake_node::SnakeUnit::~SnakeUnit() {
-	std::string pretext ("Snake Unit");
+	std::string pretext ("");
 	this->print_info(logging::verb_level_e::LOW, pretext);
 }
 
 void snake_node::SnakeUnit::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Centre coordinares: (X ", this->x_centre, ", Y ", this->y_centre, "), width ", this->width, ", height ", this->height, ", direction ", this->direction, " colour ", this->colour, ".");
+	basic_object::BasicObject::print_info(verbosity, pretext);
+	std::string name = this->get_name();
+	LOG_INFO(verbosity, "[", name, " ", pretext, "] Direction ", this->direction, ".");
 }
 
 // ================================================================
 // Get functions
 // ================================================================
-int snake_node::SnakeUnit::get_x_centre() {
-	return this->x_centre;
-}
-
-int snake_node::SnakeUnit::get_y_centre() {
-	return this->y_centre;
-}
-
-int snake_node::SnakeUnit::get_width() {
-	return this->width;
-}
-
-int snake_node::SnakeUnit::get_height() {
-	return this->height;
-}
-
 snake_node::direction_e snake_node::SnakeUnit::get_direction() {
 	return this->direction;
-}
-
-graphics_utils::palette_e snake_node::SnakeUnit::get_colour() {
-	return this->colour;
 }
 
 // ================================================================
 // Set functions
 // ================================================================
-void snake_node::SnakeUnit::set_x_centre(int new_x_centre) {
-	this->x_centre = new_x_centre;
-}
-
-void snake_node::SnakeUnit::set_y_centre(int new_y_centre) {
-	this->y_centre = new_y_centre;
-}
-
-void snake_node::SnakeUnit::set_width(int new_width) {
-	this->width = new_width;
-}
-
-void snake_node::SnakeUnit::set_height(int new_height) {
-	this->height = new_height;
-}
-
 void snake_node::SnakeUnit::set_direction(snake_node::direction_e new_direction) {
 	this->direction = new_direction;
-}
-
-void snake_node::SnakeUnit::set_colour(graphics_utils::palette_e new_colour) {
-	this->colour = new_colour;
 }
 
 // ================================================================
@@ -87,29 +50,35 @@ void snake_node::SnakeUnit::set_colour(graphics_utils::palette_e new_colour) {
 // ================================================================
 void snake_node::SnakeUnit::move(int speed, int win_width, int win_height) {
 
+	int y_centre = this->get_y_centre();
+	int x_centre = this->get_x_centre();
+
 	switch (this->direction) {
 		case snake_node::direction_e::RIGHT:
-			this->x_centre = (this->x_centre + speed) % win_width;
+			x_centre = (x_centre + speed) % win_width;
 			break;
 		case snake_node::direction_e::LEFT:
-			this->x_centre = (this->x_centre - speed) % win_width;
-			if (this->x_centre < 0) {
-				this->x_centre = win_width;
+			x_centre = (x_centre - speed) % win_width;
+			if (x_centre < 0) {
+				x_centre = win_width;
 			}
 			break;
 		case snake_node::direction_e::UP:
-			this->y_centre = (this->y_centre + speed) % win_height;
+			y_centre = (y_centre + speed) % win_height;
 			break;
 		case snake_node::direction_e::DOWN:
-			this->y_centre = (this->y_centre - speed) % win_height;
-			if (this->y_centre < 0) {
-				this->y_centre = win_height;
+			y_centre = (y_centre - speed) % win_height;
+			if (y_centre < 0) {
+				y_centre = win_height;
 			}
 			break;
 		default:
 			LOG_ERROR("Unknown direction");
 			break;
 	}
+
+	this->set_y_centre(y_centre);
+	this->set_x_centre(x_centre);
 }
 
 // ================================================================

@@ -31,7 +31,7 @@ namespace snake_list {
 			void draw(pixel_type * & pixels, int & win_width);
 			void move(int speed, int win_width, int win_height);
 
-			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
+			void add_node(std::string name, int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
 
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 

@@ -39,10 +39,10 @@ snake_list::SnakeList::~SnakeList() {
 }
 
 
-void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour) {
+void snake_list::SnakeList::add_node(std::string name, int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour) {
 
-	LOG_INFO(logging::verb_level_e::LOW, "[Add Node] Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
-	snake_node::SnakeNode * new_snake = new snake_node::SnakeNode(centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
+	LOG_INFO(logging::verb_level_e::LOW, "[Add Node] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
+	snake_node::SnakeNode * new_snake = new snake_node::SnakeNode(name, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
 
 	if(this->head != nullptr) {
 		snake_node::SnakeNode * snake_list = this->head;

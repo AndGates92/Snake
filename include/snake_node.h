@@ -8,6 +8,7 @@
  * @brief Snake node header file
 */
 
+#include "basic_object.h"
 #include "graphics_utils.h"
 
 namespace snake_node {
@@ -58,37 +59,28 @@ namespace snake_node {
 		const static int init_node_width = 10;
 	}
 
-	class SnakeUnit {
+	class SnakeUnit : public basic_object::BasicObject {
 		public:
 			// Constructor
-			SnakeUnit(int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): x_centre(centre_x), y_centre(centre_y), width(snake_width), height(snake_height), direction(snake_direction), colour(snake_colour) {
-				std::string pretext ("Snake Unit Constructor");
+			SnakeUnit(std::string name_unit = "Snake Unit", int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): basic_object::BasicObject(name_unit, centre_x, centre_y, snake_width, snake_height, snake_colour), direction(snake_direction) {
+				std::string pretext ("Constructor");
 				snake_node::SnakeUnit::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
-			SnakeUnit(const SnakeUnit& copy) : x_centre(copy.x_centre), y_centre(copy.y_centre), width(copy.width), height(copy.height), direction(copy.direction), colour(copy.colour) {
-				std::string pretext ("Snake Unit Copy Constructor");
+			SnakeUnit(const SnakeUnit& copy) : basic_object::BasicObject(copy), direction(copy.direction) {
+				std::string pretext ("Copy Constructor");
 				snake_node::SnakeUnit::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
 			// Get functions
-			int get_x_centre();
-			int get_y_centre();
-			int get_width();
-			int get_height();
 			snake_node::direction_e get_direction();
-			graphics_utils::palette_e get_colour();
 
 			// Set functions
-			void set_x_centre(int new_x_centre);
-			void set_y_centre(int new_y_centre);
-			void set_width(int new_width);
-			void set_height(int new_height);
 			void set_direction(snake_node::direction_e new_direction);
-			void set_colour(graphics_utils::palette_e new_colour);
 
 			template <typename pixel_type>
 			void draw(pixel_type * & pixels, int & win_width);
+
 			void move(int speed, int win_width, int win_height);
 
 			// Destructor
@@ -97,12 +89,7 @@ namespace snake_node {
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 		private:
-			int x_centre;
-			int y_centre;
-			int width;
-			int height;
 			snake_node::direction_e direction;
-			graphics_utils::palette_e colour;
 
 		protected:
 	};
@@ -110,7 +97,7 @@ namespace snake_node {
 	class SnakeNode : public SnakeUnit {
 		public:
 			// Constructor
-			SnakeNode(int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): SnakeUnit(centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour), prev(nullptr), next(nullptr) {
+			SnakeNode(std::string name_node = "Snake Node", int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): SnakeUnit(name_node, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour), prev(nullptr), next(nullptr) {
 				std::string pretext ("Snake Node Constructor");
 				snake_node::SnakeNode::print_info(logging::verb_level_e::LOW, pretext);
 			};
@@ -142,11 +129,15 @@ namespace snake_node {
 template <typename pixel_type>
 void snake_node::SnakeUnit::draw(pixel_type * & pixels, int & win_width) {
 
-	pixel_type * colour_ptr = graphics_utils::get_pixel_colour<pixel_type> (this->colour);
+	pixel_type * colour_ptr = graphics_utils::get_pixel_colour<pixel_type> (this->get_colour());
+	int width = this->get_width();
+	int height = this->get_height();
+	int y_centre = this->get_y_centre();
+	int x_centre = this->get_x_centre();
 
-	for (int x_coord = (-(this->width/2)); x_coord < (this->width/2); x_coord++) {
-		for (int y_coord = (-(this->height/2)); y_coord < (this->height/2); y_coord++) {
-			int abs_coord = (this->y_centre + y_coord) * win_width + (x_centre + x_coord);
+	for (int x_coord = (-(width/2)); x_coord < (width/2); x_coord++) {
+		for (int y_coord = (-(height/2)); y_coord < (height/2); y_coord++) {
+			int abs_coord = (y_centre + y_coord) * win_width + (x_centre + x_coord);
 			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
 				pixels[graphics_utils::no_colours * abs_coord + colour_idx] = colour_ptr[colour_idx];
 			}
