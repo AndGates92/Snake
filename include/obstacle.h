@@ -59,28 +59,24 @@ namespace obstacle {
 		protected:
 	};
 
-	class ObstacleNode : public basic_node::BasicNode<ObstacleNode> {
+	class ObstacleNode : public basic_node::BasicNode<ObstacleNode>, public Obstacle {
 		public:
 			// Constructor
-			ObstacleNode(std::string name_obs = "Obstacle Node", int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): basic_node::BasicNode<ObstacleNode>(), obs(name_obs, centre_x, centre_y, obs_width, obs_height, obs_colour) {
+			ObstacleNode(std::string name_obs = "Obstacle Node", int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): basic_node::BasicNode<ObstacleNode>(), Obstacle(name_obs, centre_x, centre_y, obs_width, obs_height, obs_colour) {
 				std::string pretext ("Constructor");
 				obstacle::ObstacleNode::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
-			ObstacleNode(const ObstacleNode& copy) : basic_node::BasicNode<ObstacleNode>(copy), obs(copy.obs) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
+			ObstacleNode(const ObstacleNode& copy) : basic_node::BasicNode<ObstacleNode>(copy), Obstacle(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
 			~ObstacleNode();
-
-			Obstacle get_obs();
-			void set_obs(Obstacle new_obs);
 
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 		protected:
 
 		private:
-			Obstacle obs;
 	};
 	/** @} */ // End of ObstacleGroup group
 }

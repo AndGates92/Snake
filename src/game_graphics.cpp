@@ -311,13 +311,12 @@ bool game_graphics::contact_between_snake_obs() {
 	bool contact = false;
 
 	while (curr_node != nullptr) {
-		obstacle::Obstacle curr_obs = curr_node->get_obs();
-		int obs_x = curr_obs.get_x_centre();
-		int obs_width = curr_obs.get_width();
+		int obs_x = curr_node->get_x_centre();
+		int obs_width = curr_node->get_width();
 		int obs_x_min = obs_x - obs_width/2;
 		int obs_x_max = obs_x + obs_width/2;
-		int obs_y = curr_obs.get_y_centre();
-		int obs_height = curr_obs.get_height();
+		int obs_y = curr_node->get_y_centre();
+		int obs_height = curr_node->get_height();
 		int obs_y_min = obs_y - obs_height/2;
 		int obs_y_max = obs_y + obs_height/2;
 

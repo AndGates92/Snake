@@ -39,17 +39,9 @@ obstacle::ObstacleNode::~ObstacleNode() {
 }
 
 void obstacle::ObstacleNode::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	obs.print_info(verbosity, pretext);
-	std::string name_pretext = this->obs.get_name();
+	Obstacle::print_info(verbosity, pretext);
+	std::string name_pretext = this->get_name();
 	name_pretext.append(" ");
 	name_pretext.append(pretext);
 	basic_node::BasicNode<ObstacleNode>::print_info(verbosity, name_pretext);
-}
-
-obstacle::Obstacle obstacle::ObstacleNode::get_obs() {
-	return this->obs;
-}
-
-void obstacle::ObstacleNode::set_obs(obstacle::Obstacle new_obs) {
-	this->obs = new_obs;
 }
