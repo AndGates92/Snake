@@ -9,6 +9,7 @@
 */
 
 #include "graphics_utils.h"
+#include "basic_obj_list.h"
 #include "obstacle.h"
 
 namespace obstacle_list {
@@ -17,12 +18,12 @@ namespace obstacle_list {
 	 *  @{
 	 */
 
-	class ObstacleList {
+	class ObstacleList : public basic_obj_list::BasicObjList<obstacle::ObstacleNode> {
 		public:
 			// Constructor
-			ObstacleList(): head(nullptr) { LOG_INFO(logging::verb_level_e::LOW, "Obstacle list contructed") };
+			ObstacleList(std::string name_obs = "Obstacle List"): basic_obj_list::BasicObjList<obstacle::ObstacleNode>(name_obs) { LOG_INFO(logging::verb_level_e::LOW, "Contructed") };
 
-			ObstacleList(const ObstacleList& copy): head(copy.head) { LOG_INFO(logging::verb_level_e::LOW, "Obstacle list copy contructor") };
+			ObstacleList(const ObstacleList& copy): basic_obj_list::BasicObjList<obstacle::ObstacleNode>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
 			~ObstacleList();
@@ -30,24 +31,16 @@ namespace obstacle_list {
 			template <typename pixel_type>
 			void draw(pixel_type * & pixels, int & win_width);
 
-			void add_node(std::string name_obs, int centre_x, int centre_y, int obstacle_width, int obstacle_height, graphics_utils::palette_e obstacle_colour);
-			void remove_node(obstacle::ObstacleNode * & node);
-
-			void print_info(logging::verb_level_e verbosity, std::string pretext);
-
-			obstacle::ObstacleNode * get_head();
-
 		protected:
 
 		private:
-			obstacle::ObstacleNode * head;
 	};
 	/** @} */ // End of ObstacleListGroup group
 }
 
 template <typename pixel_type>
 void obstacle_list::ObstacleList::draw(pixel_type * & pixels, int & win_width) {
-	obstacle::ObstacleNode * obstacle_node = this->head;
+	obstacle::ObstacleNode * obstacle_node = this->get_head();
 
 	while (obstacle_node != nullptr) {
 

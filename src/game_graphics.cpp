@@ -229,7 +229,7 @@ void game_graphics::init_snake_list() {
 }
 
 void game_graphics::init_obstacle_list() {
-	game_graphics::obstacles = new obstacle_list::ObstacleList();
+	game_graphics::obstacles = new obstacle_list::ObstacleList("Obstacle List");
 }
 
 snake_list::SnakeList * & game_graphics::get_snake_ptr() {
@@ -274,7 +274,7 @@ void game_graphics::populate_obstacle_list() {
 		// Random coordinates must be within node_height/2 and (win_height-node_height/2)
 		int centre_y = (rand() % (win_height_int - game_graphics::node_height)) + game_graphics::node_height/2;
 
-		game_graphics::obstacles->add_node("Obstacle", centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PURPLE);
+		game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PURPLE);
 	}
 
 }
