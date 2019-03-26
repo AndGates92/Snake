@@ -120,5 +120,5 @@ void snake_node::SnakeNode::print_info(logging::verb_level_e verbosity, std::str
 	std::string name_pretext = this->get_name();
 	name_pretext.append(" ");
 	name_pretext.append(pretext);
-	basic_node::BasicNode<SnakeNode>::print_info(verbosity, name_pretext);
+	basic_obj_node::BasicObjNode<SnakeNode>::print_info(verbosity, name_pretext);
 }

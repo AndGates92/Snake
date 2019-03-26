@@ -12,7 +12,7 @@
 #include "logging.h"
 #include "graphics_utils.h"
 #include "basic_object.h"
-#include "basic_node.h"
+#include "basic_obj_node.h"
 
 using namespace std;
 using namespace obstacle;
@@ -43,5 +43,5 @@ void obstacle::ObstacleNode::print_info(logging::verb_level_e verbosity, std::st
 	std::string name_pretext = this->get_name();
 	name_pretext.append(" ");
 	name_pretext.append(pretext);
-	basic_node::BasicNode<ObstacleNode>::print_info(verbosity, name_pretext);
+	basic_obj_node::BasicObjNode<ObstacleNode>::print_info(verbosity, name_pretext);
 }
