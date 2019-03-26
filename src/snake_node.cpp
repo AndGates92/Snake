@@ -111,37 +111,14 @@ std::ostream& snake_node::operator<< (std::ostream& os, snake_node::direction_e 
 // Snake Node
 // ================================================================
 snake_node::SnakeNode::~SnakeNode() {
-	std::string pretext ("Snake Node Destructor");
+	std::string pretext ("Destructor");
 	this->print_info(logging::verb_level_e::LOW, pretext);
-}
-
-// ================================================================
-// Get functions
-// ================================================================
-
-snake_node::SnakeNode * & snake_node::SnakeNode::get_next() {
-	LOG_INFO(logging::verb_level_e::DEBUG, "Get pointer next: ", this->next);
-	return this->next;
-}
-
-snake_node::SnakeNode * & snake_node::SnakeNode::get_prev() {
-	LOG_INFO(logging::verb_level_e::DEBUG, "Get pointer prev: ", this->prev);
-	return this->prev;
-}
-
-// ================================================================
-// Set functions
-// ================================================================
-
-void snake_node::SnakeNode::set_next(snake_node::SnakeNode * next_ptr) {
-	this->next = next_ptr;
-}
-
-void snake_node::SnakeNode::set_prev(snake_node::SnakeNode * prev_ptr) {
-	this->prev = prev_ptr;
 }
 
 void snake_node::SnakeNode::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	SnakeUnit::print_info(verbosity, pretext);
-	LOG_INFO(verbosity, "[", pretext, "] Pointer addresses: next ", this->next, " previous " , this->prev, ".");
+	std::string name_pretext = this->get_name();
+	name_pretext.append(" ");
+	name_pretext.append(pretext);
+	basic_node::BasicNode<SnakeNode>::print_info(verbosity, name_pretext);
 }

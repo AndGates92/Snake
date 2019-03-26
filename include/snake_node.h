@@ -9,6 +9,7 @@
 */
 
 #include "basic_object.h"
+#include "basic_node.h"
 #include "graphics_utils.h"
 
 namespace snake_node {
@@ -94,34 +95,24 @@ namespace snake_node {
 		protected:
 	};
 
-	class SnakeNode : public SnakeUnit {
+	class SnakeNode : public basic_node::BasicNode<SnakeNode>, public SnakeUnit {
 		public:
 			// Constructor
-			SnakeNode(std::string name_node = "Snake Node", int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): SnakeUnit(name_node, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour), prev(nullptr), next(nullptr) {
+			SnakeNode(std::string name_node = "Snake Node", int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_node::direction_e snake_direction = snake_node::init_direction, graphics_utils::palette_e snake_colour = graphics_utils::palette_e::BLACK): basic_node::BasicNode<SnakeNode>(), SnakeUnit(name_node, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour) {
 				std::string pretext ("Snake Node Constructor");
 				snake_node::SnakeNode::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
-			SnakeNode(const SnakeNode& copy) : SnakeUnit(copy), prev(copy.prev), next(copy.next) { LOG_INFO(logging::verb_level_e::LOW, "Snake node copy contructor") };
+			SnakeNode(const SnakeNode& copy) : basic_node::BasicNode<SnakeNode>(copy), SnakeUnit(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
 			~SnakeNode();
-
-			// Get functions
-			SnakeNode * & get_next();
-			SnakeNode * & get_prev();
-
-			// Set functions
-			void set_next(SnakeNode * next_ptr);
-			void set_prev(SnakeNode * prev_ptr);
 
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 		protected:
 
 		private:
-			SnakeNode * prev;
-			SnakeNode * next;
 	};
 	/** @} */ // End of SnakeNodeGroup group
 }
