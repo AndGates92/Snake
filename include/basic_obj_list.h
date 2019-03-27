@@ -32,7 +32,11 @@ namespace basic_obj_list {
 
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
-			class_node * get_head();
+			class_node * & get_head();
+			void set_head(class_node * & new_head);
+
+			std::string get_name();
+			void set_name(std::string new_name);
 
 		protected:
 
@@ -61,21 +65,6 @@ basic_obj_list::BasicObjList<class_node>::~BasicObjList() {
 }
 
 template <class class_node>
-void basic_obj_list::BasicObjList<class_node>::add_node(int centre_x, int centre_y, int basic_obj_width, int basic_obj_height, graphics_utils::palette_e basic_obj_colour) {
-
-	LOG_INFO(logging::verb_level_e::LOW, "[Add Node] Name: ", this->name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", basic_obj_width, ", height ", basic_obj_height, " colour ", basic_obj_colour, ".");
-	class_node * new_basic_obj = new class_node(this->name, centre_x, centre_y, basic_obj_width, basic_obj_height, basic_obj_colour);
-
-	new_basic_obj->set_prev(nullptr);
-	new_basic_obj->set_next(this->head);
-	if (this->head != nullptr) {
-		this->head->set_prev(new_basic_obj);
-	}
-	this->head = new_basic_obj;
-
-}
-
-template <class class_node>
 void basic_obj_list::BasicObjList<class_node>::remove_node(class_node * & node) {
 	class_node * node_saved = node;
 
@@ -96,7 +85,10 @@ void basic_obj_list::BasicObjList<class_node>::remove_node(class_node * & node) 
 		}
 	}
 
-	node_saved->~class_node();
+	std::string pretext ("Destructor");
+	node_saved->print_info(logging::verb_level_e::LOW, pretext);
+
+//	delete [] node;
 }
 
 template <class class_node>
@@ -110,7 +102,22 @@ void basic_obj_list::BasicObjList<class_node>::print_info(logging::verb_level_e 
 }
 
 template <class class_node>
-class_node * basic_obj_list::BasicObjList<class_node>::get_head() {
+class_node * & basic_obj_list::BasicObjList<class_node>::get_head() {
 	return this->head;
+}
+
+template <class class_node>
+std::string basic_obj_list::BasicObjList<class_node>::get_name() {
+	return this->name;
+}
+
+template <class class_node>
+void basic_obj_list::BasicObjList<class_node>::set_head(class_node * & new_head) {
+	this->head = new_head;
+}
+
+template <class class_node>
+void  basic_obj_list::BasicObjList<class_node>::set_name(std::string new_name) {
+	this->name = new_name;
 }
 #endif // BASIC_OBJ_LIST_H
