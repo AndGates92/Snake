@@ -9,6 +9,7 @@
 */
 
 #include "graphics_utils.h"
+#include "basic_obj_list.h"
 #include "snake_node.h"
 
 namespace snake_list {
@@ -17,12 +18,12 @@ namespace snake_list {
 	 *  @{
 	 */
 
-	class SnakeList {
+	class SnakeList : public basic_obj_list::BasicObjList<snake_node::SnakeNode> {
 		public:
 			// Constructor
-			SnakeList(): head(nullptr) { LOG_INFO(logging::verb_level_e::LOW, "Snake list contructed") };
+			SnakeList(std::string name_snake): basic_obj_list::BasicObjList<snake_node::SnakeNode>(name_snake) { LOG_INFO(logging::verb_level_e::LOW, "Contructor") };
 
-			SnakeList(const SnakeList& copy): head(copy.head) { LOG_INFO(logging::verb_level_e::LOW, "Snake list copy contructor") };
+			SnakeList(const SnakeList& copy): basic_obj_list::BasicObjList<snake_node::SnakeNode>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
 			~SnakeList();
@@ -31,24 +32,18 @@ namespace snake_list {
 			void draw(pixel_type * & pixels, int & win_width);
 			void move(int speed, int win_width, int win_height);
 
-			void add_node(std::string name, int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
-
-			void print_info(logging::verb_level_e verbosity, std::string pretext);
-
-			snake_node::SnakeNode * get_head();
+			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
 
 		protected:
-			void remove_node(snake_node::SnakeNode * & node);
 
 		private:
-			snake_node::SnakeNode * head;
 	};
 	/** @} */ // End of SnakeListGroup group
 }
 
 template <typename pixel_type>
 void snake_list::SnakeList::draw(pixel_type * & pixels, int & win_width) {
-	snake_node::SnakeNode * snake_node = this->head;
+	snake_node::SnakeNode * snake_node = this->get_head();
 
 	while (snake_node != nullptr) {
 

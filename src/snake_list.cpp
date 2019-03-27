@@ -10,6 +10,7 @@
 #include <cmath>
 
 #include "game_graphics.h"
+#include "basic_obj_list.h"
 #include "graphics_utils.h"
 #include "snake_list.h"
 #include "snake_node.h"
@@ -24,34 +25,32 @@ using namespace game_graphics;
 
 snake_list::SnakeList::~SnakeList() {
 
-	std::string pretext ("Snake List Destructor");
+	std::string pretext ("Destructor");
 	this->print_info(logging::verb_level_e::LOW, pretext);
 
-	snake_node::SnakeNode * node_ptr = this->head;
-	while (this->head != nullptr) {
-		node_ptr = this->head;
-		node_ptr->print_info(logging::verb_level_e::LOW, pretext);
-		this->head = this->head->get_next();
-		node_ptr->~SnakeNode();
-	}
+	this->~BasicObjList();
+
 	LOG_INFO(logging::verb_level_e::HIGH, "Snake list destroyed");
 
 }
 
 
-void snake_list::SnakeList::add_node(std::string name, int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour) {
+void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour) {
+
+	snake_node::SnakeNode * head = this->get_head();
+	std::string name = this->get_name();
 
 	LOG_INFO(logging::verb_level_e::LOW, "[Add Node] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
 	snake_node::SnakeNode * new_snake = new snake_node::SnakeNode(name, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
 
-	if(this->head != nullptr) {
-		snake_node::SnakeNode * snake_list = this->head;
+	if(head != nullptr) {
+		snake_node::SnakeNode * snake_list = head;
 		snake_node::SnakeNode * snake_found = nullptr;
 
-		int width_head = this->head->get_width();
+		int width_head = head->get_width();
 		ASSERT(width_head == snake_width)
 
-		int height_head = this->head->get_height();
+		int height_head = head->get_height();
 		ASSERT(height_head == snake_height)
 
 
@@ -75,14 +74,14 @@ void snake_list::SnakeList::add_node(std::string name, int centre_x, int centre_
 		}
 
 		if (snake_found == nullptr) {
-			snake_node::SnakeNode * snake_head = this->head;
+			snake_node::SnakeNode * snake_head = head;
 
 			new_snake->set_next(snake_head);
 			new_snake->set_prev(nullptr);
 			snake_head->set_prev(new_snake);
 
-			if (snake_head == this->head) {
-				this->head = new_snake;
+			if (snake_head == head) {
+				this->set_head(new_snake);
 			}
 		} else {
 			int width_found = snake_found->get_width();
@@ -124,56 +123,29 @@ void snake_list::SnakeList::add_node(std::string name, int centre_x, int centre_
 	} else {
 		new_snake->set_prev(nullptr);
 		new_snake->set_next(nullptr);
-		this->head = new_snake;
+		this->set_head(new_snake);
 	}
 
-}
-
-void snake_list::SnakeList::remove_node(snake_node::SnakeNode * & node) {
-	snake_node::SnakeNode * node_saved = node;
-
-	if (node == this->head) {
-		// Move head pointer as snake list to delete is the head
-		if (node->get_next() == nullptr) {
-			this->head = nullptr;
-		} else {
-			this->head = this->head->get_next();
-			this->head->get_prev() = nullptr;
-		}
-	} else {
-		node->get_prev()->get_next() = node->get_next();
-		if (node->get_next() != nullptr) {
-			node->get_next()->get_prev() = node->get_prev();
-		}
-	}
-
-	node_saved->~SnakeNode();
-}
-
-void snake_list::SnakeList::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	snake_node::SnakeNode * snake_list = this->head;
-
-	while (snake_list != nullptr) {
-		snake_list->print_info(verbosity, pretext);
-		snake_list = snake_list->get_next();
-	}
 }
 
 void snake_list::SnakeList::move(int speed, int win_width, int win_height) {
 	LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Window dimensions: Width ", win_width, " Height ", win_height, " Speed: ", speed);
-	snake_node::SnakeNode * snake_list = this->head;
 
-	snake_node::direction_e direction_prev = this->head->get_direction();
-	int x_centre_prev = this->head->get_x_centre();
-	int y_centre_prev = this->head->get_y_centre();
-	int height_prev = this->head->get_height();
-	int width_prev = this->head->get_width();
+	snake_node::SnakeNode * head = this->get_head();
 
-	snake_node::direction_e direction_curr = this->head->get_direction();
-	int x_centre_curr = this->head->get_x_centre();
-	int y_centre_curr = this->head->get_y_centre();
-	int height_curr = this->head->get_height();
-	int width_curr = this->head->get_width();
+	snake_node::SnakeNode * snake_list = head;
+
+	snake_node::direction_e direction_prev = head->get_direction();
+	int x_centre_prev = head->get_x_centre();
+	int y_centre_prev = head->get_y_centre();
+	int height_prev = head->get_height();
+	int width_prev = head->get_width();
+
+	snake_node::direction_e direction_curr = head->get_direction();
+	int x_centre_curr = head->get_x_centre();
+	int y_centre_curr = head->get_y_centre();
+	int height_curr = head->get_height();
+	int width_curr = head->get_width();
 
 	while (snake_list != nullptr) {
 
@@ -233,7 +205,3 @@ void snake_list::SnakeList::move(int speed, int win_width, int win_height) {
 		snake_list = snake_list->get_next();
 	}
 }
-
-snake_node::SnakeNode * snake_list::SnakeList::get_head() {
-	return this->head;
-	}
