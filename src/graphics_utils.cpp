@@ -26,7 +26,7 @@ namespace {
 }
 
 void graphics_utils::init_window_list() {
-	windows = new window_list::WindowList();
+	windows = new window_list::WindowList("Window");
 }
 
 // Delete window having the ID passed as input

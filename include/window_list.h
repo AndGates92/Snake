@@ -9,6 +9,7 @@
 */
 
 #include "window_node.h"
+#include "basic_obj_list.h"
 
 namespace window_list {
 	/** @defgroup WindowListGroup Window List Doxygen Group
@@ -16,12 +17,12 @@ namespace window_list {
 	 *  @{
 	 */
 
-	class WindowList {
+	class WindowList : public basic_obj_list::BasicObjList<window_node::WindowNode> {
 		public:
 			// Constructor
-			WindowList(): head(nullptr) { LOG_INFO(logging::verb_level_e::LOW, "Window list contructed") };
+			WindowList(std::string name_win = "Window"): basic_obj_list::BasicObjList<window_node::WindowNode>(name_win) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
 
-			WindowList(const WindowList& copy): head(copy.head) { LOG_INFO(logging::verb_level_e::LOW, "Window list copy contructor") };
+			WindowList(const WindowList& copy): basic_obj_list::BasicObjList<window_node::WindowNode>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
 			~WindowList();
@@ -32,13 +33,10 @@ namespace window_list {
 
 			void delete_by_win_id(int &win_id);
 
-			void print_info(logging::verb_level_e verbosity, std::string pretext);
-
 		protected:
-			void remove_node(window_node::WindowNode * & node);
+			void delete_node(window_node::WindowNode * & node);
 
 		private:
-			window_node::WindowNode * head;
 	};
 	/** @} */ // End of WindowListGroup group
 }
