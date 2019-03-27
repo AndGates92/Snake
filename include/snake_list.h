@@ -21,7 +21,7 @@ namespace snake_list {
 	class SnakeList : public basic_obj_list::BasicObjList<snake_node::SnakeNode> {
 		public:
 			// Constructor
-			SnakeList(std::string name_snake): basic_obj_list::BasicObjList<snake_node::SnakeNode>(name_snake) { LOG_INFO(logging::verb_level_e::LOW, "Contructor") };
+			SnakeList(std::string name_snake = "Snake"): basic_obj_list::BasicObjList<snake_node::SnakeNode>(name_snake) { LOG_INFO(logging::verb_level_e::LOW, "Contructor") };
 
 			SnakeList(const SnakeList& copy): basic_obj_list::BasicObjList<snake_node::SnakeNode>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
