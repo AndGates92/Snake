@@ -83,6 +83,10 @@ pixel_type * graphics_utils::get_pixel_colour (graphics_utils::palette_e colour_
 
 	ASSERT((graphics_utils::no_colours == 3) || (graphics_utils::no_colours == 1));
 	pixel_type * colour = new pixel_type[graphics_utils::no_colours];
+	if (colour == nullptr) {
+		LOG_ERROR("Can't allocate memory for colour array");
+	}
+
 	static pixel_type max_value_pixel_type = std::numeric_limits<pixel_type>::max();
 	static pixel_type min_value_pixel_type = std::numeric_limits<pixel_type>::min();
 

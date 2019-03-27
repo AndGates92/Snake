@@ -55,7 +55,7 @@ void game_graphics::display_game_cb() {
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Display Game Callback] Display Game Callback for window ID: ", win_id);
 
 	window_node::WindowNode * node = graphics_utils::search_win_id(win_id);
-	window_obj::WindowObj window = node->get_obj();
+	window_obj::WindowObj window(node->get_obj());
 
 	double win_width = 0.0;
 	win_width = glutGet(GLUT_WINDOW_WIDTH);

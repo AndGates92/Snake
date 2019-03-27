@@ -46,6 +46,9 @@ int window::Window::create_window(std::string title, int width, int height, int 
 
 	// Create window
 	char * win_name = new char [WIN_NAME_LENGTH_MAX];
+	if (win_name == nullptr) {
+		LOG_ERROR("Can't allocate memory for window name");
+	}
 	ASSERT(title.length() < WIN_NAME_LENGTH_MAX)
 
 	std::strcpy(win_name, title.c_str());

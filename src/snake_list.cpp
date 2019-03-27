@@ -181,6 +181,7 @@ void snake_list::SnakeList::move(int speed, int win_width, int win_height) {
 			if (((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) & ((int) abs(x_centre_prev - x_centre_curr) < speed)) {
 				centre_distance = ((height_curr + height_prev)/2);
 				adjustment = centre_distance - ((int) abs(y_centre_curr - y_centre_prev));
+cout << "Adj " << adjustment << " centre_distance " << centre_distance << " y_centre_curr " << y_centre_curr << " y_centre_prev " << y_centre_prev << endl;
 				ASSERT(adjustment >= 0);
 				int y_centre_adj = y_centre_curr + sign * adjustment;
 

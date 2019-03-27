@@ -27,6 +27,9 @@ namespace {
 
 void graphics_utils::init_window_list() {
 	windows = new window_list::WindowList("Window");
+	if (windows == nullptr) {
+		LOG_ERROR("Can't allocate memory for window list");
+	}
 }
 
 // Delete window having the ID passed as input

@@ -36,6 +36,9 @@ void window_list::WindowList::add_node(std::string window_title, int window_widt
 
 	LOG_INFO(logging::verb_level_e::LOW, "[Add node] Create node at ", window_x_pos, ", ", window_y_pos, ". Dimensions: width ", window_width, " height ", window_height, ". Title: ", window_title);
 	window_node::WindowNode * new_window = new window_node::WindowNode(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc);
+	if (new_window == nullptr) {
+		LOG_ERROR("Can't allocate memory for window node");
+	}
 
 	new_window->set_prev(nullptr);
 
@@ -101,6 +104,9 @@ window_node::WindowNode * window_list::WindowList::search_by_win_id(int &win_id)
 
 	LOG_ERROR("Couldn't find window matching window ID ", win_id);
 	window_node::WindowNode * node_err = new window_node::WindowNode("Error");
+	if (node_err == nullptr) {
+		LOG_ERROR("Can't allocate memory for error node");
+	}
 	return node_err;
 }
 
