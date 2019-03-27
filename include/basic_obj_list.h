@@ -8,8 +8,6 @@
  * @brief Basic Object List header file
 */
 
-#include "graphics_utils.h"
-
 namespace basic_obj_list {
 	/** @defgroup BasicObjListGroup Basic Object List Doxygen Group
 	 *  Basic Object List functions and classes
