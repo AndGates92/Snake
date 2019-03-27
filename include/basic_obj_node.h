@@ -62,7 +62,7 @@ namespace basic_obj_node {
 // ================================================================
 template <class class_node>
 basic_obj_node::BasicObjNode<class_node>::~BasicObjNode() {
-	std::string pretext ("Basic Node Destructor");
+	std::string pretext ("Basic Object Node Destructor");
 	this->print_info(logging::verb_level_e::LOW, pretext);
 }
 

@@ -49,7 +49,7 @@ namespace basic_obj_list {
 template <class class_node>
 basic_obj_list::BasicObjList<class_node>::~BasicObjList() {
 
-	std::string pretext ("BasicObj List Destructor");
+	std::string pretext ("Destructor");
 	this->print_info(logging::verb_level_e::LOW, pretext);
 
 	class_node * node_ptr = this->head;
@@ -59,7 +59,7 @@ basic_obj_list::BasicObjList<class_node>::~BasicObjList() {
 		this->head = this->head->get_next();
 		node_ptr->~class_node();
 	}
-	LOG_INFO(logging::verb_level_e::HIGH, "BasicObj list destroyed");
+	LOG_INFO(logging::verb_level_e::HIGH, "Basic Object list destroyed");
 
 }
 
@@ -85,9 +85,9 @@ void basic_obj_list::BasicObjList<class_node>::remove_node(class_node * & node) 
 	}
 
 	std::string pretext ("Destructor");
-	node->print_info(logging::verb_level_e::LOW, pretext);
+	node_saved->print_info(logging::verb_level_e::LOW, pretext);
 
-	delete node;
+	delete node_saved;
 }
 
 template <class class_node>
