@@ -4,7 +4,8 @@ DATE_FORMAT = %a %d %b %Y
 TIME_FORMAT = %H:%M:%S
 
 # Makefile variables
-VERBOSE = @
+VERBOSE =
+VERBOSE_ECHO = @
 
 MKDIR = mkdir -p
 
@@ -124,12 +125,12 @@ EXE = $(BIN_DIR)/$(EXE_NAME)
 $(EXE) : $(OBJS)
 	$(MKDIR) $(LOG_DIR)
 	$(MKDIR) $(@D)
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compiling $(@F). Object files are: $^"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compiling $(@F). Object files are: $^"
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(DFLAGS) $(CEXTRAFLAGS) $^ $(LIBS) $(GLUTLIBS) $(X11LIBS)
 
 $(OBJ_DIR)/%.$(OBJ_EXT) : %.$(SRC_EXT)
 	$(MKDIR) $(@D)
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compiling $(<F) and creating object $@"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compiling $(<F) and creating object $@"
 	$(CC) $(CFLAGS) $(INCLUDES)  -c $< $(DFLAGS) $(CEXTRAFLAGS) -o $@ $(LIBS) $(GLUTLIBS) $(X11LIBS)
 
 $(DEPFILE) : $(SRCS)
@@ -137,46 +138,46 @@ $(DEPFILE) : $(SRCS)
 	$(CC) $(CFLAGS) $(DEPENDFLAG) $(INCLUDES) $^ > $(DEPFILE)
 
 all : $(EXE)
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compile $(PROJ_NAME)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compile $(PROJ_NAME)"
 
 depend : $(DEPFILE)
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Create dependencies for $(PROJ_NAME)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Create dependencies for $(PROJ_NAME)"
 
 memleak : $(EXE)
 	valgrind $(MEMCHECKOPTS) $(VALGRINDTOOLOPTS) $(VALGRINDLOGOPTS) $(EXE) $(VALGRINDEXEARGS)
 
 debug :
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Language: $(PROG_LANG)"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compiler: $(CC)"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compiler options:"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> $(PROG_LANG) flags: $(CFLAGS)"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> $(PROG_LANG) extra flags: $(CEXTRAFLAGS)"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> defines: $(DFLAGS)"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> libs: $(LIBS)"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> OpenGL GLUT libraries: $(GLUTLIBS)"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> X11 libraries: $(X11LIBS)"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Files lists:"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Source files: $(SRCS)"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Object files: $(notdir $(OBJS))"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Executable file: $(notdir $(EXE_NAME))"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Directories lists:"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Source directories: $(VPATH)"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Include directories: $(INCLUDE_PATH)"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Exeutable directory: $(BIN_DIR)"
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Log directory: $(LOG_DIR)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Language: $(PROG_LANG)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compiler: $(CC)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compiler options:"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> $(PROG_LANG) flags: $(CFLAGS)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> $(PROG_LANG) extra flags: $(CEXTRAFLAGS)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> defines: $(DFLAGS)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> libs: $(LIBS)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> OpenGL GLUT libraries: $(GLUTLIBS)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> X11 libraries: $(X11LIBS)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Files lists:"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Source files: $(SRCS)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Object files: $(notdir $(OBJS))"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Executable file: $(notdir $(EXE_NAME))"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Directories lists:"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Source directories: $(VPATH)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Include directories: $(INCLUDE_PATH)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Exeutable directory: $(BIN_DIR)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Log directory: $(LOG_DIR)"
 
 clean :
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Remove object files: $(OBJS)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Remove object files: $(OBJS)"
 	rm -rf $(OBJ_DIR)
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Remove dependencies directory: $(DEP_DIR)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Remove dependencies directory: $(DEP_DIR)"
 	rm -rf $(DEP_DIR)
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Remove doxygen documentation directory: $(DOX_DOC_DIR)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Remove doxygen documentation directory: $(DOX_DOC_DIR)"
 	rm -rf $(DOX_DOC_DIR)
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Remove binary directory: $(BIN_DIR)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Remove binary directory: $(BIN_DIR)"
 	rm -rf $(BIN_DIR)
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Remove log directory: $(LOG_DIR)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Remove log directory: $(LOG_DIR)"
 	rm -rf $(LOG_DIR)
-	$(VERBOSE)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Clean completed"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Clean completed"
 
 doc :
 	$(MKDIR) $(DOX_DOC_DIR)
