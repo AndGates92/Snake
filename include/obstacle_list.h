@@ -28,6 +28,8 @@ namespace obstacle_list {
 			// Destructor
 			~ObstacleList();
 
+			void add_node(int centre_x, int centre_y, int ostacle_width, int ostacle_height, graphics_utils::palette_e ostacle_colour);
+
 			template <typename pixel_type>
 			void draw(pixel_type * & pixels, int & win_width);
 

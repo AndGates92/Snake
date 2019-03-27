@@ -10,6 +10,7 @@
 #include <cmath>
 
 #include "graphics_utils.h"
+#include "basic_obj_list.h"
 #include "obstacle_list.h"
 #include "obstacle.h"
 #include "logging.h"
@@ -22,16 +23,30 @@ using namespace graphics_utils;
 
 obstacle_list::ObstacleList::~ObstacleList() {
 
-	std::string pretext ("Obstacle List Destructor");
+	std::string pretext ("Destructor");
 	this->print_info(logging::verb_level_e::LOW, pretext);
 
-	obstacle::ObstacleNode * node_ptr = this->get_head();
-	while (node_ptr != nullptr) {
-		obstacle::ObstacleNode * node_ptr_tmp = node_ptr;
-		node_ptr->print_info(logging::verb_level_e::LOW, pretext);
-		node_ptr = node_ptr->get_next();
-		node_ptr_tmp->~ObstacleNode();
-	}
+	this->~BasicObjList();
+
 	LOG_INFO(logging::verb_level_e::HIGH, "Obstacle list destroyed");
 
 }
+
+void obstacle_list::ObstacleList::add_node(int centre_x, int centre_y, int ostacle_width, int ostacle_height, graphics_utils::palette_e ostacle_colour) {
+
+	std::string name = this->get_name();
+	obstacle::ObstacleNode * head = this->get_head();
+
+	LOG_INFO(logging::verb_level_e::LOW, "[Add Node] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", ostacle_width, ", height ", ostacle_height, " colour ", ostacle_colour, ".");
+	obstacle::ObstacleNode * new_ostacle = new obstacle::ObstacleNode(name, centre_x, centre_y, ostacle_width, ostacle_height, ostacle_colour);
+
+	new_ostacle->set_prev(nullptr);
+	new_ostacle->set_next(head);
+	if (head != nullptr) {
+		head->set_prev(new_ostacle);
+	}
+	this->set_head(new_ostacle);
+
+}
+
+
