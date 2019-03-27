@@ -27,7 +27,6 @@ namespace basic_obj_list {
 			// Destructor
 			~BasicObjList();
 
-			void add_node(int centre_x, int centre_y, int basic_obj_width, int basic_obj_height, graphics_utils::palette_e basic_obj_colour);
 			void remove_node(class_node * & node);
 
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
@@ -66,7 +65,7 @@ basic_obj_list::BasicObjList<class_node>::~BasicObjList() {
 
 template <class class_node>
 void basic_obj_list::BasicObjList<class_node>::remove_node(class_node * & node) {
-	class_node * node_saved = node;
+	class_node * node_saved (node);
 
 	if (node == this->head) {
 		// Move head pointer as basic_obj list to delete is the head
@@ -86,9 +85,9 @@ void basic_obj_list::BasicObjList<class_node>::remove_node(class_node * & node) 
 	}
 
 	std::string pretext ("Destructor");
-	node_saved->print_info(logging::verb_level_e::LOW, pretext);
+	node->print_info(logging::verb_level_e::LOW, pretext);
 
-//	delete [] node;
+	delete node;
 }
 
 template <class class_node>

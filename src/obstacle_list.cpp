@@ -37,16 +37,15 @@ void obstacle_list::ObstacleList::add_node(int centre_x, int centre_y, int ostac
 	std::string name = this->get_name();
 	obstacle::ObstacleNode * head = this->get_head();
 
-	LOG_INFO(logging::verb_level_e::LOW, "[Add Node] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", ostacle_width, ", height ", ostacle_height, " colour ", ostacle_colour, ".");
-	obstacle::ObstacleNode * new_ostacle = new obstacle::ObstacleNode(name, centre_x, centre_y, ostacle_width, ostacle_height, ostacle_colour);
-
-	new_ostacle->set_prev(nullptr);
-	new_ostacle->set_next(head);
-	if (head != nullptr) {
-		head->set_prev(new_ostacle);
+	LOG_INFO(logging::verb_level_e::LOW, "[Add Object] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", ostacle_width, ", height ", ostacle_height, " colour ", ostacle_colour, ".");
+	obstacle::ObstacleNode * new_obstacle = new obstacle::ObstacleNode(name, centre_x, centre_y, ostacle_width, ostacle_height, ostacle_colour);
+	if (new_obstacle == nullptr) {
+		LOG_ERROR("Can't allocate memory for obstacle Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", ostacle_width, ", height ", ostacle_height, " colour ", ostacle_colour, ".");
 	}
-	this->set_head(new_ostacle);
-
+	new_obstacle->set_prev(nullptr);
+	new_obstacle->set_next(head);
+	if (head != nullptr) {
+		head->set_prev(new_obstacle);
+	}
+	this->set_head(new_obstacle);
 }
-
-

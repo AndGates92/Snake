@@ -22,8 +22,9 @@ using namespace logging;
 // Destructor
 // ================================================================
 obstacle::Obstacle::~Obstacle() {
-	std::string pretext ("Destructor");
-	this->print_info(logging::verb_level_e::LOW, pretext);
+	LOG_INFO(logging::verb_level_e::LOW, "Obstacle Destructor")
+//	std::string pretext ("Destructor");
+//	this->print_info(logging::verb_level_e::LOW, pretext);
 }
 
 void obstacle::Obstacle::print_info(logging::verb_level_e verbosity, std::string pretext) {
@@ -34,8 +35,9 @@ void obstacle::Obstacle::print_info(logging::verb_level_e verbosity, std::string
 // Obstacle Node
 // ================================================================
 obstacle::ObstacleNode::~ObstacleNode() {
-	std::string pretext ("Destructor");
-	this->print_info(logging::verb_level_e::LOW, pretext);
+	LOG_INFO(logging::verb_level_e::LOW, "Obstacle Node Destructor")
+//	std::string pretext ("Destructor");
+//	this->print_info(logging::verb_level_e::LOW, pretext);
 }
 
 void obstacle::ObstacleNode::print_info(logging::verb_level_e verbosity, std::string pretext) {

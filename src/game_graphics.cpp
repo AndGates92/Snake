@@ -225,11 +225,19 @@ void game_graphics::wrapper_game_cb() {
 
 
 void game_graphics::init_snake_list() {
-	game_graphics::snake = new snake_list::SnakeList("Snake");
+	std::string name("Snake");
+	game_graphics::snake = new snake_list::SnakeList(name);
+	if (game_graphics::snake == nullptr) {
+		LOG_ERROR("Can't allocate memory for snake list ", name, ".");
+	}
 }
 
 void game_graphics::init_obstacle_list() {
-	game_graphics::obstacles = new obstacle_list::ObstacleList("Obstacle List");
+	std::string name("Obstacle List");
+	game_graphics::obstacles = new obstacle_list::ObstacleList(name);
+	if (game_graphics::obstacles == nullptr) {
+		LOG_ERROR("Can't allocate memory for obstacle list ", name, ".");
+	}
 }
 
 snake_list::SnakeList * & game_graphics::get_snake_ptr() {
