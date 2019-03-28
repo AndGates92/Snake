@@ -82,6 +82,11 @@ namespace game_graphics {
 		 */
 		const static int speed_incr = 1;
 
+		/**
+		 * @brief Initial direction of the snake
+		 *
+		 */
+		const static snake_node::direction_e init_head_dir = snake_node::direction_e::RIGHT;
 	}
 
 	/**

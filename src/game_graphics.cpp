@@ -40,6 +40,12 @@ namespace game_graphics {
 		 *
 		 */
 		static int speed;
+
+		/**
+		 * @brief Direction of the snake head
+		 *
+		 */
+		snake_node::direction_e head_dir;
 	}
 }
 
@@ -54,7 +60,7 @@ void game_graphics::display_game_cb() {
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Display Game Callback] Display Game Callback for window ID: ", win_id);
 
-	window_node::WindowNode * node = graphics_utils::search_win_id(win_id);
+	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
 	window_obj::WindowObj window(node->get_obj());
 
 	double win_width = 0.0;
@@ -85,8 +91,8 @@ void game_graphics::reshape_game_cb(int width, int height) {
 	int win_id = 0;
 	win_id = glutGetWindow();
 
-	window_node::WindowNode * node = graphics_utils::search_win_id(win_id);
-	window_obj::WindowObj window = node->get_obj();
+	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
+	window_obj::WindowObj window (node->get_obj());
 
 	// set viewport to new width and height 
 	glViewport( 0, 0, width, height );
@@ -138,35 +144,43 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 void game_graphics::specialkey_game_cb(int key, int x, int y) {
 
-	snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
+	snake_node::SnakeNode * snake_head (game_graphics::snake->get_head());
 	snake_node::direction_e snake_head_dir = snake_head->get_direction();
 
 	switch (key) {
 		case GLUT_KEY_UP:
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to UP because of pressing key Arrow Up");
 			if ((snake_head_dir == snake_node::direction_e::RIGHT) | (snake_head_dir == snake_node::direction_e::LEFT)) {
-				snake_head->set_direction(snake_node::direction_e::UP);
+cout << "Change dir up" << endl;
+//				snake_head->set_direction(snake_node::direction_e::UP);
+				game_graphics::head_dir = snake_node::direction_e::UP;
 			}
 			// force glut to call the display function
 			break;
 		case GLUT_KEY_DOWN:
+cout << "Change dir down" << endl;
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to DOWN because of pressing key Arrow Down");
 			if ((snake_head_dir == snake_node::direction_e::RIGHT) | (snake_head_dir == snake_node::direction_e::LEFT)) {
-				snake_head->set_direction(snake_node::direction_e::DOWN);
+//				snake_head->set_direction(snake_node::direction_e::DOWN);
+				game_graphics::head_dir = snake_node::direction_e::DOWN;
 			}
 			// force glut to call the display function
 			break;
 		case GLUT_KEY_LEFT:
+cout << "Change dir left" << endl;
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to LEFT because of pressing key Arrow Down");
 			if ((snake_head_dir == snake_node::direction_e::UP) | (snake_head_dir == snake_node::direction_e::DOWN)) {
-				snake_head->set_direction(snake_node::direction_e::LEFT);
+//				snake_head->set_direction(snake_node::direction_e::LEFT);
+				game_graphics::head_dir = snake_node::direction_e::LEFT;
 			}
 			// force glut to call the display function
 			break;
 		case GLUT_KEY_RIGHT:
+cout << "Change dir right" << endl;
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to RIGHT because of pressing key Arrow Down");
 			if ((snake_head_dir == snake_node::direction_e::UP) | (snake_head_dir == snake_node::direction_e::DOWN)) {
-				snake_head->set_direction(snake_node::direction_e::RIGHT);
+//				snake_head->set_direction(snake_node::direction_e::RIGHT);
+				game_graphics::head_dir = snake_node::direction_e::RIGHT;
 			}
 			// force glut to call the display function
 			break;
@@ -205,7 +219,7 @@ void game_graphics::idle_game_cb() {
 		// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round
 		int snake_speed = game_graphics::speed;
 
-		game_graphics::snake->move(snake_speed, win_width, win_height);
+		game_graphics::snake->move(snake_speed, win_width, win_height, game_graphics::head_dir);
 	}
 
 	// force glut to call the display function
@@ -249,10 +263,10 @@ void game_graphics::populate_snake_list() {
 	int centre_y = 100;
 	for (int unit_no=0; unit_no < game_graphics::init_snake_units; unit_no++) {
 
-		game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, snake_node::direction_e::RIGHT, graphics_utils::palette_e::GREEN);
-		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, snake_node::direction_e::RIGHT, (graphics_utils::palette_e) unit_no);
+		game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, graphics_utils::palette_e::GREEN);
+		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, (graphics_utils::palette_e) unit_no);
 		centre_x += game_graphics::node_width;
-		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, snake_node::direction_e::UP, graphics_utils::palette_e::RED);
+		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, graphics_utils::palette_e::RED);
 		//centre_y += game_graphics::node_height;
 
 	}
@@ -289,6 +303,7 @@ void game_graphics::populate_obstacle_list() {
 
 void game_graphics::init_game_parameters() {
 	game_graphics::speed = game_graphics::init_speed;
+	game_graphics::head_dir = game_graphics::init_head_dir;
 }
 
 void game_graphics::init_game() {

@@ -131,14 +131,14 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 
 }
 
-void snake_list::SnakeList::move(int speed, int win_width, int win_height) {
+void snake_list::SnakeList::move(int speed, int win_width, int win_height, snake_node::direction_e head_dir) {
 	LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Window dimensions: Width ", win_width, " Height ", win_height, " Speed: ", speed);
 
-	snake_node::SnakeNode * head = this->get_head();
+	snake_node::SnakeNode * head (this->get_head());
 
-	snake_node::SnakeNode * snake_list = head;
+	snake_node::SnakeNode * snake_list (head);
 
-	snake_node::direction_e direction_prev = head->get_direction();
+	snake_node::direction_e direction_prev = head_dir;
 	int x_centre_prev = head->get_x_centre();
 	int y_centre_prev = head->get_y_centre();
 	int height_prev = head->get_height();
@@ -150,62 +150,116 @@ void snake_list::SnakeList::move(int speed, int win_width, int win_height) {
 	int height_curr = head->get_height();
 	int width_curr = head->get_width();
 
+cout << "Move snake" << endl;
+
 	while (snake_list != nullptr) {
 
-		// Store values of previous element
-		direction_prev = direction_curr;
-		x_centre_prev = x_centre_curr;
-		y_centre_prev = y_centre_curr;
-		height_prev = height_curr;
-		width_prev = width_curr;
-
+		// Store values of current element before updating its position and direction
 		direction_curr = snake_list->get_direction();
 		x_centre_curr = snake_list->get_x_centre();
 		y_centre_curr = snake_list->get_y_centre();
 		height_curr = snake_list->get_height();
 		width_curr = snake_list->get_width();
 
+cout << "Direction prev " << direction_prev << " curr " << direction_curr << endl;
+cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev <<" y_centre_curr " << y_centre_curr << " y_centre_prev " << y_centre_prev << endl;
+
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Current Unit: X ", x_centre_curr, " Y ", y_centre_curr, " Direction ", direction_curr);
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Previous Unit: X ", x_centre_prev, " Y ", y_centre_prev, " Direction ", direction_prev);
 
+		int centre_distance = 0;
+		int speed_int = speed;
+		int adjustment = 0;
+
 		if (direction_prev != direction_curr) {
-			int sign = 0;
-			if ((direction_prev == snake_node::direction_e::UP) | (direction_prev == snake_node::direction_e::RIGHT)) {
-				sign = -1;
+			if (snake_list != head) {
+				int sign = 0;
+				// UP
+				if ((direction_prev == snake_node::direction_e::UP) | (direction_prev == snake_node::direction_e::RIGHT)) {
+					sign = -1;
+				} else {
+					sign = 1;
+				}
+
+				ASSERT((sign == 1) | (sign == -1));
+
+				// Adjust coordinate centres of pervious and current unit must be aligned as to ditance between centres is kept constant
+				// Y for horizontal to vertical movement
+				// X for vertical to horizontal movement
+				if (((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) & ((int) abs(x_centre_prev - x_centre_curr) < speed)) {
+					// Unit moving horizontally:
+					// - X is force to aligned (set previous unit X coordinate)
+					// - Y is adjusted to keep distance between centre constant
+					// Distance between centres
+					centre_distance = ((height_curr + height_prev)/2);
+					// Adjustment: distance between centres - actual distance between centres 
+					adjustment = centre_distance - ((int) abs(y_centre_curr - y_centre_prev));
+cout << "Adj " << adjustment << " centre_distance " << centre_distance << endl;
+					int y_centre_adj = y_centre_curr + sign * adjustment;
+
+					LOG_INFO(logging::verb_level_e::HIGH, "[Snake List Move] Change drection to ", direction_prev,  " adjustment on Y ", adjustment, " New coordinates X ", x_centre_prev, " Y ", y_centre_adj);
+					snake_list->set_direction(direction_prev);
+					snake_list->set_x_centre(x_centre_prev);
+					snake_list->set_y_centre(y_centre_adj);
+					ASSERT((int) abs(y_centre_prev - y_centre_adj) == centre_distance);
+				} else if (((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) & ((int) abs(y_centre_prev - y_centre_curr) < speed)) {
+					// Unit moving horizontally:
+					// - Y is force to aligned (set previous unit X coordinate)
+					// - X is adjusted to keep distance between centre constant
+					// Distance between centres
+					centre_distance = ((width_curr + width_prev)/2);
+					// Adjustment: distance between centres - actual distance between centres 
+					adjustment = centre_distance - ((int) abs(x_centre_curr - x_centre_prev));
+cout << "Adj " << adjustment << " centre_distance " << centre_distance << endl;
+					int x_centre_adj = x_centre_curr + sign * adjustment;
+
+					LOG_INFO(logging::verb_level_e::HIGH, "[Snake List Move] Change drection to ", direction_prev,  " adjustment on X ", adjustment, " New coordinates X ", x_centre_adj, " Y ", y_centre_prev);
+					snake_list->set_direction(direction_prev);
+					snake_list->set_x_centre(x_centre_adj);
+					snake_list->set_y_centre(y_centre_prev);
+					ASSERT((int) abs(x_centre_prev - x_centre_adj) == centre_distance);
+				}
 			} else {
-				sign = 1;
+				snake_list->set_direction(direction_prev);
+			}
+		} else {
+			if ((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) {
+				centre_distance = ((width_curr + width_prev)/2);
+				// Y must be aligned when moving horizontally
+				snake_list->set_y_centre(y_centre_prev);
+				adjustment = centre_distance - ((int) abs(x_centre_curr - x_centre_prev));
+			} else if ((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) {
+				centre_distance = ((height_curr + height_prev)/2);
+				// X must be aligned when moving vertically
+				snake_list->set_x_centre(x_centre_prev);
+				adjustment = centre_distance - ((int) abs(y_centre_curr - y_centre_prev));
 			}
 
-			int centre_distance = 0;
-			int adjustment = 0;
-			if (((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) & ((int) abs(x_centre_prev - x_centre_curr) < speed)) {
-				centre_distance = ((height_curr + height_prev)/2);
-				adjustment = centre_distance - ((int) abs(y_centre_curr - y_centre_prev));
-cout << "Adj " << adjustment << " centre_distance " << centre_distance << " y_centre_curr " << y_centre_curr << " y_centre_prev " << y_centre_prev << endl;
-				ASSERT(adjustment >= 0);
-				int y_centre_adj = y_centre_curr + sign * adjustment;
-
-				LOG_INFO(logging::verb_level_e::HIGH, "[Snake List Move] Change drection to ", direction_prev,  " adjustment on Y ", adjustment, " New coordinates X ", x_centre_prev, " Y ", y_centre_adj);
-				snake_list->set_direction(direction_prev);
-				snake_list->set_x_centre(x_centre_prev);
-				snake_list->set_y_centre(y_centre_adj);
-				ASSERT((int) abs(y_centre_prev - y_centre_adj) == centre_distance);
-			} else if (((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) & ((int) abs(y_centre_prev - y_centre_curr) < speed)) {
-				centre_distance = ((width_curr + width_prev)/2);
-				adjustment = centre_distance - ((int) abs(x_centre_curr - x_centre_prev));
-				ASSERT(adjustment >= 0);
-				int x_centre_adj = x_centre_curr + sign * adjustment;
-
-				LOG_INFO(logging::verb_level_e::HIGH, "[Snake List Move] Change drection to ", direction_prev,  " adjustment on X ", adjustment, " New coordinates X ", x_centre_adj, " Y ", y_centre_prev);
-				snake_list->set_direction(direction_prev);
-				snake_list->set_x_centre(x_centre_adj);
-				snake_list->set_y_centre(y_centre_prev);
-				ASSERT((int) abs(x_centre_prev - x_centre_adj) == centre_distance);
+			if ((adjustment == 0) | (snake_list == head)) {
+				speed_int = speed;
+			} else {
+				if (adjustment <= speed) {
+					speed_int = adjustment;
+				} else {
+					speed_int = 0;
+				}
 			}
 		}
 
-		snake_list->move(speed, win_width, win_height);
+		ASSERT(adjustment >= 0);
+
+cout << "speed " << speed_int << endl;
+
+		snake_list->move(speed_int, win_width, win_height);
 
 		snake_list = snake_list->get_next();
+
+		// Store values of previous element before updating its position and direction
+		direction_prev = direction_curr;
+		x_centre_prev = x_centre_curr;
+		y_centre_prev = y_centre_curr;
+		height_prev = height_curr;
+		width_prev = width_curr;
+
 	}
 }
