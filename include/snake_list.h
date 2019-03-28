@@ -35,6 +35,7 @@ namespace snake_list {
 			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
 
 		protected:
+			int change_dir(snake_node::SnakeNode * & snake_node, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_node::direction_e prev_dir);
 
 		private:
 	};
