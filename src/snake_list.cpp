@@ -226,7 +226,6 @@ cout << "Adj " << adjustment << " centre_distance " << centre_distance << endl;
 			if ((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) {
 				centre_distance = ((width_curr + width_prev)/2);
 				// Y must be aligned when moving horizontally
-//				snake_list->set_y_centre(y_centre_prev);
 				int y_diff = (int) abs(y_centre_curr - y_centre_prev);
 				if (y_diff > 0) {
 					if (y_diff < speed) {
@@ -246,7 +245,6 @@ cout << "Adj " << adjustment << " centre_distance " << centre_distance << endl;
 			} else if ((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) {
 				centre_distance = ((height_curr + height_prev)/2);
 				// X must be aligned when moving vertically
-//				snake_list->set_x_centre(x_centre_prev);
 				int x_diff = (int) abs(x_centre_curr - x_centre_prev);
 				if (x_diff > 0) {
 					if (x_diff < speed) {
