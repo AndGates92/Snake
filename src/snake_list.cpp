@@ -180,6 +180,28 @@ cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev
 
 				ASSERT((sign == 1) | (sign == -1));
 
+				int height_centre_distance = (height_curr + height_prev)/2;
+				int y_diff = abs(y_centre_curr - y_centre_prev);
+				int width_centre_distance = (width_curr + width_prev)/2;
+				int x_diff = abs(x_centre_curr - x_centre_prev);
+				if (((direction_curr == snake_node::direction_e::RIGHT) & (direction_prev == snake_node::direction_e::LEFT)) | ((direction_curr == snake_node::direction_e::LEFT) & (direction_prev == snake_node::direction_e::RIGHT))) {
+					if ((y_diff < height_centre_distance) & (x_diff == width_centre_distance)) {
+						LOG_ERROR("Units moving in opposite horizintal movement and colliding");
+					}
+				} else if (((direction_curr == snake_node::direction_e::UP) & (direction_prev == snake_node::direction_e::DOWN)) | ((direction_curr == snake_node::direction_e::DOWN) & (direction_prev != snake_node::direction_e::UP))) {
+					if ((x_diff < width_centre_distance) & (y_diff == height_centre_distance)) {
+						LOG_ERROR("Units moving in opposite vertical movement and colliding");
+					}
+				}
+
+				// Consecutive units can't travel in opposite direction
+				ASSERT(
+					((direction_curr == snake_node::direction_e::RIGHT) & (direction_prev != snake_node::direction_e::LEFT))  |
+					((direction_curr == snake_node::direction_e::LEFT)  & (direction_prev != snake_node::direction_e::RIGHT)) |
+					((direction_curr == snake_node::direction_e::UP)    & (direction_prev != snake_node::direction_e::DOWN))  |
+					((direction_curr == snake_node::direction_e::DOWN)  & (direction_prev != snake_node::direction_e::UP))
+				);
+
 				// Adjust coordinate centres of pervious and current unit must be aligned as to ditance between centres is kept constant
 				// Y for horizontal to vertical movement
 				// X for vertical to horizontal movement
@@ -209,12 +231,10 @@ cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev
 			int adjustment = 0;
 
 			if ((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) {
-				adjustment = snake_list::SnakeList::adj_snake(snake_el, width_curr, width_prev, x_centre_curr, x_centre_prev, y_centre_curr, y_centre_prev, speed, snake_node::direction_e::DOWN, snake_node::direction_e::UP);
+				adjustment = snake_list::SnakeList::adj_snake(snake_el, width_curr, width_prev, x_centre_curr, x_centre_prev, y_centre_curr, y_centre_prev, speed, snake_node::direction_e::DOWN, snake_node::direction_e::UP, win_height);
 			} else if ((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) {
-				adjustment = snake_list::SnakeList::adj_snake(snake_el, height_curr, height_prev, y_centre_curr, y_centre_prev, x_centre_curr, x_centre_prev, speed, snake_node::direction_e::LEFT, snake_node::direction_e::RIGHT);
+				adjustment = snake_list::SnakeList::adj_snake(snake_el, height_curr, height_prev, y_centre_curr, y_centre_prev, x_centre_curr, x_centre_prev, speed, snake_node::direction_e::LEFT, snake_node::direction_e::RIGHT, win_width);
 			}
-
-cout << "adj " << adjustment << endl;
 
 			if ((adjustment == 0) | (snake_el == head)) {
 				speed_int = speed;
@@ -250,10 +270,14 @@ int snake_list::SnakeList::change_dir(snake_node::SnakeNode * & snake_el, int cu
 	int centre_distance = ((curr_dim + prev_dim)/2);
 	// Adjustment: distance between centres - actual distance between centres 
 	int adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - prev_coord_mov_dir));
-cout << "Adj " << adjustment << " centre_distance " << centre_distance << endl;
+cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir <<  endl;
 	int centre_adj = curr_coord_mov_dir + sign * adjustment;
 
 	snake_el->set_direction(prev_dir);
+	if((int) abs(prev_coord_mov_dir - centre_adj) != centre_distance) {
+		LOG_ERROR("Snake units are touching each other.\nUnit1 -> ", centre_adj, ". Unit2 -> ", prev_coord_mov_dir);
+	}
+
 	ASSERT((int) abs(prev_coord_mov_dir - centre_adj) == centre_distance);
 
 	ASSERT(adjustment >= 0);
@@ -261,7 +285,8 @@ cout << "Adj " << adjustment << " centre_distance " << centre_distance << endl;
 	return centre_adj;
 }
 
-int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_node::direction_e dir1, snake_node::direction_e dir2) {
+int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_node::direction_e dir1, snake_node::direction_e dir2, int win_dim_mov) {
+	snake_node::SnakeNode * head (this->get_head());
 	int centre_distance = ((curr_dim + prev_dim)/2);
 	int adjustment = 0;
 	// Coordinate that must be aligned when moving
@@ -280,11 +305,17 @@ int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int cur
 		} else {
 			snake_el->set_direction(dir2);
 		}
+		ASSERT(adjustment >= 0);
 	} else {
 		adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - prev_coord_mov_dir));
+cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir << " win_dim_move " << win_dim_mov <<  endl;
+		// For head adjustment is equal to centre_distance because curr and prev coord are identicals
+		if (snake_el != head) {
+			ASSERT(adjustment == 0);
+		}
+
 	}
 
-	ASSERT(adjustment >= 0);
 
 	return adjustment;
 }
