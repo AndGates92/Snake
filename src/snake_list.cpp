@@ -206,47 +206,12 @@ cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev
 			}
 		} else {
 
-			int centre_distance = 0;
 			int adjustment = 0;
 
 			if ((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) {
-				centre_distance = ((width_curr + width_prev)/2);
-				// Y must be aligned when moving horizontally
-				int y_diff = (int) abs(y_centre_curr - y_centre_prev);
-				if (y_diff > 0) {
-					if (y_diff < speed) {
-						adjustment = y_diff;
-					} else {
-						adjustment = speed;
-					}
-					// Change direction to align with previous unit
-					if (y_centre_curr > y_centre_prev) {
-						snake_el->set_direction(snake_node::direction_e::DOWN);
-					} else { 
-						snake_el->set_direction(snake_node::direction_e::UP);
-					}
-				} else {
-					adjustment = centre_distance - ((int) abs(x_centre_curr - x_centre_prev));
-				}
+				adjustment = snake_list::SnakeList::adj_snake(snake_el, width_curr, width_prev, x_centre_curr, x_centre_prev, y_centre_curr, y_centre_prev, speed, snake_node::direction_e::DOWN, snake_node::direction_e::UP);
 			} else if ((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) {
-				centre_distance = ((height_curr + height_prev)/2);
-				// X must be aligned when moving vertically
-				int x_diff = (int) abs(x_centre_curr - x_centre_prev);
-				if (x_diff > 0) {
-					if (x_diff < speed) {
-						adjustment = x_diff;
-					} else {
-						adjustment = speed;
-					}
-					// Change direction to align with previous unit
-					if (x_centre_curr > x_centre_prev) {
-						snake_el->set_direction(snake_node::direction_e::LEFT);
-					} else { 
-						snake_el->set_direction(snake_node::direction_e::RIGHT);
-					}
-				} else {
-					adjustment = centre_distance - ((int) abs(y_centre_curr - y_centre_prev));
-				}
+				adjustment = snake_list::SnakeList::adj_snake(snake_el, height_curr, height_prev, y_centre_curr, y_centre_prev, x_centre_curr, x_centre_prev, speed, snake_node::direction_e::LEFT, snake_node::direction_e::RIGHT);
 			}
 
 cout << "adj " << adjustment << endl;
@@ -261,7 +226,6 @@ cout << "adj " << adjustment << endl;
 				}
 			}
 
-			ASSERT(adjustment >= 0);
 		}
 
 
@@ -295,4 +259,32 @@ cout << "Adj " << adjustment << " centre_distance " << centre_distance << endl;
 	ASSERT(adjustment >= 0);
 
 	return centre_adj;
+}
+
+int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_node::direction_e dir1, snake_node::direction_e dir2) {
+	int centre_distance = ((curr_dim + prev_dim)/2);
+	int adjustment = 0;
+	// Coordinate that must be aligned when moving
+	// X for vertical movement
+	// Y for horizontal movement
+	int diff = (int) abs(curr_coord_perp_dir - prev_coord_perp_dir);
+	if (diff > 0) {
+		if (diff < speed) {
+			adjustment = diff;
+		} else {
+			adjustment = speed;
+		}
+		// Change direction to align with previous unit
+		if (curr_coord_perp_dir > prev_coord_perp_dir) {
+			snake_el->set_direction(dir1);
+		} else {
+			snake_el->set_direction(dir2);
+		}
+	} else {
+		adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - prev_coord_mov_dir));
+	}
+
+	ASSERT(adjustment >= 0);
+
+	return adjustment;
 }
