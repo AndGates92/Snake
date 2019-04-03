@@ -186,11 +186,12 @@ cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev
 				int x_diff = abs(x_centre_curr - x_centre_prev);
 cout << "Diff X " << x_diff << " Y " << y_diff << endl;
 cout << "Centre distance Width " << width_centre_distance << " height " << height_centre_distance << endl;
+cout << "Direction current " << direction_curr << " previous " << direction_prev << endl;
 				if (((direction_curr == snake_node::direction_e::RIGHT) & (direction_prev == snake_node::direction_e::LEFT)) | ((direction_curr == snake_node::direction_e::LEFT) & (direction_prev == snake_node::direction_e::RIGHT))) {
 					if ((y_diff < height_centre_distance) & (x_diff < width_centre_distance)) {
 						LOG_ERROR("Units moving in opposite horizintal movement and colliding");
 					}
-				} else if (((direction_curr == snake_node::direction_e::UP) & (direction_prev == snake_node::direction_e::DOWN)) | ((direction_curr == snake_node::direction_e::DOWN) & (direction_prev != snake_node::direction_e::UP))) {
+				} else if (((direction_curr == snake_node::direction_e::UP) & (direction_prev == snake_node::direction_e::DOWN)) | ((direction_curr == snake_node::direction_e::DOWN) & (direction_prev == snake_node::direction_e::UP))) {
 					if ((x_diff < width_centre_distance) & (y_diff < height_centre_distance)) {
 						LOG_ERROR("Units moving in opposite vertical movement and colliding");
 					}
