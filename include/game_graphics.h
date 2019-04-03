@@ -253,6 +253,12 @@ namespace game_graphics {
 	 */
 	void keyboard_game_cb(unsigned char key, int x, int y);
 
+	/**
+	 * @brief Function: void add_obstacle();
+	 *
+	 * This function adds an obstacle at a random location
+	 */
+	void add_obstacle();
 }
 
 template <typename game_pixel_type>

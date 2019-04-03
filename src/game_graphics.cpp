@@ -210,14 +210,8 @@ void game_graphics::idle_game_cb() {
 
 	if (obs_eaten == true) {
 
-		// Random coordinates must be within node_width/2 and (win_width-node_width/2)
-		int centre_x = (rand() % (win_width - game_graphics::node_width)) + game_graphics::node_width/2;
+		game_graphics::add_obstacle();
 
-		// Random coordinates must be within node_height/2 and (win_height-node_height/2)
-		int centre_y = (rand() % (win_height - game_graphics::node_height)) + game_graphics::node_height/2;
-
-		//game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PURPLE);
-		game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PINK);
 		snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
 		int new_snake_node_x = snake_head->get_x_centre();
 		int new_snake_node_y = snake_head->get_y_centre();
@@ -315,25 +309,8 @@ void game_graphics::populate_snake_list() {
 
 void game_graphics::populate_obstacle_list() {
 
-	double win_width = 0.0;
-	win_width = glutGet(GLUT_WINDOW_WIDTH);
-	int win_width_int = (int) win_width;
-
-	double win_height = 0.0;
-	win_height = glutGet(GLUT_WINDOW_HEIGHT);
-	int win_height_int = (int) win_height;
-
-
 	for (int obs_no=0; obs_no < game_graphics::init_obs_no; obs_no++) {
-
-		// Random coordinates must be within node_width/2 and (win_width-node_width/2)
-		int centre_x = (rand() % (win_width_int - game_graphics::node_width)) + game_graphics::node_width/2;
-
-		// Random coordinates must be within node_height/2 and (win_height-node_height/2)
-		int centre_y = (rand() % (win_height_int - game_graphics::node_height)) + game_graphics::node_height/2;
-
-		//game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PURPLE);
-		game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PINK);
+		game_graphics::add_obstacle();
 	}
 
 }
@@ -365,6 +342,8 @@ bool game_graphics::contact_between_snake_obs() {
 	int snake_head_y_min = snake_head_y - snake_head_height/2;
 	int snake_head_y_max = snake_head_y + snake_head_height/2;
 
+cout << "Snake boundaries X " << snake_head_x_min << " - " << snake_head_x_max << " Y " << snake_head_y_min << " - " << snake_head_y_max << endl;
+
 	// obstacle pointer
 	obstacle::ObstacleNode * curr_node = game_graphics::obstacles->get_head();
 
@@ -380,6 +359,8 @@ bool game_graphics::contact_between_snake_obs() {
 		int obs_y_min = obs_y - obs_height/2;
 		int obs_y_max = obs_y + obs_height/2;
 
+cout << "Obs boundaries X " << obs_x_min << " - " << obs_x_max << " Y " << obs_y_min << " - " << obs_y_max << endl;
+
 		// Save temporary obstacle
 		obstacle::ObstacleNode * node_tmp = curr_node;
 		curr_node = curr_node->get_next();
@@ -387,14 +368,14 @@ bool game_graphics::contact_between_snake_obs() {
 		if (
 			(
 			// snake head X minimum coordinate is between obstacle X minimum and X maximum
-			((snake_head_x_min < obs_x_max) & (snake_head_x_min > obs_x_min)) |
+			((snake_head_x_min <= obs_x_max) & (snake_head_x_min >= obs_x_min)) |
 			// snake head X maximum coordinate is between obstacle X minimum and X maximum
-			((snake_head_x_max < obs_x_max) & (snake_head_x_max > obs_x_min))
+			((snake_head_x_max <= obs_x_max) & (snake_head_x_max >= obs_x_min))
 			) & (
 			// snake head Y minimum coordinate is between obstacle Y minimum and X maximum
-			((snake_head_y_min < obs_y_max) & (snake_head_y_min > obs_y_min)) |
+			((snake_head_y_min <= obs_y_max) & (snake_head_y_min >= obs_y_min)) |
 			// snake head Y maximum coordinate is between obstacle Y minimum and X maximum
-			((snake_head_y_max < obs_y_max) & (snake_head_y_max > obs_y_min))
+			((snake_head_y_max <= obs_y_max) & (snake_head_y_max >= obs_y_min))
 			)
 		) {
 
@@ -406,4 +387,25 @@ bool game_graphics::contact_between_snake_obs() {
 	}
 
 	return contact;
+}
+
+void game_graphics::add_obstacle() {
+
+	double win_width = 0.0;
+	win_width = glutGet(GLUT_WINDOW_WIDTH);
+	int win_width_int = (int) win_width;
+
+	double win_height = 0.0;
+	win_height = glutGet(GLUT_WINDOW_HEIGHT);
+	int win_height_int = (int) win_height;
+
+
+	// Random coordinates must be within node_width/2 and (win_width-node_width/2)
+	int centre_x = (rand() % (win_width_int - game_graphics::node_width)) + game_graphics::node_width/2;
+
+	// Random coordinates must be within node_height/2 and (win_height-node_height/2)
+	int centre_y = (rand() % (win_height_int - game_graphics::node_height)) + game_graphics::node_height/2;
+
+	//game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PURPLE);
+	game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PINK);
 }
