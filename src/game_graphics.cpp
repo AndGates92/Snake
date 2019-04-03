@@ -342,7 +342,7 @@ bool game_graphics::contact_between_snake_obs() {
 	int snake_head_y_min = snake_head_y - snake_head_height/2;
 	int snake_head_y_max = snake_head_y + snake_head_height/2;
 
-cout << "Snake boundaries X " << snake_head_x_min << " - " << snake_head_x_max << " Y " << snake_head_y_min << " - " << snake_head_y_max << endl;
+//cout << "Snake boundaries X " << snake_head_x_min << " - " << snake_head_x_max << " Y " << snake_head_y_min << " - " << snake_head_y_max << endl;
 
 	// obstacle pointer
 	obstacle::ObstacleNode * curr_node = game_graphics::obstacles->get_head();
@@ -359,7 +359,7 @@ cout << "Snake boundaries X " << snake_head_x_min << " - " << snake_head_x_max <
 		int obs_y_min = obs_y - obs_height/2;
 		int obs_y_max = obs_y + obs_height/2;
 
-cout << "Obs boundaries X " << obs_x_min << " - " << obs_x_max << " Y " << obs_y_min << " - " << obs_y_max << endl;
+//cout << "Obs boundaries X " << obs_x_min << " - " << obs_x_max << " Y " << obs_y_min << " - " << obs_y_max << endl;
 
 		// Save temporary obstacle
 		obstacle::ObstacleNode * node_tmp = curr_node;
