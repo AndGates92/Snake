@@ -115,7 +115,10 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 				vdistance_measured = ((int) abs(centre_y - y_centre_found));
 			}
 
+cout << "Direction " << direction_found << endl;
+cout << "centre_y " << centre_y << " y_centre_found " << y_centre_found << "H dist units " << hdistance_units << " measured " << hdistance_measured << endl;
 			ASSERT(hdistance_units == hdistance_measured)
+cout << "centre_x " << centre_x << " x_centre_found " << x_centre_found << "V dist units " << vdistance_units << " measured " << vdistance_measured << endl;
 			ASSERT(vdistance_units == vdistance_measured)
 
 			new_snake->set_prev(snake_found->get_prev());
@@ -150,7 +153,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 	int height_curr = head->get_height();
 	int width_curr = head->get_width();
 
-cout << "Move snake - Window dimensions: width " << win_width << " height " << win_height << endl;
+//cout << "Move snake - Window dimensions: width " << win_width << " height " << win_height << endl;
 	int speed_int = speed;
 
 	while (snake_el != nullptr) {
@@ -162,8 +165,8 @@ cout << "Move snake - Window dimensions: width " << win_width << " height " << w
 		height_curr = snake_el->get_height();
 		width_curr = snake_el->get_width();
 
-cout << "Direction prev " << direction_prev << " curr " << direction_curr << endl;
-cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev <<" y_centre_curr " << y_centre_curr << " y_centre_prev " << y_centre_prev << endl;
+//cout << "Direction prev " << direction_prev << " curr " << direction_curr << endl;
+//cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev <<" y_centre_curr " << y_centre_curr << " y_centre_prev " << y_centre_prev << endl;
 
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Current Unit: X ", x_centre_curr, " Y ", y_centre_curr, " Direction ", direction_curr);
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Previous Unit: X ", x_centre_prev, " Y ", y_centre_prev, " Direction ", direction_prev);
@@ -184,9 +187,9 @@ cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev
 				int y_diff = abs(y_centre_curr - y_centre_prev);
 				int width_centre_distance = (width_curr + width_prev)/2;
 				int x_diff = abs(x_centre_curr - x_centre_prev);
-cout << "Diff X " << x_diff << " Y " << y_diff << endl;
-cout << "Centre distance Width " << width_centre_distance << " height " << height_centre_distance << endl;
-cout << "Direction current " << direction_curr << " previous " << direction_prev << endl;
+//cout << "Diff X " << x_diff << " Y " << y_diff << endl;
+//cout << "Centre distance Width " << width_centre_distance << " height " << height_centre_distance << endl;
+//cout << "Direction current " << direction_curr << " previous " << direction_prev << endl;
 				if (((direction_curr == snake_node::direction_e::RIGHT) & (direction_prev == snake_node::direction_e::LEFT)) | ((direction_curr == snake_node::direction_e::LEFT) & (direction_prev == snake_node::direction_e::RIGHT))) {
 					if ((y_diff < height_centre_distance) & (x_diff < width_centre_distance)) {
 						LOG_ERROR("Units moving in opposite horizintal movement and colliding");
@@ -252,8 +255,6 @@ cout << "Direction current " << direction_curr << " previous " << direction_prev
 		}
 
 
-cout << "speed " << speed_int << endl;
-
 		snake_el->move(speed_int, win_width, win_height);
 
 		snake_el = snake_el->get_next();
@@ -273,7 +274,7 @@ int snake_list::SnakeList::change_dir(snake_node::SnakeNode * & snake_el, int cu
 	int centre_distance = ((curr_dim + prev_dim)/2);
 	// Adjustment: distance between centres - actual distance between centres 
 	int adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - prev_coord_mov_dir));
-cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir <<  endl;
+//cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir <<  endl;
 	int centre_adj = curr_coord_mov_dir + sign * adjustment;
 
 	snake_el->set_direction(prev_dir);
@@ -296,7 +297,7 @@ int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int cur
 	// X for vertical movement
 	// Y for horizontal movement
 	int diff = (int) abs(curr_coord_perp_dir - prev_coord_perp_dir);
-cout << "diff " << diff << endl;
+//cout << "diff " << diff << endl;
 	if (diff > 0) {
 		if (diff < speed) {
 			adjustment = diff;
@@ -327,7 +328,7 @@ cout << "diff " << diff << endl;
 			}
 		}
 		adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - adj_prev_coord_mov_dir));
-cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir << " adj_prev_coord_mov_dir " << adj_prev_coord_mov_dir << " win_dim_move " << win_dim_mov <<  endl;
+//cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir << " adj_prev_coord_mov_dir " << adj_prev_coord_mov_dir << " win_dim_move " << win_dim_mov <<  endl;
 		// For head adjustment is equal to centre_distance because curr and prev coord are identicals
 		if (snake_el != head) {
 			ASSERT(adjustment == 0);
