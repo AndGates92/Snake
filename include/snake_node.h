@@ -79,7 +79,7 @@ namespace snake_node {
 			// Set functions
 			void set_direction(snake_node::direction_e new_direction);
 
-			void move(int & speed, int & win_width, int & win_height);
+			void move(const int & speed, const int & win_width, const int & win_height);
 
 			// Destructor
 			~SnakeUnit();

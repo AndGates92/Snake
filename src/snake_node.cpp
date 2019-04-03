@@ -48,7 +48,7 @@ void snake_node::SnakeUnit::set_direction(snake_node::direction_e new_direction)
 // ================================================================
 // Move function
 // ================================================================
-void snake_node::SnakeUnit::move(int & speed, int & win_width, int & win_height) {
+void snake_node::SnakeUnit::move(const int & speed, const int & win_width, const int & win_height) {
 
 	int y_centre = this->get_y_centre();
 	int x_centre = this->get_x_centre();
@@ -58,19 +58,19 @@ void snake_node::SnakeUnit::move(int & speed, int & win_width, int & win_height)
 			x_centre = (x_centre + speed) % win_width;
 			break;
 		case snake_node::direction_e::LEFT:
-			x_centre = (x_centre - speed) % win_width;
-			if (x_centre < 0) {
-				x_centre = win_width;
+			if (x_centre < speed) {
+				x_centre += win_width;
 			}
+			x_centre = (x_centre - speed) % win_width;
 			break;
 		case snake_node::direction_e::UP:
 			y_centre = (y_centre + speed) % win_height;
 			break;
 		case snake_node::direction_e::DOWN:
-			y_centre = (y_centre - speed) % win_height;
-			if (y_centre < 0) {
-				y_centre = win_height;
+			if (y_centre < speed) {
+				y_centre += win_height;
 			}
+			y_centre = (y_centre - speed) % win_height;
 			break;
 		default:
 			LOG_ERROR("Unknown direction");

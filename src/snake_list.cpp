@@ -131,7 +131,7 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 
 }
 
-void snake_list::SnakeList::move(int & speed, int & win_width, int & win_height, snake_node::direction_e & head_dir) {
+void snake_list::SnakeList::move(const int & speed, const int & win_width, const int & win_height, const snake_node::direction_e & head_dir) {
 	LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Window dimensions: Width ", win_width, " Height ", win_height, " Speed: ", speed);
 
 	snake_node::SnakeNode * head (this->get_head());
@@ -295,6 +295,7 @@ int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int cur
 	// X for vertical movement
 	// Y for horizontal movement
 	int diff = (int) abs(curr_coord_perp_dir - prev_coord_perp_dir);
+cout << "diff " << diff << endl;
 	if (diff > 0) {
 		if (diff < speed) {
 			adjustment = diff;
@@ -325,7 +326,7 @@ int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int cur
 			}
 		}
 		adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - adj_prev_coord_mov_dir));
-cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir << " win_dim_move " << win_dim_mov <<  endl;
+cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir << " adj_prev_coord_mov_dir " << adj_prev_coord_mov_dir << " win_dim_move " << win_dim_mov <<  endl;
 		// For head adjustment is equal to centre_distance because curr and prev coord are identicals
 		if (snake_el != head) {
 			ASSERT(adjustment == 0);
