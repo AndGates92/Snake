@@ -203,8 +203,10 @@ void game_graphics::mouse_game_cb(int button, int state, int x, int y) {
 
 void game_graphics::idle_game_cb() {
 
-	int win_id = 0;
-	win_id = glutGetWindow();
+	int win_id = glutGetWindow();
+
+	int win_width = glutGet(GLUT_WINDOW_WIDTH);
+	int win_height = glutGet(GLUT_WINDOW_HEIGHT);
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Game Callback] Idle Game Callback for window ID: ", win_id);
 
@@ -212,9 +214,43 @@ void game_graphics::idle_game_cb() {
 
 	if (obs_eaten == true) {
 
+		// Random coordinates must be within node_width/2 and (win_width-node_width/2)
+		int centre_x = (rand() % (win_width - game_graphics::node_width)) + game_graphics::node_width/2;
+
+		// Random coordinates must be within node_height/2 and (win_height-node_height/2)
+		int centre_y = (rand() % (win_height - game_graphics::node_height)) + game_graphics::node_height/2;
+
+		game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PURPLE);
+		snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
+		int new_snake_node_x = snake_head->get_x_centre();
+		int new_snake_node_y = snake_head->get_y_centre();
+		snake_node::direction_e snake_head_dir = snake_head->get_direction();
+
+		if (snake_head_dir == snake_node::direction_e::RIGHT) {
+			new_snake_node_x = (snake_head->get_x_centre() + game_graphics::node_width) & win_width;
+			new_snake_node_y = snake_head->get_y_centre();
+		} else if (snake_head_dir == snake_node::direction_e::RIGHT) {
+			new_snake_node_x = (snake_head->get_x_centre() - game_graphics::node_width);
+			// If head is vry close to boarded, unit in front of it might be outside of window (negative X)
+			if (new_snake_node_x < 0) {
+				new_snake_node_x += win_width;
+			}
+			new_snake_node_y = snake_head->get_y_centre();
+		} else if (snake_head_dir == snake_node::direction_e::UP) {
+			new_snake_node_y = (snake_head->get_y_centre() + game_graphics::node_height) & win_height;
+			new_snake_node_x = snake_head->get_x_centre();
+		} else if (snake_head_dir == snake_node::direction_e::DOWN) {
+			new_snake_node_y = (snake_head->get_y_centre() - game_graphics::node_height);
+			// If head is vry close to boarded, unit in front of it might be outside of window (negative X)
+			if (new_snake_node_x < 0) {
+				new_snake_node_y += win_height;
+			}
+			new_snake_node_x = snake_head->get_x_centre();
+		}
+
+		game_graphics::snake->add_node(new_snake_node_x, new_snake_node_y, game_graphics::node_width, game_graphics::node_height, game_graphics::head_dir, graphics_utils::palette_e::GREEN);
+
 	} else {
-		int win_width = glutGet(GLUT_WINDOW_WIDTH);
-		int win_height = glutGet(GLUT_WINDOW_HEIGHT);
 
 		// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round
 		int snake_speed = game_graphics::speed;
