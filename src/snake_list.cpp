@@ -150,7 +150,7 @@ void snake_list::SnakeList::move(int speed, int win_width, int win_height, snake
 	int height_curr = head->get_height();
 	int width_curr = head->get_width();
 
-cout << "Move snake" << endl;
+cout << "Move snake - Window dimensions: width " << win_width << " height " << win_height << endl;
 	int speed_int = speed;
 
 	while (snake_el != nullptr) {
@@ -184,12 +184,14 @@ cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev
 				int y_diff = abs(y_centre_curr - y_centre_prev);
 				int width_centre_distance = (width_curr + width_prev)/2;
 				int x_diff = abs(x_centre_curr - x_centre_prev);
+cout << "Diff X " << x_diff << " Y " << y_diff << endl;
+cout << "Centre distance Width " << width_centre_distance << " height " << height_centre_distance << endl;
 				if (((direction_curr == snake_node::direction_e::RIGHT) & (direction_prev == snake_node::direction_e::LEFT)) | ((direction_curr == snake_node::direction_e::LEFT) & (direction_prev == snake_node::direction_e::RIGHT))) {
-					if ((y_diff < height_centre_distance) & (x_diff == width_centre_distance)) {
+					if ((y_diff < height_centre_distance) & (x_diff < width_centre_distance)) {
 						LOG_ERROR("Units moving in opposite horizintal movement and colliding");
 					}
 				} else if (((direction_curr == snake_node::direction_e::UP) & (direction_prev == snake_node::direction_e::DOWN)) | ((direction_curr == snake_node::direction_e::DOWN) & (direction_prev != snake_node::direction_e::UP))) {
-					if ((x_diff < width_centre_distance) & (y_diff == height_centre_distance)) {
+					if ((x_diff < width_centre_distance) & (y_diff < height_centre_distance)) {
 						LOG_ERROR("Units moving in opposite vertical movement and colliding");
 					}
 				}
@@ -231,9 +233,9 @@ cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev
 			int adjustment = 0;
 
 			if ((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) {
-				adjustment = snake_list::SnakeList::adj_snake(snake_el, width_curr, width_prev, x_centre_curr, x_centre_prev, y_centre_curr, y_centre_prev, speed, snake_node::direction_e::DOWN, snake_node::direction_e::UP, win_height);
+				adjustment = snake_list::SnakeList::adj_snake(snake_el, width_curr, width_prev, x_centre_curr, x_centre_prev, y_centre_curr, y_centre_prev, speed, snake_node::direction_e::DOWN, snake_node::direction_e::UP, direction_curr, win_width);
 			} else if ((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) {
-				adjustment = snake_list::SnakeList::adj_snake(snake_el, height_curr, height_prev, y_centre_curr, y_centre_prev, x_centre_curr, x_centre_prev, speed, snake_node::direction_e::LEFT, snake_node::direction_e::RIGHT, win_width);
+				adjustment = snake_list::SnakeList::adj_snake(snake_el, height_curr, height_prev, y_centre_curr, y_centre_prev, x_centre_curr, x_centre_prev, speed, snake_node::direction_e::LEFT, snake_node::direction_e::RIGHT, direction_curr, win_height);
 			}
 
 			if ((adjustment == 0) | (snake_el == head)) {
@@ -285,7 +287,7 @@ cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coo
 	return centre_adj;
 }
 
-int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_node::direction_e dir1, snake_node::direction_e dir2, int win_dim_mov) {
+int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_node::direction_e dir1, snake_node::direction_e dir2, snake_node::direction_e curr_dir, int win_dim_mov) {
 	snake_node::SnakeNode * head (this->get_head());
 	int centre_distance = ((curr_dim + prev_dim)/2);
 	int adjustment = 0;
@@ -307,7 +309,22 @@ int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int cur
 		}
 		ASSERT(adjustment >= 0);
 	} else {
-		adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - prev_coord_mov_dir));
+		int adj_prev_coord_mov_dir = prev_coord_mov_dir;
+		// Deal with case where snake appears on the other side of the screen
+		if ((curr_dir == snake_node::direction_e::RIGHT) | (curr_dir == snake_node::direction_e::UP)) {
+			if (curr_coord_mov_dir > prev_coord_mov_dir) {
+				adj_prev_coord_mov_dir = prev_coord_mov_dir + win_dim_mov;
+			} else {
+				adj_prev_coord_mov_dir = prev_coord_mov_dir;
+			}
+		} else if ((curr_dir == snake_node::direction_e::LEFT) | (curr_dir == snake_node::direction_e::DOWN)) {
+			if (curr_coord_mov_dir < prev_coord_mov_dir) {
+				adj_prev_coord_mov_dir = prev_coord_mov_dir - win_dim_mov;
+			} else {
+				adj_prev_coord_mov_dir = prev_coord_mov_dir;
+			}
+		}
+		adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - adj_prev_coord_mov_dir));
 cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir << " win_dim_move " << win_dim_mov <<  endl;
 		// For head adjustment is equal to centre_distance because curr and prev coord are identicals
 		if (snake_el != head) {
