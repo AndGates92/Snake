@@ -131,6 +131,8 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			game_graphics::snake->~SnakeList();
 			//delete [] game_graphics::snake;
 			graphics_utils::delete_window();
+			game_graphics::free_obstacle_list();
+			game_graphics::free_snake_list();
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Exit program because of pressing key ", key);
 			break;
 		default:
@@ -408,4 +410,12 @@ void game_graphics::add_obstacle() {
 
 	//game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PURPLE);
 	game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PINK);
+}
+
+void game_graphics::free_obstacle_list() {
+	game_graphics::obstacles->~ObstacleList();
+}
+
+void game_graphics::free_snake_list() {
+	game_graphics::snake->~SnakeList();
 }

@@ -132,6 +132,20 @@ namespace game_graphics {
 	void populate_obstacle_list();
 
 	/**
+	 * @brief Function: void free_snake_list()
+	 *
+	 * Free snake units from the heap
+	 */
+	void free_snake_list();
+
+	/**
+	 * @brief Function: void free_obstacle_list()
+	 *
+	 * Free obstacles from the heap
+	 */
+	void free_obstacle_list();
+
+	/**
 	 * @brief Function: snake_list::SnakeList * & get_snake_ptr()
 	 *
 	 * \return Return the pointer to the head of the snake
@@ -187,6 +201,13 @@ namespace game_graphics {
 	 * This function returns whether there is contact between the snake and the obstacle
 	 */
 	bool contact_between_snake_obs();
+
+	/**
+	 * @brief Function: void add_obstacle();
+	 *
+	 * This function adds an obstacle at a random location
+	 */
+	void add_obstacle();
 
 	/**
 	 * @brief Function: void wrapper_game_cb()
@@ -253,12 +274,6 @@ namespace game_graphics {
 	 */
 	void keyboard_game_cb(unsigned char key, int x, int y);
 
-	/**
-	 * @brief Function: void add_obstacle();
-	 *
-	 * This function adds an obstacle at a random location
-	 */
-	void add_obstacle();
 }
 
 template <typename game_pixel_type>
