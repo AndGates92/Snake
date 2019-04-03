@@ -131,7 +131,7 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 
 }
 
-void snake_list::SnakeList::move(int speed, int win_width, int win_height, snake_node::direction_e head_dir) {
+void snake_list::SnakeList::move(int & speed, int & win_width, int & win_height, snake_node::direction_e & head_dir) {
 	LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Window dimensions: Width ", win_width, " Height ", win_height, " Speed: ", speed);
 
 	snake_node::SnakeNode * head (this->get_head());

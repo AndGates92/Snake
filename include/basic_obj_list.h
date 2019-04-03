@@ -35,6 +35,9 @@ namespace basic_obj_list {
 			std::string get_name();
 			void set_name(std::string new_name);
 
+			template <typename pixel_type>
+			void draw(pixel_type * & pixels, int win_width, int win_height);
+
 		protected:
 
 		private:
@@ -114,7 +117,21 @@ void basic_obj_list::BasicObjList<class_node>::set_head(class_node * & new_head)
 }
 
 template <class class_node>
-void  basic_obj_list::BasicObjList<class_node>::set_name(std::string new_name) {
+void basic_obj_list::BasicObjList<class_node>::set_name(std::string new_name) {
 	this->name = new_name;
+}
+
+template <class class_node> template <typename pixel_type>
+void basic_obj_list::BasicObjList<class_node>::draw(pixel_type * & pixels, int win_width, int win_height) {
+	class_node * basic_obj = this->head;
+
+	while (basic_obj != nullptr) {
+
+		basic_obj->draw(pixels, win_width, win_height);
+
+		basic_obj = basic_obj->get_next();
+
+	}
+
 }
 #endif // BASIC_OBJ_LIST_H

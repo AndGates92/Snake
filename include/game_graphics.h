@@ -158,24 +158,26 @@ namespace game_graphics {
 	/**
 	 * @brief Function: void draw_snake(game_pixel_type * & win_width, int & win_height)
 	 *
+	 * \param win_height: height of the reshaped window
 	 * \param win_width: width of the reshaped window
 	 * \param pixels: pointer to pixels to draw passed by reference
 	 *
 	 * This function returns the pointer to the array of pixels to draw
 	 */
 	template <typename game_pixel_type>
-	void draw_snake(game_pixel_type * & pixels, int & win_width);
+	void draw_snake(game_pixel_type * & pixels, int & win_width, int & win_height);
 
 	/**
 	 * @brief Function: void draw_obstacles(game_pixel_type * & win_width, int & win_height)
 	 *
+	 * \param win_height: height of the reshaped window
 	 * \param win_width: width of the reshaped window
 	 * \param pixels: pointer to pixels to draw passed by reference
 	 *
 	 * This function returns the pointer to the array of pixels to draw
 	 */
 	template <typename game_pixel_type>
-	void draw_obstacles(game_pixel_type * & pixels, int & win_width);
+	void draw_obstacles(game_pixel_type * & pixels, int & win_width, int & win_height);
 
 	/**
 	 * @brief Function: bool contact_between_snake_obs()
@@ -280,25 +282,25 @@ game_pixel_type * game_graphics::get_game_pixel_array (int & win_width, int & wi
 
 	delete [] colour;
 
-	game_graphics::draw_snake<game_pixel_type> (pixels, win_width);
+	game_graphics::draw_snake<game_pixel_type> (pixels, win_width, win_height);
 
-	game_graphics::draw_obstacles<game_pixel_type> (pixels, win_width);
+	game_graphics::draw_obstacles<game_pixel_type> (pixels, win_width, win_height);
 
 	return pixels;
 
 }
 
 template <typename game_pixel_type>
-void game_graphics::draw_snake(game_pixel_type * & pixels, int & win_width) {
+void game_graphics::draw_snake(game_pixel_type * & pixels, int & win_width, int & win_height) {
 
-	game_graphics::snake->draw<game_pixel_type>(pixels, win_width);
+	game_graphics::snake->draw<game_pixel_type>(pixels, win_width, win_height);
 
 }
 
 template <typename game_pixel_type>
-void game_graphics::draw_obstacles(game_pixel_type * & pixels, int & win_width) {
+void game_graphics::draw_obstacles(game_pixel_type * & pixels, int & win_width, int & win_height) {
 
-	game_graphics::obstacles->draw<game_pixel_type>(pixels, win_width);
+	game_graphics::obstacles->draw<game_pixel_type>(pixels, win_width, win_height);
 
 }
 #endif // SNAKE_GRAPHICS_H

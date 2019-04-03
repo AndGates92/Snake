@@ -46,9 +46,6 @@ namespace obstacle {
 				obstacle::Obstacle::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
-			template <typename pixel_type>
-			void draw(pixel_type * & pixels, int & win_width);
-
 			// Destructor
 			~Obstacle();
 
@@ -79,28 +76,6 @@ namespace obstacle {
 		private:
 	};
 	/** @} */ // End of ObstacleGroup group
-}
-
-template <typename pixel_type>
-void obstacle::Obstacle::draw(pixel_type * & pixels, int & win_width) {
-
-	pixel_type * colour_ptr = graphics_utils::get_pixel_colour<pixel_type> (this->get_colour());
-	int width = this->get_width();
-	int height = this->get_height();
-	int y_centre = this->get_y_centre();
-	int x_centre = this->get_x_centre();
-
-	for (int x_coord = (-(width/2)); x_coord < (width/2); x_coord++) {
-		for (int y_coord = (-(height/2)); y_coord < (height/2); y_coord++) {
-			int abs_coord = (y_centre + y_coord) * win_width + (x_centre + x_coord);
-			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
-				pixels[graphics_utils::no_colours * abs_coord + colour_idx] = colour_ptr[colour_idx];
-			}
-		}
-	}
-
-	delete [] colour_ptr;
-
 }
 
 #endif // OBSTACLE_H

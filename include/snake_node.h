@@ -79,10 +79,7 @@ namespace snake_node {
 			// Set functions
 			void set_direction(snake_node::direction_e new_direction);
 
-			template <typename pixel_type>
-			void draw(pixel_type * & pixels, int & win_width);
-
-			void move(int speed, int win_width, int win_height);
+			void move(int & speed, int & win_width, int & win_height);
 
 			// Destructor
 			~SnakeUnit();
@@ -115,27 +112,5 @@ namespace snake_node {
 		private:
 	};
 	/** @} */ // End of SnakeNodeGroup group
-}
-
-template <typename pixel_type>
-void snake_node::SnakeUnit::draw(pixel_type * & pixels, int & win_width) {
-
-	pixel_type * colour_ptr = graphics_utils::get_pixel_colour<pixel_type> (this->get_colour());
-	int width = this->get_width();
-	int height = this->get_height();
-	int y_centre = this->get_y_centre();
-	int x_centre = this->get_x_centre();
-
-	for (int x_coord = (-(width/2)); x_coord < (width/2); x_coord++) {
-		for (int y_coord = (-(height/2)); y_coord < (height/2); y_coord++) {
-			int abs_coord = (y_centre + y_coord) * win_width + (x_centre + x_coord);
-			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
-				pixels[graphics_utils::no_colours * abs_coord + colour_idx] = colour_ptr[colour_idx];
-			}
-		}
-	}
-
-	delete [] colour_ptr;
-
 }
 #endif // SNAKE_NODE_H

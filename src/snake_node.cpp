@@ -48,7 +48,7 @@ void snake_node::SnakeUnit::set_direction(snake_node::direction_e new_direction)
 // ================================================================
 // Move function
 // ================================================================
-void snake_node::SnakeUnit::move(int speed, int win_width, int win_height) {
+void snake_node::SnakeUnit::move(int & speed, int & win_width, int & win_height) {
 
 	int y_centre = this->get_y_centre();
 	int x_centre = this->get_x_centre();

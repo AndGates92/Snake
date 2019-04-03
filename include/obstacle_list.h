@@ -30,9 +30,6 @@ namespace obstacle_list {
 
 			void add_node(int centre_x, int centre_y, int ostacle_width, int ostacle_height, graphics_utils::palette_e ostacle_colour);
 
-			template <typename pixel_type>
-			void draw(pixel_type * & pixels, int & win_width);
-
 		protected:
 
 		private:
@@ -40,18 +37,6 @@ namespace obstacle_list {
 	/** @} */ // End of ObstacleListGroup group
 }
 
-template <typename pixel_type>
-void obstacle_list::ObstacleList::draw(pixel_type * & pixels, int & win_width) {
-	obstacle::ObstacleNode * obstacle_node = this->get_head();
 
-	while (obstacle_node != nullptr) {
-
-		obstacle_node->draw(pixels, win_width);
-
-		obstacle_node = obstacle_node->get_next();
-
-	}
-
-}
 
 #endif // OBSTACLE_LIST_H
