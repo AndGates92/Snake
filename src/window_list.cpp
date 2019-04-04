@@ -111,7 +111,5 @@ window_node::WindowNode * window_list::WindowList::search_by_win_id(int &win_id)
 }
 
 void window_list::WindowList::delete_node(window_node::WindowNode * & node) {
-	window_node::WindowNode * node_saved(node);
 	this->remove_node(node);
-	node_saved->destroy_node();
 }

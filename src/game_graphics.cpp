@@ -128,7 +128,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			// force glut to call the display function
 			break;
 		case 'q':
-			game_graphics::snake->~SnakeList();
+			//game_graphics::snake->~SnakeList();
 			//delete [] game_graphics::snake;
 			graphics_utils::delete_window();
 			game_graphics::free_obstacle_list();

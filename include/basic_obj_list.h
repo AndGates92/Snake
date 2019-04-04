@@ -59,6 +59,7 @@ basic_obj_list::BasicObjList<class_node>::~BasicObjList() {
 		node_ptr->print_info(logging::verb_level_e::LOW, pretext);
 		this->head = this->head->get_next();
 		node_ptr->~class_node();
+		delete node_ptr;
 	}
 	LOG_INFO(logging::verb_level_e::HIGH, "Basic Object list destroyed");
 
@@ -66,8 +67,6 @@ basic_obj_list::BasicObjList<class_node>::~BasicObjList() {
 
 template <class class_node>
 void basic_obj_list::BasicObjList<class_node>::remove_node(class_node * & node) {
-	class_node * node_saved (node);
-
 	if (node == this->head) {
 		// Move head pointer as basic_obj list to delete is the head
 		if (node->get_next() == nullptr) {
@@ -86,9 +85,8 @@ void basic_obj_list::BasicObjList<class_node>::remove_node(class_node * & node) 
 	}
 
 	std::string pretext ("Destructor");
-	node_saved->print_info(logging::verb_level_e::LOW, pretext);
-
-	delete node_saved;
+	node->print_info(logging::verb_level_e::LOW, pretext);
+	delete node;
 }
 
 template <class class_node>
