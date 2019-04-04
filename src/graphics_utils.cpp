@@ -49,6 +49,11 @@ void graphics_utils::delete_window() {
 	graphics_utils::delete_win_id(win_id);
 }
 
+void graphics_utils::delete_all_windows() {
+	windows->~WindowList();
+//	delete windows;
+}
+
 window_list::WindowList * & graphics_utils::get_window_ptr() {
 	return windows;
 }

@@ -146,6 +146,13 @@ namespace game_graphics {
 	void free_obstacle_list();
 
 	/**
+	 * @brief Function: void free_window_list()
+	 *
+	 * Free windows from the heap
+	 */
+	void free_window_list();
+
+	/**
 	 * @brief Function: snake_list::SnakeList * & get_snake_ptr()
 	 *
 	 * \return Return the pointer to the head of the snake

@@ -67,6 +67,8 @@ namespace graphics_utils {
 
 	void delete_window();
 
+	void delete_all_windows();
+
 	void init_window_list();
 
 	void delete_win_id(int& id);

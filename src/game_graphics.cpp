@@ -128,11 +128,9 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			// force glut to call the display function
 			break;
 		case 'q':
-			//game_graphics::snake->~SnakeList();
-			//delete [] game_graphics::snake;
-			graphics_utils::delete_window();
 			game_graphics::free_obstacle_list();
 			game_graphics::free_snake_list();
+			game_graphics::free_window_list();
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Exit program because of pressing key ", key);
 			break;
 		default:
@@ -414,8 +412,14 @@ void game_graphics::add_obstacle() {
 
 void game_graphics::free_obstacle_list() {
 	game_graphics::obstacles->~ObstacleList();
+	delete game_graphics::obstacles;
 }
 
 void game_graphics::free_snake_list() {
 	game_graphics::snake->~SnakeList();
+	delete game_graphics::snake;
+}
+
+void game_graphics::free_window_list() {
+	graphics_utils::delete_all_windows();
 }
