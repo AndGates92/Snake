@@ -142,7 +142,6 @@ template <typename... err_type>
 void logging::log_error(err_type... err) {
 	using std::cerr;
 
-	logging::logfile.~File();
 	logging::print_str(std::cerr, err...);
 
 	exit(1);

@@ -51,10 +51,10 @@ bool iofile::File::ofile_is_open() {
 // Input stream (read)
 // ================================================================
 void iofile::File::close_ifile() {
-	if (this->ofile_is_open() == true) {
-		ofile << "File " << __FILE__ << " at line " << __LINE__ << ": " << "[Close ifile] Closing ifile " << this->name << " for read." << std::endl;
-	}
 	if (this->ifile_is_open() == true) {
+		if (this->ofile_is_open() == true) {
+			ofile << "File " << __FILE__ << " at line " << __LINE__ << ": " << "[Close ifile] Closing ifile " << this->name << " for read." << std::endl;
+		}
 		this->ifile.close();
 	}
 }
