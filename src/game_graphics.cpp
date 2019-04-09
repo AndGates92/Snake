@@ -60,8 +60,8 @@ void game_graphics::display_game_cb() {
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Display Game Callback] Display Game Callback for window ID: ", win_id);
 
-	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
-	window_obj::WindowObj window(node->get_obj());
+//	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
+//	window_obj::WindowObj window(node->get_obj());
 
 	double win_width = 0.0;
 	win_width = glutGet(GLUT_WINDOW_WIDTH);
@@ -210,8 +210,6 @@ void game_graphics::idle_game_cb() {
 		int new_snake_node_x = snake_head->get_x_centre();
 		int new_snake_node_y = snake_head->get_y_centre();
 		snake_node::direction_e snake_head_dir = snake_head->get_direction();
-cout << "Window W " << win_width << " H " << win_height << endl;
-cout << "Head centre X " << new_snake_node_x << " Y " << new_snake_node_y << " direction " << snake_head_dir << endl;
 
 		if (snake_head_dir == snake_node::direction_e::RIGHT) {
 			new_snake_node_x = (snake_head->get_x_centre() + game_graphics::node_width) % win_width;
@@ -234,7 +232,6 @@ cout << "Head centre X " << new_snake_node_x << " Y " << new_snake_node_y << " d
 			}
 			new_snake_node_x = snake_head->get_x_centre();
 		}
-cout << "New unit centre X " << new_snake_node_x << " Y " << new_snake_node_y << endl;
 
 		game_graphics::snake->add_node(new_snake_node_x, new_snake_node_y, game_graphics::node_width, game_graphics::node_height, snake_head_dir, graphics_utils::palette_e::RED);
 
@@ -246,8 +243,12 @@ cout << "New unit centre X " << new_snake_node_x << " Y " << new_snake_node_y <<
 		game_graphics::snake->move(snake_speed, win_width, win_height, game_graphics::head_dir);
 	}
 
-	// force glut to call the display function
-	glutPostRedisplay();
+	int win_id_new = glutGetWindow();
+	if (win_id_new != 0) {
+		LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Game Callback] Idle Game Callback before glutPostRedisplay for window ID: ", win_id_new);
+		// force glut to call the display function
+		glutPostRedisplay();
+	}
 
 }
 
