@@ -118,6 +118,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Speed up snake to ", game_graphics::speed, " because of pressing key ", key);
 			game_graphics::speed += game_graphics::speed_incr;
 			// force glut to call the display function
+			glutPostRedisplay();
 			break;
 		case 's':
 			if (game_graphics::speed > game_graphics::speed_incr) {
@@ -126,17 +127,17 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Slow down snake to ", game_graphics::speed, " because of pressing key ", key);
 			ASSERT(game_graphics::speed > 0)
 			// force glut to call the display function
+			glutPostRedisplay();
 			break;
 		case 'q':
+			graphics_utils::delete_window();
 			game_graphics::free_obstacle_list();
 			game_graphics::free_snake_list();
-			game_graphics::free_window_list();
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Exit program because of pressing key ", key);
 			break;
 		default:
 			break;
 	}
-	glutPostRedisplay();
 }
 #pragma GCC diagnostic pop
 
@@ -151,38 +152,31 @@ void game_graphics::specialkey_game_cb(int key, int x, int y) {
 		case GLUT_KEY_UP:
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to UP because of pressing key Arrow Up");
 			if ((snake_head_dir == snake_node::direction_e::RIGHT) | (snake_head_dir == snake_node::direction_e::LEFT)) {
-//				snake_head->set_direction(snake_node::direction_e::UP);
 				game_graphics::head_dir = snake_node::direction_e::UP;
 			}
-			// force glut to call the display function
 			break;
 		case GLUT_KEY_DOWN:
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to DOWN because of pressing key Arrow Down");
 			if ((snake_head_dir == snake_node::direction_e::RIGHT) | (snake_head_dir == snake_node::direction_e::LEFT)) {
-//				snake_head->set_direction(snake_node::direction_e::DOWN);
 				game_graphics::head_dir = snake_node::direction_e::DOWN;
 			}
-			// force glut to call the display function
 			break;
 		case GLUT_KEY_LEFT:
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to LEFT because of pressing key Arrow Down");
 			if ((snake_head_dir == snake_node::direction_e::UP) | (snake_head_dir == snake_node::direction_e::DOWN)) {
-//				snake_head->set_direction(snake_node::direction_e::LEFT);
 				game_graphics::head_dir = snake_node::direction_e::LEFT;
 			}
-			// force glut to call the display function
 			break;
 		case GLUT_KEY_RIGHT:
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to RIGHT because of pressing key Arrow Down");
 			if ((snake_head_dir == snake_node::direction_e::UP) | (snake_head_dir == snake_node::direction_e::DOWN)) {
-//				snake_head->set_direction(snake_node::direction_e::RIGHT);
 				game_graphics::head_dir = snake_node::direction_e::RIGHT;
 			}
-			// force glut to call the display function
 			break;
 		default:
 			break;
 	}
+	// force glut to call the display function
 	glutPostRedisplay();
 }
 #pragma GCC diagnostic pop
