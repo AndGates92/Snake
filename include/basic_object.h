@@ -97,14 +97,17 @@ void basic_object::BasicObject::draw(pixel_type * & pixels, const int & win_widt
 		if (x_abs < 0) {
 			x_abs += win_width;
 		}
+		x_abs = x_abs % win_width;
+		ASSERT((x_abs >=0) & (x_abs < win_width));
 		for (int y_coord = (-(height/2)); y_coord < (height/2); y_coord++) {
 			int y_abs = (y_centre + y_coord);
 			// Deal with case where snake appears on the other side of the screen
 			if (y_abs < 0) {
 				y_abs += win_height;
 			}
+			y_abs = y_abs % win_height;
+			ASSERT((y_abs >=0) & (y_abs < win_height));
 			int abs_coord = y_abs * win_width + x_abs;
-//cout << "Coord abs " << abs_coord << " Y " << y_abs << " X " << x_abs << endl;
 			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
 				pixels[graphics_utils::no_colours * abs_coord + colour_idx] = colour_ptr[colour_idx];
 			}
