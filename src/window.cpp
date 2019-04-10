@@ -64,6 +64,7 @@ int window::Window::create_window(std::string title, int width, int height, int 
 }
 
 void window::Window::destroy_window() {
+	LOG_INFO(logging::verb_level_e::DEBUG, "Destroy Window");
 	glutDestroyWindow(this->id);
 }
 

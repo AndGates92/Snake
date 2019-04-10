@@ -77,6 +77,7 @@ int menu::Menu::create_menu(void (*EntryFunc)(int), void (*ItemsFunc)()) {
 // ================================================================
 
 void menu::Menu::destroy_menu() {
+	LOG_INFO(logging::verb_level_e::DEBUG, "Destroy Menu");
 	glutDestroyMenu(id);
 }
 
