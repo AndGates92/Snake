@@ -394,8 +394,8 @@ cout << " exp_x_distance " << x_centre_distance <<" exp_y_distance " << y_centre
 //				int x_dist = compute_centre_distance(x_centre1, x_centre2, win_width,  2*x_centre_distance);
 //				int y_dist = compute_centre_distance(y_centre1, y_centre2, win_height, 2*y_centre_distance);
 
-				int x_dist = (x_centre1 - x_centre2);
-				int y_dist = (y_centre1 - y_centre2);
+				int x_dist = (int) abs(x_centre1 - x_centre2);
+				int y_dist = (int) abs(y_centre1 - y_centre2);
 
 				// Unit1 and Unit2 are getting closer to each other on the x axis
 				if (((x_centre1 >= x_centre2) & (direction1 == snake_node::direction_e::RIGHT)) | ((x_centre1 <= x_centre2) & (direction1 == snake_node::direction_e::LEFT))) {
