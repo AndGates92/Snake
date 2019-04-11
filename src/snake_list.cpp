@@ -231,7 +231,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 				}
 			} else {
 				snake_node::direction_e direction_next = snake_el->get_next()->get_direction();
-				// If head and second unit hav the same direction, the head can change again 
+				// If head and second unit have the same direction, the head can change again
 				if (direction_next == direction_curr) {
 					snake_el->set_direction(direction_prev);
 				}
