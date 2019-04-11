@@ -115,10 +115,10 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 				vdistance_measured = ((int) abs(centre_y - y_centre_found));
 			}
 
-cout << "Direction " << direction_found << endl;
-cout << "centre_y " << centre_y << " y_centre_found " << y_centre_found << "H dist units " << hdistance_units << " measured " << hdistance_measured << endl;
+//cout << "Direction " << direction_found << endl;
+//cout << "centre_y " << centre_y << " y_centre_found " << y_centre_found << "H dist units " << hdistance_units << " measured " << hdistance_measured << endl;
 			ASSERT(hdistance_units == hdistance_measured)
-cout << "centre_x " << centre_x << " x_centre_found " << x_centre_found << "V dist units " << vdistance_units << " measured " << vdistance_measured << endl;
+//cout << "centre_x " << centre_x << " x_centre_found " << x_centre_found << "V dist units " << vdistance_units << " measured " << vdistance_measured << endl;
 			ASSERT(vdistance_units == vdistance_measured)
 
 			new_snake->set_prev(snake_found->get_prev());
@@ -216,7 +216,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 					// Unit moving horizontally:
 					// - X is force to aligned (set previous unit X coordinate)
 					// - Y is adjusted to keep distance between centre constant
-					int centre_adj = snake_list::SnakeList::change_dir(snake_el, height_curr, height_prev, y_centre_curr, y_centre_prev, sign, direction_prev);
+					int centre_adj = snake_list::SnakeList::change_dir(snake_el, win_height, height_curr, height_prev, y_centre_curr, y_centre_prev, sign, direction_prev);
 					LOG_INFO(logging::verb_level_e::HIGH, "[Snake List Move] Change drection to ", direction_prev, " New coordinates X ", x_centre_prev, " Y ", centre_adj);
 					snake_el->set_x_centre(x_centre_prev);
 					snake_el->set_y_centre(centre_adj);
@@ -224,7 +224,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 					// Unit moving vertically:
 					// - Y is force to aligned (set previous unit Y coordinate)
 					// - X is adjusted to keep distance between centre constant
-					int centre_adj = snake_list::SnakeList::change_dir(snake_el, width_curr, width_prev, x_centre_curr, x_centre_prev, sign, direction_prev);
+					int centre_adj = snake_list::SnakeList::change_dir(snake_el, win_width, width_curr, width_prev, x_centre_curr, x_centre_prev, sign, direction_prev);
 					LOG_INFO(logging::verb_level_e::HIGH, "[Snake List Move] Change drection to ", direction_prev, " New coordinates X ", centre_adj, " Y ", y_centre_prev);
 					snake_el->set_x_centre(centre_adj);
 					snake_el->set_y_centre(y_centre_prev);
@@ -269,22 +269,39 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 	}
 }
 
-int snake_list::SnakeList::change_dir(snake_node::SnakeNode * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_node::direction_e prev_dir) {
+int snake_list::SnakeList::change_dir(snake_node::SnakeNode * & snake_el, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_node::direction_e prev_dir) {
 	// Distance between centres
 	int centre_distance = ((curr_dim + prev_dim)/2);
+	int curr_distance = (int) abs(curr_coord_mov_dir - prev_coord_mov_dir);
+	ASSERT(curr_distance <= win_dim);
+	// Units are on oposite sides of the screen
+	if (curr_distance > centre_distance) {
+		curr_distance = win_dim - curr_distance;
+	}
+	ASSERT(curr_distance <= centre_distance);
+
 	// Adjustment: distance between centres - actual distance between centres 
-	int adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - prev_coord_mov_dir));
+	int adjustment = centre_distance - curr_distance;
 //cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir <<  endl;
+	ASSERT((adjustment >= 0) & (adjustment <= centre_distance));
+
 	int centre_adj = curr_coord_mov_dir + sign * adjustment;
 
-	snake_el->set_direction(prev_dir);
-	if((int) abs(prev_coord_mov_dir - centre_adj) != centre_distance) {
+	int adj_distance = (int) abs(prev_coord_mov_dir - centre_adj);
+	ASSERT(adj_distance <= win_dim);
+	// Units are on oposite sides of the screen
+	if (adj_distance > centre_distance) {
+		adj_distance = win_dim - adj_distance;
+	}
+	ASSERT(adj_distance <= centre_distance);
+
+	if(adj_distance != centre_distance) {
 		LOG_ERROR("Snake units are touching each other.\nUnit1 -> ", centre_adj, ". Unit2 -> ", prev_coord_mov_dir);
 	}
 
-	ASSERT((int) abs(prev_coord_mov_dir - centre_adj) == centre_distance);
+	ASSERT(adj_distance == centre_distance);
 
-	ASSERT(adjustment >= 0);
+	snake_el->set_direction(prev_dir);
 
 	return centre_adj;
 }
