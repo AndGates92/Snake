@@ -238,7 +238,11 @@ void game_graphics::idle_game_cb() {
 		int snake_speed = game_graphics::speed;
 
 		game_graphics::snake->move(snake_speed, win_width, win_height, game_graphics::head_dir);
+
 	}
+
+	//game_graphics::snake->check_collision(win_width, win_height);
+	game_graphics::snake->check_collision();
 
 	int win_id_new = glutGetWindow();
 	if (win_id_new != 0) {

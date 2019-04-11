@@ -32,9 +32,13 @@ namespace snake_list {
 
 			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
 
+			//void check_collision(const int & win_width, const int & win_height);
+			void check_collision();
+
 		protected:
 			int change_dir(snake_node::SnakeNode * & snake_node, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_node::direction_e prev_dir);
 			int adj_snake(snake_node::SnakeNode * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_node::direction_e dir1, snake_node::direction_e dir2, snake_node::direction_e curr_dir, int win_dim_mov);
+			int compute_centre_distance(int coord1, int coord2, int win_dim, int exp_distance);
 
 		private:
 	};
