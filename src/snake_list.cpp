@@ -373,6 +373,7 @@ cout << " x_centre1 " << x_centre1 <<" y_centre1 " << y_centre1 << endl;
 		// When the direction changes, the centres of consecutive snake units may be closer than the expected distance
 		if (snake1_nxt != nullptr) {
 
+cout << " x_centre1 nxt " << snake1_nxt->get_x_centre() <<" y_centre1 nxt " << snake1_nxt->get_y_centre() << endl;
 			snake_node::SnakeNode * snake2 (snake1_nxt->get_next());
 
 			while (snake2 != nullptr) {
@@ -388,6 +389,7 @@ cout << " x_centre2 " << x_centre2 <<" y_centre2 " << y_centre2 << endl;
 
 				int y_centre_distance = (height1 + height2)/2;
 				int x_centre_distance = (width1 + width2)/2;
+				int total_centre_distance = x_centre_distance + y_centre_distance;
 
 cout << " exp_x_distance " << x_centre_distance <<" exp_y_distance " << y_centre_distance << endl;
 
@@ -396,17 +398,18 @@ cout << " exp_x_distance " << x_centre_distance <<" exp_y_distance " << y_centre
 
 				int x_dist = (int) abs(x_centre1 - x_centre2);
 				int y_dist = (int) abs(y_centre1 - y_centre2);
+				int tot_dist = x_dist + y_dist;
 
 				// Unit1 and Unit2 are getting closer to each other on the x axis
 				if (((x_centre1 >= x_centre2) & (direction1 == snake_node::direction_e::RIGHT)) | ((x_centre1 <= x_centre2) & (direction1 == snake_node::direction_e::LEFT))) {
-					if (x_dist < x_centre_distance) {
+					if (tot_dist < total_centre_distance) {
 						LOG_ERROR("Collision on the X axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
 					}
 				}
 
 				// Unit1 and Unit2 are getting closer to each other on the y axis
 				if (((y_centre1 >= y_centre2) & (direction1 == snake_node::direction_e::DOWN)) | ((y_centre1 <= y_centre2) & (direction1 == snake_node::direction_e::UP))) {
-					if (y_dist < y_centre_distance) {
+					if (tot_dist < total_centre_distance) {
 						LOG_ERROR("Collision on the Y axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
 					}
 				}
