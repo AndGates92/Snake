@@ -280,7 +280,7 @@ int snake_list::SnakeList::change_dir(snake_node::SnakeNode * & snake_el, int wi
 
 	// Adjustment: distance between centres - actual distance between centres 
 	int adjustment = centre_distance - curr_distance;
-cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir <<  endl;
+//cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir <<  endl;
 	ASSERT((adjustment >= 0) & (adjustment <= centre_distance));
 
 	int centre_adj = curr_coord_mov_dir + sign * adjustment;
@@ -348,7 +348,6 @@ int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int cur
 	return adjustment;
 }
 
-//void snake_list::SnakeList::check_collision(const int & win_width, const int & win_height) {
 void snake_list::SnakeList::check_collision() {
 
 	snake_node::SnakeNode * head (this->get_head());
@@ -364,7 +363,7 @@ void snake_list::SnakeList::check_collision() {
 		int height1 = snake1->get_height();
 		int width1 = snake1->get_width();
 
-cout << " x_centre1 " << x_centre1 <<" y_centre1 " << y_centre1 << endl;
+//cout << " x_centre1 " << x_centre1 <<" y_centre1 " << y_centre1 << endl;
 
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Check Collision] Current Unit: X ", x_centre1, " Y ", y_centre1, " Height ", height1, " Width ", width1);
 		snake_node::SnakeNode * snake1_nxt (snake1->get_next());
@@ -373,7 +372,7 @@ cout << " x_centre1 " << x_centre1 <<" y_centre1 " << y_centre1 << endl;
 		// When the direction changes, the centres of consecutive snake units may be closer than the expected distance
 		if (snake1_nxt != nullptr) {
 
-cout << " x_centre1 nxt " << snake1_nxt->get_x_centre() <<" y_centre1 nxt " << snake1_nxt->get_y_centre() << endl;
+//cout << " x_centre1 nxt " << snake1_nxt->get_x_centre() <<" y_centre1 nxt " << snake1_nxt->get_y_centre() << endl;
 			snake_node::SnakeNode * snake2 (snake1_nxt->get_next());
 
 			while (snake2 != nullptr) {
@@ -383,7 +382,7 @@ cout << " x_centre1 nxt " << snake1_nxt->get_x_centre() <<" y_centre1 nxt " << s
 				int height2 = snake2->get_height();
 				int width2 = snake2->get_width();
 
-cout << " x_centre2 " << x_centre2 <<" y_centre2 " << y_centre2 << endl;
+//cout << " x_centre2 " << x_centre2 <<" y_centre2 " << y_centre2 << endl;
 
 				LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Check Collision] Previous Unit: X ", x_centre2, " Y ", y_centre2, " Height ", height2, " Width ", width2);
 
@@ -391,10 +390,7 @@ cout << " x_centre2 " << x_centre2 <<" y_centre2 " << y_centre2 << endl;
 				int x_centre_distance = (width1 + width2)/2;
 				int total_centre_distance = x_centre_distance + y_centre_distance;
 
-cout << " exp_x_distance " << x_centre_distance <<" exp_y_distance " << y_centre_distance << endl;
-
-//				int x_dist = compute_centre_distance(x_centre1, x_centre2, win_width,  2*x_centre_distance);
-//				int y_dist = compute_centre_distance(y_centre1, y_centre2, win_height, 2*y_centre_distance);
+//cout << " exp_x_distance " << x_centre_distance <<" exp_y_distance " << y_centre_distance << endl;
 
 				int x_dist = (int) abs(x_centre1 - x_centre2);
 				int y_dist = (int) abs(y_centre1 - y_centre2);
@@ -433,7 +429,7 @@ int snake_list::SnakeList::compute_centre_distance(int coord1, int coord2, int w
 		distance = win_dim - distance;
 	}
 
-cout << " coord1 " << coord1 <<" coord2 " << coord2 << " distance " << distance << " exp distance " << exp_distance << endl;
+//cout << " coord1 " << coord1 <<" coord2 " << coord2 << " distance " << distance << " exp distance " << exp_distance << endl;
 
 	ASSERT(distance <= exp_distance);
 
