@@ -348,7 +348,54 @@ int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int cur
 	return adjustment;
 }
 
-void snake_list::SnakeList::check_collision() {
+#ifndef HARD_WALL
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#endif // HARD_WALL
+void snake_list::SnakeList::check_collision(const int & win_width, const int & win_height) {
+	check_snake_collision();
+	#ifdef HARD_WALL
+	check_wall_collision(win_width, win_height);
+	#endif // HARD_WALL
+}
+#ifndef HARD_WALL
+#pragma GCC diagnostic pop
+#endif // HARD_WALL
+
+#ifdef HARD_WALL
+void check_wall_collision(const int & win_width, const int & win_height) {
+
+	snake_node::SnakeNode * head (this->get_head());
+
+	snake_node::SnakeNode * snake (head);
+
+	while (snake != nullptr) {
+
+		int x_centre = snake->get_x_centre();
+		int y_centre = snake->get_y_centre();
+		int height = snake->get_height();
+		int width = snake->get_width();
+
+		for (int h = -height/2; h < height/2; h++) {
+			int coord = y_centre + h;
+			if ((coord < 0) | (coord > win_height)) {
+				GAME_OVER("Snake unit is crossing the hard wall. Window height ", win_height, " Snake Unit coordinate ", coord);
+			}
+		}
+
+		for (int w = -width/2; w < width/2; w++) {
+			int coord = x_centre + w;
+			if ((coord < 0) | (coord > win_width)) {
+				GAME_OVER("Snake unit is crossing the hard wall. Window width ", win_width, " Snake Unit coordinate ", coord);
+			}
+		}
+
+	}
+
+}
+#endif // HARD_WALL
+
+void snake_list::SnakeList::check_snake_collision() {
 
 	snake_node::SnakeNode * head (this->get_head());
 
@@ -356,7 +403,6 @@ void snake_list::SnakeList::check_collision() {
 
 	while (snake1 != nullptr) {
 
-		// Store values of current element before updating its position and direction
 		snake_node::direction_e direction1 = snake1->get_direction();
 		int x_centre1 = snake1->get_x_centre();
 		int y_centre1 = snake1->get_y_centre();

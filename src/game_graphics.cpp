@@ -241,8 +241,7 @@ void game_graphics::idle_game_cb() {
 
 	}
 
-	//game_graphics::snake->check_collision(win_width, win_height);
-	game_graphics::snake->check_collision();
+	game_graphics::snake->check_collision(win_width, win_height);
 
 	int win_id_new = glutGetWindow();
 	if (win_id_new != 0) {

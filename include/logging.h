@@ -41,6 +41,17 @@
 	logging::log_info(VERBOSITY, "File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
 
 /**
+ * @brief GAME_OVER(...)
+ *
+ * \param ... :       variable number of arguments to provide to log_info
+ *
+ * Print an error message to std::cerr to terminate the game
+ */
+#define GAME_OVER(...)\
+	logging::log_error("File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
+
+
+/**
  * @brief LOG_ERROR(...)
  *
  * \param ... :       variable number of arguments to provide to log_info

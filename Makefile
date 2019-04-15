@@ -55,6 +55,7 @@ HEADER_EXT = h
 # Compile-time flags
 CFLAGS = -g -Wall -Werror -Wextra -Wpedantic -std=c++14 -rdynamic
 CEXTRAFLAGS ?=
+BEHFLAGS ?=
 DEPENDFLAG = -MM
 DFLAGS = -DLOGFILE="$(LOGFILE)" -DVERBOSITY=$(VERBOSITY)
 LIBS= -lm
@@ -126,12 +127,12 @@ $(EXE) : $(OBJS)
 	$(MKDIR) $(LOG_DIR)
 	$(MKDIR) $(@D)
 	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compiling $(@F). Object files are: $^"
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(DFLAGS) $(CEXTRAFLAGS) $^ $(LIBS) $(GLUTLIBS) $(X11LIBS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(DFLAGS) $(BEHFLAGS) $(CEXTRAFLAGS) $^ $(LIBS) $(GLUTLIBS) $(X11LIBS)
 
 $(OBJ_DIR)/%.$(OBJ_EXT) : %.$(SRC_EXT)
 	$(MKDIR) $(@D)
 	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compiling $(<F) and creating object $@"
-	$(CC) $(CFLAGS) $(INCLUDES)  -c $< $(DFLAGS) $(CEXTRAFLAGS) -o $@ $(LIBS) $(GLUTLIBS) $(X11LIBS)
+	$(CC) $(CFLAGS) $(INCLUDES)  -c $< $(DFLAGS) $(BEHFLAGS) $(CEXTRAFLAGS) -o $@ $(LIBS) $(GLUTLIBS) $(X11LIBS)
 
 $(DEPFILE) : $(SRCS)
 	rm -rf $(DEP_DIR)
@@ -152,6 +153,7 @@ debug :
 	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] Compiler options:"
 	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> $(PROG_LANG) flags: $(CFLAGS)"
 	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> $(PROG_LANG) extra flags: $(CEXTRAFLAGS)"
+	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> Behaviour flags: $(BEHFLAGS)"
 	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> defines: $(DFLAGS)"
 	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> libs: $(LIBS)"
 	$(VERBOSE_ECHO)echo "[${shell date "+${DATE_FORMAT} ${TIME_FORMAT}"}] --> OpenGL GLUT libraries: $(GLUTLIBS)"

@@ -12,19 +12,24 @@ doc=0
 # Make file settings
 PROJNAME=snake
 EXENAME=${PROJNAME}
+EXEHWNAME=${PROJNAME}_hard_wall
+EXENOHWNAME=${PROJNAME}_no_hard_wall
 EXEDIR=bin
 
 LOGDIR=log
 DEBUGLOG=debug.log
-COMPLOG=compile.log
+COMPNOHWLOG=compile_no_hard_wall.log
+COMPHWLOG=compile_hard_wall.log
 DOCLOG=doc.log
-EXELOG=${EXENAME}.log
+EXENOHWLOG=${EXENOHWNAME}.log
+EXEHWLOG=${EXEHWNAME}.log
 VALGRINDNOINPUTLOG=valgrind_noinput.log
 EXEVALGRINDLOG=${EXENAME}_valgrind.log
 
-VERBOSITY=2
+VERBOSITY=6
 
 CEXTRAFLAGS=-DENABLE_ASSERTIONS
+BEHFLAGS=-DHARD_WALL
 
 DATE_FORMAT="%a %d %b %Y"
 TIME_FORMAT=%H:%M:%S
@@ -105,9 +110,14 @@ if [ ${debug} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Debug logfile name: ${DEBUGLOG}"
 fi
 
+if [ ${compile} -eq 1 ] || [ ${tests} -eq 1 ]; then
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Compile logfile name hard wall: ${COMPHWLOG}"
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Compile logfile name no hard wall: ${COMPNOHWLOG}"
+fi
+
 if [ ${tests} -eq 1 ]; then
-	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Compile logfile name: ${COMPLOG}"
-	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Executable logfile name: ${EXELOG}"
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Executable logfile name hard wall: ${EXEHWLOG}"
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Executable logfile name no hard wall: ${EXENOHWLOG}"
 fi
 
 if [ ${doc} -eq 1 ]; then
@@ -147,26 +157,51 @@ if [ ${debug} -eq 1 ]; then
 	 make debug LOG_DIR=${LOGDIR} LOGFILENAME=${EXELOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENAME} BIN_DIR=${EXEDIR} CEXTRAFLAGS=${CEXTRAFLAGS} > ${LOGDIR}/${DEBUGLOG})
 fi
 
-if [ ${compile} -eq 1 ] || [ ${tests} -eq 1 ]; then
+if [ ${compile} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Compile sources"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	(set -x; \
-	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXELOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} > ${LOGDIR}/${COMPLOG})
+	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXELOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} > ${LOGDIR}/${COMPNOHWLOG})
 fi
 
 if [ ${tests} -eq 1 ]; then
-	if [ -f ./${EXEDIR}/${EXENAME} ]; then
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Compile sources with no hard wall"
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
+	(set -x; \
+	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXENOHWLOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENOHWNAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} > ${LOGDIR}/${COMPNOHWLOG})
+
+	if [ -f ./${EXEDIR}/${EXENOHWNAME} ]; then
 		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
-		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Run program"
+		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Run program with no hard wall"
 		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] START: Testing with no input file"
 		(set -x; \
-		 ./${EXEDIR}/${EXENAME})
+		 ./${EXEDIR}/${EXENOHWNAME})
 		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] COMPLETED: Testing with no input file"
 	else
 		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] FAILED: Compilation failed"
 	fi
+
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Compile sources with hard wall"
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
+	(set -x; \
+	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXEHWLOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXEHWNAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} BEHFLAGS=${BEHFLAGS} > ${LOGDIR}/${COMPHWLOG})
+
+	if [ -f ./${EXEDIR}/${EXEHWNAME} ]; then
+		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
+		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Run program with hard wall"
+		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
+		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] START: Testing with no input file"
+		(set -x; \
+		 ./${EXEDIR}/${EXEHWNAME})
+		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] COMPLETED: Testing with no input file"
+	else
+		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] FAILED: Compilation failed"
+	fi
+
 fi
 
 if [ ${doc} -eq 1 ]; then
