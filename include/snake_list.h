@@ -32,7 +32,6 @@ namespace snake_list {
 
 			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
 
-			//void check_collision(const int & win_width, const int & win_height);
 			void check_collision();
 
 		protected:
