@@ -363,7 +363,7 @@ void snake_list::SnakeList::check_collision(const int & win_width, const int & w
 #endif // HARD_WALL
 
 #ifdef HARD_WALL
-void check_wall_collision(const int & win_width, const int & win_height) {
+void snake_list::SnakeList::check_wall_collision(const int & win_width, const int & win_height) {
 
 	snake_node::SnakeNode * head (this->get_head());
 
@@ -379,16 +379,18 @@ void check_wall_collision(const int & win_width, const int & win_height) {
 		for (int h = -height/2; h < height/2; h++) {
 			int coord = y_centre + h;
 			if ((coord < 0) | (coord > win_height)) {
-				GAME_OVER("Snake unit is crossing the hard wall. Window height ", win_height, " Snake Unit coordinate ", coord);
+				GAME_OVER("Snake unit is crossing the hard wall. Snake Unit coordinate (Valid value: 0 to ", win_height, "): ", coord);
 			}
 		}
 
 		for (int w = -width/2; w < width/2; w++) {
 			int coord = x_centre + w;
 			if ((coord < 0) | (coord > win_width)) {
-				GAME_OVER("Snake unit is crossing the hard wall. Window width ", win_width, " Snake Unit coordinate ", coord);
+				GAME_OVER("Snake unit is crossing the hard wall. Snake Unit coordinate (Valid value: 0 to ", win_width, "): ", coord);
 			}
 		}
+
+		snake = snake->get_next();
 
 	}
 
