@@ -126,6 +126,10 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
+		case 'm':
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Save game because of pressing key ", key);
+			game_graphics::save_game(game_graphics::savefile);
+			break;
 		case 'q':
 			graphics_utils::delete_window();
 			game_graphics::free_obstacle_list();
@@ -316,6 +320,9 @@ void game_graphics::init_game_parameters() {
 }
 
 void game_graphics::init_game() {
+
+	game_graphics::savefile = "./log/savepoint";
+
 	game_graphics::init_snake_list();
 	game_graphics::init_obstacle_list();
 	game_graphics::init_game_parameters();
@@ -417,4 +424,65 @@ void game_graphics::free_snake_list() {
 
 void game_graphics::free_window_list() {
 	graphics_utils::delete_all_windows();
+}
+
+void game_graphics::save_game(std::string filename) {
+	// obstacle pointer
+	snake_node::SnakeNode * curr_snake_node = game_graphics::snake->get_head();
+
+	iofile::File save(filename, iofile::mode_e::WO);
+
+	int snake_node_cnt = 0;
+
+	save.write_ofile("Speed: ", game_graphics::speed, "\n");
+	save.write_ofile("\n");
+
+	while (curr_snake_node != nullptr) {
+		int node_x = curr_snake_node->get_x_centre();
+		int node_y = curr_snake_node->get_y_centre();
+		int node_width = curr_snake_node->get_width();
+		int node_height = curr_snake_node->get_height();
+
+		save.write_ofile("//******************************\n");
+		save.write_ofile("// Snake Node ", snake_node_cnt, "\n");
+		save.write_ofile("//******************************\n");
+		save.write_ofile("Type: Snake\n");
+		save.write_ofile("X centre: ", node_x, "\n");
+		save.write_ofile("Y centre: ", node_y, "\n");
+		save.write_ofile("Width: ", node_width, "\n");
+		save.write_ofile("Height: ", node_height, "\n");
+		save.write_ofile("\n");
+
+		// Save temporary obstacle
+		curr_snake_node = curr_snake_node->get_next();
+		snake_node_cnt++;
+	}
+
+	// obstacle pointer
+	obstacle::ObstacleNode * curr_obs_node = game_graphics::obstacles->get_head();
+
+	int obs_node_cnt = 0;
+
+	while (curr_obs_node != nullptr) {
+		int obs_x = curr_obs_node->get_x_centre();
+		int obs_width = curr_obs_node->get_width();
+		int obs_y = curr_obs_node->get_y_centre();
+		int obs_height = curr_obs_node->get_height();
+
+		save.write_ofile("//******************************\n");
+		save.write_ofile("// Obstacle Node ", obs_node_cnt, "\n");
+		save.write_ofile("//******************************\n");
+		save.write_ofile("Type: Obstacle\n");
+		save.write_ofile("X centre: ", obs_x, "\n");
+		save.write_ofile("Y centre: ", obs_y, "\n");
+		save.write_ofile("Width: ", obs_width, "\n");
+		save.write_ofile("Height: ", obs_height, "\n");
+		save.write_ofile("\n");
+
+
+		// Save temporary obstacle
+		curr_obs_node = curr_obs_node->get_next();
+		obs_node_cnt++;
+	}
+
 }

@@ -22,7 +22,8 @@ using namespace logging;
 // ================================================================
 void iofile::File::close_ofile() {
 	if (this->ofile_is_open() == true) {
-		ofile << "File " << __FILE__ << " at line " << __LINE__ << ": " << "[Close ofile] Closing ofile " << this->name << " for write." << std::endl;
+//		ofile << "File " << __FILE__ << " at line " << __LINE__ << ": " << "[Close ofile] Closing ofile " << this->name << " for write." << std::endl;
+//		LOG_INFO(logging::verb_level_e::HIGH, "[Close ofile] Closing ofile ", this->name, " for write.");
 		this->ofile.close();
 	}
 }

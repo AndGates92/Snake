@@ -13,6 +13,18 @@
 #include "snake_list.h"
 #include "obstacle_list.h"
 
+/**
+ * @brief GAME_OVER(...)
+ *
+ * \param ... :       variable number of arguments to provide to log_error
+ *
+ * Print an error message to std::cerr to terminate the game
+ */
+#define GAME_OVER(...)\
+	game_graphics::save_game("./log/dump");\
+	LOG_ERROR("File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
+
+
 namespace game_graphics {
 
 	namespace {
@@ -45,6 +57,12 @@ namespace game_graphics {
 		 *
 		 */
 		static obstacle_list::ObstacleList * obstacles;
+
+		/**
+		 * @brief pointer to snake elements
+		 *
+		 */
+		static std::string savefile;
 
 		/**
 		 * @brief Node Height
@@ -280,6 +298,15 @@ namespace game_graphics {
 	 * This function assigns a function to some keys of the keyboard
 	 */
 	void keyboard_game_cb(unsigned char key, int x, int y);
+
+	/**
+	 * @brief Function: void save_game(std::string filename);
+	 *
+	 * \param filename: file where to save the status
+	 *
+	 * This function stores all parameters into a file
+	 */
+	void save_game(std::string filename);
 
 }
 
