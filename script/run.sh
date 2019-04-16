@@ -185,6 +185,13 @@ if [ ${tests} -eq 1 ]; then
 	fi
 
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Clean by-product"
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
+	(set -x; \
+	 make clean_byprod LOG_DIR=${LOGDIR} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENAME} BIN_DIR=${EXEDIR})
+
+
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Compile sources with hard wall"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	(set -x; \
