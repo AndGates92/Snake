@@ -129,6 +129,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			break;
 		case 'm':
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Save game because of pressing key ", key);
+			// Explicitely limit scope of variable savefilename
 			{
 				std::string savefilename (snake_settings.get_save_filename());
 				game_graphics::save_game(savefilename);
