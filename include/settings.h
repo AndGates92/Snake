@@ -4,7 +4,7 @@
  * @copyright
  * @file settings.h
  * @author Andrea Gianarda
- * @date 06th of February 2019
+ * @date 17th of April 2019
  * @brief Settings handling header file
 */
 
