@@ -107,6 +107,7 @@ void game_graphics::reshape_game_cb(int width, int height) {
 void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 	switch (key) {
 		case 'f':
+			// Explicitely limit scope of variable speed and speed_incr
 			{
 				int speed = snake_settings.get_speed();
 				int speed_incr = snake_settings.get_speed_incr();
@@ -117,6 +118,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			glutPostRedisplay();
 			break;
 		case 's':
+			// Explicitely limit scope of variable speed and speed_incr
 			{
 				int speed = snake_settings.get_speed();
 				int speed_incr = snake_settings.get_speed_incr();
