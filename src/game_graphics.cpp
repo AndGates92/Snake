@@ -15,6 +15,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+#include "settings.h"
 #include "logging.h"
 #include "menu.h"
 #include "graphics_utils.h"
@@ -128,7 +129,10 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			break;
 		case 'm':
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Save game because of pressing key ", key);
-			game_graphics::save_game(game_graphics::savefile);
+			{
+				std::string savefilename (snake_settings.get_save_filename());
+				game_graphics::save_game(savefilename);
+			}
 			break;
 		case 'q':
 			graphics_utils::delete_window();
@@ -321,8 +325,6 @@ void game_graphics::init_game_parameters() {
 
 void game_graphics::init_game() {
 
-	game_graphics::savefile = "./log/savepoint";
-
 	game_graphics::init_snake_list();
 	game_graphics::init_obstacle_list();
 	game_graphics::init_game_parameters();
@@ -429,6 +431,8 @@ void game_graphics::free_window_list() {
 void game_graphics::save_game(std::string filename) {
 	// obstacle pointer
 	snake_node::SnakeNode * curr_snake_node = game_graphics::snake->get_head();
+
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Save Game] Saving game to file: ", filename);
 
 	iofile::File save(filename, iofile::mode_e::WO);
 

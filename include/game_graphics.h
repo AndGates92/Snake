@@ -59,12 +59,6 @@ namespace game_graphics {
 		static obstacle_list::ObstacleList * obstacles;
 
 		/**
-		 * @brief pointer to snake elements
-		 *
-		 */
-		static std::string savefile;
-
-		/**
 		 * @brief Node Height
 		 *
 		 */

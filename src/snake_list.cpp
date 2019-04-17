@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cmath>
 
+#include "settings.h"
 #include "game_graphics.h"
 #include "basic_obj_list.h"
 #include "graphics_utils.h"
@@ -355,7 +356,10 @@ int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int cur
 void snake_list::SnakeList::check_collision(const int & win_width, const int & win_height) {
 	check_snake_collision();
 	#ifdef HARD_WALL
-	check_wall_collision(win_width, win_height);
+	bool hard_wall = snake_settings.get_hard_wall_flag();
+	if (hard_wall == true) {
+		check_wall_collision(win_width, win_height);
+	}
 	#endif // HARD_WALL
 }
 #ifndef HARD_WALL
