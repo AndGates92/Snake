@@ -83,18 +83,6 @@ namespace game_graphics {
 		const static int init_obs_no = 1;
 
 		/**
-		 * @brief Initial speed of snake (in pixels/loop iter)
-		 *
-		 */
-		const static int init_speed = 2;
-
-		/**
-		 * @brief Speed increment of snake (in pixels/loop iter)
-		 *
-		 */
-		const static int speed_incr = 1;
-
-		/**
 		 * @brief Initial direction of the snake
 		 *
 		 */

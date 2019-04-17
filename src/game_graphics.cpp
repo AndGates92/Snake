@@ -37,12 +37,6 @@ namespace game_graphics {
 
 	namespace {
 		/**
-		 * @brief Speed of snake (in pixels/loop iter)
-		 *
-		 */
-		static int speed;
-
-		/**
 		 * @brief Direction of the snake head
 		 *
 		 */
@@ -113,18 +107,27 @@ void game_graphics::reshape_game_cb(int width, int height) {
 void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 	switch (key) {
 		case 'f':
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Speed up snake to ", game_graphics::speed, " because of pressing key ", key);
-			game_graphics::speed += game_graphics::speed_incr;
+			{
+				int speed = snake_settings.get_speed();
+				int speed_incr = snake_settings.get_speed_incr();
+				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Speed up snake to ", speed, " because of pressing key ", key);
+				snake_settings.set_speed(speed + speed_incr);
+			}
 			// force glut to call the display function
 			glutPostRedisplay();
 			break;
 		case 's':
-			if (game_graphics::speed > game_graphics::speed_incr) {
-				game_graphics::speed -= game_graphics::speed_incr;
+			{
+				int speed = snake_settings.get_speed();
+				int speed_incr = snake_settings.get_speed_incr();
+
+				if (speed > speed_incr) {
+					snake_settings.set_speed(speed - speed_incr);
+				}
+				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Slow down snake to ", speed, " because of pressing key ", key);
+				ASSERT(snake_settings.get_speed() > 0)
+				// force glut to call the display function
 			}
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Slow down snake to ", game_graphics::speed, " because of pressing key ", key);
-			ASSERT(game_graphics::speed > 0)
-			// force glut to call the display function
 			glutPostRedisplay();
 			break;
 		case 'm':
@@ -244,7 +247,7 @@ void game_graphics::idle_game_cb() {
 	} else {
 
 		// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round
-		int snake_speed = game_graphics::speed;
+		int snake_speed = snake_settings.get_speed();
 
 		game_graphics::snake->move(snake_speed, win_width, win_height, game_graphics::head_dir);
 
@@ -320,7 +323,6 @@ void game_graphics::populate_obstacle_list() {
 }
 
 void game_graphics::init_game_parameters() {
-	game_graphics::speed = game_graphics::init_speed;
 	game_graphics::head_dir = game_graphics::init_head_dir;
 }
 
@@ -439,7 +441,7 @@ void game_graphics::save_game(std::string filename) {
 
 	int snake_node_cnt = 0;
 
-	save.write_ofile("Speed: ", game_graphics::speed, "\n");
+	save.write_ofile("Speed: ", snake_settings.get_speed(), "\n");
 	save.write_ofile("\n");
 
 	while (curr_snake_node != nullptr) {
