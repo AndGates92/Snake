@@ -250,6 +250,9 @@ void game_graphics::idle_game_cb() {
 
 		game_graphics::snake->add_node(new_snake_node_x, new_snake_node_y, node_width, node_height, snake_head_dir, color);
 
+		int snake_units = snake_settings.get_snake_units();
+		snake_settings.set_snake_units(snake_units + 1);
+
 	} else {
 
 		// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round

@@ -12,6 +12,7 @@
 
 #include "snake_list.h"
 #include "obstacle_list.h"
+#include "settings.h"
 
 /**
  * @brief GAME_OVER(...)
@@ -301,14 +302,16 @@ game_pixel_type * game_graphics::get_game_pixel_array (int & win_width, int & wi
 template <typename game_pixel_type>
 void game_graphics::draw_snake(game_pixel_type * & pixels, int & win_width, int & win_height) {
 
-	game_graphics::snake->draw<game_pixel_type>(pixels, win_width, win_height);
+	int snake_units = snake_settings.get_snake_units();
+	game_graphics::snake->draw<game_pixel_type>(pixels, win_width, win_height, snake_units);
 
 }
 
 template <typename game_pixel_type>
 void game_graphics::draw_obstacles(game_pixel_type * & pixels, int & win_width, int & win_height) {
 
-	game_graphics::obstacles->draw<game_pixel_type>(pixels, win_width, win_height);
+	int obs_no = snake_settings.get_obs_no();
+	game_graphics::obstacles->draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
 
 }
 #endif // SNAKE_GRAPHICS_H
