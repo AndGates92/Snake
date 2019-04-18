@@ -154,6 +154,11 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 	int height_curr = head->get_height();
 	int width_curr = head->get_width();
 
+
+	snake_settings.set_head_centre_x(x_centre_curr);
+	snake_settings.set_head_centre_y(y_centre_curr);
+	snake_settings.set_head_dir(direction_curr);
+
 //cout << "Move snake - Window dimensions: width " << win_width << " height " << win_height << endl;
 	int speed_int = speed;
 
