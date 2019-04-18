@@ -209,6 +209,10 @@ void game_graphics::idle_game_cb() {
 	int win_width = glutGet(GLUT_WINDOW_WIDTH);
 	int win_height = glutGet(GLUT_WINDOW_HEIGHT);
 
+	int node_height = snake_settings.get_node_height();
+	int node_width = snake_settings.get_node_width();
+	graphics_utils::palette_e color = snake_settings.get_snake_color();
+
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Game Callback] Idle Game Callback for window ID: ", win_id);
 
 	bool obs_eaten = contact_between_snake_obs();
@@ -223,20 +227,20 @@ void game_graphics::idle_game_cb() {
 		snake_node::direction_e snake_head_dir = snake_head->get_direction();
 
 		if (snake_head_dir == snake_node::direction_e::RIGHT) {
-			new_snake_node_x = (snake_head->get_x_centre() + game_graphics::node_width) % win_width;
+			new_snake_node_x = (snake_head->get_x_centre() + node_width) % win_width;
 			new_snake_node_y = snake_head->get_y_centre();
 		} else if (snake_head_dir == snake_node::direction_e::LEFT) {
-			new_snake_node_x = (snake_head->get_x_centre() - game_graphics::node_width);
+			new_snake_node_x = (snake_head->get_x_centre() - node_width);
 			// If head is vry close to boarded, unit in front of it might be outside of window (negative X)
 			if (new_snake_node_x < 0) {
 				new_snake_node_x += win_width;
 			}
 			new_snake_node_y = snake_head->get_y_centre();
 		} else if (snake_head_dir == snake_node::direction_e::UP) {
-			new_snake_node_y = (snake_head->get_y_centre() + game_graphics::node_height) % win_height;
+			new_snake_node_y = (snake_head->get_y_centre() + node_height) % win_height;
 			new_snake_node_x = snake_head->get_x_centre();
 		} else if (snake_head_dir == snake_node::direction_e::DOWN) {
-			new_snake_node_y = (snake_head->get_y_centre() - game_graphics::node_height);
+			new_snake_node_y = (snake_head->get_y_centre() - node_height);
 			// If head is vry close to boarded, unit in front of it might be outside of window (negative X)
 			if (new_snake_node_y < 0) {
 				new_snake_node_y += win_height;
@@ -244,7 +248,7 @@ void game_graphics::idle_game_cb() {
 			new_snake_node_x = snake_head->get_x_centre();
 		}
 
-		game_graphics::snake->add_node(new_snake_node_x, new_snake_node_y, game_graphics::node_width, game_graphics::node_height, snake_head_dir, graphics_utils::palette_e::RED);
+		game_graphics::snake->add_node(new_snake_node_x, new_snake_node_y, node_width, node_height, snake_head_dir, color);
 
 	} else {
 
@@ -298,13 +302,20 @@ snake_list::SnakeList * & game_graphics::get_snake_ptr() {
 }
 
 void game_graphics::populate_snake_list() {
-	int centre_x = 100;
-	int centre_y = 100;
-	for (int unit_no=0; unit_no < game_graphics::init_snake_units; unit_no++) {
+	int centre_x = snake_settings.get_head_centre_x();
+	int centre_y = snake_settings.get_head_centre_y();
 
-		game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, graphics_utils::palette_e::GREEN);
+	int snake_units = snake_settings.get_snake_units();
+	int node_height = snake_settings.get_node_height();
+	int node_width = snake_settings.get_node_width();
+	snake_node::direction_e head_dir = snake_settings.get_head_dir();
+	graphics_utils::palette_e color = snake_settings.get_snake_color();
+
+	for (int unit_no=0; unit_no < snake_units; unit_no++) {
+
+		game_graphics::snake->add_node(centre_x, centre_y, node_width, node_height, head_dir, color);
 		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, (graphics_utils::palette_e) unit_no);
-		centre_x += game_graphics::node_width;
+		centre_x += node_width;
 		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, graphics_utils::palette_e::RED);
 		//centre_y += game_graphics::node_height;
 
@@ -318,14 +329,16 @@ void game_graphics::populate_snake_list() {
 
 void game_graphics::populate_obstacle_list() {
 
-	for (int obs_no=0; obs_no < game_graphics::init_obs_no; obs_no++) {
+	int obs_no = snake_settings.get_obs_no();
+
+	for (int obs=0; obs < obs_no; obs++) {
 		game_graphics::add_obstacle();
 	}
 
 }
 
 void game_graphics::init_game_parameters() {
-	game_graphics::head_dir = game_graphics::init_head_dir;
+	game_graphics::head_dir = snake_settings.get_head_dir();
 }
 
 void game_graphics::init_game() {
@@ -408,15 +421,18 @@ void game_graphics::add_obstacle() {
 	win_height = glutGet(GLUT_WINDOW_HEIGHT);
 	int win_height_int = (int) win_height;
 
+	int node_height = snake_settings.get_node_height();
+	int node_width = snake_settings.get_node_width();
+	graphics_utils::palette_e color = snake_settings.get_obs_color();
 
 	// Random coordinates must be within node_width/2 and (win_width-node_width/2)
-	int centre_x = (rand() % (win_width_int - game_graphics::node_width)) + game_graphics::node_width/2;
+	int centre_x = (rand() % (win_width_int - node_width)) + node_width/2;
 
 	// Random coordinates must be within node_height/2 and (win_height-node_height/2)
-	int centre_y = (rand() % (win_height_int - game_graphics::node_height)) + game_graphics::node_height/2;
+	int centre_y = (rand() % (win_height_int - node_height)) + node_height/2;
 
 	//game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PURPLE);
-	game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PINK);
+	game_graphics::obstacles->add_node(centre_x, centre_y, node_width, node_height, color);
 }
 
 void game_graphics::free_obstacle_list() {

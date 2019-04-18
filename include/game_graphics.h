@@ -58,35 +58,6 @@ namespace game_graphics {
 		 */
 		static obstacle_list::ObstacleList * obstacles;
 
-		/**
-		 * @brief Node Height
-		 *
-		 */
-		const static int node_height = 10;
-
-		/**
-		 * @brief Node Width
-		 *
-		 */
-		const static int node_width = 10;
-
-		/**
-		 * @brief Initial number of snake units
-		 *
-		 */
-		const static int init_snake_units = 5;
-
-		/**
-		 * @brief Initial number of obstacles units
-		 *
-		 */
-		const static int init_obs_no = 1;
-
-		/**
-		 * @brief Initial direction of the snake
-		 *
-		 */
-		const static snake_node::direction_e init_head_dir = snake_node::direction_e::RIGHT;
 	}
 
 	/**
