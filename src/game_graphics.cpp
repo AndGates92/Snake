@@ -142,7 +142,10 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			break;
 		case 'q':
 			// Explicitely limit scope of variable savefilename
-			game_graphics::save_game("./log/dump");
+			{
+				std::string dumpfilename (snake_settings.get_dump_filename());
+				game_graphics::save_game(dumpfilename);
+			}
 			graphics_utils::delete_window();
 			game_graphics::free_obstacle_list();
 			game_graphics::free_snake_list();

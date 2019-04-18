@@ -28,6 +28,12 @@ namespace settings {
 		const static std::string init_savefilename = "./log/savepoint";
 
 		/**
+		 * @brief Initial name of file where data is dumed upon exit or gameover
+		 *
+		 */
+		const static std::string init_dumpfilename = "./log/dump";
+
+		/**
 		 * @brief Initial value of hard wall flag
 		 *
 		 */
@@ -104,7 +110,7 @@ namespace settings {
 	class Settings {
 		public:
 			// Constructor
-			Settings(): hard_wall(settings::init_hard_wall), save_filename(settings::init_savefilename), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_color(settings::init_snake_color), obs_color(settings::init_obs_color) {
+			Settings(): hard_wall(settings::init_hard_wall), dump_filename(settings::init_dumpfilename), save_filename(settings::init_savefilename), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_color(settings::init_snake_color), obs_color(settings::init_obs_color) {
 				std::string pretext ("Settings Constructor");
 				settings::Settings::print_info(logging::verb_level_e::LOW, pretext);
 
@@ -115,6 +121,7 @@ namespace settings {
 
 			// Set functions
 			void set_hard_wall_flag(bool value);
+			void set_dump_filename(std::string name);
 			void set_save_filename(std::string name);
 			void set_speed(int value);
 			void set_speed_incr(int value);
@@ -130,6 +137,7 @@ namespace settings {
 
 			// Get functions
 			bool get_hard_wall_flag();
+			std::string get_dump_filename();
 			std::string get_save_filename();
 			int get_speed();
 			int get_speed_incr();
@@ -147,6 +155,7 @@ namespace settings {
 
 		private:
 			bool hard_wall;
+			std::string dump_filename;
 			std::string save_filename;
 			int speed;
 			int speed_incr;

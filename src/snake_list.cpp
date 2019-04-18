@@ -451,14 +451,14 @@ void snake_list::SnakeList::check_snake_collision() {
 				// Unit1 and Unit2 are getting closer to each other on the x axis
 				if (((x_centre1 >= x_centre2) & (direction1 == snake_node::direction_e::RIGHT)) | ((x_centre1 <= x_centre2) & (direction1 == snake_node::direction_e::LEFT))) {
 					if (tot_dist < total_centre_distance) {
-						LOG_ERROR("Collision on the X axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
+						GAME_OVER("Collision on the X axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
 					}
 				}
 
 				// Unit1 and Unit2 are getting closer to each other on the y axis
 				if (((y_centre1 >= y_centre2) & (direction1 == snake_node::direction_e::DOWN)) | ((y_centre1 <= y_centre2) & (direction1 == snake_node::direction_e::UP))) {
 					if (tot_dist < total_centre_distance) {
-						LOG_ERROR("Collision on the Y axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
+						GAME_OVER("Collision on the Y axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
 					}
 				}
 

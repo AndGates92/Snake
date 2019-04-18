@@ -22,7 +22,8 @@
  * Print an error message to std::cerr to terminate the game
  */
 #define GAME_OVER(...)\
-	game_graphics::save_game("./log/dump");\
+	std::string dumpfilename (snake_settings.get_dump_filename());\
+	game_graphics::save_game(dumpfilename);\
 	LOG_ERROR("File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
 
 

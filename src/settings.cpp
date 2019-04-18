@@ -24,6 +24,10 @@ bool settings::Settings::get_hard_wall_flag() {
 	return this->hard_wall;
 }
 
+std::string settings::Settings::get_dump_filename() {
+	return this->dump_filename;
+}
+
 std::string settings::Settings::get_save_filename() {
 	return this->save_filename;
 }
@@ -79,6 +83,10 @@ void settings::Settings::set_hard_wall_flag(bool value) {
 	this->hard_wall = value;
 }
 
+void settings::Settings::set_dump_filename(std::string name) {
+	this->dump_filename = name;
+}
+
 void settings::Settings::set_save_filename(std::string name) {
 	this->save_filename = name;
 }
@@ -128,7 +136,7 @@ void settings::Settings::set_obs_color(graphics_utils::palette_e new_color) {
 }
 
 void settings::Settings::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Snake Game settings:\n\tHard Wall: ", this->hard_wall, "\n\tSave fiename: ", this->save_filename, "\n\tNumber of obstacles: ", this->obs_no, "\n\tNumber of snake units: ", this->snake_units, "\n\tNode Dimensions: Height->", this->node_height, " Width->", this->node_width, "\n\tSpeed Settings (Unit: pixel/iteration): Current speed->", this->speed, " Speed Increment->", this->speed_incr, "\n\tHead Position: X->", this->head_centre_x, " Y->", this->head_centre_y, "\n\tHead direction: ", this->head_dir, "\n\tColouring: Snake->", this->snake_color, " Obstacles->", this->obs_color);
+	LOG_INFO(verbosity, "[", pretext, "] Snake Game settings:\n\tHard Wall: ", this->hard_wall, "\n\tOutput files: save->", this->save_filename, " dump->", this->dump_filename, "\n\tNumber of obstacles: ", this->obs_no, "\n\tNumber of snake units: ", this->snake_units, "\n\tNode Dimensions: Height->", this->node_height, " Width->", this->node_width, "\n\tSpeed Settings (Unit: pixel/iteration): Current speed->", this->speed, " Speed Increment->", this->speed_incr, "\n\tHead Position: X->", this->head_centre_x, " Y->", this->head_centre_y, "\n\tHead direction: ", this->head_dir, "\n\tColouring: Snake->", this->snake_color, " Obstacles->", this->obs_color);
 }
 
 settings::Settings::~Settings() {
