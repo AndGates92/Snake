@@ -141,6 +141,8 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			}
 			break;
 		case 'q':
+			// Explicitely limit scope of variable savefilename
+			game_graphics::save_game("./log/dump");
 			graphics_utils::delete_window();
 			game_graphics::free_obstacle_list();
 			game_graphics::free_snake_list();
@@ -463,6 +465,8 @@ void game_graphics::save_game(std::string filename) {
 	int snake_node_cnt = 0;
 
 	save.write_ofile("Speed: ", snake_settings.get_speed(), "\n");
+
+	save.write_ofile("Snake Units: ", snake_settings.get_snake_units(), "\n");
 	save.write_ofile("\n");
 
 	while (curr_snake_node != nullptr) {
@@ -488,6 +492,9 @@ void game_graphics::save_game(std::string filename) {
 
 	// obstacle pointer
 	obstacle::ObstacleNode * curr_obs_node = game_graphics::obstacles->get_head();
+
+	save.write_ofile("Obstacles: ", snake_settings.get_obs_no(), "\n");
+	save.write_ofile("\n");
 
 	int obs_node_cnt = 0;
 
