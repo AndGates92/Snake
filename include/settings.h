@@ -203,6 +203,6 @@ namespace settings {
 	/** @} */ // End of SettingsGroup group
 }
 
-static settings::Settings snake_settings;
+extern settings::Settings snake_settings;
 
 #endif // SETTINGS_H

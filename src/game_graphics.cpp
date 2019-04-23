@@ -142,7 +142,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			break;
 		case 'p':
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Start/Pause game because of pressing key ", key);
-			// Explicitely limit scope of variable savefilename
+			// Explicitely limit scope of variable game_status
 			{
 				settings::game_status_e game_status = snake_settings.get_game_status();
 
@@ -151,6 +151,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 				} else if (game_status == settings::game_status_e::PAUSED) {
 					snake_settings.set_game_status(settings::game_status_e::RUNNING);
 				}
+				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Game state: ", snake_settings.get_game_status());
 			}
 			break;
 		case 'r':

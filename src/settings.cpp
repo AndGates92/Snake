@@ -17,6 +17,8 @@ using namespace std;
 using namespace logging;
 using namespace settings;
 
+settings::Settings snake_settings;
+
 // ================================================================
 // Get functions
 // ================================================================
