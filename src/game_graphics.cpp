@@ -158,17 +158,11 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			break;
 		case 'r':
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Restart game because of pressing key ", key);
-			game_graphics::free_game_memory();
-			graphics::start_game();
+			snake_settings.set_game_status(settings::game_status_e::RESTART);
 			break;
 		case 'q':
-			// Explicitely limit scope of variable savefilename
-			{
-				std::string dumpfilename (snake_settings.get_dump_filename());
-				game_graphics::save_game(dumpfilename);
-			}
-			game_graphics::free_game_memory();
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Exit program because of pressing key ", key);
+			snake_settings.set_game_status(settings::game_status_e::EXIT);
 			break;
 		default:
 			break;
@@ -289,6 +283,19 @@ void game_graphics::idle_game_cb() {
 		}
 
 		game_graphics::snake->check_collision(win_width, win_height);
+	} else if (game_status == settings::game_status_e::RESTART) {
+		game_graphics::free_game_memory();
+		graphics::start_game();
+	} else if (game_status == settings::game_status_e::EXIT) {
+		// Explicitely limit scope of variable savefilename
+		{
+			std::string dumpfilename (snake_settings.get_dump_filename());
+			game_graphics::save_game(dumpfilename);
+		}
+		game_graphics::free_game_memory();
+		exit(EXIT_SUCCESS);
+	} else {
+		ASSERT(game_status == settings::game_status_e::PAUSED);
 	}
 
 	int win_id_new = glutGetWindow();
@@ -551,4 +558,5 @@ void game_graphics::free_game_memory() {
 	graphics_utils::delete_window();
 	game_graphics::free_obstacle_list();
 	game_graphics::free_snake_list();
+	snake_settings.~Settings();
 }

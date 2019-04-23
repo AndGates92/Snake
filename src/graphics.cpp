@@ -44,8 +44,12 @@ void graphics::test_graphics() {
 }
 
 void graphics::start_game() {
+	// Initialize settings
+	snake_settings = settings::Settings();
 	// Initialize window list
 	graphics_utils::init_window_list();
+	// Initialize graphics
 	graphics::test_graphics();
+	// Initialize game
 	game_graphics::init_game();
 }

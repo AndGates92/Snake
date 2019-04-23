@@ -342,7 +342,7 @@ int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int cur
 			}
 		}
 		adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - adj_prev_coord_mov_dir));
-//cout << "adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir << " adj_prev_coord_mov_dir " << adj_prev_coord_mov_dir << " win_dim_move " << win_dim_mov <<  endl;
+// cout << "snake_el " << snake_el << " head ptr " << head << " adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir << " adj_prev_coord_mov_dir " << adj_prev_coord_mov_dir << " win_dim_move " << win_dim_mov <<  endl;
 		// For head adjustment is equal to centre_distance because curr and prev coord are identicals
 		if (snake_el != head) {
 			ASSERT(adjustment == 0);

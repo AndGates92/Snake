@@ -26,9 +26,7 @@ using namespace logging;
 void menu::menu_game(int entry) {
 	switch (entry) {
 		case static_cast<int>(menu::game_menu_e::RESTART):
-			LOG_INFO(logging::verb_level_e::ZERO,"[Menu snake] Restart game");
-			// force glut to call the display function
-			glutPostRedisplay();
+			snake_settings.set_game_status(settings::game_status_e::RESTART);
 			break;
 		case static_cast<int>(menu::game_menu_e::START_PAUSE):
 			LOG_INFO(logging::verb_level_e::ZERO,"[Menu snake] Start/Pause snake");
@@ -77,7 +75,7 @@ void menu::menu_game(int entry) {
 			break;
 		case static_cast<int>(menu::game_menu_e::QUIT):
 			LOG_INFO(logging::verb_level_e::ZERO,"[Menu snake] Close window and exits program");
-			exit(EXIT_SUCCESS);
+			snake_settings.set_game_status(settings::game_status_e::EXIT);
 			break;
 		default:
 			glutPostRedisplay();

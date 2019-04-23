@@ -26,7 +26,9 @@ namespace settings {
 	 */
 	typedef enum class game_status_list {
 		RUNNING,
-		PAUSED
+		PAUSED,
+		RESTART,
+		EXIT
 	} game_status_e;
 
 	/**
