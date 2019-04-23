@@ -20,6 +20,25 @@ namespace settings {
 	 *  @{
 	 */
 
+	/**
+	 * @brief Game status
+	 *
+	 */
+	typedef enum class game_status_list {
+		RUNNING,
+		PAUSED
+	} game_status_e;
+
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, settings::game_status_e game_status)
+	 *
+	 * \param os: output stream
+	 * \param game_status: game status to be printed
+	 *
+	 * Overload << operator to print game status
+	 */
+	std::ostream& operator<< (std::ostream& os, settings::game_status_e game_status);
+
 	namespace {
 		/**
 		 * @brief Initial name of file where data is saved
@@ -104,13 +123,19 @@ namespace settings {
 		 *
 		 */
 		const static graphics_utils::palette_e init_obs_color = graphics_utils::palette_e::PINK;
+
+		/**
+		 * @brief Initial game status
+		 *
+		 */
+		settings::game_status_e init_game_status = settings::game_status_e::RUNNING;
 	}
 
 
 	class Settings {
 		public:
 			// Constructor
-			Settings(): hard_wall(settings::init_hard_wall), dump_filename(settings::init_dumpfilename), save_filename(settings::init_savefilename), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_color(settings::init_snake_color), obs_color(settings::init_obs_color) {
+			Settings(): hard_wall(settings::init_hard_wall), dump_filename(settings::init_dumpfilename), save_filename(settings::init_savefilename), game_status(init_game_status), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_color(settings::init_snake_color), obs_color(settings::init_obs_color) {
 				std::string pretext ("Settings Constructor");
 				settings::Settings::print_info(logging::verb_level_e::LOW, pretext);
 
@@ -123,6 +148,7 @@ namespace settings {
 			void set_hard_wall_flag(bool value);
 			void set_dump_filename(std::string name);
 			void set_save_filename(std::string name);
+			void set_game_status(settings::game_status_e game_status_new);
 			void set_speed(int value);
 			void set_speed_incr(int value);
 			void set_node_height(int value);
@@ -139,6 +165,7 @@ namespace settings {
 			bool get_hard_wall_flag();
 			std::string get_dump_filename();
 			std::string get_save_filename();
+			settings::game_status_e get_game_status();
 			int get_speed();
 			int get_speed_incr();
 			int get_node_height();
@@ -157,6 +184,7 @@ namespace settings {
 			bool hard_wall;
 			std::string dump_filename;
 			std::string save_filename;
+			settings::game_status_e game_status;
 			int speed;
 			int speed_incr;
 			int node_height;

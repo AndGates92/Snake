@@ -140,6 +140,23 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 				game_graphics::save_game(savefilename);
 			}
 			break;
+		case 'p':
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Start/Pause game because of pressing key ", key);
+			// Explicitely limit scope of variable savefilename
+			{
+				settings::game_status_e game_status = snake_settings.get_game_status();
+
+				if (game_status == settings::game_status_e::RUNNING) {
+					snake_settings.set_game_status(settings::game_status_e::PAUSED);
+				} else if (game_status == settings::game_status_e::PAUSED) {
+					snake_settings.set_game_status(settings::game_status_e::RUNNING);
+				}
+			}
+			break;
+		case 'r':
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Restart game because of pressing key ", key);
+
+			break;
 		case 'q':
 			// Explicitely limit scope of variable savefilename
 			{
@@ -220,54 +237,57 @@ void game_graphics::idle_game_cb() {
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Game Callback] Idle Game Callback for window ID: ", win_id);
 
-	bool obs_eaten = contact_between_snake_obs();
+	settings::game_status_e game_status = snake_settings.get_game_status();
 
-	if (obs_eaten == true) {
+	if (game_status == settings::game_status_e::RUNNING) {
+		bool obs_eaten = contact_between_snake_obs();
+		if (obs_eaten == true) {
 
-		game_graphics::add_obstacle();
+			game_graphics::add_obstacle();
 
-		snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
-		int new_snake_node_x = snake_head->get_x_centre();
-		int new_snake_node_y = snake_head->get_y_centre();
-		snake_node::direction_e snake_head_dir = snake_head->get_direction();
+			snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
+			int new_snake_node_x = snake_head->get_x_centre();
+			int new_snake_node_y = snake_head->get_y_centre();
+			snake_node::direction_e snake_head_dir = snake_head->get_direction();
 
-		if (snake_head_dir == snake_node::direction_e::RIGHT) {
-			new_snake_node_x = (snake_head->get_x_centre() + node_width) % win_width;
-			new_snake_node_y = snake_head->get_y_centre();
-		} else if (snake_head_dir == snake_node::direction_e::LEFT) {
-			new_snake_node_x = (snake_head->get_x_centre() - node_width);
-			// If head is vry close to boarded, unit in front of it might be outside of window (negative X)
-			if (new_snake_node_x < 0) {
-				new_snake_node_x += win_width;
+			if (snake_head_dir == snake_node::direction_e::RIGHT) {
+				new_snake_node_x = (snake_head->get_x_centre() + node_width) % win_width;
+				new_snake_node_y = snake_head->get_y_centre();
+			} else if (snake_head_dir == snake_node::direction_e::LEFT) {
+				new_snake_node_x = (snake_head->get_x_centre() - node_width);
+				// If head is vry close to boarded, unit in front of it might be outside of window (negative X)
+				if (new_snake_node_x < 0) {
+					new_snake_node_x += win_width;
+				}
+				new_snake_node_y = snake_head->get_y_centre();
+			} else if (snake_head_dir == snake_node::direction_e::UP) {
+				new_snake_node_y = (snake_head->get_y_centre() + node_height) % win_height;
+				new_snake_node_x = snake_head->get_x_centre();
+			} else if (snake_head_dir == snake_node::direction_e::DOWN) {
+				new_snake_node_y = (snake_head->get_y_centre() - node_height);
+				// If head is vry close to boarded, unit in front of it might be outside of window (negative X)
+				if (new_snake_node_y < 0) {
+					new_snake_node_y += win_height;
+				}
+				new_snake_node_x = snake_head->get_x_centre();
 			}
-			new_snake_node_y = snake_head->get_y_centre();
-		} else if (snake_head_dir == snake_node::direction_e::UP) {
-			new_snake_node_y = (snake_head->get_y_centre() + node_height) % win_height;
-			new_snake_node_x = snake_head->get_x_centre();
-		} else if (snake_head_dir == snake_node::direction_e::DOWN) {
-			new_snake_node_y = (snake_head->get_y_centre() - node_height);
-			// If head is vry close to boarded, unit in front of it might be outside of window (negative X)
-			if (new_snake_node_y < 0) {
-				new_snake_node_y += win_height;
-			}
-			new_snake_node_x = snake_head->get_x_centre();
+
+			game_graphics::snake->add_node(new_snake_node_x, new_snake_node_y, node_width, node_height, snake_head_dir, color);
+
+			int snake_units = snake_settings.get_snake_units();
+			snake_settings.set_snake_units(snake_units + 1);
+
+		} else {
+
+			// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round
+			int snake_speed = snake_settings.get_speed();
+
+			game_graphics::snake->move(snake_speed, win_width, win_height, game_graphics::head_dir);
+
 		}
 
-		game_graphics::snake->add_node(new_snake_node_x, new_snake_node_y, node_width, node_height, snake_head_dir, color);
-
-		int snake_units = snake_settings.get_snake_units();
-		snake_settings.set_snake_units(snake_units + 1);
-
-	} else {
-
-		// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round
-		int snake_speed = snake_settings.get_speed();
-
-		game_graphics::snake->move(snake_speed, win_width, win_height, game_graphics::head_dir);
-
+		game_graphics::snake->check_collision(win_width, win_height);
 	}
-
-	game_graphics::snake->check_collision(win_width, win_height);
 
 	int win_id_new = glutGetWindow();
 	if (win_id_new != 0) {

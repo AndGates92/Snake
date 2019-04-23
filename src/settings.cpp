@@ -32,6 +32,10 @@ std::string settings::Settings::get_save_filename() {
 	return this->save_filename;
 }
 
+settings::game_status_e settings::Settings::get_game_status() {
+	return this->game_status;
+}
+
 int settings::Settings::get_speed() {
 	return this->speed;
 }
@@ -91,6 +95,10 @@ void settings::Settings::set_save_filename(std::string name) {
 	this->save_filename = name;
 }
 
+void settings::Settings::set_game_status(settings::game_status_e game_status_new) {
+	this->game_status = game_status_new;
+}
+
 void settings::Settings::set_speed(int value) {
 	this->speed = value;
 }
@@ -136,10 +144,32 @@ void settings::Settings::set_obs_color(graphics_utils::palette_e new_color) {
 }
 
 void settings::Settings::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Snake Game settings:\n\tHard Wall: ", this->hard_wall, "\n\tOutput files: save->", this->save_filename, " dump->", this->dump_filename, "\n\tNumber of obstacles: ", this->obs_no, "\n\tNumber of snake units: ", this->snake_units, "\n\tNode Dimensions: Height->", this->node_height, " Width->", this->node_width, "\n\tSpeed Settings (Unit: pixel/iteration): Current speed->", this->speed, " Speed Increment->", this->speed_incr, "\n\tHead Position: X->", this->head_centre_x, " Y->", this->head_centre_y, "\n\tHead direction: ", this->head_dir, "\n\tColouring: Snake->", this->snake_color, " Obstacles->", this->obs_color);
+	LOG_INFO(verbosity, "[", pretext, "] Snake Game settings: Status: ", this->game_status, "\n\tHard Wall: ", this->hard_wall, "\n\tOutput files: save->", this->save_filename, " dump->", this->dump_filename, "\n\tNumber of obstacles: ", this->obs_no, "\n\tNumber of snake units: ", this->snake_units, "\n\tNode Dimensions: Height->", this->node_height, " Width->", this->node_width, "\n\tSpeed Settings (Unit: pixel/iteration): Current speed->", this->speed, " Speed Increment->", this->speed_incr, "\n\tHead Position: X->", this->head_centre_x, " Y->", this->head_centre_y, "\n\tHead direction: ", this->head_dir, "\n\tColouring: Snake->", this->snake_color, " Obstacles->", this->obs_color);
 }
 
 settings::Settings::~Settings() {
 //	std::string pretext ("Settings Destructor");
 //	this->print_info(logging::verb_level_e::LOW, pretext);
 }
+
+
+// ================================================================
+// Overload << operator for game_status_e
+// ================================================================
+std::ostream& settings::operator<< (std::ostream& os, settings::game_status_e game_status) {
+
+	switch (game_status) {
+		case settings::game_status_e::RUNNING:
+			os << "RUNNING";
+			break;
+		case settings::game_status_e::PAUSED:
+			os << "PAUSED";
+			break;
+		default:
+			os << "Unknown game status";
+			break;
+	}
+
+	return os;
+}
+
