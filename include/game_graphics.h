@@ -24,7 +24,8 @@
 #define GAME_OVER(...)\
 	std::string dumpfilename (snake_settings.get_dump_filename());\
 	game_graphics::save_game(dumpfilename);\
-	LOG_ERROR("File ", __FILE__, " at line ", __LINE__, ": ", __VA_ARGS__, "\n");
+	logging::log_info(logging::verb_level_e::ZERO, "File ", __FILE__, " at line ", __LINE__, ": GAME OVER -> ", __VA_ARGS__, "\n");\
+	logging::log_error("GAME OVER: ", __VA_ARGS__, "\n");
 
 
 namespace game_graphics {
