@@ -264,6 +264,12 @@ namespace game_graphics {
 	 */
 	void save_game(std::string filename);
 
+	/**
+	 * @brief Function: void free_game_memory();
+	 *
+	 * This function free memory allocated for snake list, obstacled and delete the window
+	 */
+	void free_game_memory();
 }
 
 template <typename game_pixel_type>

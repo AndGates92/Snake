@@ -19,6 +19,7 @@
 #include "logging.h"
 #include "menu.h"
 #include "graphics_utils.h"
+#include "graphics.h"
 #include "game_graphics.h"
 #include "window_obj.h"
 #include "snake_list.h"
@@ -27,6 +28,7 @@
 using namespace std;
 using namespace logging;
 using namespace menu;
+using namespace graphics;
 using namespace game_graphics;
 using namespace graphics_utils;
 using namespace window_obj;
@@ -156,7 +158,8 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			break;
 		case 'r':
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Restart game because of pressing key ", key);
-
+			game_graphics::free_game_memory();
+			graphics::start_game();
 			break;
 		case 'q':
 			// Explicitely limit scope of variable savefilename
@@ -164,9 +167,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 				std::string dumpfilename (snake_settings.get_dump_filename());
 				game_graphics::save_game(dumpfilename);
 			}
-			graphics_utils::delete_window();
-			game_graphics::free_obstacle_list();
-			game_graphics::free_snake_list();
+			game_graphics::free_game_memory();
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Exit program because of pressing key ", key);
 			break;
 		default:
@@ -544,4 +545,10 @@ void game_graphics::save_game(std::string filename) {
 		obs_node_cnt++;
 	}
 
+}
+
+void game_graphics::free_game_memory() {
+	graphics_utils::delete_window();
+	game_graphics::free_obstacle_list();
+	game_graphics::free_snake_list();
 }

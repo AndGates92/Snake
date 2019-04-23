@@ -14,6 +14,8 @@ namespace graphics {
 
 	void test_graphics();
 
+	void start_game();
+
 }
 
 #endif // GRAPHICS_H
