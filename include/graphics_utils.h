@@ -24,6 +24,24 @@ namespace graphics_utils {
 		 */
 		const static int no_colours = 3;
 
+		/**
+		 * @brief FIeld of view
+		 *
+		 */
+		const static GLfloat zoom = 50.0;
+
+		/**
+		 * @brief Near clip
+		 *
+		 */
+		const static GLfloat zNear = 1.0;
+
+		/**
+		 * @brief Far clip
+		 *
+		 */
+		const static GLfloat zFar = 1.0;
+
 	}
 
 	/**
@@ -78,6 +96,18 @@ namespace graphics_utils {
 	void win_node_add(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos, void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)());
 
 	window_list::WindowList * & get_window_ptr();
+
+	/**
+	 * @brief Function: void reshape_cb(int width, int height)
+	 *
+	 * \param width: width of the reshaped window
+	 * \param height: height of the reshaped window
+	 *
+	 * This function is called whenever the user (or OS) reshapes the OpenGL window. The GLUT sends the new window dimensions (x,y)
+	 */
+	void reshape_cb(int width, int height);
+
+
 }
 
 template <typename pixel_type>

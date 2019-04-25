@@ -1,5 +1,5 @@
-#ifndef SNAKE_GRAPHICS_H
-#define SNAKE_GRAPHICS_H
+#ifndef GAME_GRAPHICS_H
+#define GAME_GRAPHICS_H
 /**
  * @copyright
  * @file game_graphics.h
@@ -31,24 +31,6 @@
 namespace game_graphics {
 
 	namespace {
-		/**
-		 * @brief FIeld of view
-		 *
-		 */
-		const static GLfloat zoom = 50.0;
-
-		/**
-		 * @brief Near clip
-		 *
-		 */
-		const static GLfloat zNear = 1.0;
-
-		/**
-		 * @brief Far clip
-		 *
-		 */
-		const static GLfloat zFar = 1.0;
-
 		/**
 		 * @brief pointer to snake elements
 		 *
@@ -205,16 +187,6 @@ namespace game_graphics {
 	void display_game_cb();
 
 	/**
-	 * @brief Function: void reshape_game_cb(int width, int height)
-	 *
-	 * \param width: width of the reshaped window
-	 * \param height: height of the reshaped window
-	 *
-	 * This function is called whenever the user (or OS) reshapes the OpenGL window. The GLUT sends the new window dimensions (x,y)
-	 */
-	void reshape_game_cb(int width, int height);
-
-	/**
 	 * @brief Function: void idle_game_cb()
 	 *
 	 * This function call idle of the program
@@ -322,4 +294,4 @@ void game_graphics::draw_obstacles(game_pixel_type * & pixels, int & win_width, 
 	game_graphics::obstacles->draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
 
 }
-#endif // SNAKE_GRAPHICS_H
+#endif // GAME_GRAPHICS_H

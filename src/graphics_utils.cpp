@@ -10,6 +10,10 @@
 #include <iostream>
 #include <fstream>
 
+// include graphical libraries (OPENGL)
+#include <GL/glut.h>
+#include <GL/gl.h>
+
 #include "logging.h"
 #include "window_list.h"
 #include "window_obj.h"
@@ -103,4 +107,28 @@ std::ostream& graphics_utils::operator<< (std::ostream& os, graphics_utils::pale
 	}
 
 	return os;
+}
+
+void graphics_utils::reshape_cb(int width, int height) {
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Reshape Callback] Reshape Callback window width to ", width, " and window height to ", height);
+
+	int win_id = 0;
+	win_id = glutGetWindow();
+
+	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
+	window_obj::WindowObj window (node->get_obj());
+
+	// set viewport to new width and height 
+	glViewport( 0, 0, width, height );
+
+	// set viewing window using perspective projection
+	glMatrixMode( GL_PROJECTION ); 
+	// init projection matrix
+	glLoadIdentity();
+
+	// perspective parameters: field of view, aspect, near clip, far clip 
+	gluPerspective( graphics_utils::zoom, (GLdouble)width/(GLdouble)height, graphics_utils::zNear, graphics_utils::zFar );
+
+//	glClear(GL_COLOR_BUFFER_BIT);
+
 }

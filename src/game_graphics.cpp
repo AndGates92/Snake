@@ -79,31 +79,6 @@ void game_graphics::display_game_cb() {
 	glutSwapBuffers();
 }
 
-void game_graphics::reshape_game_cb(int width, int height) {
-	LOG_INFO(logging::verb_level_e::DEBUG,"[Reshape Game Callback] Reshape Game Callback window width to ", width, " and window height to ", height);
-
-	int win_id = 0;
-	win_id = glutGetWindow();
-
-	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
-	window_obj::WindowObj window (node->get_obj());
-
-	// set viewport to new width and height 
-	glViewport( 0, 0, width, height );
-
-	// set viewing window using perspective projection
-	glMatrixMode( GL_PROJECTION ); 
-	// init projection matrix
-	glLoadIdentity();
-
-	// perspective parameters: field of view, aspect, near clip, far clip 
-	gluPerspective( game_graphics::zoom, (GLdouble)width/(GLdouble)height, game_graphics::zNear, game_graphics::zFar );
-
-//	glClear(GL_COLOR_BUFFER_BIT);
-
-}
-
-
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
@@ -311,7 +286,7 @@ void game_graphics::wrapper_game_cb() {
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Game Graphics Wrapper] Enter game graphics wrapper");
 	glutDisplayFunc( display_game_cb );
 	glutKeyboardFunc( keyboard_game_cb );
-	glutReshapeFunc( reshape_game_cb );
+	glutReshapeFunc( graphics_utils::reshape_cb );
 	glutIdleFunc( idle_game_cb );
 	glutSpecialFunc( specialkey_game_cb );
 	glutMouseFunc( mouse_game_cb );
