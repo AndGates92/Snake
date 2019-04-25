@@ -13,6 +13,10 @@
 #include "window_obj.h"
 #include "logging.h"
 
+// include graphical libraries (OPENGL)
+#include <GL/glut.h>
+#include <GL/gl.h>
+
 using namespace std;
 using namespace logging;
 using namespace window_list;
@@ -114,3 +118,4 @@ void window_list::WindowList::delete_node(window_node::WindowNode * & node) {
 	this->remove_node(node);
 	node->destroy_node();
 }
+

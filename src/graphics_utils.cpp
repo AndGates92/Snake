@@ -70,6 +70,30 @@ void graphics_utils::win_node_add(std::string window_title, int window_width, in
 	windows->add_node(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc);
 }
 
+void graphics_utils::refresh_window(int value) {
+
+	window_node::WindowNode * head(windows->get_head());
+	window_node::WindowNode * window_node (head);
+
+	while (window_node != nullptr) {
+
+		window_obj::WindowObj node = window_node->get_obj();
+		int curr_win_id = 0;
+		curr_win_id = node.get_win_id();
+
+		LOG_INFO(logging::verb_level_e::DEBUG,"[Refresh window] Window ID: current ", curr_win_id);
+
+		glutSetWindow(curr_win_id);
+		glutPostRedisplay();
+
+		window_node = window_node->get_next();
+
+	}
+
+	glutTimerFunc(value, graphics_utils::refresh_window, value);
+
+}
+
 // Overload << operator for palette_e
 std::ostream& graphics_utils::operator<< (std::ostream& os, graphics_utils::palette_e palette) {
 

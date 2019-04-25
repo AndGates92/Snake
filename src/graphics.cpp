@@ -21,6 +21,7 @@
 #include "graphics.h"
 #include "graphics_utils.h"
 #include "game_graphics.h"
+#include "stat_graphics.h"
 
 using namespace std;
 using namespace logging;
@@ -40,6 +41,8 @@ void graphics::init_graphics(int argc, char** argv) {
 
 void graphics::add_graphics() {
 	graphics_utils::win_node_add("snake", 1100, 450, 100, 50, menu::menu_game, menu::menu_game_items, game_graphics::wrapper_game_cb);
+	//graphics_utils::win_node_add("snake2", 1100, 450, 100, 50, menu::menu_game, menu::menu_game_items, game_graphics::wrapper_game_cb);
+	//graphics_utils::win_node_add("stat", 1100, 450, 100, 50, menu::menu_stat, menu::menu_stat_items, stat_graphics::wrapper_stat_cb);
 
 }
 
@@ -50,6 +53,8 @@ void graphics::start_game() {
 	graphics_utils::init_window_list();
 	// Initialize graphics
 	graphics::add_graphics();
+	// Enable refresh timer
+	graphics_utils::refresh_window(graphics_utils::refresh_timer_ms);
 	// Initialize game
 	game_graphics::init_game();
 }

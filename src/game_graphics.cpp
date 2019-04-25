@@ -273,17 +273,20 @@ void game_graphics::idle_game_cb() {
 		ASSERT(game_status == settings::game_status_e::PAUSED);
 	}
 
-	int win_id_new = glutGetWindow();
-	if (win_id_new != 0) {
-		LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Game Callback] Idle Game Callback before glutPostRedisplay for window ID: ", win_id_new);
+//	int win_id_new = glutGetWindow();
+//	if (win_id_new != 0) {
+//		LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Game Callback] Idle Game Callback before glutPostRedisplay for window ID: ", win_id_new);
 		// force glut to call the display function
 		glutPostRedisplay();
-	}
+//	}
 
 }
 
 void game_graphics::wrapper_game_cb() {
-	LOG_INFO(logging::verb_level_e::DEBUG,"[Game Graphics Wrapper] Enter game graphics wrapper");
+	int win_id = 0;
+	win_id = glutGetWindow();
+
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Game Graphics Wrapper] Enter game graphics wrapper for window ID ", win_id);
 	glutDisplayFunc( display_game_cb );
 	glutKeyboardFunc( keyboard_game_cb );
 	glutReshapeFunc( graphics_utils::reshape_cb );

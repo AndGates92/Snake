@@ -121,11 +121,16 @@ void stat_graphics::idle_stat_cb() {
 }
 
 void stat_graphics::wrapper_stat_cb() {
-	LOG_INFO(logging::verb_level_e::DEBUG,"[Stat Graphics Wrapper] Enter stat graphics wrapper");
+	int win_id = 0;
+	win_id = glutGetWindow();
+
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Stat Graphics Wrapper] Enter stat graphics wrapper for window ID ", win_id);
 	glutDisplayFunc( display_stat_cb );
+	//glutDisplayFunc( display_stat_cb );
 	glutKeyboardFunc( keyboard_stat_cb );
 	glutReshapeFunc( graphics_utils::reshape_cb );
-	glutIdleFunc( idle_stat_cb );
+	//glutIdleFunc( idle_stat_cb );
+	glutIdleFunc( NULL );
 	glutSpecialFunc( specialkey_stat_cb );
 	glutMouseFunc( mouse_stat_cb );
 }

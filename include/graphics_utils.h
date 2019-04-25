@@ -42,6 +42,12 @@ namespace graphics_utils {
 		 */
 		const static GLfloat zFar = 1.0;
 
+		/**
+		 * @brief Far clip
+		 *
+		 */
+		const static int refresh_timer_ms = 20;
+
 	}
 
 	/**
@@ -94,6 +100,8 @@ namespace graphics_utils {
 	window_node::WindowNode * search_win_id(int& id );
 
 	void win_node_add(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos, void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)());
+
+	void refresh_window(int value);
 
 	window_list::WindowList * & get_window_ptr();
 
