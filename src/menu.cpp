@@ -21,6 +21,19 @@ using namespace menu;
 using namespace logging;
 
 // ================================================================
+// Create menu
+// ================================================================
+int menu::Menu::create_menu(void (*EntryFunc)(int), void (*ItemsFunc)()) {
+	int menu_id;
+	menu_id = glutCreateMenu(EntryFunc);
+	ItemsFunc();
+
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+	return menu_id;
+}
+
+// ================================================================
 // Snake menu
 // ================================================================
 void menu::menu_game(int entry) {
@@ -91,42 +104,6 @@ void menu::menu_game_items() {
 	glutAddMenuEntry("Quit", static_cast<int>(menu::game_menu_e::QUIT));
 }
 
-int menu::Menu::create_menu(void (*EntryFunc)(int), void (*ItemsFunc)()) {
-	int menu_id;
-	menu_id = glutCreateMenu(EntryFunc);
-	ItemsFunc();
-
-	glutAttachMenu(GLUT_RIGHT_BUTTON);
-
-	return menu_id;
-}
-
-// ================================================================
-// Destroy window
-// ================================================================
-
-void menu::Menu::destroy_menu() {
-	LOG_INFO(logging::verb_level_e::DEBUG, "Destroy Menu");
-	glutDestroyMenu(id);
-}
-
-// ================================================================
-// Destructor
-// ================================================================
-menu::Menu::~Menu() {
-	std::string pretext ("Menu Destructor");
-	menu::Menu::print_info(logging::verb_level_e::LOW, pretext);
-//	this->destroy_menu();
-}
-
-void menu::Menu::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Menu ID: ", this->id);
-}
-
-int menu::Menu::get_id() {
-	return id;
-}
-
 // Overload << operator for game_menu_e
 std::ostream& menu::operator<< (std::ostream& os, menu::game_menu_e menu_items) {
 
@@ -153,3 +130,62 @@ std::ostream& menu::operator<< (std::ostream& os, menu::game_menu_e menu_items) 
 
 	return os;
 }
+
+// ================================================================
+// Stat menu
+// ================================================================
+void menu::menu_stat(int entry) {
+	switch (entry) {
+		case static_cast<int>(menu::stat_menu_e::QUIT):
+			LOG_INFO(logging::verb_level_e::ZERO,"[Menu stat] Close window");
+			break;
+		default:
+			glutPostRedisplay();
+			break;
+	}
+}
+
+void menu::menu_stat_items() {
+	glutAddMenuEntry("Quit", static_cast<int>(menu::stat_menu_e::QUIT));
+}
+
+// Overload << operator for stat_menu_e
+std::ostream& menu::operator<< (std::ostream& os, menu::stat_menu_e menu_items) {
+
+	switch (menu_items) {
+		case menu::stat_menu_e::QUIT:
+			os << "QUIT";
+			break;
+		default:
+			os << "Unknown menu item";
+			break;
+	}
+
+	return os;
+}
+// ================================================================
+// Destroy window
+// ================================================================
+void menu::Menu::destroy_menu() {
+	LOG_INFO(logging::verb_level_e::DEBUG, "Destroy Menu");
+	glutDestroyMenu(id);
+}
+
+// ================================================================
+// Destructor
+// ================================================================
+menu::Menu::~Menu() {
+	std::string pretext ("Menu Destructor");
+	menu::Menu::print_info(logging::verb_level_e::LOW, pretext);
+//	this->destroy_menu();
+}
+
+void menu::Menu::print_info(logging::verb_level_e verbosity, std::string pretext) {
+	LOG_INFO(verbosity, "[", pretext, "] Menu ID: ", this->id);
+}
+
+int menu::Menu::get_id() {
+	return id;
+}
+
+

@@ -50,7 +50,7 @@ namespace menu {
 	 *
 	 * \param entry: menu entry
 	 *
-	 * Select menu entry  in game window
+	 * Select menu entry in game window
 	 */
 	void menu_game(int entry);
 
@@ -60,6 +60,40 @@ namespace menu {
 	 * List menu items in game window
 	 */
 	void menu_game_items();
+
+	/**
+	 * @brief Stat menu entries
+	 *
+	 */
+	typedef enum class stat_menu_list {
+		QUIT = 0
+	} stat_menu_e;
+
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, menu::stat_menu_e menu_items)
+	 *
+	 * \param os: output stream
+	 * \param menu_items: menu items in stat window
+	 *
+	 * Overload << operator to print stat menu items
+	 */
+	std::ostream& operator<< (std::ostream& os, menu::stat_menu_e menu_items);
+
+	/**
+	 * @brief Function: void menu_stat(int entry)
+	 *
+	 * \param entry: menu entry
+	 *
+	 * Select menu entry in stat window
+	 */
+	void menu_stat(int entry);
+
+	/**
+	 * @brief Function: void menu_stat_items()
+	 *
+	 * List menu items in stat window
+	 */
+	void menu_stat_items();
 
 	class Menu {
 		public:
