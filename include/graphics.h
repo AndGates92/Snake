@@ -12,7 +12,7 @@ namespace graphics {
 
 	void init_graphics(int argc, char** argv);
 
-	void test_graphics();
+	void add_graphics();
 
 	void start_game();
 

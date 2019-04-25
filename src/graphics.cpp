@@ -38,8 +38,8 @@ void graphics::init_graphics(int argc, char** argv) {
 	glutMainLoop();
 }
 
-void graphics::test_graphics() {
-	graphics_utils::win_node_add("test", 1100, 450, 100, 50, menu::menu_game, menu::menu_game_items, game_graphics::wrapper_game_cb);
+void graphics::add_graphics() {
+	graphics_utils::win_node_add("snake", 1100, 450, 100, 50, menu::menu_game, menu::menu_game_items, game_graphics::wrapper_game_cb);
 
 }
 
@@ -49,7 +49,7 @@ void graphics::start_game() {
 	// Initialize window list
 	graphics_utils::init_window_list();
 	// Initialize graphics
-	graphics::test_graphics();
+	graphics::add_graphics();
 	// Initialize game
 	game_graphics::init_game();
 }
