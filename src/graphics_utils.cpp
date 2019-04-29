@@ -83,7 +83,6 @@ void graphics_utils::refresh_window(int value) {
 		curr_win_id = node.get_win_id();
 
 		LOG_INFO(logging::verb_level_e::DEBUG,"[Refresh window] Window ID: current ", curr_win_id);
-cout << "[Refresh window] Window ID: current " << curr_win_id << endl;
 
 		glutSetWindow(curr_win_id);
 		glutPostRedisplay();
