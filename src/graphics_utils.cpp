@@ -66,8 +66,9 @@ window_list::WindowList * & graphics_utils::get_window_ptr() {
 }
 
 // Create new window
-void graphics_utils::win_node_add(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos, void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)()) {
-	windows->add_node(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc);
+int graphics_utils::win_node_add(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos, void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)()) {
+	int win_id = windows->add_node(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc);
+	return win_id;
 }
 
 void graphics_utils::refresh_window(int value) {
@@ -82,6 +83,7 @@ void graphics_utils::refresh_window(int value) {
 		curr_win_id = node.get_win_id();
 
 		LOG_INFO(logging::verb_level_e::DEBUG,"[Refresh window] Window ID: current ", curr_win_id);
+cout << "[Refresh window] Window ID: current " << curr_win_id << endl;
 
 		glutSetWindow(curr_win_id);
 		glutPostRedisplay();
@@ -133,26 +135,3 @@ std::ostream& graphics_utils::operator<< (std::ostream& os, graphics_utils::pale
 	return os;
 }
 
-void graphics_utils::reshape_cb(int width, int height) {
-	LOG_INFO(logging::verb_level_e::DEBUG,"[Reshape Callback] Reshape Callback window width to ", width, " and window height to ", height);
-
-	int win_id = 0;
-	win_id = glutGetWindow();
-
-	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
-	window_obj::WindowObj window (node->get_obj());
-
-	// set viewport to new width and height 
-	glViewport( 0, 0, width, height );
-
-	// set viewing window using perspective projection
-	glMatrixMode( GL_PROJECTION ); 
-	// init projection matrix
-	glLoadIdentity();
-
-	// perspective parameters: field of view, aspect, near clip, far clip 
-	gluPerspective( graphics_utils::zoom, (GLdouble)width/(GLdouble)height, graphics_utils::zNear, graphics_utils::zFar );
-
-//	glClear(GL_COLOR_BUFFER_BIT);
-
-}

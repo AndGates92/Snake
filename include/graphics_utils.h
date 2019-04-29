@@ -99,22 +99,11 @@ namespace graphics_utils {
 
 	window_node::WindowNode * search_win_id(int& id );
 
-	void win_node_add(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos, void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)());
+	int win_node_add(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos, void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)());
 
 	void refresh_window(int value);
 
 	window_list::WindowList * & get_window_ptr();
-
-	/**
-	 * @brief Function: void reshape_cb(int width, int height)
-	 *
-	 * \param width: width of the reshaped window
-	 * \param height: height of the reshaped window
-	 *
-	 * This function is called whenever the user (or OS) reshapes the OpenGL window. The GLUT sends the new window dimensions (x,y)
-	 */
-	void reshape_cb(int width, int height);
-
 
 }
 

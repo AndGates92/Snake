@@ -251,7 +251,7 @@ game_pixel_type * game_graphics::get_game_pixel_array (int & win_width, int & wi
 
 	game_pixel_type * pixels = new game_pixel_type[graphics_utils::no_colours*win_area];
 	if (pixels == nullptr) {
-		LOG_ERROR("Can't allocate memory for pixels array");
+		LOG_ERROR("Can't allocate memory for game pixels array");
 	}
 
 	game_pixel_type * colour = graphics_utils::get_pixel_colour<game_pixel_type> (graphics_utils::palette_e::BLACK);

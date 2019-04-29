@@ -18,6 +18,7 @@
 #include "settings.h"
 #include "logging.h"
 #include "menu.h"
+#include "graphics.h"
 #include "graphics_utils.h"
 #include "stat_graphics.h"
 #include "window_obj.h"
@@ -25,6 +26,7 @@
 using namespace std;
 using namespace logging;
 using namespace menu;
+using namespace graphics;
 using namespace stat_graphics;
 using namespace graphics_utils;
 using namespace window_obj;
@@ -40,16 +42,23 @@ void stat_graphics::display_stat_cb() {
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Display Stat Callback] Display Stat Callback for window ID: ", win_id);
 
-//	double win_width = 0.0;
-//	win_width = glutGet(GLUT_WINDOW_WIDTH);
-//	int win_width_int = (int) win_width;
+	double win_width = 0.0;
+	win_width = glutGet(GLUT_WINDOW_WIDTH);
+	int win_width_int = (int) win_width;
 
-//	double win_height = 0.0;
-//	win_height = glutGet(GLUT_WINDOW_HEIGHT);
-//	int win_height_int = (int) win_height;
+	double win_height = 0.0;
+	win_height = glutGet(GLUT_WINDOW_HEIGHT);
+	int win_height_int = (int) win_height;
 
 	glPixelStoref(GL_PACK_ALIGNMENT, 1);
 	glPixelStoref(GL_UNPACK_ALIGNMENT, 1);
+
+	// Store pixels in pixels array
+	unsigned char * pixels = stat_graphics::get_stat_pixel_array<unsigned char>(win_width_int, win_height_int);
+
+	glDrawPixels(win_width_int, win_height_int, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+
+	delete [] pixels;
 
 	// swap buffers to display the frame
 	glutSwapBuffers();
@@ -111,13 +120,12 @@ void stat_graphics::idle_stat_cb() {
 //	int win_width = glutGet(GLUT_WINDOW_WIDTH);
 //	int win_height = glutGet(GLUT_WINDOW_HEIGHT);
 
-	int win_id_new = glutGetWindow();
-	if (win_id_new != 0) {
-		LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Stat Callback] Idle Stat Callback before glutPostRedisplay for window ID: ", win_id_new);
+	int win_id = glutGetWindow();
+	if (win_id != 0) {
+		LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Stat Callback] Idle Stat Callback before glutPostRedisplay for window ID: ", win_id);
 		// force glut to call the display function
 		glutPostRedisplay();
 	}
-
 }
 
 void stat_graphics::wrapper_stat_cb() {
@@ -126,11 +134,10 @@ void stat_graphics::wrapper_stat_cb() {
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Stat Graphics Wrapper] Enter stat graphics wrapper for window ID ", win_id);
 	glutDisplayFunc( display_stat_cb );
-	//glutDisplayFunc( display_stat_cb );
 	glutKeyboardFunc( keyboard_stat_cb );
-	glutReshapeFunc( graphics_utils::reshape_cb );
-	//glutIdleFunc( idle_stat_cb );
-	glutIdleFunc( NULL );
+	glutReshapeFunc( graphics::reshape_cb );
+	glutIdleFunc( graphics::idle_cb );
+	//glutIdleFunc( NULL );
 	glutSpecialFunc( specialkey_stat_cb );
 	glutMouseFunc( mouse_stat_cb );
 }

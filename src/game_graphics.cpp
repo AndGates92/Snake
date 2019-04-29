@@ -289,8 +289,8 @@ void game_graphics::wrapper_game_cb() {
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Game Graphics Wrapper] Enter game graphics wrapper for window ID ", win_id);
 	glutDisplayFunc( display_game_cb );
 	glutKeyboardFunc( keyboard_game_cb );
-	glutReshapeFunc( graphics_utils::reshape_cb );
-	glutIdleFunc( idle_game_cb );
+	glutReshapeFunc( graphics::reshape_cb );
+	glutIdleFunc( graphics::idle_cb );
 	glutSpecialFunc( specialkey_game_cb );
 	glutMouseFunc( mouse_game_cb );
 }

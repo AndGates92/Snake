@@ -16,6 +16,24 @@ namespace graphics {
 
 	void start_game();
 
+	/**
+	 * @brief Function: void reshape_cb(int width, int height)
+	 *
+	 * \param width: width of the reshaped window
+	 * \param height: height of the reshaped window
+	 *
+	 * This function is called whenever the user (or OS) reshapes the OpenGL window. The GLUT sends the new window dimensions (x,y)
+	 */
+	void reshape_cb(int width, int height);
+
+	/**
+	 * @brief Function: void idle_cb()
+	 *
+	 * This function is idle callback of the program
+	 */
+	void idle_cb();
+
+
 }
 
 #endif // GRAPHICS_H

@@ -34,7 +34,7 @@ window_list::WindowList::~WindowList() {
 
 }
 
-void window_list::WindowList::add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)()) {
+int window_list::WindowList::add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)()) {
 
 	window_node::WindowNode * head(this->get_head());
 
@@ -52,6 +52,10 @@ void window_list::WindowList::add_node(std::string window_title, int window_widt
 
 	new_window->set_next(head);
 	this->set_head(new_window);
+
+	window_obj::WindowObj node = new_window->get_obj();
+	int win_id = node.get_win_id();
+	return win_id;
 
 }
 
