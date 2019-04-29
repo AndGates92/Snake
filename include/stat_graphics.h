@@ -8,6 +8,11 @@
  * @brief Stat graphics header file
 */
 
+#include "number_tmp.h"
+#include "graphics_utils.h"
+
+using namespace number_tmp;
+
 namespace stat_graphics {
 
 	namespace {
@@ -109,7 +114,7 @@ namespace stat_graphics {
 	 * This function returns the pointer to the array of pixels to draw
 	 */
 	template <typename stat_pixel_type>
-	void draw_stat(stat_pixel_type * & pixels, const int & win_width, const int & win_height, int init_x, int init_y, int value);
+	void draw_stat(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const int & value);
 
 }
 
@@ -146,18 +151,18 @@ stat_pixel_type * stat_graphics::get_stat_pixel_array (int & win_width, int & wi
 
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
 template <typename stat_pixel_type>
-void stat_graphics::draw_stat(stat_pixel_type * & pixels, const int & win_width, const int & win_height, int init_x, int init_y, int value) {
+void stat_graphics::draw_stat(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const int & value) {
 
 	std::string value_s (to_string(value));
 
 	for (unsigned i=0; i < value_s.length(); i++) {
-//		cout << "Char["<< i << "] is " << value_s.at(i) << endl;
+		char digit = value_s.at(i);
+		int x_start = init_x + number_tmp::num_tiles_width*number_tmp::tile_width;
+		int y_start = init_y;
+		number_tmp::draw_digit<stat_pixel_type>(pixels, win_width, win_height, x_start, y_start, digit);
 	}
 
 }
-#pragma GCC diagnostic pop
 
 #endif // STAT_GRAPHICS_H
