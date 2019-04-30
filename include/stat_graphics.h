@@ -145,7 +145,7 @@ stat_pixel_type * stat_graphics::get_stat_pixel_array (int & win_width, int & wi
 
 	delete [] colour;
 
-	stat_graphics::draw_stat<stat_pixel_type> (pixels, win_width, win_height, stat_graphics::score_init_x, stat_graphics::score_init_y, 123);
+	stat_graphics::draw_stat<stat_pixel_type> (pixels, win_width, win_height, stat_graphics::score_init_x, stat_graphics::score_init_y, 1234567890);
 
 	return pixels;
 
@@ -156,9 +156,9 @@ void stat_graphics::draw_stat(stat_pixel_type * & pixels, const int & win_width,
 
 	std::string value_s (to_string(value));
 
-	for (unsigned i=0; i < value_s.length(); i++) {
-		char digit = value_s.at(i);
-		int x_start = init_x + number_tmp::num_tiles_width*number_tmp::tile_width;
+	for (unsigned pos=0; pos < value_s.length(); pos++) {
+		char digit = value_s.at(pos);
+		int x_start = init_x + pos*(number_tmp::num_tiles_width*number_tmp::tile_width);
 		int y_start = init_y;
 		number_tmp::draw_digit<stat_pixel_type>(pixels, win_width, win_height, x_start, y_start, digit);
 	}

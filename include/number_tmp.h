@@ -116,12 +116,15 @@ namespace number_tmp {
 template <typename pixel_type>
 void number_tmp::draw_digit(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & digit) {
 
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Draw Digit] Draw digit ", digit, " starting at X ", init_x, " Y ", init_y);
+//cout << "[Draw Digit] Draw digit " << digit << " starting at X " << init_x << " Y " << init_y << endl;
 	const bool * digit_tiles = number_tmp::get_digit_tiles(digit);
 
 	for (int tile_no = 0; tile_no < number_tmp::num_tiles; tile_no++) {
 		const bool tile = digit_tiles[tile_no];
 		int row = (int)tile_no/(int)number_tmp::num_tiles_width;
-		int init_row = row*number_tmp::tile_height;
+		// First tiles must go to the top of the number
+		int init_row = (number_tmp::num_tiles_height-row-1)*number_tmp::tile_height;
 		int column = tile_no % number_tmp::num_tiles_width;
 		int init_column = column*number_tmp::tile_width;
 
@@ -136,7 +139,6 @@ void number_tmp::draw_digit(pixel_type * & pixels, const int & win_width, const 
 		pixel_type * colour = graphics_utils::get_pixel_colour<pixel_type> (colour_name);
 
 		for (int x_coord = 0; x_coord < number_tmp::tile_width; x_coord++) {
-
 			int tile_column = init_column + x_coord;
 			int curr_column = (init_x + tile_column);
 			if (curr_column < win_width) {
