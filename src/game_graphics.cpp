@@ -476,8 +476,8 @@ void game_graphics::save_game(std::string filename) {
 
 	int snake_node_cnt = 0;
 
-	save.write_ofile("Dump file: ", snake_settings.get_dump_filename(), "\n");
-	save.write_ofile("Save file: ", snake_settings.get_save_filename(), "\n");
+	save.write_ofile("Dump: ", snake_settings.get_dump_filename(), "\n");
+	save.write_ofile("Save: ", snake_settings.get_save_filename(), "\n");
 	save.write_ofile("\n");
 
 	save.write_ofile("//******************************\n");
@@ -503,8 +503,8 @@ void game_graphics::save_game(std::string filename) {
 		save.write_ofile("// Snake Node ", snake_node_cnt, "\n");
 		save.write_ofile("//******************************\n");
 		save.write_ofile("Type: Snake\n");
-		save.write_ofile("X centre: ", node_x, "\n");
-		save.write_ofile("Y centre: ", node_y, "\n");
+		save.write_ofile("X: ", node_x, "\n");
+		save.write_ofile("Y: ", node_y, "\n");
 		save.write_ofile("Width: ", node_width, "\n");
 		save.write_ofile("Height: ", node_height, "\n");
 		save.write_ofile("\n");
@@ -532,8 +532,8 @@ void game_graphics::save_game(std::string filename) {
 		save.write_ofile("// Obstacle Node ", obs_node_cnt, "\n");
 		save.write_ofile("//******************************\n");
 		save.write_ofile("Type: Obstacle\n");
-		save.write_ofile("X centre: ", obs_x, "\n");
-		save.write_ofile("Y centre: ", obs_y, "\n");
+		save.write_ofile("X: ", obs_x, "\n");
+		save.write_ofile("Y: ", obs_y, "\n");
 		save.write_ofile("Width: ", obs_width, "\n");
 		save.write_ofile("Height: ", obs_height, "\n");
 		save.write_ofile("\n");
