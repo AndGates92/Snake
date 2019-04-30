@@ -144,13 +144,18 @@ namespace settings {
 		 */
 		const static int init_tile_height = 5;
 
+		/**
+		 * @brief Initial value of score
+		 *
+		 */
+		const static int init_score = 0;
 	}
 
 
 	class Settings {
 		public:
 			// Constructor
-			Settings(): hard_wall(settings::init_hard_wall), dump_filename(settings::init_dumpfilename), save_filename(settings::init_savefilename), game_status(init_game_status), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_color(settings::init_snake_color), obs_color(settings::init_obs_color), tile_height(settings::init_tile_height), tile_width(settings::init_tile_width) {
+			Settings(): hard_wall(settings::init_hard_wall), dump_filename(settings::init_dumpfilename), save_filename(settings::init_savefilename), game_status(init_game_status), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_color(settings::init_snake_color), obs_color(settings::init_obs_color), tile_height(settings::init_tile_height), tile_width(settings::init_tile_width), score(settings::init_score) {
 				std::string pretext ("Settings Constructor");
 				settings::Settings::print_info(logging::verb_level_e::LOW, pretext);
 
@@ -177,6 +182,7 @@ namespace settings {
 			void set_obs_color(graphics_utils::palette_e new_color);
 			void set_tile_height(int value);
 			void set_tile_width(int value);
+			void set_score(int value);
 
 			// Get functions
 			bool get_hard_wall_flag();
@@ -196,6 +202,7 @@ namespace settings {
 			graphics_utils::palette_e get_obs_color();
 			int get_tile_height();
 			int get_tile_width();
+			int get_score();
 
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
@@ -217,6 +224,7 @@ namespace settings {
 			graphics_utils::palette_e obs_color;
 			int tile_height;
 			int tile_width;
+			int score;
 
 		protected:
 	};

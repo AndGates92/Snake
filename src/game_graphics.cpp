@@ -212,6 +212,8 @@ void game_graphics::idle_game_cb() {
 
 	if (game_status == settings::game_status_e::RUNNING) {
 		bool obs_eaten = contact_between_snake_obs();
+		// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round
+		int snake_speed = snake_settings.get_speed();
 		if (obs_eaten == true) {
 
 			game_graphics::add_obstacle();
@@ -248,10 +250,10 @@ void game_graphics::idle_game_cb() {
 			int snake_units = snake_settings.get_snake_units();
 			snake_settings.set_snake_units(snake_units + 1);
 
-		} else {
+			int score = snake_settings.get_score();
+			snake_settings.set_score(score + snake_speed);
 
-			// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round
-			int snake_speed = snake_settings.get_speed();
+		} else {
 
 			game_graphics::snake->move(snake_speed, win_width, win_height, game_graphics::head_dir);
 

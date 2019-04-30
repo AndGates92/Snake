@@ -77,6 +77,7 @@ int settings::Settings::get_tile_width() {
 int settings::Settings::get_tile_height() {
 	return this->tile_height;
 }
+
 snake_node::direction_e settings::Settings::get_head_dir() {
 	return this->head_dir;
 }
@@ -87,6 +88,10 @@ graphics_utils::palette_e settings::Settings::get_snake_color() {
 
 graphics_utils::palette_e settings::Settings::get_obs_color() {
 	return this->obs_color;
+}
+
+int settings::Settings::get_score() {
+	return this->score;
 }
 
 // ================================================================
@@ -160,8 +165,12 @@ void settings::Settings::set_obs_color(graphics_utils::palette_e new_color) {
 	this->obs_color = new_color;
 }
 
+void settings::Settings::set_score(int value) {
+	this->score = value;
+}
+
 void settings::Settings::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Snake Game settings: Status: ", this->game_status, "\n\tHard Wall: ", this->hard_wall, "\n\tOutput files: save->", this->save_filename, " dump->", this->dump_filename, "\n\tNumber of obstacles: ", this->obs_no, "\n\tNumber of snake units: ", this->snake_units, "\n\tNode Dimensions: Height->", this->node_height, " Width->", this->node_width, "\n\tSpeed Settings (Unit: pixel/iteration): Current speed->", this->speed, " Speed Increment->", this->speed_incr, "\n\tHead Position: X->", this->head_centre_x, " Y->", this->head_centre_y, "\n\tHead direction: ", this->head_dir, "\n\tColouring: Snake->", this->snake_color, " Obstacles->", this->obs_color, "\n\tStat window Tile Dimensions: Height->", this->tile_height, " Width->", this->tile_width);
+	LOG_INFO(verbosity, "[", pretext, "] Snake Game settings: Status: ", this->game_status, "\n\tHard Wall: ", this->hard_wall, "\n\tOutput files: save->", this->save_filename, " dump->", this->dump_filename, "\n\tNumber of obstacles: ", this->obs_no, "\n\tNumber of snake units: ", this->snake_units, "\n\tNode Dimensions: Height->", this->node_height, " Width->", this->node_width, "\n\tSpeed Settings (Unit: pixel/iteration): Current speed->", this->speed, " Speed Increment->", this->speed_incr, "\n\tHead Position: X->", this->head_centre_x, " Y->", this->head_centre_y, "\n\tHead direction: ", this->head_dir, "\n\tColouring: Snake->", this->snake_color, " Obstacles->", this->obs_color, "\n\tStat window Tile Dimensions: Height->", this->tile_height, " Width->", this->tile_width, "\n\tScore->", this->score);
 }
 
 settings::Settings::~Settings() {

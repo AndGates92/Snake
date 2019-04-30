@@ -146,7 +146,8 @@ stat_pixel_type * stat_graphics::get_stat_pixel_array (int & win_width, int & wi
 
 	delete [] colour;
 
-	stat_graphics::draw_stat<stat_pixel_type> (pixels, win_width, win_height, stat_graphics::score_init_x, stat_graphics::score_init_y, 1234567890);
+	int score = snake_settings.get_score();
+	stat_graphics::draw_stat<stat_pixel_type> (pixels, win_width, win_height, stat_graphics::score_init_x, stat_graphics::score_init_y, score);
 
 	return pixels;
 
