@@ -476,8 +476,20 @@ void game_graphics::save_game(std::string filename) {
 
 	int snake_node_cnt = 0;
 
-	save.write_ofile("Speed: ", snake_settings.get_speed(), "\n");
+	save.write_ofile("Dump file: ", snake_settings.get_dump_filename(), "\n");
+	save.write_ofile("Save file: ", snake_settings.get_save_filename(), "\n");
+	save.write_ofile("\n");
 
+	save.write_ofile("//******************************\n");
+	save.write_ofile("// Stat Windows\n");
+	save.write_ofile("//******************************\n");
+	save.write_ofile("Type: Tile\n");
+	save.write_ofile("Width: ", snake_settings.get_tile_width(), "\n");
+	save.write_ofile("Height: ", snake_settings.get_tile_height(), "\n");
+	save.write_ofile("Score: ", snake_settings.get_score(), "\n");
+	save.write_ofile("\n");
+
+	save.write_ofile("Speed: ", snake_settings.get_speed(), "\n");
 	save.write_ofile("Snake Units: ", snake_settings.get_snake_units(), "\n");
 	save.write_ofile("\n");
 
