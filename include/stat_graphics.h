@@ -10,6 +10,7 @@
 
 #include "number_tmp.h"
 #include "graphics_utils.h"
+#include "settings.h"
 
 using namespace number_tmp;
 
@@ -156,9 +157,12 @@ void stat_graphics::draw_stat(stat_pixel_type * & pixels, const int & win_width,
 
 	std::string value_s (to_string(value));
 
+	int tile_width = snake_settings.get_tile_width();
+	//int tile_height = snake_settings.get_tile_height();
+
 	for (unsigned pos=0; pos < value_s.length(); pos++) {
 		char digit = value_s.at(pos);
-		int x_start = init_x + pos*(number_tmp::num_tiles_width*number_tmp::tile_width);
+		int x_start = init_x + pos*(number_tmp::num_tiles_width*tile_width);
 		int y_start = init_y;
 		number_tmp::draw_digit<stat_pixel_type>(pixels, win_width, win_height, x_start, y_start, digit);
 	}

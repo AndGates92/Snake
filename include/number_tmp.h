@@ -10,6 +10,7 @@
 
 #include "graphics_utils.h"
 #include "logging.h"
+#include "settings.h"
 
 namespace number_tmp {
 
@@ -23,9 +24,6 @@ namespace number_tmp {
 	const static int num_tiles_width = 4;
 	const static int num_tiles_height = 5;
 	const static int num_tiles = num_tiles_height * num_tiles_width;
-	const static int tile_width = 5;
-	const static int tile_height = 5;
-	const static int tile_pixels = num_tiles*tile_width*tile_height;
 
 	const static bool number_zero[num_tiles] = {
 		false, true,  true,  true,
@@ -120,13 +118,16 @@ void number_tmp::draw_digit(pixel_type * & pixels, const int & win_width, const 
 //cout << "[Draw Digit] Draw digit " << digit << " starting at X " << init_x << " Y " << init_y << endl;
 	const bool * digit_tiles = number_tmp::get_digit_tiles(digit);
 
+	int tile_width = snake_settings.get_tile_width();
+	int tile_height = snake_settings.get_tile_height();
+
 	for (int tile_no = 0; tile_no < number_tmp::num_tiles; tile_no++) {
 		const bool tile = digit_tiles[tile_no];
 		int row = (int)tile_no/(int)number_tmp::num_tiles_width;
 		// First tiles must go to the top of the number
-		int init_row = (number_tmp::num_tiles_height-row-1)*number_tmp::tile_height;
+		int init_row = (number_tmp::num_tiles_height-row-1)*tile_height;
 		int column = tile_no % number_tmp::num_tiles_width;
-		int init_column = column*number_tmp::tile_width;
+		int init_column = column*tile_width;
 
 		// Default colour to black
 		graphics_utils::palette_e colour_name = graphics_utils::palette_e::BLACK;
@@ -138,11 +139,11 @@ void number_tmp::draw_digit(pixel_type * & pixels, const int & win_width, const 
 		}
 		pixel_type * colour = graphics_utils::get_pixel_colour<pixel_type> (colour_name);
 
-		for (int x_coord = 0; x_coord < number_tmp::tile_width; x_coord++) {
+		for (int x_coord = 0; x_coord < tile_width; x_coord++) {
 			int tile_column = init_column + x_coord;
 			int curr_column = (init_x + tile_column);
 			if (curr_column < win_width) {
-				for (int y_coord = 0; y_coord < number_tmp::tile_height; y_coord++) {
+				for (int y_coord = 0; y_coord < tile_height; y_coord++) {
 					int tile_row = init_row + y_coord;
 					int curr_row = (init_y + tile_row);
 					if (curr_row < win_height) {
