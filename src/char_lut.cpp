@@ -15,11 +15,31 @@ using namespace std;
 using namespace logging;
 using namespace char_lut;
 
-const bool * char_lut::get_char_tiles(const char & char_s) {
+const bool * char_lut::get_char_tiles(const char & char_print) {
 
 	const bool * char_tiles = NULL;
 
-	switch (char_s) {
+	switch (char_print) {
+		case 'C':
+		case 'c':
+			char_tiles = char_lut::char_c;
+			break;
+		case 'E':
+		case 'e':
+			char_tiles = char_lut::char_e;
+			break;
+		case 'O':
+		case 'o':
+			char_tiles = char_lut::char_o;
+			break;
+		case 'R':
+		case 'r':
+			char_tiles = char_lut::char_r;
+			break;
+		case 'S':
+		case 's':
+			char_tiles = char_lut::char_s;
+			break;
 		case '0':
 			char_tiles = char_lut::number_zero;
 			break;
@@ -50,8 +70,14 @@ const bool * char_lut::get_char_tiles(const char & char_s) {
 		case '9':
 			char_tiles = char_lut::number_nine;
 			break;
+		case '=':
+			char_tiles = char_lut::char_eq;
+			break;
+		case ':':
+			char_tiles = char_lut::char_colon;
+			break;
 		default :
-			LOG_ERROR("Unknown character: ", char_s);
+			LOG_ERROR("Unknown character: ", char_print);
 			break;
 	}
 

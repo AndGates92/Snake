@@ -25,6 +25,7 @@ namespace char_lut {
 	const static int num_tiles_height = 5;
 	const static int num_tiles = num_tiles_height * num_tiles_width;
 
+	// Digits
 	const static bool number_zero[num_tiles] = {
 		false, true,  true,  true,
 		false, true,  false, true,
@@ -105,10 +106,68 @@ namespace char_lut {
 		false, true,  true,  true
 	};
 
-	template <typename pixel_type>
-	void draw_char(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & char_s);
+	// Alphabetical characters
+	const static bool char_c[num_tiles] = {
+		false, true,  true,  true,
+		false, true,  false, false,
+		false, true,  false, false,
+		false, true,  false, false,
+		false, true,  true,  true
+	};
 
-	const bool * get_char_tiles(const char & char_s);
+	const static bool char_e[num_tiles] = {
+		false, true,  true,  true,
+		false, true,  false, false,
+		false, true,  true,  true,
+		false, true,  false, false,
+		false, true,  true,  true
+	};
+
+	const static bool char_o[num_tiles] = {
+		false, true,  true,  true,
+		false, true,  false, true,
+		false, true,  false, true,
+		false, true,  false, true,
+		false, true,  true,  true
+	};
+
+	const static bool char_r[num_tiles] = {
+		false, true,  true,  true,
+		false, true,  false, true,
+		false, true,  true,  true,
+		false, true,  true,  false,
+		false, true,  false, true
+	};
+
+	const static bool char_s[num_tiles] = {
+		false, true,  true,  true,
+		false, true,  false, false,
+		false, true,  true,  true,
+		false, false, false, true,
+		false, true,  true,  true
+	};
+
+	// Symbols
+	const static bool char_eq[num_tiles] = {
+		false, false, false, false,
+		false, true,  true,  false,
+		false, false, false, false,
+		false, true,  true,  false,
+		false, false, false, false
+	};
+
+	const static bool char_colon[num_tiles] = {
+		false, false, false, false,
+		false, true,  false, false,
+		false, false, false, false,
+		false, true,  false, false,
+		false, false, false, false
+	};
+
+	template <typename pixel_type>
+	void draw_char(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & char_print);
+
+	const bool * get_char_tiles(const char & char_print);
 
 	/**
 	 * @brief Function: void draw_string(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const string & str)
@@ -128,11 +187,11 @@ namespace char_lut {
 }
 
 template <typename pixel_type>
-void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & char_s) {
+void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & char_print) {
 
-	LOG_INFO(logging::verb_level_e::DEBUG,"[Draw Digit] Draw char ", char_s, " starting at X ", init_x, " Y ", init_y);
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Draw Digit] Draw char ", char_print, " starting at X ", init_x, " Y ", init_y);
 //cout << "[Draw Digit] Draw char " << char << " starting at X " << init_x << " Y " << init_y << endl;
-	const bool * char_tiles = char_lut::get_char_tiles(char_s);
+	const bool * char_tiles = char_lut::get_char_tiles(char_print);
 
 	int tile_width = snake_settings.get_tile_width();
 	int tile_height = snake_settings.get_tile_height();
@@ -182,10 +241,10 @@ void char_lut::draw_string(stat_pixel_type * & pixels, const int & win_width, co
 	//int tile_height = snake_settings.get_tile_height();
 
 	for (unsigned pos=0; pos < str.length(); pos++) {
-		char char_s = str.at(pos);
+		char char_print = str.at(pos);
 		int x_start = init_x + pos*(char_lut::num_tiles_width*tile_width);
 		int y_start = init_y;
-		char_lut::draw_char<stat_pixel_type>(pixels, win_width, win_height, x_start, y_start, char_s);
+		char_lut::draw_char<stat_pixel_type>(pixels, win_width, win_height, x_start, y_start, char_print);
 	}
 
 }

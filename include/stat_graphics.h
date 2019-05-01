@@ -131,9 +131,18 @@ stat_pixel_type * stat_graphics::get_stat_pixel_array (int & win_width, int & wi
 
 	delete [] colour;
 
+	int start_x = stat_graphics::score_init_x;
+	int start_y = stat_graphics::score_init_y;
+
+	std::string obj_name ("Score:");
+	char_lut::draw_string<stat_pixel_type> (pixels, win_width, win_height, start_x, start_y, obj_name);
+
+	int tile_width = snake_settings.get_tile_width();
+	start_x += (obj_name.length()*(char_lut::num_tiles_width*tile_width));
+
 	int score = snake_settings.get_score();
 	std::string score_s (to_string(score));
-	char_lut::draw_string<stat_pixel_type> (pixels, win_width, win_height, stat_graphics::score_init_x, stat_graphics::score_init_y, score_s);
+	char_lut::draw_string<stat_pixel_type> (pixels, win_width, win_height, start_x, start_y, score_s);
 
 	return pixels;
 
