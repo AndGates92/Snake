@@ -8,11 +8,11 @@
  * @brief Stat graphics header file
 */
 
-#include "number_tmp.h"
+#include "char_lut.h"
 #include "graphics_utils.h"
 #include "settings.h"
 
-using namespace number_tmp;
+using namespace char_lut;
 
 namespace stat_graphics {
 
@@ -102,21 +102,6 @@ namespace stat_graphics {
 	template <typename stat_pixel_type>
 	stat_pixel_type * get_stat_pixel_array(int & win_width, int & win_height);
 
-	/**
-	 * @brief Function: void draw_snake(stat_pixel_type * & win_width, int & win_height)
-	 *
-	 * \param win_height: height of the reshaped window
-	 * \param win_width: width of the reshaped window
-	 * \param pixels: pointer to pixels to draw passed by reference
-	 * \param init_x: x coordinate of pixel the number starts
-	 * \param init_y: y coordinate of pixel the number starts
-	 * \param value: value to draw
-	 *
-	 * This function returns the pointer to the array of pixels to draw
-	 */
-	template <typename stat_pixel_type>
-	void draw_stat(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const int & value);
-
 }
 
 template <typename stat_pixel_type>
@@ -147,26 +132,10 @@ stat_pixel_type * stat_graphics::get_stat_pixel_array (int & win_width, int & wi
 	delete [] colour;
 
 	int score = snake_settings.get_score();
-	stat_graphics::draw_stat<stat_pixel_type> (pixels, win_width, win_height, stat_graphics::score_init_x, stat_graphics::score_init_y, score);
+	std::string score_s (to_string(score));
+	char_lut::draw_string<stat_pixel_type> (pixels, win_width, win_height, stat_graphics::score_init_x, stat_graphics::score_init_y, score_s);
 
 	return pixels;
-
-}
-
-template <typename stat_pixel_type>
-void stat_graphics::draw_stat(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const int & value) {
-
-	std::string value_s (to_string(value));
-
-	int tile_width = snake_settings.get_tile_width();
-	//int tile_height = snake_settings.get_tile_height();
-
-	for (unsigned pos=0; pos < value_s.length(); pos++) {
-		char digit = value_s.at(pos);
-		int x_start = init_x + pos*(number_tmp::num_tiles_width*tile_width);
-		int y_start = init_y;
-		number_tmp::draw_digit<stat_pixel_type>(pixels, win_width, win_height, x_start, y_start, digit);
-	}
 
 }
 

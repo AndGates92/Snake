@@ -2,7 +2,7 @@
 #define NUMBER_TMP_H
 /**
  * @copyright
- * @file number_tmp.h
+ * @file char_lut.h
  * @author Andrea Gianarda
  * @date 29th of April 2019
  * @brief Number template header
@@ -12,7 +12,7 @@
 #include "logging.h"
 #include "settings.h"
 
-namespace number_tmp {
+namespace char_lut {
 
 	namespace {
 		// Colouring
@@ -106,36 +106,52 @@ namespace number_tmp {
 	};
 
 	template <typename pixel_type>
-	void draw_digit(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & digit);
+	void draw_char(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & char_s);
 
-	const bool * get_digit_tiles(const char & digit);
+	const bool * get_char_tiles(const char & char_s);
+
+	/**
+	 * @brief Function: void draw_string(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const string & str)
+	 *
+	 * \param win_height: height of the reshaped window
+	 * \param win_width: width of the reshaped window
+	 * \param pixels: pointer to pixels to draw passed by reference
+	 * \param init_x: x coordinate of pixel the number starts
+	 * \param init_y: y coordinate of pixel the number starts
+	 * \param str: string to draw
+	 *
+	 * This function returns the pointer to the array of pixels to draw
+	 */
+	template <typename stat_pixel_type>
+	void draw_string(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const string & str);
+
 }
 
 template <typename pixel_type>
-void number_tmp::draw_digit(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & digit) {
+void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & char_s) {
 
-	LOG_INFO(logging::verb_level_e::DEBUG,"[Draw Digit] Draw digit ", digit, " starting at X ", init_x, " Y ", init_y);
-//cout << "[Draw Digit] Draw digit " << digit << " starting at X " << init_x << " Y " << init_y << endl;
-	const bool * digit_tiles = number_tmp::get_digit_tiles(digit);
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Draw Digit] Draw char ", char_s, " starting at X ", init_x, " Y ", init_y);
+//cout << "[Draw Digit] Draw char " << char << " starting at X " << init_x << " Y " << init_y << endl;
+	const bool * char_tiles = char_lut::get_char_tiles(char_s);
 
 	int tile_width = snake_settings.get_tile_width();
 	int tile_height = snake_settings.get_tile_height();
 
-	for (int tile_no = 0; tile_no < number_tmp::num_tiles; tile_no++) {
-		const bool tile = digit_tiles[tile_no];
-		int row = (int)tile_no/(int)number_tmp::num_tiles_width;
+	for (int tile_no = 0; tile_no < char_lut::num_tiles; tile_no++) {
+		const bool tile = char_tiles[tile_no];
+		int row = (int)tile_no/(int)char_lut::num_tiles_width;
 		// First tiles must go to the top of the number
-		int init_row = (number_tmp::num_tiles_height-row-1)*tile_height;
-		int column = tile_no % number_tmp::num_tiles_width;
+		int init_row = (char_lut::num_tiles_height-row-1)*tile_height;
+		int column = tile_no % char_lut::num_tiles_width;
 		int init_column = column*tile_width;
 
 		// Default colour to black
 		graphics_utils::palette_e colour_name = graphics_utils::palette_e::BLACK;
 
 		if (tile == false) {
-			colour_name = number_tmp::colour_false;
+			colour_name = char_lut::colour_false;
 		} else {
-			colour_name = number_tmp::colour_true;
+			colour_name = char_lut::colour_true;
 		}
 		pixel_type * colour = graphics_utils::get_pixel_colour<pixel_type> (colour_name);
 
@@ -149,7 +165,6 @@ void number_tmp::draw_digit(pixel_type * & pixels, const int & win_width, const 
 					if (curr_row < win_height) {
 						LOG_INFO(logging::verb_level_e::DEBUG,"[Draw Digit] Draw pixel at coordinates (", curr_row, ", ", curr_column, ") -> Colour: ", colour_name);
 						int abs_coord = curr_row*win_width + curr_column;
-
 						for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
 							pixels[graphics_utils::no_colours * abs_coord + colour_idx] = colour[colour_idx];
 						}
@@ -157,6 +172,20 @@ void number_tmp::draw_digit(pixel_type * & pixels, const int & win_width, const 
 				}
 			}
 		}
+	}
+}
+
+template <typename stat_pixel_type>
+void char_lut::draw_string(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const string & str) {
+
+	int tile_width = snake_settings.get_tile_width();
+	//int tile_height = snake_settings.get_tile_height();
+
+	for (unsigned pos=0; pos < str.length(); pos++) {
+		char char_s = str.at(pos);
+		int x_start = init_x + pos*(char_lut::num_tiles_width*tile_width);
+		int y_start = init_y;
+		char_lut::draw_char<stat_pixel_type>(pixels, win_width, win_height, x_start, y_start, char_s);
 	}
 
 }
