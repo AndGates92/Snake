@@ -22,7 +22,6 @@
 #include "graphics_utils.h"
 #include "stat_graphics.h"
 #include "window_obj.h"
-#include "number_tmp.h"
 
 using namespace std;
 using namespace logging;
@@ -31,7 +30,6 @@ using namespace graphics;
 using namespace stat_graphics;
 using namespace graphics_utils;
 using namespace window_obj;
-using namespace number_tmp;
 
 void stat_graphics::display_stat_cb() {
 	glClear( GL_COLOR_BUFFER_BIT );
