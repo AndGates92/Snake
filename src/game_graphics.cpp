@@ -205,7 +205,7 @@ void game_graphics::idle_game_cb() {
 
 	int node_height = snake_settings.get_node_height();
 	int node_width = snake_settings.get_node_width();
-	colours::palette_e color = snake_settings.get_snake_color();
+	colours::palette_e colour = snake_settings.get_snake_colour();
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Game Callback] Idle Game Callback for window ID: ", win_id);
 
@@ -246,7 +246,7 @@ void game_graphics::idle_game_cb() {
 				new_snake_node_x = snake_head->get_x_centre();
 			}
 
-			game_graphics::snake->add_node(new_snake_node_x, new_snake_node_y, node_width, node_height, snake_head_dir, color);
+			game_graphics::snake->add_node(new_snake_node_x, new_snake_node_y, node_width, node_height, snake_head_dir, colour);
 
 			int snake_units = snake_settings.get_snake_units();
 			snake_settings.set_snake_units(snake_units + 1);
@@ -327,11 +327,11 @@ void game_graphics::populate_snake_list() {
 	int node_height = snake_settings.get_node_height();
 	int node_width = snake_settings.get_node_width();
 	snake_node::direction_e head_dir = snake_settings.get_head_dir();
-	colours::palette_e color = snake_settings.get_snake_color();
+	colours::palette_e colour = snake_settings.get_snake_colour();
 
 	for (int unit_no=0; unit_no < snake_units; unit_no++) {
 
-		game_graphics::snake->add_node(centre_x, centre_y, node_width, node_height, head_dir, color);
+		game_graphics::snake->add_node(centre_x, centre_y, node_width, node_height, head_dir, colour);
 		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, (colours::palette_e) unit_no);
 		centre_x += node_width;
 		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, colours::palette_e::RED);
@@ -441,7 +441,7 @@ void game_graphics::add_obstacle() {
 
 	int node_height = snake_settings.get_node_height();
 	int node_width = snake_settings.get_node_width();
-	colours::palette_e color = snake_settings.get_obs_color();
+	colours::palette_e colour = snake_settings.get_obs_colour();
 
 	// Random coordinates must be within node_width/2 and (win_width-node_width/2)
 	int centre_x = (rand() % (win_width_int - node_width)) + node_width/2;
@@ -450,7 +450,7 @@ void game_graphics::add_obstacle() {
 	int centre_y = (rand() % (win_height_int - node_height)) + node_height/2;
 
 	//game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, colours::palette_e::PURPLE);
-	game_graphics::obstacles->add_node(centre_x, centre_y, node_width, node_height, color);
+	game_graphics::obstacles->add_node(centre_x, centre_y, node_width, node_height, colour);
 }
 
 void game_graphics::free_obstacle_list() {
@@ -499,6 +499,7 @@ void game_graphics::save_game(std::string filename) {
 		int node_y = curr_snake_node->get_y_centre();
 		int node_width = curr_snake_node->get_width();
 		int node_height = curr_snake_node->get_height();
+		colours::palette_e node_colour = curr_snake_node->get_colour();
 
 		save.write_ofile("//******************************\n");
 		save.write_ofile("// Snake Node ", snake_node_cnt, "\n");
@@ -508,6 +509,7 @@ void game_graphics::save_game(std::string filename) {
 		save.write_ofile("Y: ", node_y, "\n");
 		save.write_ofile("Width: ", node_width, "\n");
 		save.write_ofile("Height: ", node_height, "\n");
+		save.write_ofile("Colour: ", node_colour, "\n");
 		save.write_ofile("\n");
 
 		// Save temporary obstacle
@@ -528,6 +530,7 @@ void game_graphics::save_game(std::string filename) {
 		int obs_width = curr_obs_node->get_width();
 		int obs_y = curr_obs_node->get_y_centre();
 		int obs_height = curr_obs_node->get_height();
+		colours::palette_e obs_colour = curr_obs_node->get_colour();
 
 		save.write_ofile("//******************************\n");
 		save.write_ofile("// Obstacle Node ", obs_node_cnt, "\n");
@@ -537,6 +540,7 @@ void game_graphics::save_game(std::string filename) {
 		save.write_ofile("Y: ", obs_y, "\n");
 		save.write_ofile("Width: ", obs_width, "\n");
 		save.write_ofile("Height: ", obs_height, "\n");
+		save.write_ofile("Colour: ", obs_colour, "\n");
 		save.write_ofile("\n");
 
 

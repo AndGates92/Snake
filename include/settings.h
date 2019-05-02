@@ -115,16 +115,16 @@ namespace settings {
 		const static snake_node::direction_e init_head_dir = snake_node::direction_e::RIGHT;
 
 		/**
-		 * @brief Initial color of the snake
+		 * @brief Initial colour of the snake
 		 *
 		 */
-		const static colours::palette_e init_snake_color = colours::palette_e::GREEN;
+		const static colours::palette_e init_snake_colour = colours::palette_e::GREEN;
 
 		/**
-		 * @brief Initial color of the obstacles
+		 * @brief Initial colour of the obstacles
 		 *
 		 */
-		const static colours::palette_e init_obs_color = colours::palette_e::PINK;
+		const static colours::palette_e init_obs_colour = colours::palette_e::PINK;
 
 		/**
 		 * @brief Initial game status
@@ -155,7 +155,7 @@ namespace settings {
 	class Settings {
 		public:
 			// Constructor
-			Settings(): hard_wall(settings::init_hard_wall), dump_filename(settings::init_dumpfilename), save_filename(settings::init_savefilename), game_status(init_game_status), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_color(settings::init_snake_color), obs_color(settings::init_obs_color), tile_height(settings::init_tile_height), tile_width(settings::init_tile_width), score(settings::init_score) {
+			Settings(): hard_wall(settings::init_hard_wall), dump_filename(settings::init_dumpfilename), save_filename(settings::init_savefilename), game_status(init_game_status), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_colour(settings::init_snake_colour), obs_colour(settings::init_obs_colour), tile_height(settings::init_tile_height), tile_width(settings::init_tile_width), score(settings::init_score) {
 				std::string pretext ("Settings Constructor");
 				settings::Settings::print_info(logging::verb_level_e::LOW, pretext);
 
@@ -178,8 +178,8 @@ namespace settings {
 			void set_head_centre_x(int value);
 			void set_head_centre_y(int value);
 			void set_head_dir(snake_node::direction_e value);
-			void set_snake_color(colours::palette_e new_color);
-			void set_obs_color(colours::palette_e new_color);
+			void set_snake_colour(colours::palette_e new_colour);
+			void set_obs_colour(colours::palette_e new_colour);
 			void set_tile_height(int value);
 			void set_tile_width(int value);
 			void set_score(int value);
@@ -198,8 +198,8 @@ namespace settings {
 			int get_head_centre_x();
 			int get_head_centre_y();
 			snake_node::direction_e get_head_dir();
-			colours::palette_e get_snake_color();
-			colours::palette_e get_obs_color();
+			colours::palette_e get_snake_colour();
+			colours::palette_e get_obs_colour();
 			int get_tile_height();
 			int get_tile_width();
 			int get_score();
@@ -220,8 +220,8 @@ namespace settings {
 			int head_centre_x;
 			int head_centre_y;
 			snake_node::direction_e head_dir;
-			colours::palette_e snake_color;
-			colours::palette_e obs_color;
+			colours::palette_e snake_colour;
+			colours::palette_e obs_colour;
 			int tile_height;
 			int tile_width;
 			int score;
