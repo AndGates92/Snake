@@ -41,13 +41,6 @@ namespace game_graphics {
 		 *
 		 */
 		static obstacle_list::ObstacleList * obstacles;
-
-		/**
-		 * @brief pointer to snake elements
-		 *
-		 */
-		colours::palette_e background_colour = colours::palette_e::PURPLE;
-
 	}
 
 	/**
@@ -258,6 +251,13 @@ game_pixel_type * game_graphics::get_game_pixel_array (int & win_width, int & wi
 	if (pixels == nullptr) {
 		LOG_ERROR("Can't allocate memory for game pixels array");
 	}
+
+	int win_id = 0;
+	win_id = glutGetWindow();
+
+	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
+	window_obj::WindowObj obj (node->get_obj());
+	colours::palette_e background_colour = obj.get_colour_bg();
 
 	game_pixel_type * colour = colours::get_pixel_colour<game_pixel_type> (background_colour);
 

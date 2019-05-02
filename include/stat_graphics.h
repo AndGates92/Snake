@@ -114,7 +114,14 @@ stat_pixel_type * stat_graphics::get_stat_pixel_array (int & win_width, int & wi
 		LOG_ERROR("Can't allocate memory for stat pixels array");
 	}
 
-	stat_pixel_type * colour = colours::get_pixel_colour<stat_pixel_type> (colours::palette_e::BLACK);
+	int win_id = 0;
+	win_id = glutGetWindow();
+
+	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
+	window_obj::WindowObj obj (node->get_obj());
+	colours::palette_e background_colour = obj.get_colour_bg();
+
+	stat_pixel_type * colour = colours::get_pixel_colour<stat_pixel_type> (background_colour);
 
 	for (int width_idx=0; width_idx<win_width; width_idx++) {
 

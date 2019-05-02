@@ -9,6 +9,7 @@
 */
 
 #include "window_obj.h"
+#include "colours.h"
 
 namespace window_node {
 	/** @defgroup WindowNodeGroup Window Node Doxygen Group
@@ -19,7 +20,7 @@ namespace window_node {
 	class WindowNode {
 		public:
 			// Constructor
-			WindowNode(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr, void (*WrapperFunc)()=nullptr): obj(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc), prev(nullptr), next(nullptr) {
+			WindowNode(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr, void (*WrapperFunc)()=nullptr, colours::palette_e background_colour=colours::palette_e::BLACK): obj(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc, background_colour), prev(nullptr), next(nullptr) {
 				std::string pretext ("Window Node Constructor");
 				window_node::WindowNode::print_info(logging::verb_level_e::LOW, pretext);
 			};

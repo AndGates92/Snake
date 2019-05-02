@@ -27,7 +27,7 @@ namespace window_list {
 			// Destructor
 			~WindowList();
 
-			int add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)());
+			int add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)(), colours::palette_e background_colour);
 
 			window_node::WindowNode * search_by_win_id(int &win_id);
 

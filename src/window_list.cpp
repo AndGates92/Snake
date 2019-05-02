@@ -12,6 +12,7 @@
 #include "window_node.h"
 #include "window_obj.h"
 #include "logging.h"
+#include "colours.h"
 
 // include graphical libraries (OPENGL)
 #include <GL/glut.h>
@@ -34,12 +35,12 @@ window_list::WindowList::~WindowList() {
 
 }
 
-int window_list::WindowList::add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)()) {
+int window_list::WindowList::add_node(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos , void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)(), colours::palette_e background_colour) {
 
 	window_node::WindowNode * head(this->get_head());
 
-	LOG_INFO(logging::verb_level_e::LOW, "[Add node] Create node at ", window_x_pos, ", ", window_y_pos, ". Dimensions: width ", window_width, " height ", window_height, ". Title: ", window_title);
-	window_node::WindowNode * new_window = new window_node::WindowNode(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc);
+	LOG_INFO(logging::verb_level_e::LOW, "[Add node] Create node at ", window_x_pos, ", ", window_y_pos, ". Dimensions: width ", window_width, " height ", window_height, ". Title: ", window_title, " Background colour: ", background_colour);
+	window_node::WindowNode * new_window = new window_node::WindowNode(window_title, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc, background_colour);
 	if (new_window == nullptr) {
 		LOG_ERROR("Can't allocate memory for window node");
 	}

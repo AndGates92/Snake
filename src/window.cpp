@@ -13,6 +13,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+#include "colours.h"
 #include "graphics.h"
 #include "window.h"
 #include "logging.h"
@@ -69,9 +70,17 @@ void window::Window::destroy_window() {
 }
 
 void window::Window::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Window ID ", this->id, " at ", this->pos_x, ", ", this->pos_y, ". Dimensions: width ", this->width, " height ", this->height, ". Title: ", this->title);
+	LOG_INFO(verbosity, "[", pretext, "] Window ID ", this->id, " at ", this->pos_x, ", ", this->pos_y, ". Dimensions: width ", this->width, " height ", this->height, ". Title: ", this->title, " Background colour: ", this->colour_bg);
 }
 
 int window::Window::get_id() {
 	return this->id;
+}
+
+colours::palette_e window::Window::get_colour_bg() {
+	return this->colour_bg;
+}
+
+void window::Window::set_colour_bg(colours::palette_e new_colour_bg) {
+	this->colour_bg = new_colour_bg;
 }

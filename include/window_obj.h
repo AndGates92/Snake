@@ -11,6 +11,7 @@
 #include "logging.h"
 #include "menu.h"
 #include "window.h"
+#include "colours.h"
 
 namespace window_obj {
 	/** @defgroup WindowObjectGroup Window Object Doxygen Group
@@ -21,7 +22,7 @@ namespace window_obj {
 	class WindowObj {
 		public:
 			// Constructor
-			WindowObj(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr, void (*WrapperFunc)()=nullptr): drawing(window_title, window_width, window_height, window_x_pos, window_y_pos, WrapperFunc), action_list(EntryFunc, ItemsFunc) {
+			WindowObj(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr, void (*WrapperFunc)()=nullptr, colours::palette_e background_colour=colours::palette_e::BLACK): drawing(window_title, window_width, window_height, window_x_pos, window_y_pos, WrapperFunc, background_colour), action_list(EntryFunc, ItemsFunc) {
 				std::string pretext ("Window Object Constructor");
 				window_obj::WindowObj::print_info(logging::verb_level_e::LOW, pretext);
 			};
@@ -37,6 +38,7 @@ namespace window_obj {
 
 			int get_win_id();
 			int get_menu_id();
+			colours::palette_e get_colour_bg();
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 		protected:

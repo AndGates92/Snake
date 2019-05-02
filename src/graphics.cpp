@@ -16,6 +16,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+#include "colours.h"
 #include "menu.h"
 #include "logging.h"
 #include "graphics.h"
@@ -45,8 +46,8 @@ void graphics::init_graphics(int argc, char** argv) {
 }
 
 void graphics::add_graphics() {
-	game_win_id = graphics_utils::win_node_add("snake", 1100, 450, 100, 50, menu::menu_game, menu::menu_game_items, game_graphics::wrapper_game_cb);
-	stat_win_id = graphics_utils::win_node_add("stat",  200,  50, 1500, 50, menu::menu_stat, menu::menu_stat_items, stat_graphics::wrapper_stat_cb);
+	game_win_id = graphics_utils::win_node_add("snake", 1100, 450, 100, 50, menu::menu_game, menu::menu_game_items, game_graphics::wrapper_game_cb, colours::palette_e::BLACK);
+	stat_win_id = graphics_utils::win_node_add("stat",  200,  50, 1500, 50, menu::menu_stat, menu::menu_stat_items, stat_graphics::wrapper_stat_cb, colours::palette_e::BLACK);
 }
 
 void graphics::start_game() {
