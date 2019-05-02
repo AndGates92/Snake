@@ -8,9 +8,9 @@
  * @brief Obstacle header file
 */
 
+#include "colours.h"
 #include "basic_object.h"
 #include "basic_obj_node.h"
-#include "graphics_utils.h"
 
 namespace obstacle {
 	/** @defgroup ObstacleGroup Obstacle Doxygen Group
@@ -36,7 +36,7 @@ namespace obstacle {
 	class Obstacle : public basic_object::BasicObject {
 		public:
 			// Constructor
-			Obstacle(std::string name_obs = "Obstacle", int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): basic_object::BasicObject(name_obs, centre_x, centre_y, obs_width, obs_height, obs_colour) {
+			Obstacle(std::string name_obs = "Obstacle", int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, colours::palette_e obs_colour = colours::palette_e::BLACK): basic_object::BasicObject(name_obs, centre_x, centre_y, obs_width, obs_height, obs_colour) {
 				std::string pretext ("Constructor");
 				obstacle::Obstacle::print_info(logging::verb_level_e::LOW, pretext);
 			};
@@ -59,7 +59,7 @@ namespace obstacle {
 	class ObstacleNode : public basic_obj_node::BasicObjNode<ObstacleNode>, public Obstacle {
 		public:
 			// Constructor
-			ObstacleNode(std::string name_obs = "Obstacle Node", int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, graphics_utils::palette_e obs_colour = graphics_utils::palette_e::BLACK): basic_obj_node::BasicObjNode<ObstacleNode>(), Obstacle(name_obs, centre_x, centre_y, obs_width, obs_height, obs_colour) {
+			ObstacleNode(std::string name_obs = "Obstacle Node", int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, colours::palette_e obs_colour = colours::palette_e::BLACK): basic_obj_node::BasicObjNode<ObstacleNode>(), Obstacle(name_obs, centre_x, centre_y, obs_width, obs_height, obs_colour) {
 				std::string pretext ("Constructor");
 				obstacle::ObstacleNode::print_info(logging::verb_level_e::LOW, pretext);
 			};

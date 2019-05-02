@@ -9,9 +9,9 @@
 #include <iostream>
 
 #include "settings.h"
+#include "colours.h"
 #include "logging.h"
 #include "snake_node.h"
-#include "graphics_utils.h"
 
 using namespace std;
 using namespace logging;
@@ -82,11 +82,11 @@ snake_node::direction_e settings::Settings::get_head_dir() {
 	return this->head_dir;
 }
 
-graphics_utils::palette_e settings::Settings::get_snake_color() {
+colours::palette_e settings::Settings::get_snake_color() {
 	return this->snake_color;
 }
 
-graphics_utils::palette_e settings::Settings::get_obs_color() {
+colours::palette_e settings::Settings::get_obs_color() {
 	return this->obs_color;
 }
 
@@ -157,11 +157,11 @@ void settings::Settings::set_head_dir(snake_node::direction_e value) {
 	this->head_dir = value;
 }
 
-void settings::Settings::set_snake_color(graphics_utils::palette_e new_color) {
+void settings::Settings::set_snake_color(colours::palette_e new_color) {
 	this->snake_color = new_color;
 }
 
-void settings::Settings::set_obs_color(graphics_utils::palette_e new_color) {
+void settings::Settings::set_obs_color(colours::palette_e new_color) {
 	this->obs_color = new_color;
 }
 

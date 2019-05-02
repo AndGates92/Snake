@@ -9,8 +9,8 @@
 #include <iostream>
 
 #include "basic_object.h"
+#include "colours.h"
 #include "logging.h"
-#include "graphics_utils.h"
 
 using namespace std;
 using namespace basic_object;
@@ -48,7 +48,7 @@ int basic_object::BasicObject::get_height() {
 	return this->height;
 }
 
-graphics_utils::palette_e basic_object::BasicObject::get_colour() {
+colours::palette_e basic_object::BasicObject::get_colour() {
 	return this->colour;
 }
 
@@ -75,7 +75,7 @@ void basic_object::BasicObject::set_height(int new_height) {
 	this->height = new_height;
 }
 
-void basic_object::BasicObject::set_colour(graphics_utils::palette_e new_colour) {
+void basic_object::BasicObject::set_colour(colours::palette_e new_colour) {
 	this->colour = new_colour;
 }
 

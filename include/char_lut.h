@@ -8,7 +8,7 @@
  * @brief Number template header
  */
 
-#include "graphics_utils.h"
+#include "colours.h"
 #include "logging.h"
 #include "settings.h"
 
@@ -16,8 +16,8 @@ namespace char_lut {
 
 	namespace {
 		// Colouring
-		graphics_utils::palette_e colour_false = graphics_utils::palette_e::BLACK;
-		graphics_utils::palette_e colour_true = graphics_utils::palette_e::WHITE;
+		colours::palette_e colour_false = colours::palette_e::BLACK;
+		colours::palette_e colour_true = colours::palette_e::WHITE;
 	}
 
 	// Tile defines
@@ -205,14 +205,14 @@ void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int
 		int init_column = column*tile_width;
 
 		// Default colour to black
-		graphics_utils::palette_e colour_name = graphics_utils::palette_e::BLACK;
+		colours::palette_e colour_name = colours::palette_e::BLACK;
 
 		if (tile == false) {
 			colour_name = char_lut::colour_false;
 		} else {
 			colour_name = char_lut::colour_true;
 		}
-		pixel_type * colour = graphics_utils::get_pixel_colour<pixel_type> (colour_name);
+		pixel_type * colour = colours::get_pixel_colour<pixel_type> (colour_name);
 
 		for (int x_coord = 0; x_coord < tile_width; x_coord++) {
 			int tile_column = init_column + x_coord;
@@ -224,8 +224,8 @@ void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int
 					if (curr_row < win_height) {
 						LOG_INFO(logging::verb_level_e::DEBUG,"[Draw Char] Draw pixel at coordinates (", curr_row, ", ", curr_column, ") -> Colour: ", colour_name);
 						int abs_coord = curr_row*win_width + curr_column;
-						for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
-							pixels[graphics_utils::no_colours * abs_coord + colour_idx] = colour[colour_idx];
+						for (int colour_idx=0; colour_idx<colours::no_colours; colour_idx++) {
+							pixels[colours::no_colours * abs_coord + colour_idx] = colour[colour_idx];
 						}
 					}
 				}

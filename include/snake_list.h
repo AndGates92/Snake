@@ -8,9 +8,9 @@
  * @brief Snake List header file
 */
 
-#include "graphics_utils.h"
 #include "basic_obj_list.h"
 #include "snake_node.h"
+#include "colours.h"
 
 namespace snake_list {
 	/** @defgroup SnakeListGroup Snake List Doxygen Group
@@ -30,7 +30,7 @@ namespace snake_list {
 
 			void move(const int & speed, const int & win_width, const int & win_height, const snake_node::direction_e & head_dir);
 
-			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour);
+			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, colours::palette_e snake_colour);
 
 			void check_collision(const int & win_width, const int & win_height);
 

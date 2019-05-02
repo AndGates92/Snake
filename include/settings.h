@@ -11,7 +11,7 @@
 #include <fstream>
 #include "logging.h"
 #include "snake_node.h"
-#include "graphics_utils.h"
+#include "colours.h"
 
 namespace settings {
 
@@ -118,13 +118,13 @@ namespace settings {
 		 * @brief Initial color of the snake
 		 *
 		 */
-		const static graphics_utils::palette_e init_snake_color = graphics_utils::palette_e::GREEN;
+		const static colours::palette_e init_snake_color = colours::palette_e::GREEN;
 
 		/**
 		 * @brief Initial color of the obstacles
 		 *
 		 */
-		const static graphics_utils::palette_e init_obs_color = graphics_utils::palette_e::PINK;
+		const static colours::palette_e init_obs_color = colours::palette_e::PINK;
 
 		/**
 		 * @brief Initial game status
@@ -178,8 +178,8 @@ namespace settings {
 			void set_head_centre_x(int value);
 			void set_head_centre_y(int value);
 			void set_head_dir(snake_node::direction_e value);
-			void set_snake_color(graphics_utils::palette_e new_color);
-			void set_obs_color(graphics_utils::palette_e new_color);
+			void set_snake_color(colours::palette_e new_color);
+			void set_obs_color(colours::palette_e new_color);
 			void set_tile_height(int value);
 			void set_tile_width(int value);
 			void set_score(int value);
@@ -198,8 +198,8 @@ namespace settings {
 			int get_head_centre_x();
 			int get_head_centre_y();
 			snake_node::direction_e get_head_dir();
-			graphics_utils::palette_e get_snake_color();
-			graphics_utils::palette_e get_obs_color();
+			colours::palette_e get_snake_color();
+			colours::palette_e get_obs_color();
 			int get_tile_height();
 			int get_tile_width();
 			int get_score();
@@ -220,8 +220,8 @@ namespace settings {
 			int head_centre_x;
 			int head_centre_y;
 			snake_node::direction_e head_dir;
-			graphics_utils::palette_e snake_color;
-			graphics_utils::palette_e obs_color;
+			colours::palette_e snake_color;
+			colours::palette_e obs_color;
 			int tile_height;
 			int tile_width;
 			int score;

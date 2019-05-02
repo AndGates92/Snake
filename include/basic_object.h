@@ -8,7 +8,7 @@
  * @brief Basic Object header file
 */
 
-#include "graphics_utils.h"
+#include "colours.h"
 
 namespace basic_object {
 	/** @defgroup BasicObjectGroup BasicObject Doxygen Group
@@ -34,7 +34,7 @@ namespace basic_object {
 	class BasicObject {
 		public:
 			// Constructor
-			BasicObject(std::string name_obj = "Unknown", int centre_x = 0, int centre_y = 0, int obj_width = basic_object::init_obj_width, int obj_height = basic_object::init_obj_height, graphics_utils::palette_e obj_colour = graphics_utils::palette_e::BLACK): name(name_obj),  x_centre(centre_x), y_centre(centre_y), width(obj_width), height(obj_height), colour(obj_colour) {
+			BasicObject(std::string name_obj = "Unknown", int centre_x = 0, int centre_y = 0, int obj_width = basic_object::init_obj_width, int obj_height = basic_object::init_obj_height, colours::palette_e obj_colour = colours::palette_e::BLACK): name(name_obj),  x_centre(centre_x), y_centre(centre_y), width(obj_width), height(obj_height), colour(obj_colour) {
 				std::string pretext ("Constructor");
 				basic_object::BasicObject::print_info(logging::verb_level_e::LOW, pretext);
 			};
@@ -50,7 +50,7 @@ namespace basic_object {
 			int get_y_centre();
 			int get_width();
 			int get_height();
-			graphics_utils::palette_e get_colour();
+			colours::palette_e get_colour();
 
 			// Set functions
 			void set_name (std::string name_obj);
@@ -58,7 +58,7 @@ namespace basic_object {
 			void set_y_centre(int new_y_centre);
 			void set_width(int new_width);
 			void set_height(int new_height);
-			void set_colour(graphics_utils::palette_e new_colour);
+			void set_colour(colours::palette_e new_colour);
 
 			template <typename pixel_type>
 			void draw(pixel_type * & pixels, const int & win_width, const int & win_height);
@@ -74,7 +74,7 @@ namespace basic_object {
 			int y_centre;
 			int width;
 			int height;
-			graphics_utils::palette_e colour;
+			colours::palette_e colour;
 
 		protected:
 	};
@@ -85,7 +85,7 @@ namespace basic_object {
 template <typename pixel_type>
 void basic_object::BasicObject::draw(pixel_type * & pixels, const int & win_width, const int & win_height) {
 
-	pixel_type * colour_ptr = graphics_utils::get_pixel_colour<pixel_type> (this->get_colour());
+	pixel_type * colour_ptr = colours::get_pixel_colour<pixel_type> (this->get_colour());
 	int width = this->get_width();
 	int height = this->get_height();
 	int y_centre = this->get_y_centre();
@@ -108,8 +108,8 @@ void basic_object::BasicObject::draw(pixel_type * & pixels, const int & win_widt
 			y_abs = y_abs % win_height;
 			ASSERT((y_abs >=0) & (y_abs < win_height));
 			int abs_coord = y_abs * win_width + x_abs;
-			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
-				pixels[graphics_utils::no_colours * abs_coord + colour_idx] = colour_ptr[colour_idx];
+			for (int colour_idx=0; colour_idx<colours::no_colours; colour_idx++) {
+				pixels[colours::no_colours * abs_coord + colour_idx] = colour_ptr[colour_idx];
 			}
 		}
 	}

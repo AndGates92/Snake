@@ -8,7 +8,7 @@
  * @brief Obstacle List header file
 */
 
-#include "graphics_utils.h"
+#include "colours.h"
 #include "basic_obj_list.h"
 #include "obstacle.h"
 
@@ -28,7 +28,7 @@ namespace obstacle_list {
 			// Destructor
 			~ObstacleList();
 
-			void add_node(int centre_x, int centre_y, int ostacle_width, int ostacle_height, graphics_utils::palette_e ostacle_colour);
+			void add_node(int centre_x, int centre_y, int ostacle_width, int ostacle_height, colours::palette_e ostacle_colour);
 
 		protected:
 

@@ -9,7 +9,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "graphics_utils.h"
+#include "colours.h"
 #include "basic_obj_list.h"
 #include "obstacle_list.h"
 #include "obstacle.h"
@@ -19,7 +19,7 @@ using namespace std;
 using namespace logging;
 using namespace obstacle_list;
 using namespace obstacle;
-using namespace graphics_utils;
+using namespace colours;
 
 obstacle_list::ObstacleList::~ObstacleList() {
 
@@ -32,7 +32,7 @@ obstacle_list::ObstacleList::~ObstacleList() {
 
 }
 
-void obstacle_list::ObstacleList::add_node(int centre_x, int centre_y, int ostacle_width, int ostacle_height, graphics_utils::palette_e ostacle_colour) {
+void obstacle_list::ObstacleList::add_node(int centre_x, int centre_y, int ostacle_width, int ostacle_height, colours::palette_e ostacle_colour) {
 
 	std::string name = this->get_name();
 	obstacle::ObstacleNode * head = this->get_head();

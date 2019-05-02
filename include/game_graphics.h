@@ -8,11 +8,10 @@
  * @brief Game graphics header file
 */
 
-#include "graphics_utils.h"
-
 #include "snake_list.h"
 #include "obstacle_list.h"
 #include "settings.h"
+#include "colours.h"
 
 /**
  * @brief GAME_OVER(...)
@@ -42,6 +41,12 @@ namespace game_graphics {
 		 *
 		 */
 		static obstacle_list::ObstacleList * obstacles;
+
+		/**
+		 * @brief pointer to snake elements
+		 *
+		 */
+		colours::palette_e background_colour = colours::palette_e::PURPLE;
 
 	}
 
@@ -249,20 +254,20 @@ game_pixel_type * game_graphics::get_game_pixel_array (int & win_width, int & wi
 
 	int win_area = win_width*win_height;
 
-	game_pixel_type * pixels = new game_pixel_type[graphics_utils::no_colours*win_area];
+	game_pixel_type * pixels = new game_pixel_type[colours::no_colours*win_area];
 	if (pixels == nullptr) {
 		LOG_ERROR("Can't allocate memory for game pixels array");
 	}
 
-	game_pixel_type * colour = graphics_utils::get_pixel_colour<game_pixel_type> (graphics_utils::palette_e::BLACK);
+	game_pixel_type * colour = colours::get_pixel_colour<game_pixel_type> (background_colour);
 
 	for (int width_idx=0; width_idx<win_width; width_idx++) {
 
 		for (int height_idx=0; height_idx<win_height; height_idx++) {
 			int pixel_loc = height_idx * win_width + width_idx;
 
-			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
-				pixels[graphics_utils::no_colours * pixel_loc + colour_idx] = colour[colour_idx];
+			for (int colour_idx=0; colour_idx<colours::no_colours; colour_idx++) {
+				pixels[colours::no_colours * pixel_loc + colour_idx] = colour[colour_idx];
 			}
 
 		}

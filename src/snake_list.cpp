@@ -9,10 +9,10 @@
 #include <iostream>
 #include <cmath>
 
+#include "colours.h"
 #include "settings.h"
 #include "game_graphics.h"
 #include "basic_obj_list.h"
-#include "graphics_utils.h"
 #include "snake_list.h"
 #include "snake_node.h"
 #include "logging.h"
@@ -21,7 +21,7 @@ using namespace std;
 using namespace logging;
 using namespace snake_list;
 using namespace snake_node;
-using namespace graphics_utils;
+using namespace colours;
 using namespace game_graphics;
 
 snake_list::SnakeList::~SnakeList() {
@@ -36,7 +36,7 @@ snake_list::SnakeList::~SnakeList() {
 }
 
 
-void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, graphics_utils::palette_e snake_colour) {
+void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, colours::palette_e snake_colour) {
 
 	snake_node::SnakeNode * head = this->get_head();
 	std::string name = this->get_name();

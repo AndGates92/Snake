@@ -8,8 +8,8 @@
  * @brief Stat graphics header file
 */
 
+#include "colours.h"
 #include "char_lut.h"
-#include "graphics_utils.h"
 #include "settings.h"
 
 using namespace char_lut;
@@ -109,20 +109,20 @@ stat_pixel_type * stat_graphics::get_stat_pixel_array (int & win_width, int & wi
 
 	int win_area = win_width*win_height;
 
-	stat_pixel_type * pixels = new stat_pixel_type[graphics_utils::no_colours*win_area];
+	stat_pixel_type * pixels = new stat_pixel_type[colours::no_colours*win_area];
 	if (pixels == nullptr) {
 		LOG_ERROR("Can't allocate memory for stat pixels array");
 	}
 
-	stat_pixel_type * colour = graphics_utils::get_pixel_colour<stat_pixel_type> (graphics_utils::palette_e::BLACK);
+	stat_pixel_type * colour = colours::get_pixel_colour<stat_pixel_type> (colours::palette_e::BLACK);
 
 	for (int width_idx=0; width_idx<win_width; width_idx++) {
 
 		for (int height_idx=0; height_idx<win_height; height_idx++) {
 			int pixel_loc = height_idx * win_width + width_idx;
 
-			for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
-				pixels[graphics_utils::no_colours * pixel_loc + colour_idx] = colour[colour_idx];
+			for (int colour_idx=0; colour_idx<colours::no_colours; colour_idx++) {
+				pixels[colours::no_colours * pixel_loc + colour_idx] = colour[colour_idx];
 			}
 
 		}

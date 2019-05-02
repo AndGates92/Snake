@@ -17,6 +17,7 @@
 
 #include "settings.h"
 #include "logging.h"
+#include "colours.h"
 #include "menu.h"
 #include "graphics_utils.h"
 #include "graphics.h"
@@ -204,7 +205,7 @@ void game_graphics::idle_game_cb() {
 
 	int node_height = snake_settings.get_node_height();
 	int node_width = snake_settings.get_node_width();
-	graphics_utils::palette_e color = snake_settings.get_snake_color();
+	colours::palette_e color = snake_settings.get_snake_color();
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Game Callback] Idle Game Callback for window ID: ", win_id);
 
@@ -326,21 +327,21 @@ void game_graphics::populate_snake_list() {
 	int node_height = snake_settings.get_node_height();
 	int node_width = snake_settings.get_node_width();
 	snake_node::direction_e head_dir = snake_settings.get_head_dir();
-	graphics_utils::palette_e color = snake_settings.get_snake_color();
+	colours::palette_e color = snake_settings.get_snake_color();
 
 	for (int unit_no=0; unit_no < snake_units; unit_no++) {
 
 		game_graphics::snake->add_node(centre_x, centre_y, node_width, node_height, head_dir, color);
-		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, (graphics_utils::palette_e) unit_no);
+		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, (colours::palette_e) unit_no);
 		centre_x += node_width;
-		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, graphics_utils::palette_e::RED);
+		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, colours::palette_e::RED);
 		//centre_y += game_graphics::node_height;
 
 	}
 
 	// Colour snake_head differently to ease debug
 	snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
-	snake_head->set_colour(graphics_utils::palette_e::YELLOW);
+	snake_head->set_colour(colours::palette_e::YELLOW);
 
 }
 
@@ -440,7 +441,7 @@ void game_graphics::add_obstacle() {
 
 	int node_height = snake_settings.get_node_height();
 	int node_width = snake_settings.get_node_width();
-	graphics_utils::palette_e color = snake_settings.get_obs_color();
+	colours::palette_e color = snake_settings.get_obs_color();
 
 	// Random coordinates must be within node_width/2 and (win_width-node_width/2)
 	int centre_x = (rand() % (win_width_int - node_width)) + node_width/2;
@@ -448,7 +449,7 @@ void game_graphics::add_obstacle() {
 	// Random coordinates must be within node_height/2 and (win_height-node_height/2)
 	int centre_y = (rand() % (win_height_int - node_height)) + node_height/2;
 
-	//game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, graphics_utils::palette_e::PURPLE);
+	//game_graphics::obstacles->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, colours::palette_e::PURPLE);
 	game_graphics::obstacles->add_node(centre_x, centre_y, node_width, node_height, color);
 }
 
