@@ -17,6 +17,7 @@ using namespace char_lut;
 
 const bool * char_lut::get_char_tiles(const char & char_print) {
 
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Get Char Tiles] Fetch tiles for character ", char_print);
 	const bool * char_tiles = NULL;
 
 	switch (char_print) {
