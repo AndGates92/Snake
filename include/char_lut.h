@@ -12,11 +12,14 @@
 #include "logging.h"
 #include "settings.h"
 
+// include graphical libraries (OPENGL)
+#include <GL/glut.h>
+#include <GL/gl.h>
+
 namespace char_lut {
 
 	namespace {
 		// Colouring
-		colours::palette_e colour_false = colours::palette_e::BLACK;
 		colours::palette_e colour_true = colours::palette_e::WHITE;
 	}
 
@@ -190,7 +193,6 @@ template <typename pixel_type>
 void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & char_print) {
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Draw Char] Draw char ", char_print, " starting at X ", init_x, " Y ", init_y);
-//cout << "[Draw Char] Draw char " << char << " starting at X " << init_x << " Y " << init_y << endl;
 	const bool * char_tiles = char_lut::get_char_tiles(char_print);
 
 	int tile_width = snake_settings.get_tile_width();
@@ -208,7 +210,14 @@ void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int
 		colours::palette_e colour_name = colours::palette_e::BLACK;
 
 		if (tile == false) {
-			colour_name = char_lut::colour_false;
+			// If tile is false, use background colour
+			int win_id = 0;
+			win_id = glutGetWindow();
+
+			window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
+			window_obj::WindowObj obj (node->get_obj());
+			colour_name = obj.get_colour_bg();
+
 		} else {
 			colour_name = char_lut::colour_true;
 		}
