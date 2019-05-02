@@ -189,8 +189,8 @@ namespace char_lut {
 template <typename pixel_type>
 void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & char_print) {
 
-	LOG_INFO(logging::verb_level_e::DEBUG,"[Draw Digit] Draw char ", char_print, " starting at X ", init_x, " Y ", init_y);
-//cout << "[Draw Digit] Draw char " << char << " starting at X " << init_x << " Y " << init_y << endl;
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Draw Char] Draw char ", char_print, " starting at X ", init_x, " Y ", init_y);
+//cout << "[Draw Char] Draw char " << char << " starting at X " << init_x << " Y " << init_y << endl;
 	const bool * char_tiles = char_lut::get_char_tiles(char_print);
 
 	int tile_width = snake_settings.get_tile_width();
@@ -222,7 +222,7 @@ void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int
 					int tile_row = init_row + y_coord;
 					int curr_row = (init_y + tile_row);
 					if (curr_row < win_height) {
-						LOG_INFO(logging::verb_level_e::DEBUG,"[Draw Digit] Draw pixel at coordinates (", curr_row, ", ", curr_column, ") -> Colour: ", colour_name);
+						LOG_INFO(logging::verb_level_e::DEBUG,"[Draw Char] Draw pixel at coordinates (", curr_row, ", ", curr_column, ") -> Colour: ", colour_name);
 						int abs_coord = curr_row*win_width + curr_column;
 						for (int colour_idx=0; colour_idx<graphics_utils::no_colours; colour_idx++) {
 							pixels[graphics_utils::no_colours * abs_coord + colour_idx] = colour[colour_idx];
