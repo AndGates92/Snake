@@ -45,5 +45,5 @@ int window_obj::WindowObj::get_menu_id() {
 }
 
 colours::palette_e window_obj::WindowObj::get_colour_bg() {
-	return this->drawing.get_colour_bg();
+	return this->drawing.get_colour();
 }

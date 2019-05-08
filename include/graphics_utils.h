@@ -54,7 +54,7 @@ namespace graphics_utils {
 
 	window_node::WindowNode * search_win_id(int& id );
 
-	int win_node_add(std::string window_title, int window_width, int window_height, int window_x_pos, int window_y_pos, void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)(), colours::palette_e background_colour);
+	int win_node_add(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)(), colours::palette_e background_colour);
 
 	void refresh_window(int value);
 

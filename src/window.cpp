@@ -17,6 +17,7 @@
 #include "graphics.h"
 #include "window.h"
 #include "logging.h"
+#include "basic_object.h"
 
 using namespace std;
 using namespace window;
@@ -70,17 +71,11 @@ void window::Window::destroy_window() {
 }
 
 void window::Window::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Window ID ", this->id, " at ", this->pos_x, ", ", this->pos_y, ". Dimensions: width ", this->width, " height ", this->height, ". Title: ", this->title, " Background colour: ", this->colour_bg);
+	basic_object::BasicObject::print_info(verbosity, pretext);
+	std::string type = this->get_type();
+	LOG_INFO(verbosity, "[", pretext, "] ", type, " with ID ", this->id, " Title: ", this->title);
 }
 
 int window::Window::get_id() {
 	return this->id;
-}
-
-colours::palette_e window::Window::get_colour_bg() {
-	return this->colour_bg;
-}
-
-void window::Window::set_colour_bg(colours::palette_e new_colour_bg) {
-	this->colour_bg = new_colour_bg;
 }

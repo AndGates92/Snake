@@ -10,6 +10,7 @@
 
 #include "logging.h"
 #include "colours.h"
+#include "basic_object.h"
 
 namespace window {
 	/** @defgroup WindowGroup Window Doxygen Group
@@ -34,16 +35,16 @@ namespace window {
 	 */
 	#define WIN_NAME_LENGTH_MAX 20
 
-	class Window {
+	class Window : public basic_object::BasicObject {
 		public:
 			// Constructor
-			Window(std::string window_title = "", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*WrapperFunc)() = nullptr, colours::palette_e background_colour=colours::palette_e::BLACK): title(window_title), width(window_width), height(window_height), pos_x(window_x_pos), pos_y(window_y_pos), colour_bg(background_colour) {
-				id = window::Window::create_window(title, width, height, pos_x, pos_y, WrapperFunc);
+			Window(std::string window_title = "", std::string type = "Window", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*WrapperFunc)() = nullptr, colours::palette_e background_colour=colours::palette_e::BLACK): basic_object::BasicObject(type, window_x_pos, window_y_pos, window_width, window_height, background_colour), title(window_title) {
+				id = window::Window::create_window(title, window_width, window_height, window_x_pos, window_y_pos, WrapperFunc);
 				std::string pretext ("Window Constructor");
 				window::Window::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
-			Window(const Window& copy) : title(copy.title), width(copy.width), height(copy.height), pos_x(copy.pos_x), pos_y(copy.pos_y), id(copy.id), colour_bg(copy.colour_bg) {
+			Window(const Window& copy) : basic_object::BasicObject(copy), title(copy.title), id(copy.id) {
 				std::string pretext ("Window Copy Constructor");
 				window::Window::print_info(logging::verb_level_e::LOW, pretext);
 			};
@@ -56,20 +57,12 @@ namespace window {
 
 			void destroy_window();
 
-			colours::palette_e get_colour_bg();
-			void set_colour_bg(colours::palette_e new_colour_bg);
-
 		protected:
 			int create_window(std::string title, int width, int height, int xpos, int ypos, void (*WrapperFunc)());
 
 		private:
 			std::string title;
-			int width;
-			int height;
-			int pos_x;
-			int pos_y;
 			int id;
-			colours::palette_e colour_bg;
 
 	};
 	/** @} */ // End of WindowGroup group
