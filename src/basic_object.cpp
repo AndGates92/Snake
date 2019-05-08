@@ -86,6 +86,7 @@ void basic_object::BasicObject::set_name (std::string name_obj) {
 }
 
 void basic_object::BasicObject::save_data (iofile::File & savefile) {
+	savefile.write_ofile("Type: ", this->name, "\n");
 	savefile.write_ofile("X: ", this->x_centre, "\n");
 	savefile.write_ofile("Y: ", this->y_centre, "\n");
 	savefile.write_ofile("Width: ", this->width, "\n");

@@ -308,7 +308,7 @@ void game_graphics::init_snake_list() {
 }
 
 void game_graphics::init_obstacle_list() {
-	std::string name("Obstacle List");
+	std::string name("Obstacle");
 	game_graphics::obstacles = new obstacle_list::ObstacleList(name);
 	if (game_graphics::obstacles == nullptr) {
 		LOG_ERROR("Can't allocate memory for obstacle list ", name, ".");
@@ -498,8 +498,6 @@ void game_graphics::save_game(std::string filename) {
 		save.write_ofile("//******************************\n");
 		save.write_ofile("// Snake Node ", snake_node_cnt, "\n");
 		save.write_ofile("//******************************\n");
-		save.write_ofile("Type: Snake\n");
-
 		curr_snake_node->save_data(save);
 
 		save.write_ofile("\n");
@@ -522,7 +520,6 @@ void game_graphics::save_game(std::string filename) {
 		save.write_ofile("//******************************\n");
 		save.write_ofile("// Obstacle Node ", obs_node_cnt, "\n");
 		save.write_ofile("//******************************\n");
-		save.write_ofile("Type: Obstacle\n");
 		curr_obs_node->save_data(save);
 
 		// Save temporary obstacle
