@@ -35,7 +35,7 @@ namespace basic_object {
 	class BasicObject {
 		public:
 			// Constructor
-			BasicObject(std::string name_obj = "Unknown", int centre_x = 0, int centre_y = 0, int obj_width = basic_object::init_obj_width, int obj_height = basic_object::init_obj_height, colours::palette_e obj_colour = colours::palette_e::BLACK): name(name_obj),  x_centre(centre_x), y_centre(centre_y), width(obj_width), height(obj_height), colour(obj_colour) {
+			BasicObject(std::string type_obj = "Unknown", int centre_x = 0, int centre_y = 0, int obj_width = basic_object::init_obj_width, int obj_height = basic_object::init_obj_height, colours::palette_e obj_colour = colours::palette_e::BLACK): type(type_obj),  x_centre(centre_x), y_centre(centre_y), width(obj_width), height(obj_height), colour(obj_colour) {
 				std::string pretext ("Constructor");
 				basic_object::BasicObject::print_info(logging::verb_level_e::LOW, pretext);
 			};
@@ -46,7 +46,7 @@ namespace basic_object {
 			};
 
 			// Get functions
-			std::string get_name();
+			std::string get_type();
 			int get_x_centre();
 			int get_y_centre();
 			int get_width();
@@ -54,7 +54,7 @@ namespace basic_object {
 			colours::palette_e get_colour();
 
 			// Set functions
-			void set_name (std::string name_obj);
+			void set_type (std::string type_obj);
 			void set_x_centre(int new_x_centre);
 			void set_y_centre(int new_y_centre);
 			void set_width(int new_width);
@@ -71,7 +71,7 @@ namespace basic_object {
 			void save_data (iofile::File & savefile);
 
 		private:
-			std::string name;
+			std::string type;
 			int x_centre;
 			int y_centre;
 			int width;

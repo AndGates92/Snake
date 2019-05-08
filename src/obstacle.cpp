@@ -40,7 +40,7 @@ obstacle::ObstacleNode::~ObstacleNode() {
 
 void obstacle::ObstacleNode::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	Obstacle::print_info(verbosity, pretext);
-	std::string name_pretext = this->get_name();
+	std::string name_pretext = this->get_type();
 	name_pretext.append(" ");
 	name_pretext.append(pretext);
 	basic_obj_node::BasicObjNode<ObstacleNode>::print_info(verbosity, name_pretext);

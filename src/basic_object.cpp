@@ -28,7 +28,7 @@ basic_object::BasicObject::~BasicObject() {
 }
 
 void basic_object::BasicObject::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", this->name, " ",  pretext, "] Centre coordinares: (X ", this->x_centre, ", Y ", this->y_centre, "), width ", this->width, ", height ", this->height, " colour ", this->colour, ".");
+	LOG_INFO(verbosity, "[", this->type, " ",  pretext, "] Centre coordinares: (X ", this->x_centre, ", Y ", this->y_centre, "), width ", this->width, ", height ", this->height, " colour ", this->colour, ".");
 }
 
 // ================================================================
@@ -54,8 +54,8 @@ colours::palette_e basic_object::BasicObject::get_colour() {
 	return this->colour;
 }
 
-std::string basic_object::BasicObject::get_name() {
-	return this->name;
+std::string basic_object::BasicObject::get_type() {
+	return this->type;
 }
 
 // ================================================================
@@ -81,12 +81,12 @@ void basic_object::BasicObject::set_colour(colours::palette_e new_colour) {
 	this->colour = new_colour;
 }
 
-void basic_object::BasicObject::set_name (std::string name_obj) {
-	this->name = name_obj;
+void basic_object::BasicObject::set_type (std::string type_obj) {
+	this->type = type_obj;
 }
 
 void basic_object::BasicObject::save_data (iofile::File & savefile) {
-	savefile.write_ofile("Type: ", this->name, "\n");
+	savefile.write_ofile("Type: ", this->type, "\n");
 	savefile.write_ofile("X: ", this->x_centre, "\n");
 	savefile.write_ofile("Y: ", this->y_centre, "\n");
 	savefile.write_ofile("Width: ", this->width, "\n");
