@@ -31,6 +31,11 @@ void snake_node::SnakeUnit::print_info(logging::verb_level_e verbosity, std::str
 	LOG_INFO(verbosity, "[", name, " ", pretext, "] Direction ", this->direction, ".");
 }
 
+void snake_node::SnakeUnit::save_data (iofile::File & savefile) {
+	basic_object::BasicObject::save_data(savefile);
+	savefile.write_ofile("Direction: ", this->direction, "\n");
+}
+
 // ================================================================
 // Get functions
 // ================================================================
@@ -122,3 +127,4 @@ void snake_node::SnakeNode::print_info(logging::verb_level_e verbosity, std::str
 	name_pretext.append(pretext);
 	basic_obj_node::BasicObjNode<SnakeNode>::print_info(verbosity, name_pretext);
 }
+

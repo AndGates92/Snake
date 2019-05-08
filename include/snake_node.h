@@ -85,6 +85,7 @@ namespace snake_node {
 			~SnakeUnit();
 
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
+			void save_data (iofile::File & savefile);
 
 		private:
 			snake_node::direction_e direction;
