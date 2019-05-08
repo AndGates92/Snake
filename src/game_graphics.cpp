@@ -495,21 +495,13 @@ void game_graphics::save_game(std::string filename) {
 	save.write_ofile("\n");
 
 	while (curr_snake_node != nullptr) {
-		int node_x = curr_snake_node->get_x_centre();
-		int node_y = curr_snake_node->get_y_centre();
-		int node_width = curr_snake_node->get_width();
-		int node_height = curr_snake_node->get_height();
-		colours::palette_e node_colour = curr_snake_node->get_colour();
-
 		save.write_ofile("//******************************\n");
 		save.write_ofile("// Snake Node ", snake_node_cnt, "\n");
 		save.write_ofile("//******************************\n");
 		save.write_ofile("Type: Snake\n");
-		save.write_ofile("X: ", node_x, "\n");
-		save.write_ofile("Y: ", node_y, "\n");
-		save.write_ofile("Width: ", node_width, "\n");
-		save.write_ofile("Height: ", node_height, "\n");
-		save.write_ofile("Colour: ", node_colour, "\n");
+
+		curr_snake_node->save_data(save);
+
 		save.write_ofile("\n");
 
 		// Save temporary obstacle
@@ -526,23 +518,12 @@ void game_graphics::save_game(std::string filename) {
 	int obs_node_cnt = 0;
 
 	while (curr_obs_node != nullptr) {
-		int obs_x = curr_obs_node->get_x_centre();
-		int obs_width = curr_obs_node->get_width();
-		int obs_y = curr_obs_node->get_y_centre();
-		int obs_height = curr_obs_node->get_height();
-		colours::palette_e obs_colour = curr_obs_node->get_colour();
 
 		save.write_ofile("//******************************\n");
 		save.write_ofile("// Obstacle Node ", obs_node_cnt, "\n");
 		save.write_ofile("//******************************\n");
 		save.write_ofile("Type: Obstacle\n");
-		save.write_ofile("X: ", obs_x, "\n");
-		save.write_ofile("Y: ", obs_y, "\n");
-		save.write_ofile("Width: ", obs_width, "\n");
-		save.write_ofile("Height: ", obs_height, "\n");
-		save.write_ofile("Colour: ", obs_colour, "\n");
-		save.write_ofile("\n");
-
+		curr_obs_node->save_data(save);
 
 		// Save temporary obstacle
 		curr_obs_node = curr_obs_node->get_next();

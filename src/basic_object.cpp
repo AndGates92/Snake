@@ -11,10 +11,12 @@
 #include "basic_object.h"
 #include "colours.h"
 #include "logging.h"
+#include "file.h"
 
 using namespace std;
 using namespace basic_object;
 using namespace logging;
+using namespace iofile;
 
 // ================================================================
 // Destructor
@@ -81,4 +83,12 @@ void basic_object::BasicObject::set_colour(colours::palette_e new_colour) {
 
 void basic_object::BasicObject::set_name (std::string name_obj) {
 	this->name = name_obj;
+}
+
+void basic_object::BasicObject::save_data (iofile::File & savefile) {
+	savefile.write_ofile("X: ", this->x_centre, "\n");
+	savefile.write_ofile("Y: ", this->y_centre, "\n");
+	savefile.write_ofile("Width: ", this->width, "\n");
+	savefile.write_ofile("Height: ", this->height, "\n");
+	savefile.write_ofile("Colour: ", this->colour, "\n");
 }

@@ -9,6 +9,7 @@
 */
 
 #include "colours.h"
+#include "file.h"
 
 namespace basic_object {
 	/** @defgroup BasicObjectGroup BasicObject Doxygen Group
@@ -67,6 +68,7 @@ namespace basic_object {
 			~BasicObject();
 
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
+			void save_data (iofile::File & savefile);
 
 		private:
 			std::string name;
