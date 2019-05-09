@@ -36,7 +36,7 @@ snake_list::SnakeList::~SnakeList() {
 }
 
 
-void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, colours::palette_e snake_colour) {
+void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour) {
 
 	snake_node::SnakeNode * head = this->get_head();
 	std::string name = this->get_name();
@@ -94,7 +94,7 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 			int height_found = snake_found->get_height();
 			ASSERT(height_found == snake_height)
 
-			snake_node::direction_e direction_found = snake_found->get_direction();
+			snake_utils::direction_e direction_found = snake_found->get_direction();
 			ASSERT(direction_found == snake_direction)
 
 			int x_centre_found = snake_found->get_x_centre();
@@ -104,12 +104,12 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 			int hdistance_measured = 0;
 			int vdistance_units = 0;
 			int vdistance_measured = 0;
-			if ((direction_found == snake_node::direction_e::RIGHT) | (direction_found == snake_node::direction_e::LEFT)) {
+			if ((direction_found == snake_utils::direction_e::RIGHT) | (direction_found == snake_utils::direction_e::LEFT)) {
 				hdistance_units = (snake_width/2) + (width_found/2);
 				hdistance_measured = ((int) abs(centre_x - x_centre_found));
 				vdistance_units = 0;
 				vdistance_measured = ((int) abs(centre_y - y_centre_found));
-			} else if ((direction_found == snake_node::direction_e::UP) | (direction_found == snake_node::direction_e::DOWN)) {
+			} else if ((direction_found == snake_utils::direction_e::UP) | (direction_found == snake_utils::direction_e::DOWN)) {
 				hdistance_units = 0;
 				hdistance_measured = ((int) abs(centre_x - x_centre_found));
 				vdistance_units = (snake_height/2) + (height_found/2);
@@ -135,20 +135,20 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 
 }
 
-void snake_list::SnakeList::move(const int & speed, const int & win_width, const int & win_height, const snake_node::direction_e & head_dir) {
+void snake_list::SnakeList::move(const int & speed, const int & win_width, const int & win_height, const snake_utils::direction_e & head_dir) {
 	LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Window dimensions: Width ", win_width, " Height ", win_height, " Speed: ", speed);
 
 	snake_node::SnakeNode * head (this->get_head());
 
 	snake_node::SnakeNode * snake_el (head);
 
-	snake_node::direction_e direction_prev = head_dir;
+	snake_utils::direction_e direction_prev = head_dir;
 	int x_centre_prev = head->get_x_centre();
 	int y_centre_prev = head->get_y_centre();
 	int height_prev = head->get_height();
 	int width_prev = head->get_width();
 
-	snake_node::direction_e direction_curr = head->get_direction();
+	snake_utils::direction_e direction_curr = head->get_direction();
 	int x_centre_curr = head->get_x_centre();
 	int y_centre_curr = head->get_y_centre();
 	int height_curr = head->get_height();
@@ -181,7 +181,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 			if (snake_el != head) {
 				int sign = 0;
 				// UP
-				if ((direction_prev == snake_node::direction_e::UP) | (direction_prev == snake_node::direction_e::RIGHT)) {
+				if ((direction_prev == snake_utils::direction_e::UP) | (direction_prev == snake_utils::direction_e::RIGHT)) {
 					sign = -1;
 				} else {
 					sign = 1;
@@ -196,11 +196,11 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 //cout << "Diff X " << x_diff << " Y " << y_diff << endl;
 //cout << "Centre distance Width " << width_centre_distance << " height " << height_centre_distance << endl;
 //cout << "Direction current " << direction_curr << " previous " << direction_prev << endl;
-				if (((direction_curr == snake_node::direction_e::RIGHT) & (direction_prev == snake_node::direction_e::LEFT)) | ((direction_curr == snake_node::direction_e::LEFT) & (direction_prev == snake_node::direction_e::RIGHT))) {
+				if (((direction_curr == snake_utils::direction_e::RIGHT) & (direction_prev == snake_utils::direction_e::LEFT)) | ((direction_curr == snake_utils::direction_e::LEFT) & (direction_prev == snake_utils::direction_e::RIGHT))) {
 					if ((y_diff < height_centre_distance) & (x_diff < width_centre_distance)) {
 						LOG_ERROR("Units moving in opposite horizintal movement and colliding");
 					}
-				} else if (((direction_curr == snake_node::direction_e::UP) & (direction_prev == snake_node::direction_e::DOWN)) | ((direction_curr == snake_node::direction_e::DOWN) & (direction_prev == snake_node::direction_e::UP))) {
+				} else if (((direction_curr == snake_utils::direction_e::UP) & (direction_prev == snake_utils::direction_e::DOWN)) | ((direction_curr == snake_utils::direction_e::DOWN) & (direction_prev == snake_utils::direction_e::UP))) {
 					if ((x_diff < width_centre_distance) & (y_diff < height_centre_distance)) {
 						LOG_ERROR("Units moving in opposite vertical movement and colliding");
 					}
@@ -208,16 +208,16 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 
 				// Consecutive units can't travel in opposite direction
 				ASSERT(
-					((direction_curr == snake_node::direction_e::RIGHT) & (direction_prev != snake_node::direction_e::LEFT))  |
-					((direction_curr == snake_node::direction_e::LEFT)  & (direction_prev != snake_node::direction_e::RIGHT)) |
-					((direction_curr == snake_node::direction_e::UP)    & (direction_prev != snake_node::direction_e::DOWN))  |
-					((direction_curr == snake_node::direction_e::DOWN)  & (direction_prev != snake_node::direction_e::UP))
+					((direction_curr == snake_utils::direction_e::RIGHT) & (direction_prev != snake_utils::direction_e::LEFT))  |
+					((direction_curr == snake_utils::direction_e::LEFT)  & (direction_prev != snake_utils::direction_e::RIGHT)) |
+					((direction_curr == snake_utils::direction_e::UP)    & (direction_prev != snake_utils::direction_e::DOWN))  |
+					((direction_curr == snake_utils::direction_e::DOWN)  & (direction_prev != snake_utils::direction_e::UP))
 				);
 
 				// Adjust coordinate centres of pervious and current unit must be aligned as to ditance between centres is kept constant
 				// Y for horizontal to vertical movement
 				// X for vertical to horizontal movement
-				if (((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) & ((int) abs(x_centre_prev - x_centre_curr) < speed)) {
+				if (((direction_curr == snake_utils::direction_e::RIGHT) | (direction_curr == snake_utils::direction_e::LEFT)) & ((int) abs(x_centre_prev - x_centre_curr) < speed)) {
 
 					// Unit moving horizontally:
 					// - X is force to aligned (set previous unit X coordinate)
@@ -226,7 +226,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 					LOG_INFO(logging::verb_level_e::HIGH, "[Snake List Move] Change drection to ", direction_prev, " New coordinates X ", x_centre_prev, " Y ", centre_adj);
 					snake_el->set_x_centre(x_centre_prev);
 					snake_el->set_y_centre(centre_adj);
-				} else if (((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) & ((int) abs(y_centre_prev - y_centre_curr) < speed)) {
+				} else if (((direction_curr == snake_utils::direction_e::UP) | (direction_curr == snake_utils::direction_e::DOWN)) & ((int) abs(y_centre_prev - y_centre_curr) < speed)) {
 					// Unit moving vertically:
 					// - Y is force to aligned (set previous unit Y coordinate)
 					// - X is adjusted to keep distance between centre constant
@@ -236,7 +236,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 					snake_el->set_y_centre(y_centre_prev);
 				}
 			} else {
-				snake_node::direction_e direction_next = snake_el->get_next()->get_direction();
+				snake_utils::direction_e direction_next = snake_el->get_next()->get_direction();
 				// If head and second unit have the same direction, the head can change again
 				if (direction_next == direction_curr) {
 					snake_el->set_direction(direction_prev);
@@ -246,10 +246,10 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 
 			int adjustment = 0;
 
-			if ((direction_curr == snake_node::direction_e::RIGHT) | (direction_curr == snake_node::direction_e::LEFT)) {
-				adjustment = snake_list::SnakeList::adj_snake(snake_el, width_curr, width_prev, x_centre_curr, x_centre_prev, y_centre_curr, y_centre_prev, speed, snake_node::direction_e::DOWN, snake_node::direction_e::UP, direction_curr, win_width);
-			} else if ((direction_curr == snake_node::direction_e::UP) | (direction_curr == snake_node::direction_e::DOWN)) {
-				adjustment = snake_list::SnakeList::adj_snake(snake_el, height_curr, height_prev, y_centre_curr, y_centre_prev, x_centre_curr, x_centre_prev, speed, snake_node::direction_e::LEFT, snake_node::direction_e::RIGHT, direction_curr, win_height);
+			if ((direction_curr == snake_utils::direction_e::RIGHT) | (direction_curr == snake_utils::direction_e::LEFT)) {
+				adjustment = snake_list::SnakeList::adj_snake(snake_el, width_curr, width_prev, x_centre_curr, x_centre_prev, y_centre_curr, y_centre_prev, speed, snake_utils::direction_e::DOWN, snake_utils::direction_e::UP, direction_curr, win_width);
+			} else if ((direction_curr == snake_utils::direction_e::UP) | (direction_curr == snake_utils::direction_e::DOWN)) {
+				adjustment = snake_list::SnakeList::adj_snake(snake_el, height_curr, height_prev, y_centre_curr, y_centre_prev, x_centre_curr, x_centre_prev, speed, snake_utils::direction_e::LEFT, snake_utils::direction_e::RIGHT, direction_curr, win_height);
 			}
 
 			if ((adjustment == 0) | (snake_el == head)) {
@@ -279,7 +279,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 	}
 }
 
-int snake_list::SnakeList::change_dir(snake_node::SnakeNode * & snake_el, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_node::direction_e prev_dir) {
+int snake_list::SnakeList::change_dir(snake_node::SnakeNode * & snake_el, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir) {
 	// Distance between centres
 	int centre_distance = ((curr_dim + prev_dim)/2);
 	int curr_distance = compute_centre_distance(curr_coord_mov_dir, prev_coord_mov_dir, win_dim, centre_distance);
@@ -303,7 +303,7 @@ int snake_list::SnakeList::change_dir(snake_node::SnakeNode * & snake_el, int wi
 	return centre_adj;
 }
 
-int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_node::direction_e dir1, snake_node::direction_e dir2, snake_node::direction_e curr_dir, int win_dim_mov) {
+int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov) {
 	snake_node::SnakeNode * head (this->get_head());
 	int centre_distance = ((curr_dim + prev_dim)/2);
 	int adjustment = 0;
@@ -328,13 +328,13 @@ int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int cur
 	} else {
 		int adj_prev_coord_mov_dir = prev_coord_mov_dir;
 		// Deal with case where snake appears on the other side of the screen
-		if ((curr_dir == snake_node::direction_e::RIGHT) | (curr_dir == snake_node::direction_e::UP)) {
+		if ((curr_dir == snake_utils::direction_e::RIGHT) | (curr_dir == snake_utils::direction_e::UP)) {
 			if (curr_coord_mov_dir > prev_coord_mov_dir) {
 				adj_prev_coord_mov_dir = prev_coord_mov_dir + win_dim_mov;
 			} else {
 				adj_prev_coord_mov_dir = prev_coord_mov_dir;
 			}
-		} else if ((curr_dir == snake_node::direction_e::LEFT) | (curr_dir == snake_node::direction_e::DOWN)) {
+		} else if ((curr_dir == snake_utils::direction_e::LEFT) | (curr_dir == snake_utils::direction_e::DOWN)) {
 			if (curr_coord_mov_dir < prev_coord_mov_dir) {
 				adj_prev_coord_mov_dir = prev_coord_mov_dir - win_dim_mov;
 			} else {
@@ -414,7 +414,7 @@ void snake_list::SnakeList::check_snake_collision() {
 
 	while (snake1 != nullptr) {
 
-		snake_node::direction_e direction1 = snake1->get_direction();
+		snake_utils::direction_e direction1 = snake1->get_direction();
 		int x_centre1 = snake1->get_x_centre();
 		int y_centre1 = snake1->get_y_centre();
 		int height1 = snake1->get_height();
@@ -454,14 +454,14 @@ void snake_list::SnakeList::check_snake_collision() {
 				int tot_dist = x_dist + y_dist;
 
 				// Unit1 and Unit2 are getting closer to each other on the x axis
-				if (((x_centre1 >= x_centre2) & (direction1 == snake_node::direction_e::RIGHT)) | ((x_centre1 <= x_centre2) & (direction1 == snake_node::direction_e::LEFT))) {
+				if (((x_centre1 >= x_centre2) & (direction1 == snake_utils::direction_e::RIGHT)) | ((x_centre1 <= x_centre2) & (direction1 == snake_utils::direction_e::LEFT))) {
 					if (tot_dist < total_centre_distance) {
 						GAME_OVER("Collision on the X axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
 					}
 				}
 
 				// Unit1 and Unit2 are getting closer to each other on the y axis
-				if (((y_centre1 >= y_centre2) & (direction1 == snake_node::direction_e::DOWN)) | ((y_centre1 <= y_centre2) & (direction1 == snake_node::direction_e::UP))) {
+				if (((y_centre1 >= y_centre2) & (direction1 == snake_utils::direction_e::DOWN)) | ((y_centre1 <= y_centre2) & (direction1 == snake_utils::direction_e::UP))) {
 					if (tot_dist < total_centre_distance) {
 						GAME_OVER("Collision on the Y axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
 					}

@@ -10,6 +10,7 @@
 
 #include "basic_object.h"
 #include "basic_obj_node.h"
+#include "snake_utils.h"
 #include "colours.h"
 
 namespace snake_node {
@@ -19,33 +20,12 @@ namespace snake_node {
 	 *  @{
 	 */
 
-	/**
-	 * @brief Directions
-	 *
-	 */
-	typedef enum class direction_type {
-		UP,
-		DOWN,
-		LEFT,
-		RIGHT
-	} direction_e;
-
-	/**
-	 * @brief Function: std::ostream& operator<< (std::ostream& os, game_menu::direction_e direction)
-	 *
-	 * \param os: output stream
-	 * \param direction: direction to be printed
-	 *
-	 * Overload << operator to print direction 
-	 */
-	std::ostream& operator<< (std::ostream& os, snake_node::direction_e direction);
-
 	namespace {
 		/**
 		 * @brief Initial speed
 		 *
 		 */
-		const static snake_node::direction_e init_direction = snake_node::direction_e::RIGHT;
+		const static snake_utils::direction_e init_direction = snake_utils::direction_e::RIGHT;
 
 		/**
 		 * @brief Node Height
@@ -63,7 +43,7 @@ namespace snake_node {
 	class SnakeUnit : public basic_object::BasicObject {
 		public:
 			// Constructor
-			SnakeUnit(std::string name_unit = "Snake Unit", int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_node::direction_e snake_direction = snake_node::init_direction, colours::palette_e snake_colour = colours::palette_e::BLACK): basic_object::BasicObject(name_unit, centre_x, centre_y, snake_width, snake_height, snake_colour), direction(snake_direction) {
+			SnakeUnit(std::string name_unit = "Snake Unit", int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_utils::direction_e snake_direction = snake_node::init_direction, colours::palette_e snake_colour = colours::palette_e::BLACK): basic_object::BasicObject(name_unit, centre_x, centre_y, snake_width, snake_height, snake_colour), direction(snake_direction) {
 				std::string pretext ("Constructor");
 				snake_node::SnakeUnit::print_info(logging::verb_level_e::LOW, pretext);
 			};
@@ -74,10 +54,10 @@ namespace snake_node {
 			};
 
 			// Get functions
-			snake_node::direction_e get_direction();
+			snake_utils::direction_e get_direction();
 
 			// Set functions
-			void set_direction(snake_node::direction_e new_direction);
+			void set_direction(snake_utils::direction_e new_direction);
 
 			void move(const int & speed, const int & win_width, const int & win_height);
 
@@ -88,7 +68,7 @@ namespace snake_node {
 			void save_data (iofile::File & savefile);
 
 		private:
-			snake_node::direction_e direction;
+			snake_utils::direction_e direction;
 
 		protected:
 	};
@@ -96,7 +76,7 @@ namespace snake_node {
 	class SnakeNode : public basic_obj_node::BasicObjNode<SnakeNode>, public SnakeUnit {
 		public:
 			// Constructor
-			SnakeNode(std::string name_node = "Snake Node", int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_node::direction_e snake_direction = snake_node::init_direction, colours::palette_e snake_colour = colours::palette_e::BLACK): basic_obj_node::BasicObjNode<SnakeNode>(), SnakeUnit(name_node, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour) {
+			SnakeNode(std::string name_node = "Snake Node", int centre_x = 0, int centre_y = 0, int snake_width = snake_node::init_node_width, int snake_height = snake_node::init_node_height, snake_utils::direction_e snake_direction = snake_node::init_direction, colours::palette_e snake_colour = colours::palette_e::BLACK): basic_obj_node::BasicObjNode<SnakeNode>(), SnakeUnit(name_node, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour) {
 				std::string pretext ("Snake Node Constructor");
 				snake_node::SnakeNode::print_info(logging::verb_level_e::LOW, pretext);
 			};

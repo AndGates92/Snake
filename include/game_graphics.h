@@ -8,10 +8,16 @@
  * @brief Game graphics header file
 */
 
+#include "graphics_utils.h"
+#include "window_node.h"
 #include "snake_list.h"
 #include "obstacle_list.h"
 #include "settings.h"
 #include "colours.h"
+
+// include graphical libraries (OPENGL)
+#include <GL/glut.h>
+#include <GL/gl.h>
 
 /**
  * @brief GAME_OVER(...)
@@ -25,7 +31,6 @@
 	game_graphics::save_game(dumpfilename);\
 	logging::log_info(logging::verb_level_e::ZERO, "File ", __FILE__, " at line ", __LINE__, ": GAME OVER -> ", __VA_ARGS__, "\n");\
 	logging::log_error("GAME OVER: ", __VA_ARGS__, "\n");
-
 
 namespace game_graphics {
 
@@ -252,12 +257,10 @@ game_pixel_type * game_graphics::get_game_pixel_array (int & win_width, int & wi
 		LOG_ERROR("Can't allocate memory for game pixels array");
 	}
 
-	int win_id = 0;
-	win_id = glutGetWindow();
+	int win_id = glutGetWindow();
 
 	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
-	window_obj::WindowObj obj (node->get_obj());
-	colours::palette_e background_colour = obj.get_colour_bg();
+	colours::palette_e background_colour = node->get_colour_bg();
 
 	game_pixel_type * colour = colours::get_pixel_colour<game_pixel_type> (background_colour);
 

@@ -79,9 +79,7 @@ void graphics_utils::refresh_window(int value) {
 
 	while (window_node != nullptr) {
 
-		window_obj::WindowObj node = window_node->get_obj();
-		int curr_win_id = 0;
-		curr_win_id = node.get_win_id();
+		int curr_win_id = window_node->get_win_id();
 
 		LOG_INFO(logging::verb_level_e::DEBUG,"[Refresh window] Window ID: current ", curr_win_id);
 

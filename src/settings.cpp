@@ -11,7 +11,7 @@
 #include "settings.h"
 #include "colours.h"
 #include "logging.h"
-#include "snake_node.h"
+#include "snake_utils.h"
 
 using namespace std;
 using namespace logging;
@@ -78,7 +78,7 @@ int settings::Settings::get_tile_height() {
 	return this->tile_height;
 }
 
-snake_node::direction_e settings::Settings::get_head_dir() {
+snake_utils::direction_e settings::Settings::get_head_dir() {
 	return this->head_dir;
 }
 
@@ -153,7 +153,7 @@ void settings::Settings::set_tile_height(int value) {
 	this->tile_height = value;
 }
 
-void settings::Settings::set_head_dir(snake_node::direction_e value) {
+void settings::Settings::set_head_dir(snake_utils::direction_e value) {
 	this->head_dir = value;
 }
 

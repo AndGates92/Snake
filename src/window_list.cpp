@@ -54,8 +54,7 @@ int window_list::WindowList::add_node(std::string window_title, std::string wind
 	new_window->set_next(head);
 	this->set_head(new_window);
 
-	window_obj::WindowObj node = new_window->get_obj();
-	int win_id = node.get_win_id();
+	int win_id = new_window->get_win_id();
 	return win_id;
 
 }
@@ -68,9 +67,7 @@ void window_list::WindowList::delete_by_win_id(int &win_id) {
 	while (window_node != nullptr) {
 
 		// temporary node
-		window_obj::WindowObj node = window_node->get_obj();
-		int curr_win_id = 0;
-		curr_win_id = node.get_win_id();
+		int curr_win_id = window_node->get_win_id();
 
 		LOG_INFO(logging::verb_level_e::DEBUG,"[New search by windows ID] Window ID: current ", curr_win_id, " searched ", win_id);
 
@@ -95,9 +92,7 @@ window_node::WindowNode * window_list::WindowList::search_by_win_id(int &win_id)
 
 	while (window_node != nullptr) {
 
-		window_obj::WindowObj node = window_node->get_obj();
-		int curr_win_id = 0;
-		curr_win_id = node.get_win_id();
+		int curr_win_id = window_node->get_win_id();
 
 		LOG_INFO(logging::verb_level_e::DEBUG,"[New search by windows ID] Window ID: current ", curr_win_id, " searched ", win_id);
 

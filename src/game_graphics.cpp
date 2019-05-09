@@ -25,6 +25,7 @@
 #include "window_obj.h"
 #include "snake_list.h"
 #include "snake_node.h"
+#include "snake_utils.h"
 
 using namespace std;
 using namespace logging;
@@ -34,7 +35,7 @@ using namespace game_graphics;
 using namespace graphics_utils;
 using namespace window_obj;
 using namespace snake_list;
-using namespace snake_node;
+using namespace snake_utils;
 
 namespace game_graphics {
 
@@ -43,7 +44,7 @@ namespace game_graphics {
 		 * @brief Direction of the snake head
 		 *
 		 */
-		snake_node::direction_e head_dir;
+		snake_utils::direction_e head_dir;
 	}
 }
 
@@ -151,31 +152,31 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 void game_graphics::specialkey_game_cb(int key, int x, int y) {
 
 	snake_node::SnakeNode * snake_head (game_graphics::snake->get_head());
-	snake_node::direction_e snake_head_dir = snake_head->get_direction();
+	snake_utils::direction_e snake_head_dir = snake_head->get_direction();
 
 	switch (key) {
 		case GLUT_KEY_UP:
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to UP because of pressing key Arrow Up");
-			if ((snake_head_dir == snake_node::direction_e::RIGHT) | (snake_head_dir == snake_node::direction_e::LEFT)) {
-				game_graphics::head_dir = snake_node::direction_e::UP;
+			if ((snake_head_dir == snake_utils::direction_e::RIGHT) | (snake_head_dir == snake_utils::direction_e::LEFT)) {
+				game_graphics::head_dir = snake_utils::direction_e::UP;
 			}
 			break;
 		case GLUT_KEY_DOWN:
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to DOWN because of pressing key Arrow Down");
-			if ((snake_head_dir == snake_node::direction_e::RIGHT) | (snake_head_dir == snake_node::direction_e::LEFT)) {
-				game_graphics::head_dir = snake_node::direction_e::DOWN;
+			if ((snake_head_dir == snake_utils::direction_e::RIGHT) | (snake_head_dir == snake_utils::direction_e::LEFT)) {
+				game_graphics::head_dir = snake_utils::direction_e::DOWN;
 			}
 			break;
 		case GLUT_KEY_LEFT:
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to LEFT because of pressing key Arrow Down");
-			if ((snake_head_dir == snake_node::direction_e::UP) | (snake_head_dir == snake_node::direction_e::DOWN)) {
-				game_graphics::head_dir = snake_node::direction_e::LEFT;
+			if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
+				game_graphics::head_dir = snake_utils::direction_e::LEFT;
 			}
 			break;
 		case GLUT_KEY_RIGHT:
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to RIGHT because of pressing key Arrow Down");
-			if ((snake_head_dir == snake_node::direction_e::UP) | (snake_head_dir == snake_node::direction_e::DOWN)) {
-				game_graphics::head_dir = snake_node::direction_e::RIGHT;
+			if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
+				game_graphics::head_dir = snake_utils::direction_e::RIGHT;
 			}
 			break;
 		default:
@@ -222,22 +223,22 @@ void game_graphics::idle_game_cb() {
 			snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
 			int new_snake_node_x = snake_head->get_x_centre();
 			int new_snake_node_y = snake_head->get_y_centre();
-			snake_node::direction_e snake_head_dir = snake_head->get_direction();
+			snake_utils::direction_e snake_head_dir = snake_head->get_direction();
 
-			if (snake_head_dir == snake_node::direction_e::RIGHT) {
+			if (snake_head_dir == snake_utils::direction_e::RIGHT) {
 				new_snake_node_x = (snake_head->get_x_centre() + node_width) % win_width;
 				new_snake_node_y = snake_head->get_y_centre();
-			} else if (snake_head_dir == snake_node::direction_e::LEFT) {
+			} else if (snake_head_dir == snake_utils::direction_e::LEFT) {
 				new_snake_node_x = (snake_head->get_x_centre() - node_width);
 				// If head is vry close to boarded, unit in front of it might be outside of window (negative X)
 				if (new_snake_node_x < 0) {
 					new_snake_node_x += win_width;
 				}
 				new_snake_node_y = snake_head->get_y_centre();
-			} else if (snake_head_dir == snake_node::direction_e::UP) {
+			} else if (snake_head_dir == snake_utils::direction_e::UP) {
 				new_snake_node_y = (snake_head->get_y_centre() + node_height) % win_height;
 				new_snake_node_x = snake_head->get_x_centre();
-			} else if (snake_head_dir == snake_node::direction_e::DOWN) {
+			} else if (snake_head_dir == snake_utils::direction_e::DOWN) {
 				new_snake_node_y = (snake_head->get_y_centre() - node_height);
 				// If head is vry close to boarded, unit in front of it might be outside of window (negative X)
 				if (new_snake_node_y < 0) {
@@ -326,7 +327,7 @@ void game_graphics::populate_snake_list() {
 	int snake_units = snake_settings.get_snake_units();
 	int node_height = snake_settings.get_node_height();
 	int node_width = snake_settings.get_node_width();
-	snake_node::direction_e head_dir = snake_settings.get_head_dir();
+	snake_utils::direction_e head_dir = snake_settings.get_head_dir();
 	colours::palette_e colour = snake_settings.get_snake_colour();
 
 	for (int unit_no=0; unit_no < snake_units; unit_no++) {

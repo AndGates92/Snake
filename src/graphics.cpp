@@ -67,12 +67,6 @@ void graphics::start_game() {
 void graphics::reshape_cb(int width, int height) {
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Reshape Callback] Reshape Callback window width to ", width, " and window height to ", height);
 
-	int win_id = 0;
-	win_id = glutGetWindow();
-
-	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
-	window_obj::WindowObj window (node->get_obj());
-
 	// set viewport to new width and height 
 	glViewport( 0, 0, width, height );
 
@@ -96,8 +90,7 @@ void graphics::idle_cb() {
 
 	while (window_node != nullptr) {
 
-		window_obj::WindowObj node = window_node->get_obj();
-		int curr_win_id = node.get_win_id();
+		int curr_win_id = window_node->get_win_id();
 
 		LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Callback] Window ID: current ", curr_win_id);
 

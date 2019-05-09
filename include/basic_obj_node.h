@@ -13,7 +13,6 @@
 #include "basic_obj_node.h"
 #include "basic_object.h"
 #include "logging.h"
-#include "graphics_utils.h"
 
 using namespace std;
 using namespace logging;

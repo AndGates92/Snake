@@ -10,6 +10,7 @@
 
 #include "basic_obj_list.h"
 #include "snake_node.h"
+#include "snake_utils.h"
 #include "colours.h"
 
 namespace snake_list {
@@ -28,15 +29,15 @@ namespace snake_list {
 			// Destructor
 			~SnakeList();
 
-			void move(const int & speed, const int & win_width, const int & win_height, const snake_node::direction_e & head_dir);
+			void move(const int & speed, const int & win_width, const int & win_height, const snake_utils::direction_e & head_dir);
 
-			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_node::direction_e snake_direction, colours::palette_e snake_colour);
+			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour);
 
 			void check_collision(const int & win_width, const int & win_height);
 
 		protected:
-			int change_dir(snake_node::SnakeNode * & snake_node, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_node::direction_e prev_dir);
-			int adj_snake(snake_node::SnakeNode * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_node::direction_e dir1, snake_node::direction_e dir2, snake_node::direction_e curr_dir, int win_dim_mov);
+			int change_dir(snake_node::SnakeNode * & snake_node, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir);
+			int adj_snake(snake_node::SnakeNode * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov);
 			int compute_centre_distance(int coord1, int coord2, int win_dim, int exp_distance);
 			void check_snake_collision();
 			#ifdef HARD_WALL

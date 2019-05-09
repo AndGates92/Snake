@@ -3,13 +3,14 @@
  * @file snake_node.cpp
  * @author Andrea Gianarda
  * @date 04th March 2019
- * @brief Snake Unit function
+ * @brief Snake Node function
  */
 
 #include <iostream>
 
 #include "basic_object.h"
 #include "snake_node.h"
+#include "snake_utils.h"
 #include "logging.h"
 #include "graphics_utils.h"
 
@@ -39,14 +40,14 @@ void snake_node::SnakeUnit::save_data (iofile::File & savefile) {
 // ================================================================
 // Get functions
 // ================================================================
-snake_node::direction_e snake_node::SnakeUnit::get_direction() {
+snake_utils::direction_e snake_node::SnakeUnit::get_direction() {
 	return this->direction;
 }
 
 // ================================================================
 // Set functions
 // ================================================================
-void snake_node::SnakeUnit::set_direction(snake_node::direction_e new_direction) {
+void snake_node::SnakeUnit::set_direction(snake_utils::direction_e new_direction) {
 	this->direction = new_direction;
 }
 
@@ -59,19 +60,19 @@ void snake_node::SnakeUnit::move(const int & speed, const int & win_width, const
 	int x_centre = this->get_x_centre();
 
 	switch (this->direction) {
-		case snake_node::direction_e::RIGHT:
+		case snake_utils::direction_e::RIGHT:
 			x_centre = (x_centre + speed) % win_width;
 			break;
-		case snake_node::direction_e::LEFT:
+		case snake_utils::direction_e::LEFT:
 			if (x_centre < speed) {
 				x_centre += win_width;
 			}
 			x_centre = (x_centre - speed) % win_width;
 			break;
-		case snake_node::direction_e::UP:
+		case snake_utils::direction_e::UP:
 			y_centre = (y_centre + speed) % win_height;
 			break;
-		case snake_node::direction_e::DOWN:
+		case snake_utils::direction_e::DOWN:
 			if (y_centre < speed) {
 				y_centre += win_height;
 			}
@@ -84,32 +85,6 @@ void snake_node::SnakeUnit::move(const int & speed, const int & win_width, const
 
 	this->set_y_centre(y_centre);
 	this->set_x_centre(x_centre);
-}
-
-// ================================================================
-// Overload << operator for direction_e
-// ================================================================
-std::ostream& snake_node::operator<< (std::ostream& os, snake_node::direction_e direction) {
-
-	switch (direction) {
-		case snake_node::direction_e::UP:
-			os << "UP";
-			break;
-		case snake_node::direction_e::DOWN:
-			os << "DOWN";
-			break;
-		case snake_node::direction_e::LEFT:
-			os << "LEFT";
-			break;
-		case snake_node::direction_e::RIGHT:
-			os << "RIGHT";
-			break;
-		default:
-			os << "Unknown direction";
-			break;
-	}
-
-	return os;
 }
 
 // ================================================================

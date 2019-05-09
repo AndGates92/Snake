@@ -11,6 +11,8 @@
 #include "colours.h"
 #include "logging.h"
 #include "settings.h"
+#include "graphics_utils.h"
+#include "window_node.h"
 
 // include graphical libraries (OPENGL)
 #include <GL/glut.h>
@@ -215,8 +217,7 @@ void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int
 			win_id = glutGetWindow();
 
 			window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
-			window_obj::WindowObj obj (node->get_obj());
-			colour_name = obj.get_colour_bg();
+			colour_name = node->get_colour_bg();
 
 		} else {
 			colour_name = char_lut::colour_true;

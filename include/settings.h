@@ -10,7 +10,7 @@
 
 #include <fstream>
 #include "logging.h"
-#include "snake_node.h"
+#include "snake_utils.h"
 #include "colours.h"
 
 namespace settings {
@@ -112,7 +112,7 @@ namespace settings {
 		 * @brief Initial direction of the snake
 		 *
 		 */
-		const static snake_node::direction_e init_head_dir = snake_node::direction_e::RIGHT;
+		const static snake_utils::direction_e init_head_dir = snake_utils::direction_e::RIGHT;
 
 		/**
 		 * @brief Initial colour of the snake
@@ -177,7 +177,7 @@ namespace settings {
 			void set_obs_no(int value);
 			void set_head_centre_x(int value);
 			void set_head_centre_y(int value);
-			void set_head_dir(snake_node::direction_e value);
+			void set_head_dir(snake_utils::direction_e value);
 			void set_snake_colour(colours::palette_e new_colour);
 			void set_obs_colour(colours::palette_e new_colour);
 			void set_tile_height(int value);
@@ -197,7 +197,7 @@ namespace settings {
 			int get_obs_no();
 			int get_head_centre_x();
 			int get_head_centre_y();
-			snake_node::direction_e get_head_dir();
+			snake_utils::direction_e get_head_dir();
 			colours::palette_e get_snake_colour();
 			colours::palette_e get_obs_colour();
 			int get_tile_height();
@@ -219,7 +219,7 @@ namespace settings {
 			int obs_no;
 			int head_centre_x;
 			int head_centre_y;
-			snake_node::direction_e head_dir;
+			snake_utils::direction_e head_dir;
 			colours::palette_e snake_colour;
 			colours::palette_e obs_colour;
 			int tile_height;
