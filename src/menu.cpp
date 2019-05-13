@@ -181,7 +181,7 @@ menu::Menu::~Menu() {
 }
 
 void menu::Menu::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Menu ID: ", this->id);
+	LOG_INFO(verbosity, "[", pretext, "] Menu title ", this->title, " ID: ", this->id);
 }
 
 int menu::Menu::get_id() {

@@ -98,12 +98,12 @@ namespace menu {
 	class Menu {
 		public:
 			// Constructor
-			Menu(void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr): id(create_menu(EntryFunc, ItemsFunc)) {
+			Menu(std::string window_title = "", void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr): title(window_title), id(create_menu(EntryFunc, ItemsFunc)) {
 				std::string pretext ("Menu Constructor");
 				menu::Menu::print_info(logging::verb_level_e::LOW, pretext);
 			}
 
-			Menu(const Menu& copy): id(copy.id) {};
+			Menu(const Menu& copy): title(copy.title), id(copy.id) {};
 
 			// Destructor
 			~Menu();
@@ -117,6 +117,7 @@ namespace menu {
 			int create_menu(void (*EntryFunc)(int), void (*ItemsFunc)());
 
 		private:
+			std::string title;
 			int id;
 	};
 
