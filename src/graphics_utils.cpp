@@ -67,8 +67,8 @@ window_list::WindowList * & graphics_utils::get_window_ptr() {
 }
 
 // Create new window
-int graphics_utils::win_node_add(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, void (*EntryFunc)(int), void (*ItemsFunc)(), void (*WrapperFunc)(), colours::palette_e background_colour) {
-	int win_id = windows->add_node(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, EntryFunc, ItemsFunc, WrapperFunc, background_colour);
+int graphics_utils::win_node_add(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, void (*WrapperFunc)(), colours::palette_e background_colour) {
+	int win_id = windows->add_node(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, WrapperFunc, background_colour);
 	return win_id;
 }
 

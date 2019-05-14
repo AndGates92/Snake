@@ -188,4 +188,6 @@ int menu::Menu::get_id() {
 	return id;
 }
 
-
+std::string menu::Menu::get_title() {
+	return title;
+}

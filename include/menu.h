@@ -12,6 +12,8 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+#include <map>
+#include <string>
 #include <iostream>
 #include "logging.h"
 
@@ -23,6 +25,7 @@ namespace menu {
 	 *  Menu functions and classes
 	 *  @{
 	 */
+
 	/**
 	 * @brief Snake menu entries
 	 *
@@ -95,10 +98,43 @@ namespace menu {
 	 */
 	void menu_stat_items();
 
+	/**
+	 * @brief Function: std::function(void(int)) get_entry_func(std::string name)
+	 *
+	 * \param menu_type: type of menu
+	 *
+	 * \return Return the pointer to function
+	 *
+	 * List menu items in stat window
+	 */
+//	std::function(void(int)) get_entry_func(std::string name);
+
+
+//	std::string set_entry_func(std::function(void(int)));
+
+//	std::function(void(void)) get_entry_items_func(std::string name);
+
+//	std::string set_entry_items_func(std::function(void(int)));
+
+	typedef void (*EntryFuncPtr)(int);
+	typedef void (*ItemFuncPtr)(void);
+
+	namespace {
+		static std::map <std::string, EntryFuncPtr> EntryFunc = {
+			{ "game", &menu_game},
+			{ "stat", &menu_stat}
+		};
+
+		static std::map <std::string, ItemFuncPtr> ItemsFunc = {
+			{ "game", menu_game_items},
+			{ "stat", menu_stat_items}
+		};
+	}
+
 	class Menu {
 		public:
 			// Constructor
-			Menu(std::string window_title = "", void (*EntryFunc)(int) = nullptr, void (*ItemsFunc)() = nullptr): title(window_title), id(create_menu(EntryFunc, ItemsFunc)) {
+			Menu(std::string window_title = ""): title(window_title), id(create_menu(EntryFunc[window_title], ItemsFunc[window_title])) {
 				std::string pretext ("Menu Constructor");
 				menu::Menu::print_info(logging::verb_level_e::LOW, pretext);
 			}
@@ -109,6 +145,7 @@ namespace menu {
 			~Menu();
 
 			int get_id();
+			std::string get_title();
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 			void destroy_menu();
