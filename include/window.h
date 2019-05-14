@@ -38,8 +38,8 @@ namespace window {
 	class Window : public basic_object::BasicObject {
 		public:
 			// Constructor
-			Window(std::string window_title = "", std::string type = "Window", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, void (*WrapperFunc)() = nullptr, colours::palette_e background_colour=colours::palette_e::BLACK): basic_object::BasicObject(type, window_x_pos, window_y_pos, window_width, window_height, background_colour), title(window_title) {
-				id = window::Window::create_window(title, window_width, window_height, window_x_pos, window_y_pos, WrapperFunc);
+			Window(std::string window_title = "", std::string type = "Window", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, colours::palette_e background_colour=colours::palette_e::BLACK): basic_object::BasicObject(type, window_x_pos, window_y_pos, window_width, window_height, background_colour), title(window_title) {
+				id = window::Window::create_window(window_title, window_width, window_height, window_x_pos, window_y_pos);
 				std::string pretext ("Window Constructor");
 				window::Window::print_info(logging::verb_level_e::LOW, pretext);
 			};
@@ -58,7 +58,7 @@ namespace window {
 			void destroy_window();
 
 		protected:
-			int create_window(std::string title, int width, int height, int xpos, int ypos, void (*WrapperFunc)());
+			int create_window(std::string title, int width, int height, int xpos, int ypos);
 
 		private:
 			std::string title;

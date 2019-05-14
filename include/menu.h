@@ -121,8 +121,8 @@ namespace menu {
 
 	namespace {
 		static std::map <std::string, EntryFuncPtr> EntryFunc = {
-			{ "game", &menu_game},
-			{ "stat", &menu_stat}
+			{ "game", menu_game},
+			{ "stat", menu_stat}
 		};
 
 		static std::map <std::string, ItemFuncPtr> ItemsFunc = {

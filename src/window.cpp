@@ -6,6 +6,8 @@
  * @brief File function
  */
 
+#include <map>
+#include <string>
 #include <cstring>
 #include <iostream>
 
@@ -18,6 +20,8 @@
 #include "window.h"
 #include "logging.h"
 #include "basic_object.h"
+#include "game_graphics.h"
+#include "stat_graphics.h"
 
 using namespace std;
 using namespace window;
@@ -25,6 +29,17 @@ using namespace logging;
 using namespace graphics;
 
 #define __STD_WANT_LIB_EXT1__ 1
+
+namespace window {
+	typedef void (*WrapperFuncPtr)(void);
+
+	namespace {
+		static std::map <std::string, WrapperFuncPtr> WrapperFunc = {
+			{ "game", game_graphics::wrapper_game_cb},
+			{ "stat", stat_graphics::wrapper_stat_cb}
+		};
+	}
+}
 
 // ================================================================
 // Destructor
@@ -37,7 +52,7 @@ window::Window::~Window() {
 // ================================================================
 // Create window
 // ================================================================
-int window::Window::create_window(std::string title, int width, int height, int xpos, int ypos, void (*WrapperFunc)()) {
+int window::Window::create_window(std::string title, int width, int height, int xpos, int ypos) {
 	LOG_INFO(logging::verb_level_e::HIGH, "[Create window] Create window at ", xpos, ", ", ypos, ". Dimensions: width ", width, " height ", height, ". Title: ", title);
 	ASSERT(width > 0)
 	ASSERT(height > 0)
@@ -60,7 +75,7 @@ int window::Window::create_window(std::string title, int width, int height, int 
 
 	delete [] win_name;
 
-	WrapperFunc();
+	window::WrapperFunc[title]();
 
 	return win_id;
 }
