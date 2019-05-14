@@ -15,7 +15,9 @@
 #include <map>
 #include <string>
 #include <iostream>
+
 #include "logging.h"
+#include "shared_constants.h"
 
 using namespace std;
 using namespace logging;
@@ -121,13 +123,13 @@ namespace menu {
 
 	namespace {
 		static std::map <std::string, EntryFuncPtr> EntryFunc = {
-			{ "game", menu_game},
-			{ "stat", menu_stat}
+			{ shared_constants::game_win_title, menu_game},
+			{ shared_constants::stat_win_title, menu_stat}
 		};
 
 		static std::map <std::string, ItemFuncPtr> ItemsFunc = {
-			{ "game", menu_game_items},
-			{ "stat", menu_stat_items}
+			{ shared_constants::game_win_title, menu_game_items},
+			{ shared_constants::stat_win_title, menu_stat_items}
 		};
 	}
 

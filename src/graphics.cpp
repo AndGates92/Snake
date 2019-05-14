@@ -16,6 +16,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+#include "shared_constants.h"
 #include "colours.h"
 #include "menu.h"
 #include "logging.h"
@@ -47,8 +48,8 @@ void graphics::init_graphics(int argc, char** argv) {
 
 void graphics::add_graphics() {
 	std::string window_type ("Window");
-	game_win_id = graphics_utils::win_node_add("game", window_type, 1100, 450, 100, 50, colours::palette_e::PURPLE);
-	stat_win_id = graphics_utils::win_node_add("stat",  window_type, 200,  50, 1500, 50, colours::palette_e::BROWN);
+	game_win_id = graphics_utils::win_node_add(shared_constants::game_win_title, window_type, 1100, 450, 100, 50, colours::palette_e::PURPLE);
+	stat_win_id = graphics_utils::win_node_add(shared_constants::stat_win_title,  window_type, 200,  50, 1500, 50, colours::palette_e::BROWN);
 }
 
 void graphics::start_game() {

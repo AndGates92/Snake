@@ -15,6 +15,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+#include "shared_constants.h"
 #include "colours.h"
 #include "graphics.h"
 #include "window.h"
@@ -35,8 +36,8 @@ namespace window {
 
 	namespace {
 		static std::map <std::string, WrapperFuncPtr> WrapperFunc = {
-			{ "game", game_graphics::wrapper_game_cb},
-			{ "stat", stat_graphics::wrapper_stat_cb}
+			{ shared_constants::game_win_title, game_graphics::wrapper_game_cb},
+			{ shared_constants::stat_win_title, stat_graphics::wrapper_stat_cb}
 		};
 	}
 }
