@@ -93,3 +93,25 @@ void graphics_utils::refresh_window(int value) {
 	glutTimerFunc(value, graphics_utils::refresh_window, value);
 
 }
+
+
+void graphics_utils::save_window(iofile::File & savefile) {
+
+	int win_node_cnt = 0;
+
+	window_node::WindowNode * curr_win_node(windows->get_head());
+
+	while (curr_win_node != nullptr) {
+		savefile.write_ofile("//******************************\n");
+		savefile.write_ofile("// Window ", win_node_cnt, "\n");
+		savefile.write_ofile("//******************************\n");
+		curr_win_node->save_data(savefile);
+
+		savefile.write_ofile("\n");
+
+		// Save temporary obstacle
+		curr_win_node = curr_win_node->get_next();
+		win_node_cnt++;
+	}
+
+}

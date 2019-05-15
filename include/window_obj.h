@@ -36,6 +36,8 @@ namespace window_obj {
 			~WindowObj();
 			void destroy_obj();
 
+			void save_data (iofile::File & savefile);
+
 			int get_win_id();
 			int get_menu_id();
 			colours::palette_e get_colour_bg();

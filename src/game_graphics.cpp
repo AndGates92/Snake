@@ -493,6 +493,8 @@ void game_graphics::save_game(std::string filename) {
 	save.write_ofile("Snake Units: ", snake_settings.get_snake_units(), "\n");
 	save.write_ofile("\n");
 
+	graphics_utils::save_window(save);
+
 	while (curr_snake_node != nullptr) {
 		save.write_ofile("//******************************\n");
 		save.write_ofile("// Snake Node ", snake_node_cnt, "\n");

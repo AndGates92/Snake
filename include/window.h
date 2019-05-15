@@ -52,7 +52,10 @@ namespace window {
 			// Destructor
 			~Window();
 
+			void save_data (iofile::File & savefile);
+
 			int get_id();
+			std::string get_title();
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 			void destroy_window();

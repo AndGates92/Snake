@@ -191,3 +191,8 @@ int menu::Menu::get_id() {
 std::string menu::Menu::get_title() {
 	return title;
 }
+
+void menu::Menu::save_data (iofile::File & savefile) {
+	savefile.write_ofile("Type: Menu\n");
+	savefile.write_ofile("Title: ", this->title, "\n");
+}

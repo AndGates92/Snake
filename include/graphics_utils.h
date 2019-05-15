@@ -60,6 +60,8 @@ namespace graphics_utils {
 
 	window_list::WindowList * & get_window_ptr();
 
+	void save_window(iofile::File & savefile);
+
 }
 
 

@@ -47,3 +47,8 @@ int window_obj::WindowObj::get_menu_id() {
 colours::palette_e window_obj::WindowObj::get_colour_bg() {
 	return this->drawing.get_colour();
 }
+
+void window_obj::WindowObj::save_data (iofile::File & savefile) {
+	drawing.save_data(savefile);
+	action_list.save_data(savefile);
+}

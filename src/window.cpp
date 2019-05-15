@@ -95,3 +95,13 @@ void window::Window::print_info(logging::verb_level_e verbosity, std::string pre
 int window::Window::get_id() {
 	return this->id;
 }
+
+std::string window::Window::get_title() {
+	return this->title;
+}
+
+void window::Window::save_data (iofile::File & savefile) {
+	basic_object::BasicObject::save_data(savefile);
+	savefile.write_ofile("Title: ", this->title, "\n");
+	savefile.write_ofile("\n");
+}
