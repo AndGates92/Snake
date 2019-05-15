@@ -33,6 +33,12 @@ namespace graphics {
 	 */
 	void idle_cb();
 
+	/**
+	 * @brief Function: void declare_game()
+	 *
+	 * This function is run at the start of the program to delcare shared variablesi
+	 */
+	void declare_game();
 
 }
 

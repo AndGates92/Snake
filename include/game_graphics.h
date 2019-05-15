@@ -49,6 +49,13 @@ namespace game_graphics {
 	}
 
 	/**
+	 * @brief Function: void declare_game_var()
+	 *
+	 * Declare game variables function
+	 */
+	void declare_game_var();
+
+	/**
 	 * @brief Function: void init_game()
 	 *
 	 * Initialize game function
@@ -70,7 +77,7 @@ namespace game_graphics {
 	void init_obstacle_list();
 
 	/**
-	 * @brief Function: void init_game()
+	 * @brief Function: void init_game_parameters()
 	 *
 	 * Initialize game function
 	 */

@@ -262,7 +262,14 @@ void game_graphics::idle_game_cb() {
 		game_graphics::snake->check_collision(win_width, win_height);
 	} else if (game_status == settings::game_status_e::RESTART) {
 		game_graphics::free_game_memory();
-		graphics::start_game();
+		graphics::declare_game();
+
+		// Initialize graphics
+		graphics::add_graphics();
+
+		// Initialize game
+		game_graphics::init_game();
+
 	} else if (game_status == settings::game_status_e::EXIT) {
 		// Explicitely limit scope of variable savefilename
 		{
@@ -358,12 +365,13 @@ void game_graphics::init_game_parameters() {
 	game_graphics::head_dir = snake_settings.get_head_dir();
 }
 
-void game_graphics::init_game() {
-
+void game_graphics::declare_game_var() {
 	game_graphics::init_snake_list();
 	game_graphics::init_obstacle_list();
-	game_graphics::init_game_parameters();
+}
 
+void game_graphics::init_game() {
+	game_graphics::init_game_parameters();
 	game_graphics::populate_snake_list();
 	game_graphics::populate_obstacle_list();
 }

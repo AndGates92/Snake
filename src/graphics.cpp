@@ -41,7 +41,13 @@ void graphics::init_graphics(int argc, char** argv) {
 	LOG_INFO(logging::verb_level_e::ZERO, "Initialize GLUT");
 	glutInit( &argc, argv );
 
-	graphics::start_game();
+	graphics::declare_game();
+
+	// Initialize graphics
+	graphics::add_graphics();
+
+	// Initialize game
+	game_graphics::init_game();
 
 	glutMainLoop();
 }
@@ -52,17 +58,15 @@ void graphics::add_graphics() {
 	stat_win_id = graphics_utils::win_node_add(shared_constants::stat_win_title,  window_type, 200,  50, 1500, 50, colours::palette_e::BROWN);
 }
 
-void graphics::start_game() {
+void graphics::declare_game() {
 	// Initialize settings
 	snake_settings = settings::Settings();
 	// Initialize window list
 	graphics_utils::init_window_list();
-	// Initialize graphics
-	graphics::add_graphics();
 	// Enable refresh timer
 	graphics_utils::refresh_window(graphics_utils::refresh_timer_ms);
 	// Initialize game
-	game_graphics::init_game();
+	game_graphics::declare_game_var();
 }
 
 void graphics::reshape_cb(int width, int height) {
