@@ -22,7 +22,7 @@ int main (int argc, char ** argv) {
 
 	srand(time(NULL));
 
-	init_graphics(argc, argv);
+	graphics::init_graphics(argc, argv);
 
 	LOG_INFO(logging::verb_level_e::ZERO, "End program Snake");
 
