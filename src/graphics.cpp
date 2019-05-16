@@ -49,6 +49,8 @@ void graphics::init_graphics(int argc, char** argv) {
 
 		// Initialize game
 		game_graphics::init_game();
+	} else {
+
 	}
 
 	glutMainLoop();

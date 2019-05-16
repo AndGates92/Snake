@@ -337,7 +337,7 @@ void game_graphics::populate_snake_list() {
 
 	for (int unit_no=0; unit_no < snake_units; unit_no++) {
 
-		game_graphics::snake->add_node(centre_x, centre_y, node_width, node_height, head_dir, colour);
+		game_graphics::add_node(centre_x, centre_y, node_width, node_height, head_dir, colour);
 		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, (colours::palette_e) unit_no);
 		centre_x += node_width;
 		//game_graphics::snake->add_node(centre_x, centre_y, game_graphics::node_width, game_graphics::node_height, game_graphics::init_head_dir, colours::palette_e::RED);
@@ -349,6 +349,10 @@ void game_graphics::populate_snake_list() {
 	snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
 	snake_head->set_colour(colours::palette_e::YELLOW);
 
+}
+
+void game_graphics::add_node (int centre_x, int centre_y, int node_width, int node_height, snake_utils::direction_e dir, colours::palette_e colour) {
+	game_graphics::snake->add_node(centre_x, centre_y, node_width, node_height, dir, colour);
 }
 
 void game_graphics::populate_obstacle_list() {
