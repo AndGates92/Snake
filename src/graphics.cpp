@@ -43,11 +43,13 @@ void graphics::init_graphics(int argc, char** argv) {
 
 	graphics::declare_game();
 
-	// Initialize graphics
-	graphics::add_graphics();
+	if (argc == 1) {
+		// Initialize graphics
+		graphics::add_graphics();
 
-	// Initialize game
-	game_graphics::init_game();
+		// Initialize game
+		game_graphics::init_game();
+	}
 
 	glutMainLoop();
 }
