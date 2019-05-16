@@ -16,9 +16,35 @@ using namespace std;
 using namespace logging;
 using namespace graphics;
 
+/** @addtogroup MainGroup
+ *  @{
+ */
+/** 
+ * @brief Function: int main (int argc, char * argv[])
+ *
+ * \param argc: argument count. Number of arguments including the executable itself.
+ * \param argv: argument vector. The first argument is the executable name. Last element of the array is NULL.
+ * \return an integer corresponging to the exit status
+ *
+ * Decodes the arguments and call functions for further processing
+ *
+ * Syntax:
+ * --> -trs \<filename\> : training set file
+ * --> -tes \<filename\> : test set file
+ * --> -trl \<filename\> : training label file
+ * --> -tel \<filename\> : test label file
+ *
+ */
 int main (int argc, char ** argv) {
 
 	LOG_INFO(logging::verb_level_e::ZERO, "Start program Snake");
+
+	LOG_INFO(logging::verb_level_e::ZERO,"[Main] Verbosity level: ", VERBOSITY);
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Main] Command line:");
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Main] Number of arguments ",  argc);
+	for (int i = 0; i < argc; i++) {
+		LOG_INFO(logging::verb_level_e::DEBUG,"[Main] \targument ", i, ": ", argv[i]);
+	}
 
 	srand(time(NULL));
 
@@ -28,3 +54,4 @@ int main (int argc, char ** argv) {
 
 	return EXIT_SUCCESS;
 }
+/** @} */ // End of addtogroup Main group
