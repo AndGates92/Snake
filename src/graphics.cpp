@@ -47,19 +47,20 @@ void graphics::init_graphics(int argc, char** argv) {
 		// Initialize graphics
 		graphics::add_graphics();
 
-		// Initialize game
-		game_graphics::init_game();
 	} else {
 
 	}
+
+	// Initialize game
+	game_graphics::init_game();
 
 	glutMainLoop();
 }
 
 void graphics::add_graphics() {
 	std::string window_type ("Window");
-	game_win_id = graphics_utils::win_node_add(shared_constants::game_win_title, window_type, 1100, 450, 100, 50, colours::palette_e::PURPLE);
-	stat_win_id = graphics_utils::win_node_add(shared_constants::stat_win_title,  window_type, 200,  50, 1500, 50, colours::palette_e::BROWN);
+	game_win_id = graphics_utils::win_node_add(shared_constants::game_win_title, window_type, shared_constants::game_win_width, shared_constants::game_win_height, shared_constants::game_win_pos_x, shared_constants::game_win_pos_y, shared_constants::game_win_bg);
+	stat_win_id = graphics_utils::win_node_add(shared_constants::stat_win_title,  window_type, shared_constants::stat_win_width, shared_constants::stat_win_height, shared_constants::stat_win_pos_x, shared_constants::stat_win_pos_y, shared_constants::stat_win_bg);
 }
 
 void graphics::declare_game() {
