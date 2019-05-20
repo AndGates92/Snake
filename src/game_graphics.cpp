@@ -488,8 +488,15 @@ void game_graphics::save_game(std::string filename) {
 
 	int snake_node_cnt = 0;
 
+	save.write_ofile("Type: Settings\n");
 	save.write_ofile("Dump: ", snake_settings.get_dump_filename(), "\n");
 	save.write_ofile("Save: ", snake_settings.get_save_filename(), "\n");
+	save.write_ofile("Speed: ", snake_settings.get_speed(), "\n");
+	int snake_units = snake_settings.get_snake_units();
+	save.write_ofile("Snake Units: ", snake_units, "\n");
+	int obs_no = snake_settings.get_obs_no();
+	save.write_ofile("Obstacles: ", obs_no, "\n");
+	save.write_ofile("Score: ", snake_settings.get_score(), "\n");
 	save.write_ofile("\n");
 
 	save.write_ofile("//******************************\n");
@@ -498,11 +505,6 @@ void game_graphics::save_game(std::string filename) {
 	save.write_ofile("Type: Tile\n");
 	save.write_ofile("Width: ", snake_settings.get_tile_width(), "\n");
 	save.write_ofile("Height: ", snake_settings.get_tile_height(), "\n");
-	save.write_ofile("Score: ", snake_settings.get_score(), "\n");
-	save.write_ofile("\n");
-
-	save.write_ofile("Speed: ", snake_settings.get_speed(), "\n");
-	save.write_ofile("Snake Units: ", snake_settings.get_snake_units(), "\n");
 	save.write_ofile("\n");
 
 	graphics_utils::save_window(save);
@@ -520,11 +522,10 @@ void game_graphics::save_game(std::string filename) {
 		snake_node_cnt++;
 	}
 
+	ASSERT(snake_node_cnt==snake_units);
+
 	// obstacle pointer
 	obstacle::ObstacleNode * curr_obs_node = game_graphics::obstacles->get_head();
-
-	save.write_ofile("Obstacles: ", snake_settings.get_obs_no(), "\n");
-	save.write_ofile("\n");
 
 	int obs_node_cnt = 0;
 
@@ -539,6 +540,8 @@ void game_graphics::save_game(std::string filename) {
 		curr_obs_node = curr_obs_node->get_next();
 		obs_node_cnt++;
 	}
+
+	ASSERT(obs_node_cnt==obs_no);
 
 }
 

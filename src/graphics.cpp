@@ -80,7 +80,7 @@ void graphics::reshape_cb(int width, int height) {
 	glViewport( 0, 0, width, height );
 
 	// set viewing window using perspective projection
-	glMatrixMode( GL_PROJECTION ); 
+	glMatrixMode( GL_PROJECTION );
 	// init projection matrix
 	glLoadIdentity();
 
