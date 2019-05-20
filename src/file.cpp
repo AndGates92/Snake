@@ -130,6 +130,11 @@ iofile::mode_e iofile::File::get_access_mode() {
 	return this->mode;
 }
 
+std::ifstream & iofile::File::get_ifile() {
+	// Return ifile pointer
+	return this->ifile;
+}
+
 // ================================================================
 // Set functions
 // ================================================================

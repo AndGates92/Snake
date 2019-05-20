@@ -16,6 +16,10 @@ namespace cmdline_parser {
 
 	void parse(int argc, char** argv);
 
+	void process();
+
+	void extract_inputfile_info();
+
 	/** @} */ // End of CmdlineParserGroup group
 }
 

@@ -16,6 +16,14 @@ namespace iofile {
 	 *  File functions and classes
 	 *  @{
 	 */
+
+	namespace {
+		/**
+		 * @brief If file doesn't have read or write permission, it will be redirected to /dev/null for such operation
+		 *
+		 */
+		const static std::string & null_file("/dev/null");
+	}
 	/**
 	 * @brief Access mode
 	 *
@@ -40,7 +48,7 @@ namespace iofile {
 	class File {
 		public:
 			// Constructor
-			File(std::string filename = "", mode_e access_mode = iofile::mode_e::NO_ACCESS): name(filename), mode(access_mode) {
+			File(std::string const & filename = "", mode_e access_mode = iofile::mode_e::NO_ACCESS): name(filename), ofile(filename.c_str()), ifile(filename.c_str()), mode(access_mode) {
 				set_access_flags();
 			};
 
@@ -54,6 +62,7 @@ namespace iofile {
 			// Get functions
 			std::string get_name();
 			iofile::mode_e get_access_mode();
+			std::ifstream & get_ifile();
 
 			// Output stream (Write)
 			void close_ofile();

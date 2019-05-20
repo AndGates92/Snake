@@ -12,12 +12,14 @@
 
 #include "settings.h"
 #include "logging.h"
+#include "file.h"
 #include "snake_list.h"
 #include "obstacle.h"
 #include "cmdline_parser.h"
 
 using namespace std;
 using namespace logging;
+using namespace iofile;
 using namespace snake_list;
 using namespace obstacle;
 
@@ -69,4 +71,26 @@ void cmdline_parser::parse(int argc, char** argv) {
 		input_filename.assign(argv[input_file_pos]);
 		LOG_INFO(logging::verb_level_e::LOW,"[Parse] \tInput filename: ", input_filename);
 	}
+}
+
+void cmdline_parser::process() {
+	cmdline_parser::extract_inputfile_info();
+}
+
+void cmdline_parser::extract_inputfile_info() {
+	// If input_filename is equal to an empty string means that it has not been changed
+	if (input_filename.compare("") == 0) {
+		LOG_ERROR("Input file has not been detected");
+	} else {
+		iofile::File input_file(input_filename, iofile::mode_e::RO);
+		input_file.open_ifile();
+		std::ifstream & ifile = input_file.get_ifile();
+		int line_count = 0;
+		for (std::string line; std::getline(ifile, line); ) {
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Process] Line cont ,", line_count, ": ", line);
+cout << "Line no " << line_count << ": " << line << endl;
+			line_count++;
+		}
+	}
+
 }

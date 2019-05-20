@@ -50,7 +50,9 @@ void graphics::init_graphics(int argc, char** argv) {
 		graphics::add_graphics();
 
 	} else {
+		cmdline_parser::parse(argc, argv);
 
+		cmdline_parser::process();
 	}
 
 	// Initialize game
