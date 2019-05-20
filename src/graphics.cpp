@@ -24,6 +24,7 @@
 #include "graphics_utils.h"
 #include "game_graphics.h"
 #include "stat_graphics.h"
+#include "cmdline_parser.h"
 
 using namespace std;
 using namespace logging;
@@ -31,6 +32,7 @@ using namespace menu;
 using namespace graphics;
 using namespace graphics_utils;
 using namespace game_graphics;
+using namespace cmdline_parser;
 
 namespace {
 	static int game_win_id;
