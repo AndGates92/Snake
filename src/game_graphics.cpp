@@ -25,6 +25,7 @@
 #include "snake_list.h"
 #include "snake_node.h"
 #include "snake_utils.h"
+#include "cmdline_parser.h"
 
 using namespace std;
 using namespace logging;
@@ -34,6 +35,7 @@ using namespace game_graphics;
 using namespace graphics_utils;
 using namespace snake_list;
 using namespace snake_utils;
+using namespace cmdline_parser;
 
 namespace game_graphics {
 
