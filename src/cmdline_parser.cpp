@@ -86,11 +86,74 @@ void cmdline_parser::extract_inputfile_info() {
 		input_file.open_ifile();
 		std::ifstream & ifile = input_file.get_ifile();
 		int line_count = 0;
+		cmdline_parser::obj_e object;
+		std::string type;
+		std::string title;
+		int x_centre;
+		int y_centre;
+		int width;
+		int height;
+		colours::palette_e colour;
+		snake_utils::direction_e direction;
+
+		cmdline_parser::reset_common_var(object, type, title, x_centre, y_centre, width, height, colour, direction);
+
 		for (std::string line; std::getline(ifile, line); ) {
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Process] Line cont ,", line_count, ": ", line);
 cout << "Line no " << line_count << ": " << line << endl;
+//			decode_line(line, object, type, title, x_centre, y_centre, width, height, colour, direction);
 			line_count++;
 		}
 	}
 
+}
+
+void cmdline_parser::reset_common_var(cmdline_parser::obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction) {
+	object = cmdline_parser::obj_e::UNKNOWN;
+	type = "";
+	title = "";
+	x_centre = -1;
+	y_centre = -1;
+	width = -1;
+	height= -1;
+	colour = colours::palette_e::UNKNOWN;
+	direction = snake_utils::direction_e::UNKNOWN;
+	LOG_INFO(logging::verb_level_e::DEBUG, "Reset values of common variable:\n\t	object-> ", object, "\n\tType-> ", type, "\n\tTitle-> ", title, "\n\tCoordinates-> (", x_centre, ", ", y_centre, ")\n\t Dimensions: Width-> ", width, " Height-> ", height, "\n\tDirection-> ", direction);
+}
+
+//void cmdline_parser::decode_line(std::string line, cmdline_parser::obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction) {
+
+//}
+
+// Overload << operator for obj_e
+std::ostream& cmdline_parser::operator<< (std::ostream& os, cmdline_parser::obj_e obj) {
+
+	switch (obj) {
+		case cmdline_parser::obj_e::SNAKE:
+			os << "SNAKE";
+			break;
+		case cmdline_parser::obj_e::OBSTACLE:
+			os << "OBSTACLE";
+			break;
+		case cmdline_parser::obj_e::WINDOW:
+			os << "WINDOW";
+			break;
+		case cmdline_parser::obj_e::MENU:
+			os << "MENU";
+			break;
+		case cmdline_parser::obj_e::SETTING:
+			os << "SETTING";
+			break;
+		case cmdline_parser::obj_e::TILE:
+			os << "TILE";
+			break;
+		case cmdline_parser::obj_e::UNKNOWN:
+			os << "UNKNOWN";
+			break;
+		default:
+			os << "Unknown object";
+			break;
+	}
+
+	return os;
 }

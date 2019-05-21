@@ -41,6 +41,9 @@ std::ostream& colours::operator<< (std::ostream& os, colours::palette_e palette)
 		case colours::palette_e::BLACK:
 			os << "BLACK";
 			break;
+		case colours::palette_e::UNKNOWN:
+			os << "UNKNOWN";
+			break;
 		default:
 			os << "Unknown colour";
 			break;

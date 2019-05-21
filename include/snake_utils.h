@@ -25,7 +25,8 @@ namespace snake_utils {
 		UP,
 		DOWN,
 		LEFT,
-		RIGHT
+		RIGHT,
+		UNKNOWN
 	} direction_e;
 
 	/**

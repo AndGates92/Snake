@@ -14,12 +14,33 @@ namespace cmdline_parser {
 	 *  @{
 	 */
 
+	/**
+	 * @brief Object type
+	 *
+	 */
+	typedef enum class obj_list {
+		SNAKE,    /**< Snake */
+		OBSTACLE, /**< Obstacle */
+		WINDOW,   /**< Window */
+		MENU,     /**< Menu */
+		SETTING,  /**< Setting */
+		TILE,     /**< Tile */
+		UNKNOWN   /**< Unknown */
+	} obj_e;
+
+
 	void parse(int argc, char** argv);
 
 	void process();
 
 	void extract_inputfile_info();
 
+	void reset_common_var(cmdline_parser::obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction);
+
+	void decide_line(std::string line, obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction);
+
+	// Overload << operator for obj_e
+	std::ostream& operator<< (std::ostream& os, cmdline_parser::obj_e obj);
 	/** @} */ // End of CmdlineParserGroup group
 }
 

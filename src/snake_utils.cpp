@@ -26,6 +26,9 @@ std::ostream& snake_utils::operator<< (std::ostream& os, snake_utils::direction_
 		case snake_utils::direction_e::RIGHT:
 			os << "RIGHT";
 			break;
+		case snake_utils::direction_e::UNKNOWN:
+			os << "UNKNOWN";
+			break;
 		default:
 			os << "Unknown direction";
 			break;

@@ -37,7 +37,8 @@ namespace colours {
 		PINK,
 		BROWN,
 		WHITE,
-		BLACK
+		BLACK,
+		UNKNOWN
 	} palette_e;
 
 	/**
