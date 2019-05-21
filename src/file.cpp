@@ -53,9 +53,7 @@ bool iofile::File::ofile_is_open() {
 // ================================================================
 void iofile::File::close_ifile() {
 	if (this->ifile_is_open() == true) {
-		if (this->ofile_is_open() == true) {
-			ofile << "File " << __FILE__ << " at line " << __LINE__ << ": " << "[Close ifile] Closing ifile " << this->name << " for read." << std::endl;
-		}
+		LOG_INFO(logging::verb_level_e::HIGH, "[Close ifile] Closing ifile ", this->name, " for write.");
 		this->ifile.close();
 	}
 }
