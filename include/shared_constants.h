@@ -27,6 +27,14 @@ namespace shared_constants {
 	const static int stat_win_pos_x=1500;
 	const static int stat_win_pos_y=50;
 	const static colours::palette_e stat_win_bg = colours::palette_e::BROWN;
+
+	/**
+	 * @brief comment character
+	 *
+	 */
+	const static std::string comment("//");
+
+
 }
 
 #endif // SHARED_CONSTANTS_H
