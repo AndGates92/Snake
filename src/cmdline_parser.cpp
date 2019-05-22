@@ -199,7 +199,6 @@ void cmdline_parser::assign_common_var(std::string var_name, std::string var_val
 
 
 	if ((var_name.compare("TYPE") == 0) | (var_name.compare("Type") == 0) | (var_name.compare("type") == 0)) {
-cout << "Variable: Name -> " << var_name << " Value -> " << var_value << endl;
 		type = var_value;
 		object = cmdline_parser::str_to_obj(var_value);
 		LOG_INFO(logging::verb_level_e::DEBUG, "Assign common variables:\n\t	object-> ", object, "\n\tType-> ", type, "\n\tTitle-> ", title, "\n\tCoordinates-> (", x_centre, ", ", y_centre, ")\n\t Dimensions: Width-> ", width, " Height-> ", height, "\n\tDirection-> ", direction);
@@ -241,7 +240,6 @@ void cmdline_parser::delete_special_characters(std::string & word) {
 		if ( ((word.at(char_no) >= 'a') & (word.at(char_no) <= 'z')) |
 		     ((word.at(char_no) >= 'A') & (word.at(char_no) <= 'Z')) |
 		     ((word.at(char_no) >= '0') & (word.at(char_no) <= '9')) ) {
-		     //((word.at(char_no) >= std::string("0")) & (word.at(char_no) <= std::string("9"))) ) {
 			// No action if alpha-numerical character
 			continue;
 		} else {
@@ -326,19 +324,19 @@ cmdline_parser::obj_e cmdline_parser::str_to_obj (std::string type) {
 
 	cmdline_parser::obj_e obj = cmdline_parser::obj_e::UNKNOWN;
 
-	if ((type.compare("SNAKE") == 0) | (type.compare("Snake")) | (type.compare("snake"))) {
+	if ((type.compare("SNAKE") == 0) | (type.compare("Snake") == 0) | (type.compare("snake") == 0)) {
 		obj = cmdline_parser::obj_e::SNAKE;
-	} else if ((type.compare("OBSTACLE") == 0) | (type.compare("Obstacle")) | (type.compare("obstacle"))) {
+	} else if ((type.compare("OBSTACLE") == 0) | (type.compare("Obstacle") == 0) | (type.compare("obstacle") == 0)) {
 		obj = cmdline_parser::obj_e::OBSTACLE;
-	} else if ((type.compare("WINDOW") == 0) | (type.compare("Window")) | (type.compare("window"))) {
+	} else if ((type.compare("WINDOW") == 0) | (type.compare("Window") == 0) | (type.compare("window") == 0)) {
 		obj = cmdline_parser::obj_e::WINDOW;
-	} else if ((type.compare("MENU") == 0) | (type.compare("Menu")) | (type.compare("menu"))) {
+	} else if ((type.compare("MENU") == 0) | (type.compare("Menu") == 0) | (type.compare("menu") == 0)) {
 		obj = cmdline_parser::obj_e::MENU;
-	} else if ((type.compare("SETTINGS") == 0) | (type.compare("Settings")) | (type.compare("settings"))) {
+	} else if ((type.compare("SETTINGS") == 0) | (type.compare("Settings") == 0) | (type.compare("settings") == 0)) {
 		obj = cmdline_parser::obj_e::SETTINGS;
-	} else if ((type.compare("TILE") == 0) | (type.compare("Tile")) | (type.compare("tile"))) {
+	} else if ((type.compare("TILE") == 0) | (type.compare("Tile") == 0) | (type.compare("tile") == 0)) {
 		obj = cmdline_parser::obj_e::TILE;
-	} else if ((type.compare("UNKNOWN") == 0) | (type.compare("Unknown")) | (type.compare("unknown"))) {
+	} else if ((type.compare("UNKNOWN") == 0) | (type.compare("Unknown") == 0) | (type.compare("unknown") == 0)) {
 		obj = cmdline_parser::obj_e::UNKNOWN;
 	} else {
 		obj = cmdline_parser::obj_e::UNKNOWN;
