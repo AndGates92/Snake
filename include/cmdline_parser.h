@@ -49,8 +49,6 @@ namespace cmdline_parser {
 
 	cmdline_parser::obj_e str_to_obj (std::string type);
 
-	int str_to_int (std::string str);
-
 	// Overload << operator for obj_e
 	std::ostream& operator<< (std::ostream& os, cmdline_parser::obj_e obj);
 	/** @} */ // End of CmdlineParserGroup group

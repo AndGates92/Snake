@@ -31,5 +31,11 @@
  *
  */
 #define STRINGIFY(x) STRINGIFY_EXPR(x)
+
+namespace utility {
+
+	int str_to_int (std::string str);
+
+}
 /** @} */ // End of UtilityGroup group
 #endif // UTILITY_H

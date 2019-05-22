@@ -12,6 +12,7 @@
 #include <cmath>
 
 #include "settings.h"
+#include "utility.h"
 #include "logging.h"
 #include "file.h"
 #include "snake_list.h"
@@ -206,13 +207,13 @@ cout << "Variable: Name -> " << var_name << " Value -> " << var_value << endl;
 	} else if ((var_name.compare("TITLE") == 0) | (var_name.compare("Title") == 0) | (var_name.compare("title") == 0)) {
 		title = var_value;
 	} else if ((var_name.compare("X") == 0) | (var_name.compare("x") == 0)) {
-		x_centre = cmdline_parser::str_to_int(var_value);
+		x_centre = utility::str_to_int(var_value);
 	} else if ((var_name.compare("Y") == 0) | (var_name.compare("y") == 0)) {
-		y_centre = cmdline_parser::str_to_int(var_value);
+		y_centre = utility::str_to_int(var_value);
 	} else if ((var_name.compare("WIDTH") == 0) | (var_name.compare("Width") == 0) | (var_name.compare("width") == 0)) {
-		width = cmdline_parser::str_to_int(var_value);
+		width = utility::str_to_int(var_value);
 	} else if ((var_name.compare("HEIGHT") == 0) | (var_name.compare("Height") == 0) | (var_name.compare("height") == 0)) {
-		height = cmdline_parser::str_to_int(var_value);
+		height = utility::str_to_int(var_value);
 	} else if ((var_name.compare("COLOUR") == 0) | (var_name.compare("Colour") == 0) | (var_name.compare("colour") == 0)) {
 		colour = colours::str_to_colour(var_value);
 	} else if ((var_name.compare("DIRECTION") == 0) | (var_name.compare("Direction") == 0) | (var_name.compare("direction") == 0)) {
@@ -222,13 +223,13 @@ cout << "Variable: Name -> " << var_name << " Value -> " << var_value << endl;
 	} else if ((var_name.compare("SAVE") == 0) | (var_name.compare("Save") == 0) | (var_name.compare("save") == 0)) {
 		snake_settings.set_save_filename(var_value);
 	} else if ((var_name.compare("SPEED") == 0) | (var_name.compare("Speed") == 0) | (var_name.compare("speed") == 0)) {
-		snake_settings.set_speed(cmdline_parser::str_to_int(var_value));
+		snake_settings.set_speed(utility::str_to_int(var_value));
 	} else if ((var_name.compare("SNAKEUNITS") == 0) | (var_name.compare("SnakeUnits") == 0) | (var_name.compare("Snakeunits") == 0) | (var_name.compare("snakeunits") == 0)) {
-		snake_settings.set_snake_units(cmdline_parser::str_to_int(var_value));
+		snake_settings.set_snake_units(utility::str_to_int(var_value));
 	} else if ((var_name.compare("OBSTACLES") == 0) | (var_name.compare("Obstacles") == 0) | (var_name.compare("obstacles") == 0)) {
-		snake_settings.set_obs_no(cmdline_parser::str_to_int(var_value));
+		snake_settings.set_obs_no(utility::str_to_int(var_value));
 	} else if ((var_name.compare("SCORE") == 0) | (var_name.compare("Score") == 0) | (var_name.compare("score") == 0)) {
-		snake_settings.set_score(cmdline_parser::str_to_int(var_value));
+		snake_settings.set_score(utility::str_to_int(var_value));
 	} else {
 		LOG_ERROR("Unknown variable name: ", var_name);
 	}
@@ -347,18 +348,4 @@ cmdline_parser::obj_e cmdline_parser::str_to_obj (std::string type) {
 	return obj;
 }
 
-int cmdline_parser::str_to_int (std::string str) {
 
-	int value = 0;
-	float base = 10.0;
-	std::string::size_type no_digit = str.length();
-
-	for (std::string::size_type char_no=0; char_no < no_digit; char_no++) {
-		int digit = str.at(char_no) - '0';
-		// -1 because the number of digit must start at 0 to count
-		value += digit * ((int) pow(base, (no_digit - char_no - 1)));
-cout << "Value " << value << " digit " << digit << endl;
-	}
-
-	return value;
-}
