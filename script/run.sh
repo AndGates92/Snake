@@ -60,6 +60,7 @@ do
 			shift 1
 			;;
 		--test|-t)
+			compile=1
 			tests=1
 			shift 1
 			;;
@@ -68,6 +69,7 @@ do
 			shift 1
 			;;
 		--memleak|-m)
+			compile=1
 			memleak=1
 			shift 1
 			;;
@@ -91,7 +93,7 @@ do
 	esac
 done
 
-if [ ${tests} -eq 1 ] || [ ${doc} -eq 1 ] || [ ${memleak} -eq 1 ]; then
+if [ ${compile} -eq 1 ] || [ ${doc} -eq 1 ] || [ ${memleak} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Run script variables"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] EXECUTABLE"
@@ -110,7 +112,7 @@ if [ ${debug} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Debug logfile name: ${DEBUGLOG}"
 fi
 
-if [ ${compile} -eq 1 ] || [ ${tests} -eq 1 ]; then
+if [ ${compile} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Compile logfile name hard wall: ${COMPHWLOG}"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] --> Compile logfile name no hard wall: ${COMPNOHWLOG}"
 fi
@@ -159,19 +161,13 @@ fi
 
 if [ ${compile} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
-	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Compile sources"
-	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
-	(set -x; \
-	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXELOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} > ${LOGDIR}/${COMPNOHWLOG})
-fi
-
-if [ ${tests} -eq 1 ]; then
-	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Compile sources with no hard wall"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	(set -x; \
 	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXENOHWLOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENOHWNAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} > ${LOGDIR}/${COMPNOHWLOG})
+fi
 
+if [ ${tests} -eq 1 ]; then
 	if [ -f ./${EXEDIR}/${EXENOHWNAME} ]; then
 		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Run program with no hard wall"
@@ -189,13 +185,18 @@ if [ ${tests} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	(set -x; \
 	 make clean_byprod LOG_DIR=${LOGDIR} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENAME} BIN_DIR=${EXEDIR})
+fi
 
 
+if [ ${compile} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Compile sources with hard wall"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	(set -x; \
 	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXEHWLOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXEHWNAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} BEHFLAGS=${BEHFLAGS} > ${LOGDIR}/${COMPHWLOG})
+fi
+
+if [ ${tests} -eq 1 ]; then
 
 	if [ -f ./${EXEDIR}/${EXEHWNAME} ]; then
 		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
