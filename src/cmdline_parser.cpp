@@ -161,14 +161,16 @@ void cmdline_parser::decode_line(std::string line) {
 	// Not a comment
 	// Start at the start of the line (position 1)
 	std::string var_name("");
+	std::string::size_type var_name_start = 1;
 	std::string::size_type var_name_end = 0;
-	bool var_name_valid = cmdline_parser::extract_word(line, 1, var_name, var_name_end);
-
+	bool var_name_valid = cmdline_parser::extract_word(line, var_name_start, var_name, var_name_end);
 	ASSERT(var_name_valid == true);
 
 	std::string var_value("");
+	std::string::size_type var_value_start = var_name_end + 1;
 	std::string::size_type var_value_end = 0;
-	bool var_value_valid = cmdline_parser::extract_word(line, var_name_end, var_value, var_value_end);
+
+	bool var_value_valid = cmdline_parser::extract_word(line, var_value_start, var_value, var_value_end);
 
 	ASSERT(var_value_valid == true);
 	ASSERT(var_value_end <= line.length());
@@ -190,6 +192,11 @@ int cmdline_parser::extract_word(std::string line, std::string::size_type start_
 
 	std::string::size_type char_cnt = 0;
 
+	// If line starting with search character, keep going
+	while (search_char.compare(line_cpy.substr(char_cnt,1)) == 0) {
+		char_cnt++;
+	}
+
 	// compare return 0 when the 2 strings are identical
 	while((search_char.compare(line_cpy.substr(char_cnt,1)) != 0) && (char_cnt < line_cpy.length())) {
 		word.push_back(line_cpy.at(char_cnt));
@@ -203,10 +210,10 @@ int cmdline_parser::extract_word(std::string line, std::string::size_type start_
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Extract Word] Word found: ", word, " Last character position: ", end_pos);
 	cout << "[Extract Word] Word: " << word << " End Pos " << end_pos << endl;
-	cout << "[Extract Word] char_cnt : " << char_cnt << " line_cpy length " << line_cpy.length() << endl;
+	cout << "[Extract Word] char_cnt: " << char_cnt << " line_cpy length " << line_cpy.length() << endl;
 
 
-	bool valid = (char_cnt != line_cpy.length());
+	bool valid = (word.compare("") != 0);
 	return valid;
 
 }
