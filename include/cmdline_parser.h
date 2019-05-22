@@ -23,7 +23,7 @@ namespace cmdline_parser {
 		OBSTACLE, /**< Obstacle */
 		WINDOW,   /**< Window */
 		MENU,     /**< Menu */
-		SETTING,  /**< Setting */
+		SETTINGS, /**< Settings */
 		TILE,     /**< Tile */
 		UNKNOWN   /**< Unknown */
 	} obj_e;

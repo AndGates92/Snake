@@ -191,15 +191,15 @@ void cmdline_parser::decode_line(std::string line, std::string & var_name, std::
 	ASSERT(var_value_end <= line.length());
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Decode] Variable Name: ", var_name, " Value: ", var_value);
-	cout << "[Decode] Variable: " << var_name << " Value " << var_value << endl;
+//	cout << "[Decode] Variable: " << var_name << " Value " << var_value << endl;
 
 }
 
 void cmdline_parser::assign_common_var(std::string var_name, std::string var_value, cmdline_parser::obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction) {
 
-cout << "Variable: Name -> " << var_name << " Value -> " << var_value << endl;
 
 	if ((var_name.compare("TYPE") == 0) | (var_name.compare("Type") == 0) | (var_name.compare("type") == 0)) {
+cout << "Variable: Name -> " << var_name << " Value -> " << var_value << endl;
 		type = var_value;
 		object = cmdline_parser::str_to_obj(var_value);
 		LOG_INFO(logging::verb_level_e::DEBUG, "Assign common variables:\n\t	object-> ", object, "\n\tType-> ", type, "\n\tTitle-> ", title, "\n\tCoordinates-> (", x_centre, ", ", y_centre, ")\n\t Dimensions: Width-> ", width, " Height-> ", height, "\n\tDirection-> ", direction);
@@ -304,8 +304,8 @@ std::ostream& cmdline_parser::operator<< (std::ostream& os, cmdline_parser::obj_
 		case cmdline_parser::obj_e::MENU:
 			os << "MENU";
 			break;
-		case cmdline_parser::obj_e::SETTING:
-			os << "SETTING";
+		case cmdline_parser::obj_e::SETTINGS:
+			os << "SETTINGS";
 			break;
 		case cmdline_parser::obj_e::TILE:
 			os << "TILE";
@@ -334,8 +334,8 @@ cmdline_parser::obj_e cmdline_parser::str_to_obj (std::string type) {
 		obj = cmdline_parser::obj_e::WINDOW;
 	} else if ((type.compare("MENU") == 0) | (type.compare("Menu")) | (type.compare("menu"))) {
 		obj = cmdline_parser::obj_e::MENU;
-	} else if ((type.compare("SETTING") == 0) | (type.compare("Setting")) | (type.compare("setting"))) {
-		obj = cmdline_parser::obj_e::SETTING;
+	} else if ((type.compare("SETTINGS") == 0) | (type.compare("Settings")) | (type.compare("settings"))) {
+		obj = cmdline_parser::obj_e::SETTINGS;
 	} else if ((type.compare("TILE") == 0) | (type.compare("Tile")) | (type.compare("tile"))) {
 		obj = cmdline_parser::obj_e::TILE;
 	} else if ((type.compare("UNKNOWN") == 0) | (type.compare("Unknown")) | (type.compare("unknown"))) {

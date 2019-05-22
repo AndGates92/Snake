@@ -24,7 +24,6 @@ int utility::str_to_int (std::string str) {
 		int digit = str.at(char_no) - '0';
 		// -1 because the number of digit must start at 0 to count
 		value += digit * ((int) pow(base, (no_digit - char_no - 1)));
-cout << "Value " << value << " digit " << digit << endl;
 	}
 
 	return value;
