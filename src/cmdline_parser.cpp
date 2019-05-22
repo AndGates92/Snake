@@ -166,6 +166,8 @@ void cmdline_parser::decode_line(std::string line) {
 	bool var_name_valid = cmdline_parser::extract_word(line, var_name_start, var_name, var_name_end);
 	ASSERT(var_name_valid == true);
 
+	cmdline_parser::delete_special_characters(var_name);
+
 	std::string var_value("");
 	std::string::size_type var_value_start = var_name_end + 1;
 	std::string::size_type var_value_end = 0;
@@ -178,6 +180,20 @@ void cmdline_parser::decode_line(std::string line) {
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Decode] Variable Name: ", var_name, " Value: ", var_value);
 	cout << "[Decode] Variable: " << var_name << " Value " << var_value << endl;
 
+}
+
+void cmdline_parser::delete_special_characters(std::string & word) {
+	for (std::string::size_type char_no=0; char_no < word.length(); char_no++) {
+		if ( ((word.at(char_no) >= 'a') & (word.at(char_no) <= 'z')) |
+		     ((word.at(char_no) >= 'A') & (word.at(char_no) <= 'Z')) |
+		     ((word.at(char_no) >= '0') & (word.at(char_no) <= '9')) ) {
+		     //((word.at(char_no) >= std::string("0")) & (word.at(char_no) <= std::string("9"))) ) {
+			// No action if alpha-numerical character
+			continue;
+		} else {
+			word.erase(char_no,1);
+		}
+	}
 }
 
 int cmdline_parser::extract_word(std::string line, std::string::size_type start_pos, std::string & word, std::string::size_type & end_pos) {

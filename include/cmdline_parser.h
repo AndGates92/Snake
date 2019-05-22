@@ -44,6 +44,8 @@ namespace cmdline_parser {
 
 	bool check_line(std::string line);
 
+	void delete_special_characters(std::string & word);
+
 	// Overload << operator for obj_e
 	std::ostream& operator<< (std::ostream& os, cmdline_parser::obj_e obj);
 	/** @} */ // End of CmdlineParserGroup group
