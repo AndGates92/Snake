@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <cmath>
 
 #include "settings.h"
 #include "logging.h"
@@ -119,8 +120,10 @@ void cmdline_parser::extract_inputfile_info() {
 //cout << "skip line " << skip_line << endl;
 
 			if (skip_line == false) {
-//				cmdline_parser::decode_line(line, object, type, title, x_centre, y_centre, width, height, colour, direction);
-				decode_line(line);
+				std::string var_name("");
+				std::string var_value("");
+				cmdline_parser::decode_line(line, var_name, var_value);
+				cmdline_parser::assign_common_var(var_name, var_value, object, type, title, x_centre, y_centre, width, height, colour, direction);
 			}
 			line_count++;
 		}
@@ -167,13 +170,10 @@ bool cmdline_parser::check_line(std::string line) {
 	return skip_line;
 }
 
-
-//void cmdline_parser::decode_line(std::string line, cmdline_parser::obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction) {
-void cmdline_parser::decode_line(std::string line) {
+void cmdline_parser::decode_line(std::string line, std::string & var_name, std::string & var_value) {
 
 	// Not a comment
 	// Start at the start of the line (position 1)
-	std::string var_name("");
 	std::string::size_type var_name_start = 1;
 	std::string::size_type var_name_end = 0;
 	bool var_name_valid = cmdline_parser::extract_word(line, var_name_start, var_name, var_name_end);
@@ -181,7 +181,6 @@ void cmdline_parser::decode_line(std::string line) {
 
 	cmdline_parser::delete_special_characters(var_name);
 
-	std::string var_value("");
 	std::string::size_type var_value_start = var_name_end + 1;
 	std::string::size_type var_value_end = 0;
 
@@ -192,6 +191,47 @@ void cmdline_parser::decode_line(std::string line) {
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Decode] Variable Name: ", var_name, " Value: ", var_value);
 	cout << "[Decode] Variable: " << var_name << " Value " << var_value << endl;
+
+}
+
+void cmdline_parser::assign_common_var(std::string var_name, std::string var_value, cmdline_parser::obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction) {
+
+cout << "Variable: Name -> " << var_name << " Value -> " << var_value << endl;
+
+	if ((var_name.compare("TYPE") == 0) | (var_name.compare("Type") == 0) | (var_name.compare("type") == 0)) {
+		type = var_value;
+		object = cmdline_parser::str_to_obj(var_value);
+		LOG_INFO(logging::verb_level_e::DEBUG, "Assign common variables:\n\t	object-> ", object, "\n\tType-> ", type, "\n\tTitle-> ", title, "\n\tCoordinates-> (", x_centre, ", ", y_centre, ")\n\t Dimensions: Width-> ", width, " Height-> ", height, "\n\tDirection-> ", direction);
+		cout << "Assign common variables:\n\t	object-> "<< object<< "\n\tType-> "<< type<< "\n\tTitle-> "<< title<< "\n\tCoordinates-> ("<< x_centre<< ", "<< y_centre<< ")\n\t Dimensions: Width-> "<< width<< " Height-> "<< height<< "\n\tDirection-> "<< direction << endl;
+	} else if ((var_name.compare("TITLE") == 0) | (var_name.compare("Title") == 0) | (var_name.compare("title") == 0)) {
+		title = var_value;
+	} else if ((var_name.compare("X") == 0) | (var_name.compare("x") == 0)) {
+		x_centre = cmdline_parser::str_to_int(var_value);
+	} else if ((var_name.compare("Y") == 0) | (var_name.compare("y") == 0)) {
+		y_centre = cmdline_parser::str_to_int(var_value);
+	} else if ((var_name.compare("WIDTH") == 0) | (var_name.compare("Width") == 0) | (var_name.compare("width") == 0)) {
+		width = cmdline_parser::str_to_int(var_value);
+	} else if ((var_name.compare("HEIGHT") == 0) | (var_name.compare("Height") == 0) | (var_name.compare("height") == 0)) {
+		height = cmdline_parser::str_to_int(var_value);
+	} else if ((var_name.compare("COLOUR") == 0) | (var_name.compare("Colour") == 0) | (var_name.compare("colour") == 0)) {
+		colour = colours::str_to_colour(var_value);
+	} else if ((var_name.compare("DIRECTION") == 0) | (var_name.compare("Direction") == 0) | (var_name.compare("direction") == 0)) {
+		direction = snake_utils::str_to_direction(var_value);
+	} else if ((var_name.compare("DUMP") == 0) | (var_name.compare("Dump") == 0) | (var_name.compare("dump") == 0)) {
+		snake_settings.set_dump_filename(var_value);
+	} else if ((var_name.compare("SAVE") == 0) | (var_name.compare("Save") == 0) | (var_name.compare("save") == 0)) {
+		snake_settings.set_save_filename(var_value);
+	} else if ((var_name.compare("SPEED") == 0) | (var_name.compare("Speed") == 0) | (var_name.compare("speed") == 0)) {
+		snake_settings.set_speed(cmdline_parser::str_to_int(var_value));
+	} else if ((var_name.compare("SNAKEUNITS") == 0) | (var_name.compare("SnakeUnits") == 0) | (var_name.compare("Snakeunits") == 0) | (var_name.compare("snakeunits") == 0)) {
+		snake_settings.set_snake_units(cmdline_parser::str_to_int(var_value));
+	} else if ((var_name.compare("OBSTACLES") == 0) | (var_name.compare("Obstacles") == 0) | (var_name.compare("obstacles") == 0)) {
+		snake_settings.set_obs_no(cmdline_parser::str_to_int(var_value));
+	} else if ((var_name.compare("SCORE") == 0) | (var_name.compare("Score") == 0) | (var_name.compare("score") == 0)) {
+		snake_settings.set_score(cmdline_parser::str_to_int(var_value));
+	} else {
+		LOG_ERROR("Unknown variable name: ", var_name);
+	}
 
 }
 
@@ -278,4 +318,47 @@ std::ostream& cmdline_parser::operator<< (std::ostream& os, cmdline_parser::obj_
 	}
 
 	return os;
+}
+
+// Convert string to object type obj_e
+cmdline_parser::obj_e cmdline_parser::str_to_obj (std::string type) {
+
+	cmdline_parser::obj_e obj = cmdline_parser::obj_e::UNKNOWN;
+
+	if ((type.compare("SNAKE") == 0) | (type.compare("Snake")) | (type.compare("snake"))) {
+		obj = cmdline_parser::obj_e::SNAKE;
+	} else if ((type.compare("OBSTACLE") == 0) | (type.compare("Obstacle")) | (type.compare("obstacle"))) {
+		obj = cmdline_parser::obj_e::OBSTACLE;
+	} else if ((type.compare("WINDOW") == 0) | (type.compare("Window")) | (type.compare("window"))) {
+		obj = cmdline_parser::obj_e::WINDOW;
+	} else if ((type.compare("MENU") == 0) | (type.compare("Menu")) | (type.compare("menu"))) {
+		obj = cmdline_parser::obj_e::MENU;
+	} else if ((type.compare("SETTING") == 0) | (type.compare("Setting")) | (type.compare("setting"))) {
+		obj = cmdline_parser::obj_e::SETTING;
+	} else if ((type.compare("TILE") == 0) | (type.compare("Tile")) | (type.compare("tile"))) {
+		obj = cmdline_parser::obj_e::TILE;
+	} else if ((type.compare("UNKNOWN") == 0) | (type.compare("Unknown")) | (type.compare("unknown"))) {
+		obj = cmdline_parser::obj_e::UNKNOWN;
+	} else {
+		obj = cmdline_parser::obj_e::UNKNOWN;
+		LOG_ERROR("Unknown object type: ", type);
+	}
+
+	return obj;
+}
+
+int cmdline_parser::str_to_int (std::string str) {
+
+	int value = 0;
+	float base = 10.0;
+	std::string::size_type no_digit = str.length();
+
+	for (std::string::size_type char_no=0; char_no < no_digit; char_no++) {
+		int digit = str.at(char_no) - '0';
+		// -1 because the number of digit must start at 0 to count
+		value += digit * ((int) pow(base, (no_digit - char_no - 1)));
+cout << "Value " << value << " digit " << digit << endl;
+	}
+
+	return value;
 }

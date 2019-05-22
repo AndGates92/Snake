@@ -35,9 +35,20 @@ namespace snake_utils {
 	 * \param os: output stream
 	 * \param direction: direction to be printed
 	 *
-	 * Overload << operator to print direction 
+	 * Overload << operator to print direction
 	 */
 	std::ostream& operator<< (std::ostream& os, snake_utils::direction_e direction);
+
+	/**
+	 * @brief Function: snake_utils::direction_e str_to_direction (std::string dir)
+	 *
+	 * \param dir: input direction string
+	 *
+	 * \return direction in form of enumerated value
+	 *
+	 * Converts a string into a direction_e enumerate value
+	 */
+	snake_utils::direction_e str_to_direction (std::string dir);
 	/** @} */ // End of SnakeUtilsGroup group
 }
 #endif // SNAKE_UTILS_H

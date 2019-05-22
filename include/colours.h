@@ -52,6 +52,17 @@ namespace colours {
 	std::ostream& operator<< (std::ostream& os, colours::palette_e palette);
 
 	/**
+	 * @brief Function: colours::palette_e str_to_colour (std::string colour)
+	 *
+	 * \param colour: input colour string
+	 *
+	 * \return colour in form of enumerated value
+	 *
+	 * Converts a string into a palette_e enumerate value
+	 */
+	colours::palette_e str_to_colour (std::string colour);
+
+	/**
 	 * @brief Colour Index
 	 *
 	 */

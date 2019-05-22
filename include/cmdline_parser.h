@@ -37,14 +37,19 @@ namespace cmdline_parser {
 
 	void reset_common_var(cmdline_parser::obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction);
 
-	//void decode_line(std::string line, obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction);
-	void decode_line(std::string line);
+	void assign_common_var(std::string var_name, std::string var_value, obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction);
+
+	void decode_line(std::string line, std::string & var_name, std::string & var_value);
 
 	int extract_word(std::string line, std::string::size_type start_pos, std::string & word, std::string::size_type & end_pos);
 
 	bool check_line(std::string line);
 
 	void delete_special_characters(std::string & word);
+
+	cmdline_parser::obj_e str_to_obj (std::string type);
+
+	int str_to_int (std::string str);
 
 	// Overload << operator for obj_e
 	std::ostream& operator<< (std::ostream& os, cmdline_parser::obj_e obj);
