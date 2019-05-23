@@ -16,6 +16,7 @@
 #include <GL/gl.h>
 
 #include "settings.h"
+#include "utility.h"
 #include "logging.h"
 #include "colours.h"
 #include "menu.h"
@@ -482,6 +483,12 @@ void game_graphics::save_game(std::string filename) {
 	// obstacle pointer
 	snake_node::SnakeNode * curr_snake_node = game_graphics::snake->get_head();
 
+	std::string tmp_filename(filename);
+	tmp_filename.append(".tmp");
+
+	utility::file_rename(filename, tmp_filename);
+	utility::file_delete(filename);
+
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Save Game] Saving game to file: ", filename);
 
 	iofile::File save(filename, iofile::mode_e::WO);
@@ -493,7 +500,7 @@ void game_graphics::save_game(std::string filename) {
 	save.write_ofile("Save: ", snake_settings.get_save_filename(), "\n");
 	save.write_ofile("Speed: ", snake_settings.get_speed(), "\n");
 	int snake_units = snake_settings.get_snake_units();
-	save.write_ofile("Snake Units: ", snake_units, "\n");
+	save.write_ofile("SnakeUnits: ", snake_units, "\n");
 	int obs_no = snake_settings.get_obs_no();
 	save.write_ofile("Obstacles: ", obs_no, "\n");
 	save.write_ofile("Score: ", snake_settings.get_score(), "\n");

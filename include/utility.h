@@ -36,6 +36,10 @@ namespace utility {
 
 	int str_to_int (std::string str);
 
+	bool file_exists (std::string filename);
+
+	void file_rename (std::string orig_file, std::string copy_file);
+	void file_delete (std::string filename);
 }
 /** @} */ // End of UtilityGroup group
 #endif // UTILITY_H

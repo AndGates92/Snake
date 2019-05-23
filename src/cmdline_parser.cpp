@@ -115,7 +115,7 @@ void cmdline_parser::extract_inputfile_info() {
 
 		for (std::string line; std::getline(ifile, line); ) {
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Process] Line cont ,", line_count, ": ", line);
-//cout << "Line no " << line_count << ": " << line << endl;
+cout << "Line no " << line_count << ": " << line << endl;
 
 			bool skip_line = check_line(line);
 //cout << "skip line " << skip_line << endl;
