@@ -40,6 +40,10 @@ int window_obj::WindowObj::get_win_id() {
 	return this->drawing.get_id();
 }
 
+std::string window_obj::WindowObj::get_win_title() {
+	return this->drawing.get_title();
+}
+
 int window_obj::WindowObj::get_menu_id() {
 	return this->action_list.get_id();
 }

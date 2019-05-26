@@ -106,17 +106,18 @@ void graphics::idle_cb() {
 	while (window_node != nullptr) {
 
 		int curr_win_id = window_node->get_win_id();
+		std::string curr_win_title = window_node->get_win_title();
 
-		LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Callback] Window ID: current ", curr_win_id);
+		LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Callback] Window ID: ", curr_win_id, " Title: ", curr_win_title);
 
 		glutSetWindow(curr_win_id);
 
-		if (curr_win_id == game_win_id) {
+		if (curr_win_title == shared_constants::game_win_title) {
 			game_graphics::idle_game_cb();
-		} else if (curr_win_id == stat_win_id) {
+		} else if (curr_win_title == shared_constants::stat_win_title) {
 			stat_graphics::idle_stat_cb();
 		} else {
-			LOG_ERROR("Unknown window ID: ", curr_win_id);
+			LOG_ERROR("Unknown window ID: ", curr_win_id, " Title: ", curr_win_title);
 		}
 
 		window_node = window_node->get_next();
@@ -129,8 +130,10 @@ void graphics::set_id(int id, std::string type) {
 
 	if (type.compare(shared_constants::stat_win_title) == 0) {
 		stat_win_id = id;
+cout << "stat win " << id << endl;
 	} else if (type.compare(shared_constants::game_win_title) == 0) {
 		game_win_id = id;
+cout << "game win " << id << endl;
 	} else {
 		LOG_ERROR("Unknown window type: ", type);
 	}

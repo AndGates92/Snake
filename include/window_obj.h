@@ -39,6 +39,7 @@ namespace window_obj {
 			void save_data (iofile::File & savefile);
 
 			int get_win_id();
+			std::string get_win_title();
 			int get_menu_id();
 			colours::palette_e get_colour_bg();
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
