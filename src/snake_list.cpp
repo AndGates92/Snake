@@ -47,7 +47,8 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 		LOG_ERROR("Can't allocate memory for snake node Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
 	}
 
-//cout << "Scan snake list -> centre: (" << centre_x << ", " << centre_y << ")" <<  endl;
+cout << "Scan snake list -> centre: (" << centre_x << ", " << centre_y << ")" <<  endl;
+cout << "Snake direction: " << snake_direction << endl;
 
 	if(head != nullptr) {
 		snake_node::SnakeNode * snake_list = head;
@@ -70,8 +71,8 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 //				prev_x = snake_list->get_prev()->get_x_centre();
 //				prev_y = snake_list->get_prev()->get_y_centre();
 
-//cout << "X: curr " << curr_x << " centre_x " << centre_x << endl; // << " prev " << prev_x << endl;
-//cout << "Y: curr " << curr_y << " centre_y " << centre_y << endl; //" prev " << prev_y << endl;
+cout << "X: curr " << curr_x << " centre_x " << centre_x << endl; // << " prev " << prev_x << endl;
+cout << "Y: curr " << curr_y << " centre_y " << centre_y << endl; //" prev " << prev_y << endl;
 //				if ((((int) abs(curr_x - centre_x)) <= snake_width) && (((int) abs(prev_x - centre_x)) <= snake_width) || (((int) abs(curr_y - centre_y)) <= snake_height) && (((int) abs(prev_y - centre_y)) <= snake_height)) {
 				if (
 					    ((((int) abs(curr_x - centre_x)) <= snake_width) & ((snake_direction == snake_utils::direction_e::RIGHT) | (snake_direction == snake_utils::direction_e::LEFT)))
@@ -131,9 +132,19 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 //cout << "centre_x " << centre_y << " x_centre_found " << y_centre_found << " V dist units " << vdistance_units << " measured " << vdistance_measured << endl;
 			ASSERT(vdistance_units == vdistance_measured)
 
-			new_snake->set_next(snake_found->get_next());
-			new_snake->set_prev(snake_found);
-			snake_found->set_next(new_snake);
+			// If direction is down or left, add after the element found
+			if ((snake_direction == snake_utils::direction_e::DOWN) | (snake_direction == snake_utils::direction_e::LEFT)) {
+				new_snake->set_next(snake_found->get_next());
+				new_snake->set_prev(snake_found);
+				snake_found->set_next(new_snake);
+			} else {
+				new_snake->set_prev(snake_found->get_prev());
+				new_snake->set_next(snake_found);
+				snake_found->set_prev(new_snake);
+				if (snake_found == head) {
+					this->set_head(new_snake);
+				}
+			}
 //			snake_found->get_prev()->set_next(new_snake);
 		}
 	} else {
@@ -181,7 +192,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 		width_curr = snake_el->get_width();
 
 //cout << "Direction prev " << direction_prev << " curr " << direction_curr << endl;
-//cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev <<" y_centre_curr " << y_centre_curr << " y_centre_prev " << y_centre_prev << endl;
+cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev <<" y_centre_curr " << y_centre_curr << " y_centre_prev " << y_centre_prev << endl;
 
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Current Unit: X ", x_centre_curr, " Y ", y_centre_curr, " Direction ", direction_curr);
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Previous Unit: X ", x_centre_prev, " Y ", y_centre_prev, " Direction ", direction_prev);
