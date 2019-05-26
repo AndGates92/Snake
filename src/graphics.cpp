@@ -45,18 +45,19 @@ void graphics::init_graphics(int argc, char** argv) {
 
 	graphics::declare_game();
 
-	if (argc == 1) {
-		// Initialize graphics
-		graphics::add_graphics();
+	// Initialize graphics (windows)
+	graphics::add_graphics();
 
+	// Initialize game parameters
+	game_graphics::init_game_parameters();
+
+	if (argc == 1) {
+		// Initialize game
+		game_graphics::init_game();
 	} else {
 		cmdline_parser::parse(argc, argv);
-
 		cmdline_parser::process();
 	}
-
-	// Initialize game
-	game_graphics::init_game();
 
 	glutMainLoop();
 }
@@ -64,7 +65,7 @@ void graphics::init_graphics(int argc, char** argv) {
 void graphics::add_graphics() {
 	std::string window_type ("Window");
 	game_win_id = graphics_utils::win_node_add(shared_constants::game_win_title, window_type, shared_constants::game_win_width, shared_constants::game_win_height, shared_constants::game_win_pos_x, shared_constants::game_win_pos_y, shared_constants::game_win_bg);
-	stat_win_id = graphics_utils::win_node_add(shared_constants::stat_win_title,  window_type, shared_constants::stat_win_width, shared_constants::stat_win_height, shared_constants::stat_win_pos_x, shared_constants::stat_win_pos_y, shared_constants::stat_win_bg);
+	stat_win_id = graphics_utils::win_node_add(shared_constants::stat_win_title, window_type, shared_constants::stat_win_width, shared_constants::stat_win_height, shared_constants::stat_win_pos_x, shared_constants::stat_win_pos_y, shared_constants::stat_win_bg);
 }
 
 void graphics::declare_game() {
@@ -122,4 +123,15 @@ void graphics::idle_cb() {
 
 	}
 
+}
+
+void graphics::set_id(int id, std::string type) {
+
+	if (type.compare(shared_constants::stat_win_title) == 0) {
+		stat_win_id = id;
+	} else if (type.compare(shared_constants::game_win_title) == 0) {
+		game_win_id = id;
+	} else {
+		LOG_ERROR("Unknown window type: ", type);
+	}
 }

@@ -51,6 +51,8 @@ namespace cmdline_parser {
 
 	// Overload << operator for obj_e
 	std::ostream& operator<< (std::ostream& os, cmdline_parser::obj_e obj);
+
+	void create_obj (cmdline_parser::obj_e object, std::string type, std::string title, int x_centre, int y_centre, int width, int height, colours::palette_e colour, snake_utils::direction_e direction);
 	/** @} */ // End of CmdlineParserGroup group
 }
 

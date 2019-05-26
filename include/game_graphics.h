@@ -254,18 +254,34 @@ namespace game_graphics {
 	void free_game_memory();
 
 	/**
-	 * @brief Function: void game_graphics::add_node (int centre_x, int centre_y, int node_width, int node_height, int dir, int colour);
+	 * @brief Function: void game_graphics::add_snake_node (int centre_x, int centre_y, int node_width, int node_height, snake_utils::direction_e dir, colours::palette_e colour);
 	 *
-	 * ¡param centre_x:   sentre of the unit in the X coordinate
-	 * ¡param centre_y:   sentre of the unit in the Y coordinate
-	 * ¡param node_width: width of the unit
-	 * ¡param node_heiht: Heightsentre of the unit
-	 * ¡param dir:        direction of the unit
-	 * ¡param colour:     background colour
+	 * \param centre_x:   sentre of the unit in the X coordinate
+	 * \param centre_y:   sentre of the unit in the Y coordinate
+	 * \param node_width: width of the unit
+	 * \param node_heiht: height of the unit
+	 * \param dir:        direction of the unit
+	 * \param colour:     background colour
 	 *
-	 * This function free memory allocated for snake list, obstacled and delete the window
+	 * This function add a new node to the snake list
 	 */
-	void add_node (int centre_x, int centre_y, int node_width, int node_height, snake_utils::direction_e dir, colours::palette_e colour);
+	void add_snake_node (int centre_x, int centre_y, int node_width, int node_height, snake_utils::direction_e dir, colours::palette_e colour);
+
+	/**
+	 * @brief Function: void game_graphics::add_obs_node (int centre_x, int centre_y, int node_width, int node_height, colours::palette_e colour);
+	 *
+	 * \param centre_x:   sentre of the unit in the X coordinate
+	 * \param centre_y:   sentre of the unit in the Y coordinate
+	 * \param node_width: width of the unit
+	 * \param node_heiht: height of the unit
+	 * \param colour:     background colour
+	 *
+	 * This function add a new node to the obstacle list
+	 */
+	void add_obs_node (int centre_x, int centre_y, int node_width, int node_height, colours::palette_e colour);
+
+
+
 }
 
 template <typename game_pixel_type>

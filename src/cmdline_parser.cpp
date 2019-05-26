@@ -11,6 +11,8 @@
 #include <cstring>
 #include <cmath>
 
+#include "graphics.h"
+#include "game_graphics.h"
 #include "settings.h"
 #include "utility.h"
 #include "logging.h"
@@ -115,7 +117,7 @@ void cmdline_parser::extract_inputfile_info() {
 
 		for (std::string line; std::getline(ifile, line); ) {
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Process] Line cont ,", line_count, ": ", line);
-cout << "Line no " << line_count << ": " << line << endl;
+//cout << "Line no " << line_count << ": " << line << endl;
 
 			bool skip_line = check_line(line);
 //cout << "skip line " << skip_line << endl;
@@ -197,12 +199,15 @@ void cmdline_parser::decode_line(std::string line, std::string & var_name, std::
 
 void cmdline_parser::assign_common_var(std::string var_name, std::string var_value, cmdline_parser::obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction) {
 
-
 	if ((var_name.compare("TYPE") == 0) | (var_name.compare("Type") == 0) | (var_name.compare("type") == 0)) {
+		//cout << "Assign common variables:\n\t	object-> "<< object<< "\n\tType-> "<< type<< "\n\tTitle-> "<< title<< "\n\tCoordinates-> ("<< x_centre<< ", "<< y_centre<< ")\n\t Dimensions: Width-> "<< width<< " Height-> "<< height<< "\n\tDirection-> "<< direction << endl;
+		LOG_INFO(logging::verb_level_e::DEBUG, "Assign common variables:\n\t	object-> ", object, "\n\tType-> ", type, "\n\tTitle-> ", title, "\n\tCoordinates-> (", x_centre, ", ", y_centre, ")\n\t Dimensions: Width-> ", width, " Height-> ", height, "\n\tDirection-> ", direction);
+		if (object != cmdline_parser::obj_e::UNKNOWN) {
+			cmdline_parser::create_obj (object, type, title, x_centre, y_centre, width, height, colour, direction);
+		}
+		cmdline_parser::reset_common_var(object, type, title, x_centre, y_centre, width, height, colour, direction);
 		type = var_value;
 		object = cmdline_parser::str_to_obj(var_value);
-		LOG_INFO(logging::verb_level_e::DEBUG, "Assign common variables:\n\t	object-> ", object, "\n\tType-> ", type, "\n\tTitle-> ", title, "\n\tCoordinates-> (", x_centre, ", ", y_centre, ")\n\t Dimensions: Width-> ", width, " Height-> ", height, "\n\tDirection-> ", direction);
-		cout << "Assign common variables:\n\t	object-> "<< object<< "\n\tType-> "<< type<< "\n\tTitle-> "<< title<< "\n\tCoordinates-> ("<< x_centre<< ", "<< y_centre<< ")\n\t Dimensions: Width-> "<< width<< " Height-> "<< height<< "\n\tDirection-> "<< direction << endl;
 	} else if ((var_name.compare("TITLE") == 0) | (var_name.compare("Title") == 0) | (var_name.compare("title") == 0)) {
 		title = var_value;
 	} else if ((var_name.compare("X") == 0) | (var_name.compare("x") == 0)) {
@@ -346,4 +351,33 @@ cmdline_parser::obj_e cmdline_parser::str_to_obj (std::string type) {
 	return obj;
 }
 
+// Create object
+void cmdline_parser::create_obj (cmdline_parser::obj_e object, std::string type, std::string title, int x_centre, int y_centre, int width, int height, colours::palette_e colour, snake_utils::direction_e direction) {
 
+	int id = 0;
+
+	switch (object) {
+		case cmdline_parser::obj_e::SNAKE:
+			game_graphics::add_snake_node(x_centre, y_centre, width, height, direction, colour);
+			break;
+		case cmdline_parser::obj_e::OBSTACLE:
+			game_graphics::add_obs_node(x_centre, y_centre, width, height, colour);
+			break;
+		case cmdline_parser::obj_e::WINDOW:
+			id = graphics_utils::win_node_add(title, type, width, height, x_centre, y_centre, colour);
+			graphics::set_id(id, title);
+			break;
+		case cmdline_parser::obj_e::TILE:
+			snake_settings.set_tile_width(width);
+			snake_settings.set_tile_height(height);
+			break;
+		case cmdline_parser::obj_e::MENU:
+		case cmdline_parser::obj_e::SETTINGS:
+		case cmdline_parser::obj_e::UNKNOWN:
+			LOG_INFO(logging::verb_level_e::ZERO, "[Create Obj] Calling create_obj for object: ", object, ". No action to be take");
+			break;
+		default:
+			LOG_ERROR("Unknown object: ", object);
+			break;
+	}
+}

@@ -40,6 +40,16 @@ namespace graphics {
 	 */
 	void declare_game();
 
+	/**
+	 * @brief Function: void set_id(int id, std::string type)
+	 *
+	 * \param id: window ID
+	 * \param type: type of teh content of the window
+	 *
+	 * This function is called to set a window ID when an input file is provided in command line
+	 */
+	void set_id(int id, std::string type);
+
 }
 
 #endif // GRAPHICS_H

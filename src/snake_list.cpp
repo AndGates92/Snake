@@ -117,9 +117,9 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 			}
 
 //cout << "Direction " << direction_found << endl;
-//cout << "centre_y " << centre_y << " y_centre_found " << y_centre_found << "H dist units " << hdistance_units << " measured " << hdistance_measured << endl;
+cout << "centre_y " << centre_y << " y_centre_found " << y_centre_found << " H dist units " << hdistance_units << " measured " << hdistance_measured << endl;
 			ASSERT(hdistance_units == hdistance_measured)
-//cout << "centre_x " << centre_x << " x_centre_found " << x_centre_found << "V dist units " << vdistance_units << " measured " << vdistance_measured << endl;
+cout << "centre_x " << centre_x << " x_centre_found " << x_centre_found << " V dist units " << vdistance_units << " measured " << vdistance_measured << endl;
 			ASSERT(vdistance_units == vdistance_measured)
 
 			new_snake->set_prev(snake_found->get_prev());
