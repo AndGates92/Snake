@@ -357,6 +357,7 @@ void game_graphics::add_snake_node (int centre_x, int centre_y, int node_width, 
 }
 
 void game_graphics::add_obs_node (int centre_x, int centre_y, int node_width, int node_height, colours::palette_e colour) {
+//cout << "Add obstacle node" << endl;
 	game_graphics::obstacles->add_node(centre_x, centre_y, node_width, node_height, colour);
 }
 

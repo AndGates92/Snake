@@ -43,15 +43,15 @@ snake_utils::direction_e snake_utils::str_to_direction (std::string dir) {
 
 	snake_utils::direction_e dir_tmp = snake_utils::direction_e::UNKNOWN;
 
-	if ((dir.compare("UP") == 0) | (dir.compare("Up")) | (dir.compare("up"))) {
+	if ((dir.compare("UP") == 0) | (dir.compare("Up") == 0) | (dir.compare("up") == 0)) {
 		dir_tmp = snake_utils::direction_e::UP;
-	} else if ((dir.compare("DOWN") == 0) | (dir.compare("Down")) | (dir.compare("down"))) {
+	} else if ((dir.compare("DOWN") == 0) | (dir.compare("Down") == 0) | (dir.compare("down") == 0)) {
 		dir_tmp = snake_utils::direction_e::DOWN;
-	} else if ((dir.compare("LEFT") == 0) | (dir.compare("Left")) | (dir.compare("left"))) {
+	} else if ((dir.compare("LEFT") == 0) | (dir.compare("Left") == 0) | (dir.compare("left") == 0)) {
 		dir_tmp = snake_utils::direction_e::LEFT;
-	} else if ((dir.compare("RIGHT") == 0) | (dir.compare("Right")) | (dir.compare("right"))) {
+	} else if ((dir.compare("RIGHT") == 0) | (dir.compare("Right") == 0) | (dir.compare("right") == 0)) {
 		dir_tmp = snake_utils::direction_e::RIGHT;
-	} else if ((dir.compare("UNKNOWN") == 0) | (dir.compare("Unknown")) | (dir.compare("unknown"))) {
+	} else if ((dir.compare("UNKNOWN") == 0) | (dir.compare("Unknown") == 0) | (dir.compare("unknown") == 0)) {
 		dir_tmp = snake_utils::direction_e::UNKNOWN;
 	} else {
 		dir_tmp = snake_utils::direction_e::UNKNOWN;

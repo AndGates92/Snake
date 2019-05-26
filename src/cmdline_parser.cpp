@@ -130,6 +130,10 @@ void cmdline_parser::extract_inputfile_info() {
 			}
 			line_count++;
 		}
+
+		if (object != cmdline_parser::obj_e::UNKNOWN) {
+			cmdline_parser::create_obj(object, type, title, x_centre, y_centre, width, height, colour, direction);
+		}
 	}
 
 }
@@ -200,10 +204,10 @@ void cmdline_parser::decode_line(std::string line, std::string & var_name, std::
 void cmdline_parser::assign_common_var(std::string var_name, std::string var_value, cmdline_parser::obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction) {
 
 	if ((var_name.compare("TYPE") == 0) | (var_name.compare("Type") == 0) | (var_name.compare("type") == 0)) {
-		//cout << "Assign common variables:\n\t	object-> "<< object<< "\n\tType-> "<< type<< "\n\tTitle-> "<< title<< "\n\tCoordinates-> ("<< x_centre<< ", "<< y_centre<< ")\n\t Dimensions: Width-> "<< width<< " Height-> "<< height<< "\n\tDirection-> "<< direction << endl;
+//		cout << "Assign common variables:\n\t	object-> "<< object<< "\n\tType-> "<< type<< "\n\tTitle-> "<< title<< "\n\tCoordinates-> ("<< x_centre<< ", "<< y_centre<< ")\n\t Dimensions: Width-> "<< width<< " Height-> "<< height<< "\n\tDirection-> "<< direction << endl;
 		LOG_INFO(logging::verb_level_e::DEBUG, "Assign common variables:\n\t	object-> ", object, "\n\tType-> ", type, "\n\tTitle-> ", title, "\n\tCoordinates-> (", x_centre, ", ", y_centre, ")\n\t Dimensions: Width-> ", width, " Height-> ", height, "\n\tDirection-> ", direction);
 		if (object != cmdline_parser::obj_e::UNKNOWN) {
-			cmdline_parser::create_obj (object, type, title, x_centre, y_centre, width, height, colour, direction);
+			cmdline_parser::create_obj(object, type, title, x_centre, y_centre, width, height, colour, direction);
 		}
 		cmdline_parser::reset_common_var(object, type, title, x_centre, y_centre, width, height, colour, direction);
 		type = var_value;
@@ -352,7 +356,7 @@ cmdline_parser::obj_e cmdline_parser::str_to_obj (std::string type) {
 }
 
 // Create object
-void cmdline_parser::create_obj (cmdline_parser::obj_e object, std::string type, std::string title, int x_centre, int y_centre, int width, int height, colours::palette_e colour, snake_utils::direction_e direction) {
+void cmdline_parser::create_obj(cmdline_parser::obj_e object, std::string type, std::string title, int x_centre, int y_centre, int width, int height, colours::palette_e colour, snake_utils::direction_e direction) {
 
 	int id = 0;
 

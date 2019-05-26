@@ -35,7 +35,6 @@ snake_list::SnakeList::~SnakeList() {
 
 }
 
-
 void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour) {
 
 	snake_node::SnakeNode * head = this->get_head();
@@ -47,6 +46,8 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 		LOG_ERROR("Can't allocate memory for snake node Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
 	}
 
+//cout << "Scan snake list -> centre: (" << centre_x << ", " << centre_y << ")" <<  endl;
+
 	if(head != nullptr) {
 		snake_node::SnakeNode * snake_list = head;
 		snake_node::SnakeNode * snake_found = nullptr;
@@ -57,25 +58,32 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 		int height_head = head->get_height();
 		ASSERT(height_head == snake_height)
 
-
-
 		while (snake_list != nullptr) {
-			int prev_x = 0;
-			int prev_y = 0;
+//			int prev_x = 0;
+//			int prev_y = 0;
 
 			int curr_x = snake_list->get_x_centre();
 			int curr_y = snake_list->get_y_centre();
 
-			if (snake_list->get_prev() != nullptr) {
-				prev_x = snake_list->get_prev()->get_x_centre();
-				prev_y = snake_list->get_prev()->get_y_centre();
+//			if (snake_list->get_prev() != nullptr) {
+//				prev_x = snake_list->get_prev()->get_x_centre();
+//				prev_y = snake_list->get_prev()->get_y_centre();
 
-				if ((((int) abs(curr_x - centre_x)) <= snake_width) && (((int) abs(prev_x - centre_x)) <= snake_width) && (((int) abs(curr_y - centre_y)) <= snake_height) && (((int) abs(prev_y - centre_y)) <= snake_height)) {
+//cout << "X: curr " << curr_x << " centre_x " << centre_x << endl; // << " prev " << prev_x << endl;
+//cout << "Y: curr " << curr_y << " centre_y " << centre_y << endl; //" prev " << prev_y << endl;
+//				if ((((int) abs(curr_x - centre_x)) <= snake_width) && (((int) abs(prev_x - centre_x)) <= snake_width) || (((int) abs(curr_y - centre_y)) <= snake_height) && (((int) abs(prev_y - centre_y)) <= snake_height)) {
+				if (
+					    ((((int) abs(curr_x - centre_x)) <= snake_width) & ((snake_direction == snake_utils::direction_e::RIGHT) | (snake_direction == snake_utils::direction_e::LEFT)))
+					 || ((((int) abs(curr_y - centre_y)) <= snake_height) & ((snake_direction == snake_utils::direction_e::UP) | (snake_direction == snake_utils::direction_e::DOWN)))
+				) {
 					snake_found = snake_list;
+//cout << "Snake found" << endl;
 				}
-			}
+//			}
+//cout << "Snake found " << snake_found << " snake list " << snake_list << endl;
 			snake_list = snake_list->get_next();
 		}
+
 
 		if (snake_found == nullptr) {
 			snake_node::SnakeNode * snake_head = head;
@@ -117,15 +125,15 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 			}
 
 //cout << "Direction " << direction_found << endl;
-cout << "centre_y " << centre_y << " y_centre_found " << y_centre_found << " H dist units " << hdistance_units << " measured " << hdistance_measured << endl;
+//cout << "centre_y " << centre_x << " y_centre_found " << x_centre_found << " H dist units " << hdistance_units << " measured " << hdistance_measured << endl;
 			ASSERT(hdistance_units == hdistance_measured)
-cout << "centre_x " << centre_x << " x_centre_found " << x_centre_found << " V dist units " << vdistance_units << " measured " << vdistance_measured << endl;
+//cout << "centre_x " << centre_y << " x_centre_found " << y_centre_found << " V dist units " << vdistance_units << " measured " << vdistance_measured << endl;
 			ASSERT(vdistance_units == vdistance_measured)
 
-			new_snake->set_prev(snake_found->get_prev());
-			new_snake->set_next(snake_found);
-			snake_found->set_prev(new_snake);
-			snake_found->get_prev()->set_next(new_snake);
+			new_snake->set_next(snake_found->get_next());
+			new_snake->set_prev(snake_found);
+			snake_found->set_next(new_snake);
+//			snake_found->get_prev()->set_next(new_snake);
 		}
 	} else {
 		new_snake->set_prev(nullptr);
@@ -311,7 +319,6 @@ int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int cur
 	// X for vertical movement
 	// Y for horizontal movement
 	int diff = (int) abs(curr_coord_perp_dir - prev_coord_perp_dir);
-//cout << "diff " << diff << endl;
 	if (diff > 0) {
 		if (diff < speed) {
 			adjustment = diff;
@@ -342,7 +349,7 @@ int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int cur
 			}
 		}
 		adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - adj_prev_coord_mov_dir));
-// cout << "snake_el " << snake_el << " head ptr " << head << " adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir << " adj_prev_coord_mov_dir " << adj_prev_coord_mov_dir << " win_dim_move " << win_dim_mov <<  endl;
+//cout << "snake_el " << snake_el << " head ptr " << head << " adj " << adjustment << " centre dist " << centre_distance << " curr_coord_mov_dir " << curr_coord_mov_dir << " prev_coord_mov_dir " << prev_coord_mov_dir << " adj_prev_coord_mov_dir " << adj_prev_coord_mov_dir << " win_dim_move " << win_dim_mov <<  endl;
 		// For head adjustment is equal to centre_distance because curr and prev coord are identicals
 		if (snake_el != head) {
 			ASSERT(adjustment == 0);
