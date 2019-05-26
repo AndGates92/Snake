@@ -35,6 +35,7 @@ snake_list::SnakeList::~SnakeList() {
 
 }
 
+// Add nodes from the head down
 void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour) {
 
 	snake_node::SnakeNode * head = this->get_head();
