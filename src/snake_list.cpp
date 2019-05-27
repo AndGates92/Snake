@@ -38,7 +38,7 @@ snake_list::SnakeList::~SnakeList() {
 // Add nodes from the head down
 void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour) {
 
-	snake_node::SnakeNode * head = this->get_head();
+	snake_node::SnakeNode * head (this->get_head());
 	std::string name = this->get_name();
 
 	LOG_INFO(logging::verb_level_e::LOW, "[Add Node] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
@@ -194,8 +194,8 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 		height_curr = snake_el->get_height();
 		width_curr = snake_el->get_width();
 
-cout << "Direction prev " << direction_prev << " curr " << direction_curr << " head " << head_dir << endl;
-cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev <<" y_centre_curr " << y_centre_curr << " y_centre_prev " << y_centre_prev << endl;
+//cout << "Direction prev " << direction_prev << " curr " << direction_curr << " head " << head_dir << endl;
+//cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev <<" y_centre_curr " << y_centre_curr << " y_centre_prev " << y_centre_prev << endl;
 
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Current Unit: X ", x_centre_curr, " Y ", y_centre_curr, " Direction ", direction_curr);
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Previous Unit: X ", x_centre_prev, " Y ", y_centre_prev, " Direction ", direction_prev);
@@ -216,9 +216,9 @@ cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev
 				int y_diff = abs(y_centre_curr - y_centre_prev);
 				int width_centre_distance = (width_curr + width_prev)/2;
 				int x_diff = abs(x_centre_curr - x_centre_prev);
-cout << "Diff X " << x_diff << " Y " << y_diff << endl;
-cout << "Centre distance Width " << width_centre_distance << " height " << height_centre_distance << endl;
-cout << "Direction current " << direction_curr << " previous " << direction_prev << endl;
+//cout << "Diff X " << x_diff << " Y " << y_diff << endl;
+//cout << "Centre distance Width " << width_centre_distance << " height " << height_centre_distance << endl;
+//cout << "Direction current " << direction_curr << " previous " << direction_prev << endl;
 				if (((direction_curr == snake_utils::direction_e::RIGHT) & (direction_prev == snake_utils::direction_e::LEFT)) | ((direction_curr == snake_utils::direction_e::LEFT) & (direction_prev == snake_utils::direction_e::RIGHT))) {
 					if ((y_diff < height_centre_distance) & (x_diff < width_centre_distance)) {
 						LOG_ERROR("Units moving in opposite horizintal movement and colliding");
