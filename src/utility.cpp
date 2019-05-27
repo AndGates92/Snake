@@ -36,15 +36,16 @@ bool utility::file_exists (std::string filename) {
 
 	bool exists = false;
 
-	std::ifstream ifile;
-	ifile.open(filename, std::ios::in);
+	std::ifstream ifile(filename.c_str());
 	// 0 means failure
-	if ((ifile.rdstate() & std::istream::badbit) == 0) {
-		exists = false;
-	} else {
+	if (ifile) {
 		ifile.close();
 		exists = true;
+	} else {
+		exists = false;
 	}
+
+	cout << "file: " << filename << " exits: " << exists << endl;
 
 	return exists;
 }
@@ -54,8 +55,21 @@ void utility::file_rename (std::string orig_file, std::string copy_file) {
 	bool copy_file_found = false;
 	copy_file_found = utility::file_exists(copy_file);
 
+	std::string copy_filename(copy_file);
+
+	int number = 0;
+
+	while (copy_file_found == true) {
+		std::string new_copy_file(copy_file);
+		new_copy_file.append(std::to_string(number));
+		copy_file_found = utility::file_exists(new_copy_file);
+		copy_filename = new_copy_file;
+		number++;
+	}
+
+	// Safety net
 	if (copy_file_found == true) {
-		utility::file_delete(copy_file);
+		utility::file_delete(copy_filename);
 	}
 
 	bool orig_file_found = false;
@@ -63,9 +77,9 @@ void utility::file_rename (std::string orig_file, std::string copy_file) {
 	int rename_succesful = -1;
 
 	if (orig_file_found == true) {
-		rename_succesful = std::rename(orig_file.c_str(), copy_file.c_str());
+		rename_succesful = std::rename(orig_file.c_str(), copy_filename.c_str());
 		if (rename_succesful != 0) {
-			LOG_ERROR("Failed to rename ", orig_file, " as ", copy_file);
+			LOG_ERROR("Failed to rename ", orig_file, " as ", copy_filename);
 		}
 	} else {
 		LOG_INFO(logging::verb_level_e::LOW, "[File rename] Original file ", orig_file, " doesn't exists.");

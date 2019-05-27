@@ -508,6 +508,7 @@ void game_graphics::save_game(std::string filename) {
 	utility::file_delete(filename);
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Save Game] Saving game to file: ", filename);
+cout << "[Save Game] Saving game to file: " << filename << endl;
 
 	iofile::File save(filename, iofile::mode_e::WO);
 
