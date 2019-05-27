@@ -205,8 +205,8 @@ void cmdline_parser::decode_line(std::string line, std::string & var_name, std::
 void cmdline_parser::assign_common_var(std::string var_name, std::string var_value, cmdline_parser::obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction) {
 
 	if ((var_name.compare("TYPE") == 0) | (var_name.compare("Type") == 0) | (var_name.compare("type") == 0)) {
-//		cout << "Assign common variables:\n\t	object-> "<< object<< "\n\tType-> "<< type<< "\n\tTitle-> "<< title<< "\n\tCoordinates-> ("<< x_centre<< ", "<< y_centre<< ")\n\t Dimensions: Width-> "<< width<< " Height-> "<< height<< "\n\tDirection-> "<< direction << endl;
-		LOG_INFO(logging::verb_level_e::DEBUG, "Assign common variables:\n\t	object-> ", object, "\n\tType-> ", type, "\n\tTitle-> ", title, "\n\tCoordinates-> (", x_centre, ", ", y_centre, ")\n\t Dimensions: Width-> ", width, " Height-> ", height, "\n\tDirection-> ", direction);
+//		cout << "Assign common variables:\n\t	object-> "<< object<< "\n\tType-> "<< type<< "\n\tTitle-> "<< title<< "\n\tCoordinates-> ("<< x_centre<< ", "<< y_centre<< ")\n\t Dimensions: Width-> "<< width<< " Height-> "<< height<< "\n\tDirection-> "<< direction << "\n\tColour-> " << colour << endl;
+		LOG_INFO(logging::verb_level_e::DEBUG, "Assign common variables:\n\t	object-> ", object, "\n\tType-> ", type, "\n\tTitle-> ", title, "\n\tCoordinates-> (", x_centre, ", ", y_centre, ")\n\t Dimensions: Width-> ", width, " Height-> ", height, "\n\tDirection-> ", direction, "\n\tColour-> ", colour);
 		if (object != cmdline_parser::obj_e::UNKNOWN) {
 			cmdline_parser::create_obj(object, type, title, x_centre, y_centre, width, height, colour, direction);
 		}
