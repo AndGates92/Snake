@@ -10,6 +10,9 @@
 #include <fstream>
 #include <cmath>
 #include <cstdio>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 
 #include "utility.h"
 #include "logging.h"
@@ -55,14 +58,15 @@ void utility::file_rename (std::string orig_file, std::string copy_file) {
 
 	std::string copy_filename(copy_file);
 
-	int number = 0;
-
 	while (copy_file_found == true) {
 		std::string new_copy_file(copy_file);
-		new_copy_file.append(std::to_string(number));
+		auto abstime = std::time(nullptr);
+		auto ltime = *std::localtime(&abstime);
+		std::ostringstream timestr;
+		timestr << std::put_time(&ltime, "_%d_%m_%Y_%H_%M_%S");
+		new_copy_file.append(timestr.str());
 		copy_file_found = utility::file_exists(new_copy_file);
 		copy_filename = new_copy_file;
-		number++;
 	}
 
 	// Safety net
@@ -78,6 +82,8 @@ void utility::file_rename (std::string orig_file, std::string copy_file) {
 		rename_succesful = std::rename(orig_file.c_str(), copy_filename.c_str());
 		if (rename_succesful != 0) {
 			LOG_ERROR("Failed to rename ", orig_file, " as ", copy_filename);
+		} else {
+			LOG_INFO(logging::verb_level_e::LOW, "Rename ", orig_file, " as ", copy_filename);
 		}
 	} else {
 		LOG_INFO(logging::verb_level_e::LOW, "[File rename] Original file ", orig_file, " doesn't exists.");
