@@ -380,10 +380,10 @@ void cmdline_parser::create_obj(cmdline_parser::obj_e object, std::string type, 
 		case cmdline_parser::obj_e::MENU:
 		case cmdline_parser::obj_e::SETTINGS:
 		case cmdline_parser::obj_e::UNKNOWN:
-			LOG_INFO(logging::verb_level_e::ZERO, "[Create Obj] Calling create_obj for object: ", object, ". No action to be take");
+			LOG_INFO(logging::verb_level_e::ZERO, "[Create Object] Calling create_obj for object: ", object, ". No action to be take");
 			break;
 		default:
-			LOG_ERROR("Unknown object: ", object);
+			LOG_ERROR("[Create Object] Unknown object: ", object);
 			break;
 	}
 }
