@@ -254,7 +254,7 @@ namespace game_graphics {
 	void free_game_memory();
 
 	/**
-	 * @brief Function: void game_graphics::add_snake_node (int centre_x, int centre_y, int node_width, int node_height, snake_utils::direction_e dir, colours::palette_e colour);
+	 * @brief Function: void add_snake_node (int centre_x, int centre_y, int node_width, int node_height, snake_utils::direction_e dir, colours::palette_e colour);
 	 *
 	 * \param centre_x:   sentre of the unit in the X coordinate
 	 * \param centre_y:   sentre of the unit in the Y coordinate
@@ -268,7 +268,7 @@ namespace game_graphics {
 	void add_snake_node (int centre_x, int centre_y, int node_width, int node_height, snake_utils::direction_e dir, colours::palette_e colour);
 
 	/**
-	 * @brief Function: void game_graphics::add_obs_node (int centre_x, int centre_y, int node_width, int node_height, colours::palette_e colour);
+	 * @brief Function: void add_obs_node (int centre_x, int centre_y, int node_width, int node_height, colours::palette_e colour);
 	 *
 	 * \param centre_x:   sentre of the unit in the X coordinate
 	 * \param centre_y:   sentre of the unit in the Y coordinate
@@ -280,7 +280,12 @@ namespace game_graphics {
 	 */
 	void add_obs_node (int centre_x, int centre_y, int node_width, int node_height, colours::palette_e colour);
 
-
+	/**
+	 * @brief Function: void set_snake_settings();
+	 *
+	 * This function sets the settings of the snake pointer
+	 */
+	void set_snake_settings();
 
 }
 

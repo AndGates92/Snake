@@ -352,6 +352,20 @@ void game_graphics::populate_snake_list() {
 
 }
 
+void game_graphics::set_snake_settings() {
+
+	snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
+	snake_utils::direction_e head_dir = snake_head->get_direction();
+	snake_settings.set_head_dir(head_dir);
+	int snake_head_x = snake_head->get_x_centre();
+	snake_settings.set_head_centre_x(snake_head_x);
+	int snake_head_y = snake_head->get_y_centre();
+	snake_settings.set_head_centre_y(snake_head_y);
+
+cout << "Head dir: " << head_dir << " X " << snake_head_x << " Y " << snake_head_y << endl;
+
+}
+
 void game_graphics::add_snake_node (int centre_x, int centre_y, int node_width, int node_height, snake_utils::direction_e dir, colours::palette_e colour) {
 	game_graphics::snake->add_node(centre_x, centre_y, node_width, node_height, dir, colour);
 }

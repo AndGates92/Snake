@@ -53,6 +53,7 @@ cout << "Snake direction: " << snake_direction << endl;
 	if(head != nullptr) {
 		snake_node::SnakeNode * snake_list = head;
 		snake_node::SnakeNode * snake_found = nullptr;
+		snake_node::SnakeNode * snake_prev = nullptr;
 
 		int width_head = head->get_width();
 		ASSERT(width_head == snake_width)
@@ -60,34 +61,38 @@ cout << "Snake direction: " << snake_direction << endl;
 		int height_head = head->get_height();
 		ASSERT(height_head == snake_height)
 
-		while (snake_list != nullptr) {
-//			int prev_x = 0;
-//			int prev_y = 0;
+		bool found = false;
+
+		while ((snake_list != nullptr) & (found == false)) {
 
 			int curr_x = snake_list->get_x_centre();
 			int curr_y = snake_list->get_y_centre();
 
-//			if (snake_list->get_prev() != nullptr) {
-//				prev_x = snake_list->get_prev()->get_x_centre();
-//				prev_y = snake_list->get_prev()->get_y_centre();
-
 cout << "X: curr " << curr_x << " centre_x " << centre_x << endl; // << " prev " << prev_x << endl;
 cout << "Y: curr " << curr_y << " centre_y " << centre_y << endl; //" prev " << prev_y << endl;
-//				if ((((int) abs(curr_x - centre_x)) <= snake_width) && (((int) abs(prev_x - centre_x)) <= snake_width) || (((int) abs(curr_y - centre_y)) <= snake_height) && (((int) abs(prev_y - centre_y)) <= snake_height)) {
-				if (
-					    ((((int) abs(curr_x - centre_x)) <= snake_width) & ((snake_direction == snake_utils::direction_e::RIGHT) | (snake_direction == snake_utils::direction_e::LEFT)))
-					 || ((((int) abs(curr_y - centre_y)) <= snake_height) & ((snake_direction == snake_utils::direction_e::UP) | (snake_direction == snake_utils::direction_e::DOWN)))
-				) {
-					snake_found = snake_list;
-//cout << "Snake found" << endl;
-				}
+			if (
+				// LEFT: X coordinate of the head is smaller that coordinate of other snake units
+				   ((curr_x >= centre_x) & (snake_direction == snake_utils::direction_e::LEFT))
+				// RIGHT: X coordinate of the head is larger that coordinate of other snake units
+				|| ((curr_x < centre_x)  & (snake_direction == snake_utils::direction_e::RIGHT))
+				// DOWN: Y coordinate of the head is smaller that coordinate of other snake units
+				|| ((curr_y >= centre_y) & (snake_direction == snake_utils::direction_e::DOWN))
+				// UP: Y coordinate of the head is larger that coordinate of other snake units
+				|| ((curr_y < centre_y)  & (snake_direction == snake_utils::direction_e::UP))
+			) {
+				snake_found = snake_list->get_prev();
+				found = true;
+cout << "Snake found" << endl;
+			}
 //			}
+
+			snake_prev = snake_list;
 //cout << "Snake found " << snake_found << " snake list " << snake_list << endl;
 			snake_list = snake_list->get_next();
 		}
 
 
-		if (snake_found == nullptr) {
+		if ((head == nullptr) | ((snake_found == nullptr) & (found == true))) {
 			snake_node::SnakeNode * snake_head = head;
 
 			new_snake->set_next(snake_head);
@@ -98,6 +103,11 @@ cout << "Y: curr " << curr_y << " centre_y " << centre_y << endl; //" prev " << 
 				this->set_head(new_snake);
 			}
 		} else {
+			if (snake_found == nullptr) {
+				// Set snake_found to the last element as snake_found will be appended at the end of the list
+				snake_found = snake_prev;
+			}
+
 			int width_found = snake_found->get_width();
 			ASSERT(width_found == snake_width)
 
@@ -132,20 +142,13 @@ cout << "Y: curr " << curr_y << " centre_y " << centre_y << endl; //" prev " << 
 //cout << "centre_x " << centre_y << " x_centre_found " << y_centre_found << " V dist units " << vdistance_units << " measured " << vdistance_measured << endl;
 			ASSERT(vdistance_units == vdistance_measured)
 
-			// If direction is down or left, add after the element found
-			if ((snake_direction == snake_utils::direction_e::DOWN) | (snake_direction == snake_utils::direction_e::LEFT)) {
-				new_snake->set_next(snake_found->get_next());
-				new_snake->set_prev(snake_found);
-				snake_found->set_next(new_snake);
-			} else {
-				new_snake->set_prev(snake_found->get_prev());
-				new_snake->set_next(snake_found);
-				snake_found->set_prev(new_snake);
-				if (snake_found == head) {
-					this->set_head(new_snake);
-				}
+			// Insert new snae unit
+			new_snake->set_next(snake_found->get_next());
+			new_snake->set_prev(snake_found);
+			if (snake_found->get_next() != nullptr) {
+				snake_found->get_next()->set_prev(new_snake);
 			}
-//			snake_found->get_prev()->set_next(new_snake);
+			snake_found->set_next(new_snake);
 		}
 	} else {
 		new_snake->set_prev(nullptr);
@@ -191,7 +194,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 		height_curr = snake_el->get_height();
 		width_curr = snake_el->get_width();
 
-//cout << "Direction prev " << direction_prev << " curr " << direction_curr << endl;
+cout << "Direction prev " << direction_prev << " curr " << direction_curr << " head " << head_dir << endl;
 cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev <<" y_centre_curr " << y_centre_curr << " y_centre_prev " << y_centre_prev << endl;
 
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Current Unit: X ", x_centre_curr, " Y ", y_centre_curr, " Direction ", direction_curr);
@@ -213,9 +216,9 @@ cout << " x_centre_curr " << x_centre_curr << " x_centre_prev " << x_centre_prev
 				int y_diff = abs(y_centre_curr - y_centre_prev);
 				int width_centre_distance = (width_curr + width_prev)/2;
 				int x_diff = abs(x_centre_curr - x_centre_prev);
-//cout << "Diff X " << x_diff << " Y " << y_diff << endl;
-//cout << "Centre distance Width " << width_centre_distance << " height " << height_centre_distance << endl;
-//cout << "Direction current " << direction_curr << " previous " << direction_prev << endl;
+cout << "Diff X " << x_diff << " Y " << y_diff << endl;
+cout << "Centre distance Width " << width_centre_distance << " height " << height_centre_distance << endl;
+cout << "Direction current " << direction_curr << " previous " << direction_prev << endl;
 				if (((direction_curr == snake_utils::direction_e::RIGHT) & (direction_prev == snake_utils::direction_e::LEFT)) | ((direction_curr == snake_utils::direction_e::LEFT) & (direction_prev == snake_utils::direction_e::RIGHT))) {
 					if ((y_diff < height_centre_distance) & (x_diff < width_centre_distance)) {
 						LOG_ERROR("Units moving in opposite horizintal movement and colliding");

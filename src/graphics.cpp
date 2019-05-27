@@ -48,9 +48,6 @@ void graphics::init_graphics(int argc, char** argv) {
 	// Initialize graphics (windows)
 	graphics::add_graphics();
 
-	// Initialize game parameters
-	game_graphics::init_game_parameters();
-
 	if (argc == 1) {
 		// Initialize game
 		game_graphics::init_game();
@@ -58,6 +55,9 @@ void graphics::init_graphics(int argc, char** argv) {
 		cmdline_parser::parse(argc, argv);
 		cmdline_parser::process();
 	}
+
+	// Initialize game parameters
+	game_graphics::init_game_parameters();
 
 	glutMainLoop();
 }

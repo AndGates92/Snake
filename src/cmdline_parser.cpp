@@ -92,6 +92,7 @@ void cmdline_parser::parse(int argc, char** argv) {
 
 void cmdline_parser::process() {
 	cmdline_parser::extract_inputfile_info();
+	game_graphics::set_snake_settings();
 }
 
 void cmdline_parser::extract_inputfile_info() {
