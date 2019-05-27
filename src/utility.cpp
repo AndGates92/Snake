@@ -45,8 +45,6 @@ bool utility::file_exists (std::string filename) {
 		exists = false;
 	}
 
-	cout << "file: " << filename << " exits: " << exists << endl;
-
 	return exists;
 }
 
