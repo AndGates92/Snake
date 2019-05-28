@@ -67,19 +67,20 @@ cout << "Snake direction: " << snake_direction << endl;
 
 			int curr_x = snake_list->get_x_centre();
 			int curr_y = snake_list->get_y_centre();
+			snake_utils::direction_e curr_snake_dir = snake_list->get_direction();
 
 cout << "X: curr " << curr_x << " centre_x " << centre_x << endl; // << " prev " << prev_x << endl;
 cout << "Y: curr " << curr_y << " centre_y " << centre_y << endl; //" prev " << prev_y << endl;
-			if (
+			if ( (curr_snake_dir == snake_direction) & (
 				// LEFT: X coordinate of the head is smaller that coordinate of other snake units
-				   ((curr_x >= centre_x) & (snake_direction == snake_utils::direction_e::LEFT))
+				   ((curr_x >= centre_x) & (curr_y == centre_y) & (snake_direction == snake_utils::direction_e::LEFT))
 				// RIGHT: X coordinate of the head is larger that coordinate of other snake units
-				|| ((curr_x < centre_x)  & (snake_direction == snake_utils::direction_e::RIGHT))
+				|| ((curr_x < centre_x)  & (curr_y == centre_y) & (snake_direction == snake_utils::direction_e::RIGHT))
 				// DOWN: Y coordinate of the head is smaller that coordinate of other snake units
-				|| ((curr_y >= centre_y) & (snake_direction == snake_utils::direction_e::DOWN))
+				|| ((curr_y >= centre_y) & (curr_x == centre_x) & (snake_direction == snake_utils::direction_e::DOWN))
 				// UP: Y coordinate of the head is larger that coordinate of other snake units
-				|| ((curr_y < centre_y)  & (snake_direction == snake_utils::direction_e::UP))
-			) {
+				|| ((curr_y < centre_y)  & (curr_x == centre_x) & (snake_direction == snake_utils::direction_e::UP))
+			) ) {
 				snake_found = snake_list->get_prev();
 				found = true;
 cout << "Snake found" << endl;
