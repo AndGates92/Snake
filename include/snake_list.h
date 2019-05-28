@@ -44,6 +44,8 @@ namespace snake_list {
 			void check_wall_collision(const int & win_width, const int & win_height);
 			#endif // HARD_WALL
 
+			bool is_neightbour(int curr_x, int curr_y, int new_x, int new_y, snake_utils::direction_e dir);
+
 		private:
 	};
 	/** @} */ // End of SnakeListGroup group

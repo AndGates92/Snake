@@ -69,23 +69,25 @@ cout << "Snake direction: " << snake_direction << endl;
 			int curr_y = snake_list->get_y_centre();
 			snake_utils::direction_e curr_snake_dir = snake_list->get_direction();
 
+			bool found_neightbour_same_dir = this->is_neightbour(curr_x, curr_y, centre_x, centre_y, snake_direction);
+			bool found_neightbour_diff_dir = this->is_neightbour(curr_x, curr_y, centre_x, centre_y, curr_snake_dir);
+
 cout << "X: curr " << curr_x << " centre_x " << centre_x << endl; // << " prev " << prev_x << endl;
 cout << "Y: curr " << curr_y << " centre_y " << centre_y << endl; //" prev " << prev_y << endl;
-			if ( (curr_snake_dir == snake_direction) & (
-				// LEFT: X coordinate of the head is smaller that coordinate of other snake units
-				   ((curr_x >= centre_x) & (curr_y == centre_y) & (snake_direction == snake_utils::direction_e::LEFT))
-				// RIGHT: X coordinate of the head is larger that coordinate of other snake units
-				|| ((curr_x < centre_x)  & (curr_y == centre_y) & (snake_direction == snake_utils::direction_e::RIGHT))
-				// DOWN: Y coordinate of the head is smaller that coordinate of other snake units
-				|| ((curr_y >= centre_y) & (curr_x == centre_x) & (snake_direction == snake_utils::direction_e::DOWN))
-				// UP: Y coordinate of the head is larger that coordinate of other snake units
-				|| ((curr_y < centre_y)  & (curr_x == centre_x) & (snake_direction == snake_utils::direction_e::UP))
-			) ) {
-				snake_found = snake_list->get_prev();
-				found = true;
-cout << "Snake found" << endl;
+
+			if (curr_snake_dir == snake_direction) {
+				if (found_neightbour_same_dir == true) {
+					snake_found = snake_list->get_prev();
+					found = true;
+	cout << "Same dir Snake found" << endl;
+				}
+			} else {
+				if ((found_neightbour_same_dir == true) | (found_neightbour_diff_dir == true)) {
+					snake_found = snake_list->get_prev();
+					found = true;
+	cout << "Diff dir Snake found" << endl;
+				}
 			}
-//			}
 
 			snake_prev = snake_list;
 //cout << "Snake found " << snake_found << " snake list " << snake_list << endl;
@@ -116,7 +118,6 @@ cout << "Snake found" << endl;
 			ASSERT(height_found == snake_height)
 
 			snake_utils::direction_e direction_found = snake_found->get_direction();
-			ASSERT(direction_found == snake_direction)
 
 			int x_centre_found = snake_found->get_x_centre();
 			int y_centre_found = snake_found->get_y_centre();
@@ -125,6 +126,7 @@ cout << "Snake found" << endl;
 			int hdistance_measured = 0;
 			int vdistance_units = 0;
 			int vdistance_measured = 0;
+
 			if ((direction_found == snake_utils::direction_e::RIGHT) | (direction_found == snake_utils::direction_e::LEFT)) {
 				hdistance_units = (snake_width/2) + (width_found/2);
 				hdistance_measured = ((int) abs(centre_x - x_centre_found));
@@ -138,10 +140,16 @@ cout << "Snake found" << endl;
 			}
 
 //cout << "Direction " << direction_found << endl;
-//cout << "centre_y " << centre_x << " y_centre_found " << x_centre_found << " H dist units " << hdistance_units << " measured " << hdistance_measured << endl;
-			ASSERT(hdistance_units == hdistance_measured)
-//cout << "centre_x " << centre_y << " x_centre_found " << y_centre_found << " V dist units " << vdistance_units << " measured " << vdistance_measured << endl;
-			ASSERT(vdistance_units == vdistance_measured)
+cout << "centre_y " << centre_x << " y_centre_found " << x_centre_found << " H dist units " << hdistance_units << " measured " << hdistance_measured << endl;
+cout << "centre_x " << centre_y << " x_centre_found " << y_centre_found << " V dist units " << vdistance_units << " measured " << vdistance_measured << endl;
+
+			if (direction_found == snake_direction) {
+				ASSERT(hdistance_units == hdistance_measured)
+				ASSERT(vdistance_units == vdistance_measured)
+			} else { // If not same direction
+				// Sum of distances on X and Y axis must be equal to the sum of expected distances
+				ASSERT((vdistance_units + hdistance_units) == (vdistance_measured + hdistance_measured))
+			}
 
 			// Insert new snae unit
 			new_snake->set_next(snake_found->get_next());
@@ -157,6 +165,28 @@ cout << "Snake found" << endl;
 		this->set_head(new_snake);
 	}
 
+}
+
+bool snake_list::SnakeList::is_neightbour(int curr_x, int curr_y, int new_x, int new_y, snake_utils::direction_e dir) {
+
+	bool found_neightbour = false;
+
+	if (
+		// LEFT: X coordinate of the head is smaller that coordinate of other snake units
+		   ((curr_x >= new_x) & (curr_y == new_y) & (dir == snake_utils::direction_e::LEFT))
+		// RIGHT: X coordinate of the head is larger that coordinate of other snake units
+		|| ((curr_x < new_x)  & (curr_y == new_y) & (dir == snake_utils::direction_e::RIGHT))
+		// DOWN: Y coordinate of the head is smaller that coordinate of other snake units
+		|| ((curr_y >= new_y) & (curr_x == new_x) & (dir == snake_utils::direction_e::DOWN))
+		// UP: Y coordinate of the head is larger that coordinate of other snake units
+		|| ((curr_y < new_y)  & (curr_x == new_x) & (dir == snake_utils::direction_e::UP))
+	) {
+		found_neightbour = true;
+	} else {
+		found_neightbour = false;
+	}
+
+	return found_neightbour;
 }
 
 void snake_list::SnakeList::move(const int & speed, const int & win_width, const int & win_height, const snake_utils::direction_e & head_dir) {
