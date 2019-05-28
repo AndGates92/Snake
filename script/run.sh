@@ -165,6 +165,12 @@ if [ ${compile} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	(set -x; \
 	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXENOHWLOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENOHWNAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} > ${LOGDIR}/${COMPNOHWLOG})
+
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Clean by-product"
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
+	(set -x; \
+	 make clean_byprod LOG_DIR=${LOGDIR} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENAME} BIN_DIR=${EXEDIR})
 fi
 
 if [ ${tests} -eq 1 ]; then
@@ -179,12 +185,6 @@ if [ ${tests} -eq 1 ]; then
 	else
 		echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] FAILED: Compilation failed"
 	fi
-
-	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
-	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Clean by-product"
-	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
-	(set -x; \
-	 make clean_byprod LOG_DIR=${LOGDIR} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENAME} BIN_DIR=${EXEDIR})
 fi
 
 
@@ -194,6 +194,12 @@ if [ ${compile} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	(set -x; \
 	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXEHWLOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXEHWNAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} BEHFLAGS=${BEHFLAGS} > ${LOGDIR}/${COMPHWLOG})
+
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Clean by-product"
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
+	(set -x; \
+	 make clean_byprod LOG_DIR=${LOGDIR} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENAME} BIN_DIR=${EXEDIR})
 fi
 
 if [ ${tests} -eq 1 ]; then
