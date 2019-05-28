@@ -205,6 +205,7 @@ namespace settings {
 			int get_score();
 
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
+			void save_data(iofile::File & savefile);
 
 		private:
 			bool hard_wall;

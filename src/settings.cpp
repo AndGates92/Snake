@@ -178,6 +178,26 @@ settings::Settings::~Settings() {
 //	this->print_info(logging::verb_level_e::LOW, pretext);
 }
 
+void settings::Settings::save_data(iofile::File & savefile) {
+	savefile.write_ofile("Type: Settings\n");
+	savefile.write_ofile("Dump: ", snake_settings.get_dump_filename(), "\n");
+	savefile.write_ofile("Save: ", snake_settings.get_save_filename(), "\n");
+	savefile.write_ofile("Speed: ", snake_settings.get_speed(), "\n");
+	int snake_units = snake_settings.get_snake_units();
+	savefile.write_ofile("SnakeUnits: ", snake_units, "\n");
+	int obs_no = snake_settings.get_obs_no();
+	savefile.write_ofile("Obstacles: ", obs_no, "\n");
+	savefile.write_ofile("Score: ", snake_settings.get_score(), "\n");
+	savefile.write_ofile("\n");
+
+	savefile.write_ofile("//******************************\n");
+	savefile.write_ofile("// Stat Windows\n");
+	savefile.write_ofile("//******************************\n");
+	savefile.write_ofile("Type: Tile\n");
+	savefile.write_ofile("Width: ", snake_settings.get_tile_width(), "\n");
+	savefile.write_ofile("Height: ", snake_settings.get_tile_height(), "\n");
+	savefile.write_ofile("\n");
+}
 
 // ================================================================
 // Overload << operator for game_status_e
