@@ -35,6 +35,7 @@
 namespace utility {
 
 	int str_to_int (std::string str);
+	bool str_to_bool (std::string str);
 
 	bool file_exists (std::string filename);
 

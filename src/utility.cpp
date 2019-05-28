@@ -35,6 +35,20 @@ int utility::str_to_int (std::string str) {
 	return value;
 }
 
+bool utility::str_to_bool (std::string str) {
+
+	int value_int = utility::str_to_int(str);
+	bool value = false;
+
+	if (value_int == 0) {
+		value = false;
+	} else {
+		value = true;
+	}
+
+	return value;
+}
+
 bool utility::file_exists (std::string filename) {
 
 	bool exists = false;

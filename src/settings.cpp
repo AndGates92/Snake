@@ -183,6 +183,7 @@ void settings::Settings::save_data(iofile::File & savefile) {
 	savefile.write_ofile("Dump: ", this->dump_filename, "\n");
 	savefile.write_ofile("Save: ", this->save_filename, "\n");
 	savefile.write_ofile("Speed: ", this->speed, "\n");
+	savefile.write_ofile("Wall: ", this->hard_wall, "\n");
 	int snake_units = this->snake_units;
 	savefile.write_ofile("SnakeUnits: ", snake_units, "\n");
 	int obs_no = this->obs_no;

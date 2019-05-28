@@ -226,6 +226,8 @@ void cmdline_parser::assign_common_var(std::string var_name, std::string var_val
 		snake_settings.set_save_filename(var_value);
 	} else if ((var_name.compare("SPEED") == 0) | (var_name.compare("Speed") == 0) | (var_name.compare("speed") == 0)) {
 		snake_settings.set_speed(utility::str_to_int(var_value));
+	} else if ((var_name.compare("WALL") == 0) | (var_name.compare("Wall") == 0) | (var_name.compare("wall") == 0)) {
+		snake_settings.set_hard_wall_flag(utility::str_to_bool(var_value));
 	} else if ((var_name.compare("SNAKEUNITS") == 0) | (var_name.compare("SnakeUnits") == 0) | (var_name.compare("Snakeunits") == 0) | (var_name.compare("snakeunits") == 0)) {
 		snake_settings.set_snake_units(utility::str_to_int(var_value));
 	} else if ((var_name.compare("OBSTACLES") == 0) | (var_name.compare("Obstacles") == 0) | (var_name.compare("obstacles") == 0)) {
