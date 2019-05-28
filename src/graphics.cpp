@@ -48,15 +48,17 @@ void graphics::init_graphics(int argc, char** argv) {
 
 	graphics::declare_game();
 
-	if (argc == 1) {
+	bool input_file_found = cmdline_parser::parse(argc, argv);
+
+	if (input_file_found == true) {
+		// Process input file passed through command line
+		cmdline_parser::process();
+	} else {
 		// Initialize graphics (windows)
 		graphics::add_graphics();
 
 		// Initialize game
 		game_graphics::init_game();
-	} else {
-		cmdline_parser::parse(argc, argv);
-		cmdline_parser::process();
 	}
 
 	// Initialize game parameters

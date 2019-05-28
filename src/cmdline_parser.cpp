@@ -42,6 +42,12 @@ namespace cmdline_parser {
 		const char* input_file_opt = "-i";
 
 		/**
+		 * @brief input file option
+		 *
+		 */
+		const char* hard_wall_opt = "-hw";
+
+		/**
 		 * @brief input file name
 		 *
 		 */
@@ -62,7 +68,7 @@ namespace cmdline_parser {
 	}
 }
 
-void cmdline_parser::parse(int argc, char** argv) {
+bool cmdline_parser::parse(int argc, char** argv) {
 	LOG_INFO(logging::verb_level_e::ZERO,"[Parse] Command line:");
 	LOG_INFO(logging::verb_level_e::ZERO,"[Parse] Number of arguments ",  argc);
 	for (int arg_no = 0; arg_no < argc; arg_no++) {
@@ -81,13 +87,23 @@ void cmdline_parser::parse(int argc, char** argv) {
 			}
 			input_file_pos = arg_no+1;
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Parse] Training Set argument number: ",  (input_file_pos/2));
+		} else if (!(strcmp(argv[arg_no],hard_wall_opt))) {
+			std::string var_value = argv[input_file_pos+1];
+			bool hard_wall = utility::str_to_bool(var_value);
+			snake_settings.set_hard_wall_flag(hard_wall);
+
+			LOG_INFO(logging::verb_level_e::LOW,"[Parse] \tSetting hard wall to ", hard_wall);
 		}
 	}
 
+	bool input_file_found = false;
 	if (input_file_pos > 0) {
 		input_filename.assign(argv[input_file_pos]);
+		input_file_found = true;
 		LOG_INFO(logging::verb_level_e::LOW,"[Parse] \tInput filename: ", input_filename);
 	}
+
+	return input_file_found;
 }
 
 void cmdline_parser::process() {

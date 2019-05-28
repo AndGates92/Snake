@@ -29,7 +29,7 @@ namespace cmdline_parser {
 	} obj_e;
 
 
-	void parse(int argc, char** argv);
+	bool parse(int argc, char** argv);
 
 	void process();
 
