@@ -363,8 +363,6 @@ void game_graphics::set_snake_settings() {
 	int snake_head_y = snake_head->get_y_centre();
 	snake_settings.set_head_centre_y(snake_head_y);
 
-cout << "Head dir: " << head_dir << " X " << snake_head_x << " Y " << snake_head_y << endl;
-
 }
 
 void game_graphics::add_snake_node (int centre_x, int centre_y, int node_width, int node_height, snake_utils::direction_e dir, colours::palette_e colour) {
@@ -372,7 +370,6 @@ void game_graphics::add_snake_node (int centre_x, int centre_y, int node_width, 
 }
 
 void game_graphics::add_obs_node (int centre_x, int centre_y, int node_width, int node_height, colours::palette_e colour) {
-//cout << "Add obstacle node" << endl;
 	game_graphics::obstacles->add_node(centre_x, centre_y, node_width, node_height, colour);
 }
 
@@ -413,8 +410,6 @@ bool game_graphics::contact_between_snake_obs() {
 	int snake_head_y_min = snake_head_y - snake_head_height/2;
 	int snake_head_y_max = snake_head_y + snake_head_height/2;
 
-//cout << "Snake boundaries X " << snake_head_x_min << " - " << snake_head_x_max << " Y " << snake_head_y_min << " - " << snake_head_y_max << endl;
-
 	// obstacle pointer
 	obstacle::ObstacleNode * curr_node = game_graphics::obstacles->get_head();
 
@@ -429,8 +424,6 @@ bool game_graphics::contact_between_snake_obs() {
 		int obs_height = curr_node->get_height();
 		int obs_y_min = obs_y - obs_height/2;
 		int obs_y_max = obs_y + obs_height/2;
-
-//cout << "Obs boundaries X " << obs_x_min << " - " << obs_x_max << " Y " << obs_y_min << " - " << obs_y_max << endl;
 
 		// Save temporary obstacle
 		obstacle::ObstacleNode * node_tmp = curr_node;

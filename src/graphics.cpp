@@ -133,10 +133,8 @@ void graphics::set_id(int id, std::string type) {
 
 	if (type.compare(shared_constants::stat_win_title) == 0) {
 		stat_win_id = id;
-cout << "stat win " << id << endl;
 	} else if (type.compare(shared_constants::game_win_title) == 0) {
 		game_win_id = id;
-cout << "game win " << id << endl;
 	} else {
 		LOG_ERROR("Unknown window type: ", type);
 	}

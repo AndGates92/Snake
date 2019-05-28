@@ -118,10 +118,7 @@ void cmdline_parser::extract_inputfile_info() {
 
 		for (std::string line; std::getline(ifile, line); ) {
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Process] Line cont ,", line_count, ": ", line);
-//cout << "Line no " << line_count << ": " << line << endl;
-
 			bool skip_line = check_line(line);
-//cout << "skip line " << skip_line << endl;
 
 			if (skip_line == false) {
 				std::string var_name("");
@@ -167,7 +164,6 @@ bool cmdline_parser::check_line(std::string line) {
 	bool skip_line = false;
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Decode] Comment: ", shared_constants::comment, " Current line ", word);
-	//cout << "[Decode] Comment: " << shared_constants::comment << " Current line " << word << endl;
 
 	if ((shared_constants::comment.compare(word) == 0) | (no_data_in_line == true)) {
 		skip_line = true;
@@ -198,14 +194,12 @@ void cmdline_parser::decode_line(std::string line, std::string & var_name, std::
 	ASSERT(var_value_end <= line.length());
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Decode] Variable Name: ", var_name, " Value: ", var_value);
-//	cout << "[Decode] Variable: " << var_name << " Value " << var_value << endl;
 
 }
 
 void cmdline_parser::assign_common_var(std::string var_name, std::string var_value, cmdline_parser::obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction) {
 
 	if ((var_name.compare("TYPE") == 0) | (var_name.compare("Type") == 0) | (var_name.compare("type") == 0)) {
-//		cout << "Assign common variables:\n\t	object-> "<< object<< "\n\tType-> "<< type<< "\n\tTitle-> "<< title<< "\n\tCoordinates-> ("<< x_centre<< ", "<< y_centre<< ")\n\t Dimensions: Width-> "<< width<< " Height-> "<< height<< "\n\tDirection-> "<< direction << "\n\tColour-> " << colour << endl;
 		if (object != cmdline_parser::obj_e::UNKNOWN) {
 			cmdline_parser::create_obj(object, type, title, x_centre, y_centre, width, height, colour, direction);
 		}
@@ -286,9 +280,6 @@ int cmdline_parser::extract_word(std::string line, std::string::size_type start_
 	end_pos = start_pos + (char_cnt - 1);
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Extract Word] Word found: ", word, " Last character position: ", end_pos);
-	//cout << "[Extract Word] Word: " << word << " End Pos " << end_pos << endl;
-	//cout << "[Extract Word] char_cnt: " << char_cnt << " line_cpy length " << line_cpy.length() << endl;
-
 
 	bool valid = (word.compare("") != 0);
 	return valid;
