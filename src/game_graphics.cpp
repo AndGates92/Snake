@@ -265,11 +265,11 @@ void game_graphics::idle_game_cb() {
 		game_graphics::free_game_memory();
 		graphics::declare_game();
 
-		// Initialize graphics
-		graphics::add_graphics();
-
 		// Initialize game
 		game_graphics::init_game();
+
+		// Initialize game parameters
+		game_graphics::init_game_parameters();
 
 	} else if (game_status == settings::game_status_e::EXIT) {
 		// Explicitely limit scope of variable savefilename
@@ -277,6 +277,7 @@ void game_graphics::idle_game_cb() {
 			std::string dumpfilename (snake_settings.get_dump_filename());
 			game_graphics::save_game(dumpfilename);
 		}
+		graphics_utils::delete_window();
 		game_graphics::free_game_memory();
 		exit(EXIT_SUCCESS);
 	} else {
@@ -571,7 +572,6 @@ void game_graphics::save_game(std::string filename) {
 }
 
 void game_graphics::free_game_memory() {
-	graphics_utils::delete_window();
 	game_graphics::free_obstacle_list();
 	game_graphics::free_snake_list();
 	snake_settings.~Settings();

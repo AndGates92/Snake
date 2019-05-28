@@ -247,9 +247,9 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 				int y_diff = abs(y_centre_curr - y_centre_prev);
 				int width_centre_distance = (width_curr + width_prev)/2;
 				int x_diff = abs(x_centre_curr - x_centre_prev);
-//cout << "Diff X " << x_diff << " Y " << y_diff << endl;
-//cout << "Centre distance Width " << width_centre_distance << " height " << height_centre_distance << endl;
-//cout << "Direction current " << direction_curr << " previous " << direction_prev << endl;
+cout << "Diff X " << x_diff << " Y " << y_diff << endl;
+cout << "Centre distance Width " << width_centre_distance << " height " << height_centre_distance << endl;
+cout << "Direction current " << direction_curr << " previous " << direction_prev << endl;
 				if (((direction_curr == snake_utils::direction_e::RIGHT) & (direction_prev == snake_utils::direction_e::LEFT)) | ((direction_curr == snake_utils::direction_e::LEFT) & (direction_prev == snake_utils::direction_e::RIGHT))) {
 					if ((y_diff < height_centre_distance) & (x_diff < width_centre_distance)) {
 						LOG_ERROR("Units moving in opposite horizintal movement and colliding");

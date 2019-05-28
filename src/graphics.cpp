@@ -43,6 +43,9 @@ void graphics::init_graphics(int argc, char** argv) {
 	LOG_INFO(logging::verb_level_e::ZERO, "Initialize GLUT");
 	glutInit( &argc, argv );
 
+	// Initialize window list
+	graphics_utils::init_window_list();
+
 	graphics::declare_game();
 
 	if (argc == 1) {
@@ -71,8 +74,6 @@ void graphics::add_graphics() {
 void graphics::declare_game() {
 	// Initialize settings
 	snake_settings = settings::Settings();
-	// Initialize window list
-	graphics_utils::init_window_list();
 	// Enable refresh timer
 	graphics_utils::refresh_window(graphics_utils::refresh_timer_ms);
 	// Initialize game
@@ -112,9 +113,11 @@ void graphics::idle_cb() {
 
 		glutSetWindow(curr_win_id);
 
-		if (curr_win_title == shared_constants::game_win_title) {
+		//if (curr_win_title == shared_constants::game_win_title) {
+		if (curr_win_id == game_win_id) {
 			game_graphics::idle_game_cb();
-		} else if (curr_win_title == shared_constants::stat_win_title) {
+		//} else if (curr_win_title == shared_constants::stat_win_title) {
+		} else if (curr_win_id == stat_win_id) {
 			stat_graphics::idle_stat_cb();
 		} else {
 			LOG_ERROR("Unknown window ID: ", curr_win_id, " Title: ", curr_win_title);
