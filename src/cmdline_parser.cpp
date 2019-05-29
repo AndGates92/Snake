@@ -88,7 +88,7 @@ bool cmdline_parser::parse(int argc, char** argv) {
 			input_file_pos = arg_no+1;
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Parse] Training Set argument number: ",  (input_file_pos/2));
 		} else if (!(strcmp(argv[arg_no],hard_wall_opt))) {
-			std::string var_value = argv[input_file_pos+1];
+			std::string var_value = argv[arg_no+1];
 			bool hard_wall = utility::str_to_bool(var_value);
 			snake_settings.set_hard_wall_flag(hard_wall);
 
