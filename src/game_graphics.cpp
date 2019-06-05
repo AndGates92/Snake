@@ -153,33 +153,39 @@ void game_graphics::specialkey_game_cb(int key, int x, int y) {
 	snake_node::SnakeNode * snake_head (game_graphics::snake->get_head());
 	snake_utils::direction_e snake_head_dir = snake_head->get_direction();
 
-	switch (key) {
-		case GLUT_KEY_UP:
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to UP because of pressing key Arrow Up");
-			if ((snake_head_dir == snake_utils::direction_e::RIGHT) | (snake_head_dir == snake_utils::direction_e::LEFT)) {
-				game_graphics::head_dir = snake_utils::direction_e::UP;
-			}
-			break;
-		case GLUT_KEY_DOWN:
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to DOWN because of pressing key Arrow Down");
-			if ((snake_head_dir == snake_utils::direction_e::RIGHT) | (snake_head_dir == snake_utils::direction_e::LEFT)) {
-				game_graphics::head_dir = snake_utils::direction_e::DOWN;
-			}
-			break;
-		case GLUT_KEY_LEFT:
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to LEFT because of pressing key Arrow Down");
-			if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
-				game_graphics::head_dir = snake_utils::direction_e::LEFT;
-			}
-			break;
-		case GLUT_KEY_RIGHT:
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to RIGHT because of pressing key Arrow Down");
-			if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
-				game_graphics::head_dir = snake_utils::direction_e::RIGHT;
-			}
-			break;
-		default:
-			break;
+	bool auto_ride = snake_settings.get_auto_ride_flag();
+
+	if (auto_ride == false) {
+		switch (key) {
+			case GLUT_KEY_UP:
+				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to UP because of pressing key Arrow Up");
+				if ((snake_head_dir == snake_utils::direction_e::RIGHT) | (snake_head_dir == snake_utils::direction_e::LEFT)) {
+					game_graphics::head_dir = snake_utils::direction_e::UP;
+				}
+				break;
+			case GLUT_KEY_DOWN:
+				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to DOWN because of pressing key Arrow Down");
+				if ((snake_head_dir == snake_utils::direction_e::RIGHT) | (snake_head_dir == snake_utils::direction_e::LEFT)) {
+					game_graphics::head_dir = snake_utils::direction_e::DOWN;
+				}
+				break;
+			case GLUT_KEY_LEFT:
+				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to LEFT because of pressing key Arrow Left");
+				if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
+					game_graphics::head_dir = snake_utils::direction_e::LEFT;
+				}
+				break;
+			case GLUT_KEY_RIGHT:
+				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to RIGHT because of pressing key Arrow Right");
+				if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
+					game_graphics::head_dir = snake_utils::direction_e::RIGHT;
+				}
+				break;
+			default:
+				break;
+		}
+	} else {
+		LOG_INFO(logging::verb_level_e::ZERO,"[Keyboard Game Callback] Cannot change direction because automatic ride is set to ", auto_ride);
 	}
 	// force glut to call the display function
 	glutPostRedisplay();
@@ -210,6 +216,12 @@ void game_graphics::idle_game_cb() {
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Game Callback] Idle Game Callback for window ID: ", win_id);
 
 	settings::game_status_e game_status = snake_settings.get_game_status();
+
+	bool auto_ride = snake_settings.get_auto_ride_flag();
+
+	if (auto_ride == true) {
+
+	}
 
 	if (game_status == settings::game_status_e::RUNNING) {
 		bool obs_eaten = contact_between_snake_obs();

@@ -55,6 +55,12 @@ namespace settings {
 		const static std::string init_dumpfilename = "./log/dump";
 
 		/**
+		 * @brief Initial value of automatic ride flag
+		 *
+		 */
+		const static bool init_auto_ride = false;
+
+		/**
 		 * @brief Initial value of hard wall flag
 		 *
 		 */
@@ -155,7 +161,7 @@ namespace settings {
 	class Settings {
 		public:
 			// Constructor
-			Settings(): hard_wall(settings::init_hard_wall), dump_filename(settings::init_dumpfilename), save_filename(settings::init_savefilename), game_status(init_game_status), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_colour(settings::init_snake_colour), obs_colour(settings::init_obs_colour), tile_height(settings::init_tile_height), tile_width(settings::init_tile_width), score(settings::init_score) {
+			Settings(): auto_ride(settings::init_auto_ride), hard_wall(settings::init_hard_wall), dump_filename(settings::init_dumpfilename), save_filename(settings::init_savefilename), game_status(init_game_status), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_colour(settings::init_snake_colour), obs_colour(settings::init_obs_colour), tile_height(settings::init_tile_height), tile_width(settings::init_tile_width), score(settings::init_score) {
 				std::string pretext ("Settings Constructor");
 				settings::Settings::print_info(logging::verb_level_e::LOW, pretext);
 
@@ -165,6 +171,7 @@ namespace settings {
 			~Settings();
 
 			// Set functions
+			void set_auto_ride_flag(bool value);
 			void set_hard_wall_flag(bool value);
 			void set_dump_filename(std::string name);
 			void set_save_filename(std::string name);
@@ -185,6 +192,7 @@ namespace settings {
 			void set_score(int value);
 
 			// Get functions
+			bool get_auto_ride_flag();
 			bool get_hard_wall_flag();
 			std::string get_dump_filename();
 			std::string get_save_filename();
@@ -208,6 +216,7 @@ namespace settings {
 			void save_data(iofile::File & savefile);
 
 		private:
+			bool auto_ride;
 			bool hard_wall;
 			std::string dump_filename;
 			std::string save_filename;

@@ -48,6 +48,12 @@ namespace cmdline_parser {
 		const char* hard_wall_opt = "-hw";
 
 		/**
+		 * @brief input file option
+		 *
+		 */
+		const char* auto_ride_opt = "-a";
+
+		/**
 		 * @brief input file name
 		 *
 		 */
@@ -98,6 +104,11 @@ bool cmdline_parser::parse(int argc, char** argv) {
 			LOG_INFO(logging::verb_level_e::ZERO,"[Parse] \tHard wall feature is not enabled. Setting hard wall to false");
 			snake_settings.set_hard_wall_flag(false);
 			#endif // HARD_WALL
+		} else if (!(strcmp(argv[arg_no],auto_ride_opt))) {
+			std::string var_value = argv[arg_no+1];
+			bool auto_ride = utility::str_to_bool(var_value);
+			snake_settings.set_auto_ride_flag(auto_ride);
+			LOG_INFO(logging::verb_level_e::LOW,"[Parse] \tSetting automtic ride ", auto_ride);
 		}
 	}
 

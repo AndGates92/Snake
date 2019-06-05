@@ -22,6 +22,10 @@ settings::Settings snake_settings;
 // ================================================================
 // Get functions
 // ================================================================
+bool settings::Settings::get_auto_ride_flag() {
+	return this->auto_ride;
+}
+
 bool settings::Settings::get_hard_wall_flag() {
 	return this->hard_wall;
 }
@@ -97,6 +101,10 @@ int settings::Settings::get_score() {
 // ================================================================
 // Set functions
 // ================================================================
+void settings::Settings::set_auto_ride_flag(bool value) {
+	this->auto_ride = value;
+}
+
 void settings::Settings::set_hard_wall_flag(bool value) {
 	this->hard_wall = value;
 }
@@ -170,7 +178,7 @@ void settings::Settings::set_score(int value) {
 }
 
 void settings::Settings::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Snake Game settings: Status: ", this->game_status, "\n\tHard Wall: ", this->hard_wall, "\n\tOutput files: save->", this->save_filename, " dump->", this->dump_filename, "\n\tNumber of obstacles: ", this->obs_no, "\n\tNumber of snake units: ", this->snake_units, "\n\tNode Dimensions: Height->", this->node_height, " Width->", this->node_width, "\n\tSpeed Settings (Unit: pixel/iteration): Current speed->", this->speed, " Speed Increment->", this->speed_incr, "\n\tHead Position: X->", this->head_centre_x, " Y->", this->head_centre_y, "\n\tHead direction: ", this->head_dir, "\n\tColouring: Snake->", this->snake_colour, " Obstacles->", this->obs_colour, "\n\tStat window Tile Dimensions: Height->", this->tile_height, " Width->", this->tile_width, "\n\tScore->", this->score);
+	LOG_INFO(verbosity, "[", pretext, "] Snake Game settings: Status: ", this->game_status, "\n\tAutomatic Ride: ", this->auto_ride, "\n\tHard Wall: ", this->hard_wall, "\n\tOutput files: save->", this->save_filename, " dump->", this->dump_filename, "\n\tNumber of obstacles: ", this->obs_no, "\n\tNumber of snake units: ", this->snake_units, "\n\tNode Dimensions: Height->", this->node_height, " Width->", this->node_width, "\n\tSpeed Settings (Unit: pixel/iteration): Current speed->", this->speed, " Speed Increment->", this->speed_incr, "\n\tHead Position: X->", this->head_centre_x, " Y->", this->head_centre_y, "\n\tHead direction: ", this->head_dir, "\n\tColouring: Snake->", this->snake_colour, " Obstacles->", this->obs_colour, "\n\tStat window Tile Dimensions: Height->", this->tile_height, " Width->", this->tile_width, "\n\tScore->", this->score);
 }
 
 settings::Settings::~Settings() {
@@ -183,6 +191,7 @@ void settings::Settings::save_data(iofile::File & savefile) {
 	savefile.write_ofile("Dump: ", this->dump_filename, "\n");
 	savefile.write_ofile("Save: ", this->save_filename, "\n");
 	savefile.write_ofile("Speed: ", this->speed, "\n");
+	savefile.write_ofile("Automatic ride: ", this->auto_ride, "\n");
 	savefile.write_ofile("Wall: ", this->hard_wall, "\n");
 	int snake_units = this->snake_units;
 	savefile.write_ofile("SnakeUnits: ", snake_units, "\n");
