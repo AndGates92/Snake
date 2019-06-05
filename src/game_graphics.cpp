@@ -217,13 +217,13 @@ void game_graphics::idle_game_cb() {
 
 	settings::game_status_e game_status = snake_settings.get_game_status();
 
-	bool auto_ride = snake_settings.get_auto_ride_flag();
-
-	if (auto_ride == true) {
-
-	}
-
 	if (game_status == settings::game_status_e::RUNNING) {
+
+		bool auto_ride = snake_settings.get_auto_ride_flag();
+		if (auto_ride == true) {
+			game_graphics::auto_change_dir();
+		}
+
 		bool obs_eaten = contact_between_snake_obs();
 		// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round
 		int snake_speed = snake_settings.get_speed();
@@ -566,4 +566,42 @@ void game_graphics::free_game_memory() {
 	game_graphics::free_obstacle_list();
 	game_graphics::free_snake_list();
 	snake_settings.~Settings();
+}
+
+void game_graphics::auto_change_dir() {
+
+	snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
+	snake_utils::direction_e head_dir = snake_head->get_direction();
+
+	int snake_head_x = snake_head->get_x_centre();
+	int snake_head_y = snake_head->get_y_centre();
+
+	obstacle::ObstacleNode * obs_head = game_graphics::obstacles->get_head();
+
+	int obs_head_x = obs_head->get_x_centre();
+	int obs_head_y = obs_head->get_y_centre();
+
+	if (head_dir == snake_utils::direction_e::LEFT) {
+		game_graphics::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, snake_head_x, obs_head_x, snake_head_y, obs_head_y);
+	} else if (head_dir == snake_utils::direction_e::RIGHT) {
+		game_graphics::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, obs_head_x, snake_head_x, snake_head_y, obs_head_y);
+	} else if (head_dir == snake_utils::direction_e::UP) {
+		game_graphics::choose_dir(snake_utils::direction_e::LEFT, snake_utils::direction_e::RIGHT, obs_head_y, snake_head_y, snake_head_x, obs_head_x);
+	} else if (head_dir == snake_utils::direction_e::DOWN) {
+		game_graphics::choose_dir(snake_utils::direction_e::LEFT, snake_utils::direction_e::RIGHT, obs_head_y, snake_head_y, snake_head_x, obs_head_x);
+	}
+
+}
+
+void game_graphics::choose_dir(snake_utils::direction_e dir1, snake_utils::direction_e dir2, int dir_coord_small, int dir_coord_big, int other_coord_small, int other_coord_big) {
+
+	if (dir_coord_big < dir_coord_small) {
+		if (other_coord_small < other_coord_big) {
+			game_graphics::head_dir = dir1;
+		} else {
+			// In case other_coord_small = other_coord_big, the direction is don't care
+			game_graphics::head_dir = dir2;
+		}
+	}
+
 }

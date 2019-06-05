@@ -270,8 +270,8 @@ namespace game_graphics {
 	/**
 	 * @brief Function: void add_obs_node (int centre_x, int centre_y, int node_width, int node_height, colours::palette_e colour);
 	 *
-	 * \param centre_x:   sentre of the unit in the X coordinate
-	 * \param centre_y:   sentre of the unit in the Y coordinate
+	 * \param centre_x:   centre of the unit in the X coordinate
+	 * \param centre_y:   centre of the unit in the Y coordinate
 	 * \param node_width: width of the unit
 	 * \param node_heiht: height of the unit
 	 * \param colour:     background colour
@@ -287,6 +287,26 @@ namespace game_graphics {
 	 */
 	void set_snake_settings();
 
+	/**
+	 * @brief Function: void choose_dir(snake_utils::direction_e dir1, snake_utils::direction_e dir2, dir_coord_small, dir_coord_big, other_coord_small, other_coord_big);
+	 *
+	 * \param dir1:                direction number 1 to choose
+	 * \param dir2:                direction number 2 to choose
+	 * \param dir_coord_small:     coordinate expected to be the smaller along the direction of motion
+	 * \param dir_coord_big:       coordinate expected to be the bigger along the direction of motion
+	 * \param other_coord_small:   coordinate expected to be the smaller perpendicular to the direction of motion
+	 * \param other_coord_big:     coordinate expected to be the bigger perpendicular to the direction of motion
+	 *
+	 * This function sets the new direction based on current direction and relative position between obstacles and snake
+	 */
+	void choose_dir(snake_utils::direction_e dir1, snake_utils::direction_e dir2, int dir_coord_small, int dir_coord_big, int other_coord_small, int other_coord_big);
+
+	/**
+	 * @brief Function: void auto_change_dir();
+	 *
+	 * This function changes the direction when automatic ride is on
+	 */
+	void auto_change_dir();
 }
 
 template <typename game_pixel_type>
