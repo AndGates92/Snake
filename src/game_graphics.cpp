@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include <cmath>
 
 // include graphical libraries (OPENGL)
 #include <GL/glut.h>
@@ -44,6 +45,13 @@ namespace game_graphics {
 		 *
 		 */
 		snake_utils::direction_e head_dir;
+
+		/**
+		 * @brief Counter to update direction when automatic ride is on
+		 *
+		 */
+		int auto_ride_count;
+
 	}
 }
 
@@ -397,6 +405,7 @@ void game_graphics::populate_obstacle_list() {
 
 void game_graphics::init_game_parameters() {
 	game_graphics::head_dir = snake_settings.get_head_dir();
+	game_graphics::auto_ride_count = 0;
 }
 
 void game_graphics::declare_game_var() {
@@ -573,22 +582,44 @@ void game_graphics::auto_change_dir() {
 	snake_node::SnakeNode * snake_head = game_graphics::snake->get_head();
 	snake_utils::direction_e head_dir = snake_head->get_direction();
 
+	// Coordinates
 	int snake_head_x = snake_head->get_x_centre();
 	int snake_head_y = snake_head->get_y_centre();
+
+	// Dimensions
+	int height = snake_head->get_height();
+	int width = snake_head->get_width();
+
+	int speed = snake_settings.get_speed();
+
+	int max_auto_ride_count = 0;
+
+	if ((head_dir == snake_utils::direction_e::LEFT) | (head_dir == snake_utils::direction_e::RIGHT)) {
+		float result = ((float)width)/((float)speed);
+		max_auto_ride_count = (int) floor(result);
+	} else if ((head_dir == snake_utils::direction_e::UP) | (head_dir == snake_utils::direction_e::DOWN)) {
+		float result = ((float)height)/((float)speed);
+		max_auto_ride_count = (int) floor(result);
+	}
 
 	obstacle::ObstacleNode * obs_head = game_graphics::obstacles->get_head();
 
 	int obs_head_x = obs_head->get_x_centre();
 	int obs_head_y = obs_head->get_y_centre();
 
-	if (head_dir == snake_utils::direction_e::LEFT) {
-		game_graphics::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, obs_head_x, snake_head_x, snake_head_y, obs_head_y);
-	} else if (head_dir == snake_utils::direction_e::RIGHT) {
-		game_graphics::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, snake_head_x, obs_head_x, snake_head_y, obs_head_y);
-	} else if (head_dir == snake_utils::direction_e::UP) {
-		game_graphics::choose_dir(snake_utils::direction_e::RIGHT, snake_utils::direction_e::LEFT, snake_head_y, obs_head_y, snake_head_x, obs_head_x);
-	} else if (head_dir == snake_utils::direction_e::DOWN) {
-		game_graphics::choose_dir(snake_utils::direction_e::RIGHT, snake_utils::direction_e::LEFT, obs_head_y, snake_head_y, snake_head_x, obs_head_x);
+	if (auto_ride_count == max_auto_ride_count) {
+		if (head_dir == snake_utils::direction_e::LEFT) {
+			game_graphics::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, obs_head_x, snake_head_x, snake_head_y, obs_head_y);
+		} else if (head_dir == snake_utils::direction_e::RIGHT) {
+			game_graphics::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, snake_head_x, obs_head_x, snake_head_y, obs_head_y);
+		} else if (head_dir == snake_utils::direction_e::UP) {
+			game_graphics::choose_dir(snake_utils::direction_e::RIGHT, snake_utils::direction_e::LEFT, snake_head_y, obs_head_y, snake_head_x, obs_head_x);
+		} else if (head_dir == snake_utils::direction_e::DOWN) {
+			game_graphics::choose_dir(snake_utils::direction_e::RIGHT, snake_utils::direction_e::LEFT, obs_head_y, snake_head_y, snake_head_x, obs_head_x);
+		}
+		auto_ride_count = 0;
+	} else {
+		auto_ride_count++;
 	}
 
 }
