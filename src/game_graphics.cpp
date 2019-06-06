@@ -582,13 +582,13 @@ void game_graphics::auto_change_dir() {
 	int obs_head_y = obs_head->get_y_centre();
 
 	if (head_dir == snake_utils::direction_e::LEFT) {
-		game_graphics::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, snake_head_x, obs_head_x, snake_head_y, obs_head_y);
-	} else if (head_dir == snake_utils::direction_e::RIGHT) {
 		game_graphics::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, obs_head_x, snake_head_x, snake_head_y, obs_head_y);
+	} else if (head_dir == snake_utils::direction_e::RIGHT) {
+		game_graphics::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, snake_head_x, obs_head_x, snake_head_y, obs_head_y);
 	} else if (head_dir == snake_utils::direction_e::UP) {
-		game_graphics::choose_dir(snake_utils::direction_e::LEFT, snake_utils::direction_e::RIGHT, obs_head_y, snake_head_y, snake_head_x, obs_head_x);
+		game_graphics::choose_dir(snake_utils::direction_e::RIGHT, snake_utils::direction_e::LEFT, snake_head_y, obs_head_y, snake_head_x, obs_head_x);
 	} else if (head_dir == snake_utils::direction_e::DOWN) {
-		game_graphics::choose_dir(snake_utils::direction_e::LEFT, snake_utils::direction_e::RIGHT, obs_head_y, snake_head_y, snake_head_x, obs_head_x);
+		game_graphics::choose_dir(snake_utils::direction_e::RIGHT, snake_utils::direction_e::LEFT, obs_head_y, snake_head_y, snake_head_x, obs_head_x);
 	}
 
 }
