@@ -227,11 +227,6 @@ void game_graphics::idle_game_cb() {
 
 	if (game_status == settings::game_status_e::RUNNING) {
 
-		bool auto_ride = snake_settings.get_auto_ride_flag();
-		if (auto_ride == true) {
-			game_graphics::auto_change_dir();
-		}
-
 		bool obs_eaten = contact_between_snake_obs();
 		// Store speed locally because it can be changed anytime by the user. The update will be accounted for next time round
 		int snake_speed = snake_settings.get_speed();
@@ -275,6 +270,11 @@ void game_graphics::idle_game_cb() {
 			snake_settings.set_score(score + snake_speed);
 
 		} else {
+
+			bool auto_ride = snake_settings.get_auto_ride_flag();
+			if (auto_ride == true) {
+				game_graphics::auto_change_dir();
+			}
 
 			game_graphics::snake->move(snake_speed, win_width, win_height, game_graphics::head_dir);
 
@@ -622,6 +622,8 @@ void game_graphics::auto_change_dir() {
 		auto_ride_count++;
 	}
 
+//	cout << "Count " << auto_ride_count << " Max " << max_auto_ride_count << endl;
+
 }
 
 void game_graphics::choose_dir(snake_utils::direction_e dir1, snake_utils::direction_e dir2, int dir_coord_small, int dir_coord_big, int other_coord_small, int other_coord_big) {
@@ -634,5 +636,7 @@ void game_graphics::choose_dir(snake_utils::direction_e dir1, snake_utils::direc
 			game_graphics::head_dir = dir2;
 		}
 	}
+
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Choose Direction] New direction: ", game_graphics::head_dir);
 
 }
