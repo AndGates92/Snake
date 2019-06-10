@@ -477,17 +477,19 @@ void snake_list::SnakeList::check_snake_collision() {
 				int y_dist = (int) abs(y_centre1 - y_centre2);
 				int tot_dist = x_dist + y_dist;
 
-				// Unit1 and Unit2 are getting closer to each other on the x axis
-				if (((x_centre1 >= x_centre2) & (direction1 == snake_utils::direction_e::RIGHT)) | ((x_centre1 <= x_centre2) & (direction1 == snake_utils::direction_e::LEFT))) {
-					if (tot_dist < total_centre_distance) {
-						GAME_OVER("Collision on the X axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
+				if ((x_dist < x_centre_distance) & (y_dist < y_centre_distance)) {
+					// Unit1 and Unit2 are getting closer to each other on the x axis
+					if (((x_centre1 >= x_centre2) & (direction1 == snake_utils::direction_e::RIGHT)) | ((x_centre1 <= x_centre2) & (direction1 == snake_utils::direction_e::LEFT))) {
+						if (tot_dist < total_centre_distance) {
+							GAME_OVER("Collision on the X axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
+						}
 					}
-				}
 
-				// Unit1 and Unit2 are getting closer to each other on the y axis
-				if (((y_centre1 >= y_centre2) & (direction1 == snake_utils::direction_e::DOWN)) | ((y_centre1 <= y_centre2) & (direction1 == snake_utils::direction_e::UP))) {
-					if (tot_dist < total_centre_distance) {
-						GAME_OVER("Collision on the Y axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
+					// Unit1 and Unit2 are getting closer to each other on the y axis
+					if (((y_centre1 >= y_centre2) & (direction1 == snake_utils::direction_e::DOWN)) | ((y_centre1 <= y_centre2) & (direction1 == snake_utils::direction_e::UP))) {
+						if (tot_dist < total_centre_distance) {
+							GAME_OVER("Collision on the Y axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
+						}
 					}
 				}
 
