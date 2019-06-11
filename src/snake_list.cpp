@@ -11,7 +11,7 @@
 
 #include "colours.h"
 #include "settings.h"
-#include "game_graphics.h"
+#include "game_utils.h"
 #include "basic_obj_list.h"
 #include "snake_list.h"
 #include "snake_node.h"
@@ -22,7 +22,7 @@ using namespace logging;
 using namespace snake_list;
 using namespace snake_node;
 using namespace colours;
-using namespace game_graphics;
+using namespace game_utils;
 
 snake_list::SnakeList::~SnakeList() {
 

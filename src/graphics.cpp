@@ -23,6 +23,7 @@
 #include "graphics.h"
 #include "graphics_utils.h"
 #include "game_graphics.h"
+#include "game_utils.h"
 #include "stat_graphics.h"
 #include "cmdline_parser.h"
 
@@ -32,6 +33,7 @@ using namespace menu;
 using namespace graphics;
 using namespace graphics_utils;
 using namespace game_graphics;
+using namespace game_utils;
 using namespace cmdline_parser;
 
 namespace {
@@ -58,11 +60,11 @@ void graphics::init_graphics(int argc, char** argv) {
 		graphics::add_graphics();
 
 		// Initialize game
-		game_graphics::init_game();
+		game_utils::init_game();
 	}
 
 	// Initialize game parameters
-	game_graphics::init_game_parameters();
+	game_utils::init_game_parameters();
 
 	glutMainLoop();
 }
@@ -79,7 +81,7 @@ void graphics::declare_game() {
 	// Enable refresh timer
 	graphics_utils::refresh_window(graphics_utils::refresh_timer_ms);
 	// Initialize game
-	game_graphics::declare_game_var();
+	game_utils::declare_game_var();
 }
 
 void graphics::reshape_cb(int width, int height) {

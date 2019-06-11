@@ -12,7 +12,7 @@
 #include <cmath>
 
 #include "graphics.h"
-#include "game_graphics.h"
+#include "game_utils.h"
 #include "settings.h"
 #include "utility.h"
 #include "logging.h"
@@ -124,7 +124,7 @@ bool cmdline_parser::parse(int argc, char** argv) {
 
 void cmdline_parser::process() {
 	cmdline_parser::extract_inputfile_info();
-	game_graphics::set_snake_settings();
+	game_utils::set_snake_settings();
 }
 
 void cmdline_parser::extract_inputfile_info() {
@@ -389,10 +389,10 @@ void cmdline_parser::create_obj(cmdline_parser::obj_e object, std::string type, 
 
 	switch (object) {
 		case cmdline_parser::obj_e::SNAKE:
-			game_graphics::add_snake_node(x_centre, y_centre, width, height, direction, colour);
+			game_utils::add_snake_node(x_centre, y_centre, width, height, direction, colour);
 			break;
 		case cmdline_parser::obj_e::OBSTACLE:
-			game_graphics::add_obs_node(x_centre, y_centre, width, height, colour);
+			game_utils::add_obs_node(x_centre, y_centre, width, height, colour);
 			break;
 		case cmdline_parser::obj_e::WINDOW:
 			id = graphics_utils::win_node_add(title, type, width, height, x_centre, y_centre, colour);
