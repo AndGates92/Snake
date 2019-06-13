@@ -333,7 +333,9 @@ void game_utils::auto_change_dir() {
 	int obs_head_x = obs_head->get_x_centre();
 	int obs_head_y = obs_head->get_y_centre();
 
-	if (auto_ride_count == max_auto_ride_count) {
+	cout << "Snake Head: dir " << head_dir << " X " << snake_head_x << " Y " << snake_head_y << " Obs X " << obs_head_x << " Y " << obs_head_y << endl;
+
+	if (auto_ride_count >= max_auto_ride_count) {
 		if (head_dir == snake_utils::direction_e::LEFT) {
 			game_utils::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, obs_head_x, snake_head_x, snake_head_y, obs_head_y);
 		} else if (head_dir == snake_utils::direction_e::RIGHT) {
@@ -344,11 +346,13 @@ void game_utils::auto_change_dir() {
 			game_utils::choose_dir(snake_utils::direction_e::RIGHT, snake_utils::direction_e::LEFT, obs_head_y, snake_head_y, snake_head_x, obs_head_x);
 		}
 		auto_ride_count = 0;
+		cout << " Check " << endl;
 	} else {
 		auto_ride_count++;
 	}
 
-//	cout << "Count " << auto_ride_count << " Max " << max_auto_ride_count << endl;
+	cout << "Count " << auto_ride_count << " Max " << max_auto_ride_count << endl;
+	ASSERT(auto_ride_count <= max_auto_ride_count);
 
 }
 
