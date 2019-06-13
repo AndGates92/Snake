@@ -168,6 +168,11 @@ namespace settings {
 			};
 
 			// Destructor
+			/**
+			 * @brief Function: ~Settings()
+			 *
+			 * Destructor of Settings
+			 */
 			~Settings();
 
 			// Set functions
@@ -212,6 +217,14 @@ namespace settings {
 			int get_tile_width();
 			int get_score();
 
+			/**
+			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)
+			 *
+			 * \param verbosity: verbosity level
+			 * \param pretext: text to prepend to the Settings information
+			 *
+			 * Print Settings information
+			 */
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 			void save_data(iofile::File & savefile);
 

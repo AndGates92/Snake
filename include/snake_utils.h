@@ -22,11 +22,11 @@ namespace snake_utils {
 	 *
 	 */
 	typedef enum class direction_type {
-		UP,
-		DOWN,
-		LEFT,
-		RIGHT,
-		UNKNOWN
+		UP,      /**< Up */
+		DOWN,    /**< Down */
+		LEFT,    /**< Left */
+		RIGHT,   /**< Right */
+		UNKNOWN  /**< Unknown */
 	} direction_e;
 
 	/**

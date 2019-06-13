@@ -80,11 +80,11 @@ namespace logging {
 	 *
 	 */
 	typedef enum class verb_level_list {
-		ZERO,
-		LOW,
-		MEDIUM,
-		HIGH,
-		DEBUG
+		ZERO,   /**< Always printed */
+		LOW,    /**< Low level */
+		MEDIUM, /**< Medium level */
+		HIGH,   /**< High level */
+		DEBUG   /**< Debug level */
 	} verb_level_e;
 
 	/** 

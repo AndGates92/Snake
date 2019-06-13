@@ -18,15 +18,42 @@ namespace basic_obj_list {
 	class BasicObjList {
 		public:
 			// Constructor
+			/**
+			 * @brief Function: BasicObjList(std::string name_obj = "Unknown")
+			 *
+			 * \param name_obj: Name of the object
+			 *
+			 * BasicObjList constructor
+			 */
 			BasicObjList(std::string name_obj = "Unknown"): head(nullptr), name(name_obj) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
 
+			/**
+			 * @brief Function: BasicObjList(const BasicObjList& copy)
+			 *
+			 * \param copy: BasicObjList to copy
+			 *
+			 * BasicObjList copy constructor
+			 */
 			BasicObjList(const BasicObjList& copy): head(copy.head), name(copy.name) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
+			/**
+			 * @brief Function: ~BasicObjList()
+			 *
+			 * Destructor of BasicObjList
+			 */
 			~BasicObjList();
 
 			void remove_node(class_node * & node);
 
+			/**
+			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)
+			 *
+			 * \param verbosity: verbosity level
+			 * \param pretext: text to prepend to the BasicObjList information
+			 *
+			 * Print BasicObjList information
+			 */
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 			class_node * & get_head();

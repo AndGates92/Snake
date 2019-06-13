@@ -27,14 +27,31 @@ namespace basic_obj_node {
 	class BasicObjNode {
 		public:
 			// Constructor
+			/**
+			 * @brief Function: BasicObjNode()
+			 *
+			 * BasicObjNode constructor
+			 */
 			BasicObjNode(): prev(nullptr), next(nullptr) {
 				std::string pretext ("Basic node Constructor");
 				basic_obj_node::BasicObjNode<class_node>::print_info(logging::verb_level_e::LOW, pretext);
 			};
 
+			/**
+			 * @brief Function: BasicObjNode(const BasicObjNode& copy)
+			 *
+			 * \param copy: BasicObjNode to copy
+			 *
+			 * BasicObjNode copy constructor
+			 */
 			BasicObjNode(const class_node& copy) : prev(copy.prev), next(copy.next) { LOG_INFO(logging::verb_level_e::LOW, "Basic Node copy contructor") };
 
 			// Destructor
+			/**
+			 * @brief Function: ~BasicObjNode()
+			 *
+			 * Destructor of BasicObjNode
+			 */
 			~BasicObjNode();
 
 			// Get functions
@@ -45,6 +62,14 @@ namespace basic_obj_node {
 			void set_next(class_node * next_ptr);
 			void set_prev(class_node * prev_ptr);
 
+			/**
+			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)
+			 *
+			 * \param verbosity: verbosity level
+			 * \param pretext: text to prepend to the BasicObjNode information
+			 *
+			 * Print BasicObjNode information
+			 */
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 		protected:

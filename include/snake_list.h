@@ -24,13 +24,37 @@ namespace snake_list {
 			// Constructor
 			SnakeList(std::string name_snake = "Snake"): basic_obj_list::BasicObjList<snake_node::SnakeNode>(name_snake) { LOG_INFO(logging::verb_level_e::LOW, "Contructor") };
 
+			/**
+			 * @brief Function: SnakeList(const SnakeList& copy)
+			 *
+			 * \param copy: SnakeList to copy
+			 *
+			 * SnakeList copy constructor
+			 */
 			SnakeList(const SnakeList& copy): basic_obj_list::BasicObjList<snake_node::SnakeNode>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
+			/**
+			 * @brief Function: ~SnakeList()
+			 *
+			 * Destructor of SnakeList
+			 */
 			~SnakeList();
 
 			void move(const int & speed, const int & win_width, const int & win_height, const snake_utils::direction_e & head_dir);
 
+			/**
+			 * @brief Function: void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour)
+			 *
+			 * \param centre_x: x coordinate of the snake node
+			 * \param centre_y: y coordinate of the snake_node 
+			 * \param snake_width: width of the snake node
+			 * \param snake_height: height of the snake node
+			 * \param snake_direction: direction of the snake node
+			 * \param snake_colour: colour of the snake node
+			 *
+			 * Add node to SnakeList
+			 */
 			void add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour);
 
 			void check_collision(const int & win_width, const int & win_height);

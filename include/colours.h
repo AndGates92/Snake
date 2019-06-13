@@ -29,16 +29,16 @@ namespace colours {
 	 *
 	 */
 	typedef enum class palette_type {
-		RED,
-		BLUE,
-		GREEN,
-		YELLOW,
-		PURPLE,
-		PINK,
-		BROWN,
-		WHITE,
-		BLACK,
-		UNKNOWN
+		RED,    /**< Red */
+		BLUE,   /**< Blue */
+		GREEN,  /**< Green */
+		YELLOW, /**< Yellow */
+		PURPLE, /**< Purple */
+		PINK,   /**< Pink */
+		BROWN,  /**< Brown */
+		WHITE,  /**< White */
+		BLACK,  /**< Black */
+		UNKNOWN /**< Unknown colour */
 	} palette_e;
 
 	/**
@@ -67,11 +67,20 @@ namespace colours {
 	 *
 	 */
 	typedef enum class colour_idx_type {
-		RED,
-		GREEN,
-		BLUE
+		RED,   /**< Red */
+		GREEN, /**< Green */
+		BLUE   /**< Blue */
 	} colour_idx_e;
 
+	/**
+	 * @brief Function: pixel_type * get_pixel_colour (palette_e colour_name)
+	 *
+	 * \param colour_name: Name of the colour
+	 *
+	 * \return Pixel to be printed
+	 *
+	 * Get pixel to be printed
+	 */
 	template <typename pixel_type>
 	pixel_type * get_pixel_colour (palette_e colour_name);
 

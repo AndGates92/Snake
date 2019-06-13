@@ -136,30 +136,108 @@ namespace menu {
 	class Menu {
 		public:
 			// Constructor
+			/**
+			 * @brief Function: Menu(std::string window_title = "")
+			 *
+			 * \param window_title: title of the window
+			 *
+			 * Menu constructor
+			 */
 			Menu(std::string window_title = ""): title(window_title), id(create_menu(EntryFunc[window_title], ItemsFunc[window_title])) {
 				std::string pretext ("Menu Constructor");
 				menu::Menu::print_info(logging::verb_level_e::LOW, pretext);
 			}
 
+			/**
+			 * @brief Function: Menu(const Menu& copy)
+			 *
+			 * \param copy: Menu to copy
+			 *
+			 * Menu copy constructor
+			 */
 			Menu(const Menu& copy): title(copy.title), id(copy.id) {};
 
 			// Destructor
+			/**
+			 * @brief Function: ~Menu()
+			 *
+			 * Menu destructor
+			 */
 			~Menu();
 
+			/**
+			 * @brief Function: void save_data (iofile::File & savefile)
+			 *
+			 * \param savefile: file to write Menu information to
+			 *
+			 * Save the Menu information
+			 */
 			void save_data (iofile::File & savefile);
 
+			/**
+			 * @brief Function: int get_id()
+			 *
+			 * \return menu ID
+			 *
+			 * Get menu ID
+			 */
 			int get_id();
+
+			/**
+			 * @brief Function: std::string get_title()
+			 *
+			 * \return title of the menu
+			 *
+			 * Get title of the menu
+			 */
 			std::string get_title();
+
+			/**
+			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)
+			 *
+			 * \param verbosity: verbosity level
+			 * \param pretext: text to prepend to the Menu information
+			 *
+			 * Print Menu information
+			 */
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
+			/**
+			 * @brief Function: void destroy_menu()
+			 *
+			 * Destroy this menu
+			 */
 			void destroy_menu();
 
 		protected:
+
+			/**
+			 * @brief Function: int create_menu(void (*EntryFunc)(int), void (*ItemsFunc)())
+			 *
+			 * \param EntryFunc: function pointer to determine the action to be taken based on the menu item selected
+			 * \param ItemFunc: function pointer to list of item to be shown in the menu
+			 *
+			 * \return menu ID
+			 *
+			 * Create menu and return window ID
+			 */
 			int create_menu(void (*EntryFunc)(int), void (*ItemsFunc)());
 
 		private:
+			/**
+			 *
+			 * @brief Title of the menu
+			 *
+			 */
 			std::string title;
+
+			/**
+			 *
+			 * @brief Menu ID
+			 *
+			 */
 			int id;
+
 	};
 
 	/** @} */ // End of MenuGroup group

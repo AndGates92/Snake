@@ -48,11 +48,24 @@ namespace iofile {
 	class File {
 		public:
 			// Constructor
+			/**
+			 * @brief Function: File(std::string const & filename = "", mode_e access_mode = iofile::mode_e::NO_ACCESS)
+			 *
+			 * \param filename: name fo the file
+			 * \param access_mode: permission to the file
+			 *
+			 * File constructor
+			 */
 			File(std::string const & filename = "", mode_e access_mode = iofile::mode_e::NO_ACCESS): name(filename), mode(access_mode) {
 				set_access_flags();
 			};
 
 			// Destructor
+			/**
+			 * @brief Function: ~File()
+			 *
+			 * Destructor of File
+			 */
 			~File();
 
 			// Set functions
