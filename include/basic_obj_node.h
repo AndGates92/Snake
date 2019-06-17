@@ -76,7 +76,7 @@ namespace basic_obj_node {
 			/**
 			 * @brief Function: void set_next(class_node * next_ptr)
 			 *
-			 * \param pointer to the next node
+			 * \param next_ptr: pointer to the next node
 			 *
 			 * Set the pointer to the next node
 			 */
@@ -84,7 +84,7 @@ namespace basic_obj_node {
 			/**
 			 * @brief Function: void set_prev(class_node * prev_ptr)
 			 *
-			 * \param pointer to the previous node
+			 * \param prev_ptr: pointer to the previous node
 			 *
 			 * Set the pointer to the previous node
 			 */

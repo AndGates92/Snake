@@ -101,24 +101,15 @@ namespace menu {
 	void menu_stat_items();
 
 	/**
-	 * @brief Function: std::function(void(int)) get_entry_func(std::string name)
+	 * @brief Entry function pointer function
 	 *
-	 * \param menu_type: type of menu
-	 *
-	 * \return Return the pointer to function
-	 *
-	 * List menu items in stat window
 	 */
-//	std::function(void(int)) get_entry_func(std::string name);
-
-
-//	std::string set_entry_func(std::function(void(int)));
-
-//	std::function(void(void)) get_entry_items_func(std::string name);
-
-//	std::string set_entry_items_func(std::function(void(int)));
-
 	typedef void (*EntryFuncPtr)(int);
+
+	/**
+	 * @brief Item function pointer function
+	 *
+	 */
 	typedef void (*ItemFuncPtr)(void);
 
 	namespace {
@@ -215,7 +206,7 @@ namespace menu {
 			 * @brief Function: int create_menu(void (*EntryFunc)(int), void (*ItemsFunc)())
 			 *
 			 * \param EntryFunc: function pointer to determine the action to be taken based on the menu item selected
-			 * \param ItemFunc: function pointer to list of item to be shown in the menu
+			 * \param ItemsFunc: function pointer to list of item to be shown in the menu
 			 *
 			 * \return menu ID
 			 *

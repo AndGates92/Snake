@@ -199,7 +199,7 @@ namespace game_utils {
 	 * \param centre_x:   sentre of the unit in the X coordinate
 	 * \param centre_y:   sentre of the unit in the Y coordinate
 	 * \param node_width: width of the unit
-	 * \param node_heiht: height of the unit
+	 * \param node_height: height of the unit
 	 * \param dir:        direction of the unit
 	 * \param colour:     background colour
 	 *
@@ -213,7 +213,7 @@ namespace game_utils {
 	 * \param centre_x:   centre of the unit in the X coordinate
 	 * \param centre_y:   centre of the unit in the Y coordinate
 	 * \param node_width: width of the unit
-	 * \param node_heiht: height of the unit
+	 * \param node_height: height of the unit
 	 * \param colour:     background colour
 	 *
 	 * This function add a new node to the obstacle list

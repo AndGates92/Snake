@@ -142,7 +142,7 @@ namespace basic_object {
 			/**
 			 * @brief Function: void set_width(int new_width)
 			 *
-			 * \param new_y_centre: new width of the object
+			 * \param new_width: new width of the object
 			 *
 			 * Set y coordinate of the BasicObject
 			 */

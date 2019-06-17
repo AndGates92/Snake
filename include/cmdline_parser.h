@@ -76,6 +76,7 @@ namespace cmdline_parser {
 	 *
 	 * \param var_name: variable name extracted from the line
 	 * \param var_value: variable value extracted from the line
+	 * \param object: type of object to create (See values supported by enumerated type obj_e)
 	 * \param type: string matching the object type
 	 * \param title: label of the object
 	 * \param x_centre: x coordinate of the object
@@ -105,7 +106,7 @@ namespace cmdline_parser {
 	 *
 	 * \param line: line to parse
 	 * \param start_pos: starting position for the search
-	 * \param start_pos: starting position for the search
+	 * \param end_pos: ending position for the search
 	 * \param word: word found
 	 *
 	 * \return boolean value of the validy of output word
@@ -149,7 +150,7 @@ namespace cmdline_parser {
 	/**
 	 * @brief Function: std::ostream& operator<< (std::ostream& os, cmdline_parser::obj_e obj)
 	 *
-	 * \param object: type of object to create (See values supported by enumerated type obj_e)
+	 * \param obj: type of object to create (See values supported by enumerated type obj_e)
 	 * \param os: output stream
 	 *
 	 * \return text to pass to the calling output stream

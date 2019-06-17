@@ -48,7 +48,7 @@ namespace obstacle_list {
 			~ObstacleList();
 
 			/**
-			 * @brief Function: void add_node(int centre_x, int centre_y, int ostacle_width, int ostacle_height, colours::palette_e ostacle_colour)
+			 * @brief Function: void add_node(int centre_x, int centre_y, int obstacle_width, int ovstacle_height, colours::palette_e obstacle_colour)
 			 *
 			 * \param centre_x: x coordinate of the obstacle
 			 * \param centre_y: y coordinate of the obstacle
@@ -58,7 +58,7 @@ namespace obstacle_list {
 			 *
 			 * ObstacleList constructor
 			 */
-			void add_node(int centre_x, int centre_y, int ostacle_width, int ostacle_height, colours::palette_e ostacle_colour);
+			void add_node(int centre_x, int centre_y, int obstacle_width, int obstacle_height, colours::palette_e obstacle_colour);
 
 		protected:
 

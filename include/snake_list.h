@@ -22,6 +22,13 @@ namespace snake_list {
 	class SnakeList : public basic_obj_list::BasicObjList<snake_node::SnakeNode> {
 		public:
 			// Constructor
+			/**
+			 * @brief Function: SnakeList(std::string name_snake = "Snake")
+			 *
+			 * \param name_snake: SnakeList name
+			 *
+			 * SnakeList constructor
+			 */
 			SnakeList(std::string name_snake = "Snake"): basic_obj_list::BasicObjList<snake_node::SnakeNode>(name_snake) { LOG_INFO(logging::verb_level_e::LOW, "Contructor") };
 
 			/**
@@ -41,6 +48,16 @@ namespace snake_list {
 			 */
 			~SnakeList();
 
+			/**
+			 * @brief Function: void move(const int & speed, const int & win_width, const int & win_height, const snake_utils::direction_e & head_dir)
+			 *
+			 * \param speed: speed of the snake
+			 * \param win_width: width of the window node
+			 * \param win_height: height of the window node
+			 * \param head_dir: direction of the head of the snake
+			 *
+			 * Move snake 
+			 */
 			void move(const int & speed, const int & win_width, const int & win_height, const snake_utils::direction_e & head_dir);
 
 			/**
@@ -93,6 +110,7 @@ namespace snake_list {
 			 * \param prev_coord_mov_dir: coordinate along direction of movement of the previous node
 			 * \param curr_coord_perp_dir: coordinate perpendicular the direction of movement of the current node
 			 * \param prev_coord_perp_dir: coordinate perpendicular the direction of movement of the previous node
+			 * \param speed: speed of the snake
 			 * \param dir1: first direction
 			 * \param dir2: second direction
 			 * \param curr_dir: direction of the current node

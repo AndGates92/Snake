@@ -111,7 +111,9 @@ namespace logging {
 	/** 
 	 * @brief Function: void print_str(info_type... info)
 	 *
-	 * \param info:        string to print using std::cout
+	 * \param file:            file pointer that should be written
+	 * \param first_str:       first string to be selected (top of the queue)
+	 * \param str:             Next part fo the string
 	 *
 	 * Log information to a logfile
 	 * If log file is not opened, it will open for write
