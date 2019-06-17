@@ -55,11 +55,39 @@ namespace basic_obj_node {
 			~BasicObjNode();
 
 			// Get functions
+			/**
+			 * @brief Function: class_node * & get_next()
+			 *
+			 * \return pointer to the next node
+			 *
+			 * Return the pointer to the next node
+			 */
 			class_node * & get_next();
+			/**
+			 * @brief Function: class_node * & get_prev()
+			 *
+			 * \return pointer to the previous node
+			 *
+			 * Return the pointer to the previous node
+			 */
 			class_node * & get_prev();
 
 			// Set functions
+			/**
+			 * @brief Function: void set_next(class_node * next_ptr)
+			 *
+			 * \param pointer to the next node
+			 *
+			 * Set the pointer to the next node
+			 */
 			void set_next(class_node * next_ptr);
+			/**
+			 * @brief Function: void set_prev(class_node * prev_ptr)
+			 *
+			 * \param pointer to the previous node
+			 *
+			 * Set the pointer to the previous node
+			 */
 			void set_prev(class_node * prev_ptr);
 
 			/**
@@ -75,7 +103,16 @@ namespace basic_obj_node {
 		protected:
 
 		private:
+			/**
+			 * @brief Pointer to the previous node
+			 *
+			 */
 			class_node * prev;
+
+			/**
+			 * @brief Pointer to the next node
+			 *
+			 */
 			class_node * next;
 	};
 	/** @} */ // End of BasicObjNodeGroup group

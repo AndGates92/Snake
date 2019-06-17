@@ -44,6 +44,13 @@ namespace basic_obj_list {
 			 */
 			~BasicObjList();
 
+			/**
+			 * @brief Function: void remove_node(class_node * & node)
+			 *
+			 * \param node: node to delete
+			 *
+			 * Delete node
+			 */
 			void remove_node(class_node * & node);
 
 			/**
@@ -56,19 +63,67 @@ namespace basic_obj_list {
 			 */
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
+			/**
+			 * @brief Function: class_node * & get_head()
+			 *
+			 * \return head of BasicObjList
+			 *
+			 * Return a pointer to te head of the object list 
+			 */
 			class_node * & get_head();
+
+			/**
+			 * @brief Function: void set_head(class_node * & new_head)
+			 *
+			 * \param new_head: set head of BasicObjList
+			 *
+			 * Set the head pointer of the object list
+			 */
 			void set_head(class_node * & new_head);
 
+			/**
+			 * @brief Function: std::string get_name()
+			 *
+			 * \return name of the BasicObjList instance
+			 *
+			 * Return the name of the object list
+			 */
 			std::string get_name();
+
+			/**
+			 * @brief Function: void set_name(std::string new_name)
+			 *
+			 * \param new_name: name of the BasicObjList instance
+			 *
+			 * Change name of the object list
+			 */
 			void set_name(std::string new_name);
 
+			/**
+			 * @brief Function: void draw(pixel_type * & pixels, const int & win_width, const int & win_height, const int & exp_no)
+			 *
+			 * \param pixels: pixels in the window
+			 * \param win_width: width of the window
+			 * \param win_height: height of the window
+			 * \param exp_no: expected number of elements
+			 *
+			 * Draw the object list elements
+			 */
 			template <typename pixel_type>
 			void draw(pixel_type * & pixels, const int & win_width, const int & win_height, const int & exp_no);
 
 		protected:
 
 		private:
+			/**
+			 * @brief Head of the list
+			 *
+			 */
 			class_node * head;
+			/**
+			 * @brief Name of the object list
+			 *
+			 */
 			std::string name;
 	};
 	/** @} */ // End of BasicObjListGroup group

@@ -150,7 +150,7 @@ void cmdline_parser::extract_inputfile_info() {
 
 		for (std::string line; std::getline(ifile, line); ) {
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Process] Line cont ,", line_count, ": ", line);
-			bool skip_line = check_line(line);
+			bool skip_line = detect_comment_line(line);
 
 			if (skip_line == false) {
 				std::string var_name("");
@@ -181,7 +181,7 @@ void cmdline_parser::reset_common_var(cmdline_parser::obj_e & object, std::strin
 	LOG_INFO(logging::verb_level_e::DEBUG, "Reset values of common variable:\n\t	object-> ", object, "\n\tType-> ", type, "\n\tTitle-> ", title, "\n\tCoordinates-> (", x_centre, ", ", y_centre, ")\n\t Dimensions: Width-> ", width, " Height-> ", height, "\n\tDirection-> ", direction);
 }
 
-bool cmdline_parser::check_line(std::string line) {
+bool cmdline_parser::detect_comment_line(std::string line) {
 	bool no_data_in_line = false;
 	std::string word("");
 	if (shared_constants::comment.length() < line.length()) { 
@@ -285,7 +285,7 @@ void cmdline_parser::delete_special_characters(std::string & word) {
 	}
 }
 
-int cmdline_parser::extract_word(std::string line, std::string::size_type start_pos, std::string & word, std::string::size_type & end_pos) {
+bool cmdline_parser::extract_word(std::string line, std::string::size_type start_pos, std::string & word, std::string::size_type & end_pos) {
 	std::string search_char(" ");
 
 	ASSERT(start_pos > 0);

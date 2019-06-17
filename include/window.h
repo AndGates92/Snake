@@ -38,6 +38,19 @@ namespace window {
 	class Window : public basic_object::BasicObject {
 		public:
 			// Constructor
+			/**
+			 * @brief Function: Window(std::string window_title = "", std::string type = "Window", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, colours::palette_e background_colour=colours::palette_e::BLACK)
+			 *
+			 * \param window_title: title of the window
+			 * \param type: type/group the window belongs to
+			 * \param window_width: width of the window
+			 * \param window_height: height of the window
+			 * \param window_x_pos: position on the x coordinate of the window on the screen
+			 * \param window_y_pos: position on the y coordinate of the window on the screen
+			 * \param background_colour: background colour of the window
+			 *
+			 * Window constructor
+			 */
 			Window(std::string window_title = "", std::string type = "Window", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, colours::palette_e background_colour=colours::palette_e::BLACK): basic_object::BasicObject(type, window_x_pos, window_y_pos, window_width, window_height, background_colour), title(window_title) {
 				id = window::Window::create_window(window_title, window_width, window_height, window_x_pos, window_y_pos);
 				std::string pretext ("Window Constructor");

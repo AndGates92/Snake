@@ -19,18 +19,41 @@
 #include <GL/gl.h>
 
 namespace char_lut {
-
+	/** @defgroup CharLUTGroup Character LUT Doxygen Group
+	 *  Character LUT functions and classes
+	 *  @{
+	 */
 	namespace {
 		// Colouring
+		/**
+		 * @brief Colour of tiles (writing)
+		 *
+		 */
 		colours::palette_e colour_true = colours::palette_e::WHITE;
 	}
 
 	// Tile defines
+	/**
+	 * @brief Number of tiles on the horizontal axis
+	 *
+	 */
 	const static int num_tiles_width = 4;
+	/**
+	 * @brief Number of tiles on the vertical axis
+	 *
+	 */
 	const static int num_tiles_height = 5;
+	/**
+	 * @brief Total number of tiles
+	 *
+	 */
 	const static int num_tiles = num_tiles_height * num_tiles_width;
 
 	// Digits
+	/**
+	 * @brief Character 0 (zero)
+	 *
+	 */
 	const static bool number_zero[num_tiles] = {
 		false, true,  true,  true,
 		false, true,  false, true,
@@ -39,6 +62,10 @@ namespace char_lut {
 		false, true,  true,  true
 	};
 
+	/**
+	 * @brief Character 1 (one)
+	 *
+	 */
 	const static bool number_one[num_tiles] = {
 		false, false, true,  false,
 		false, false, true,  false,
@@ -47,6 +74,10 @@ namespace char_lut {
 		false, false, true,  false
 	};
 
+	/**
+	 * @brief Character 2 (two)
+	 *
+	 */
 	const static bool number_two[num_tiles] = {
 		false, true,  true,  true,
 		false, false, false, true,
@@ -55,6 +86,10 @@ namespace char_lut {
 		false, true,  true,  true
 	};
 
+	/**
+	 * @brief Character 3 (three)
+	 *
+	 */
 	const static bool number_three[num_tiles] = {
 		false, true,  true,  true,
 		false, false, false, true,
@@ -63,6 +98,10 @@ namespace char_lut {
 		false, true,  true,  true
 	};
 
+	/**
+	 * @brief Character 4 (four)
+	 *
+	 */
 	const static bool number_four[num_tiles] = {
 		false, false, false, true,
 		false, false, true,  true,
@@ -71,6 +110,10 @@ namespace char_lut {
 		false, false, false, true
 	};
 
+	/**
+	 * @brief Character 5 (five)
+	 *
+	 */
 	const static bool number_five[num_tiles] = {
 		false, true,  true,  true,
 		false, true,  false, false,
@@ -79,6 +122,10 @@ namespace char_lut {
 		false, true,  true,  true
 	};
 
+	/**
+	 * @brief Character 6 (six)
+	 *
+	 */
 	const static bool number_six[num_tiles] = {
 		false, true,  true,  true,
 		false, true,  false, false,
@@ -87,6 +134,10 @@ namespace char_lut {
 		false, true,  true,  true
 	};
 
+	/**
+	 * @brief Character 7 (seven)
+	 *
+	 */
 	const static bool number_seven[num_tiles] = {
 		false, true,  true,  true,
 		false, false, false, true,
@@ -95,6 +146,10 @@ namespace char_lut {
 		false, true,  false, false
 	};
 
+	/**
+	 * @brief Character 8 (eight)
+	 *
+	 */
 	const static bool number_eight[num_tiles] = {
 		false, true,  true,  true,
 		false, true,  false, true,
@@ -103,6 +158,10 @@ namespace char_lut {
 		false, true,  true,  true
 	};
 
+	/**
+	 * @brief Character 9 (nine)
+	 *
+	 */
 	const static bool number_nine[num_tiles] = {
 		false, true,  true,  true,
 		false, true,  false, true,
@@ -112,6 +171,10 @@ namespace char_lut {
 	};
 
 	// Alphabetical characters
+	/**
+	 * @brief Character C
+	 *
+	 */
 	const static bool char_c[num_tiles] = {
 		false, true,  true,  true,
 		false, true,  false, false,
@@ -120,6 +183,10 @@ namespace char_lut {
 		false, true,  true,  true
 	};
 
+	/**
+	 * @brief Character E
+	 *
+	 */
 	const static bool char_e[num_tiles] = {
 		false, true,  true,  true,
 		false, true,  false, false,
@@ -128,6 +195,10 @@ namespace char_lut {
 		false, true,  true,  true
 	};
 
+	/**
+	 * @brief Character O
+	 *
+	 */
 	const static bool char_o[num_tiles] = {
 		false, true,  true,  true,
 		false, true,  false, true,
@@ -136,6 +207,10 @@ namespace char_lut {
 		false, true,  true,  true
 	};
 
+	/**
+	 * @brief Character R
+	 *
+	 */
 	const static bool char_r[num_tiles] = {
 		false, true,  true,  true,
 		false, true,  false, true,
@@ -144,6 +219,10 @@ namespace char_lut {
 		false, true,  false, true
 	};
 
+	/**
+	 * @brief Character S
+	 *
+	 */
 	const static bool char_s[num_tiles] = {
 		false, true,  true,  true,
 		false, true,  false, false,
@@ -153,6 +232,10 @@ namespace char_lut {
 	};
 
 	// Symbols
+	/**
+	 * @brief Character = (equal)
+	 *
+	 */
 	const static bool char_eq[num_tiles] = {
 		false, false, false, false,
 		false, true,  true,  false,
@@ -161,6 +244,11 @@ namespace char_lut {
 		false, false, false, false
 	};
 
+
+	/**
+	 * @brief Character : (colon)
+	 *
+	 */
 	const static bool char_colon[num_tiles] = {
 		false, false, false, false,
 		false, true,  false, false,
@@ -169,9 +257,30 @@ namespace char_lut {
 		false, false, false, false
 	};
 
+	/**
+	 * @brief Function: void draw_char(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & char_print)
+	 *
+	 * \param win_height: height of the reshaped window
+	 * \param win_width: width of the reshaped window
+	 * \param pixels: pointer to pixels to draw passed by reference
+	 * \param init_x: x coordinate of pixel the number starts
+	 * \param init_y: y coordinate of pixel the number starts
+	 * \param char_print: character to draw
+	 *
+	 * This function returns the pointer to the array of pixels to draw
+	 */
 	template <typename pixel_type>
 	void draw_char(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & char_print);
 
+	/**
+	 * @brief Function: const bool * get_char_tiles(const char & char_print)
+	 *
+	 * \param char_print: character to print
+	 *
+	 * \return array of tile values printing the character
+	 *
+	 * This function returns the array of tile values making up the character
+	 */
 	const bool * get_char_tiles(const char & char_print);
 
 	/**
@@ -189,6 +298,7 @@ namespace char_lut {
 	template <typename stat_pixel_type>
 	void draw_string(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const string & str);
 
+	/** @} */ // End of CharLUTGroup group
 }
 
 template <typename pixel_type>

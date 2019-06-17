@@ -77,6 +77,7 @@ void graphics_utils::refresh_window(int value) {
 	window_node::WindowNode * head(windows->get_head());
 	window_node::WindowNode * window_node (head);
 
+	// Refresh windows
 	while (window_node != nullptr) {
 
 		int curr_win_id = window_node->get_win_id();
@@ -90,6 +91,7 @@ void graphics_utils::refresh_window(int value) {
 
 	}
 
+	// Restart timer
 	glutTimerFunc(value, graphics_utils::refresh_window, value);
 
 }
