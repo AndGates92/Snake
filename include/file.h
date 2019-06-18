@@ -10,12 +10,11 @@
 
 #include <fstream>
 
+/** @defgroup FileGroup File Doxygen Group
+ *  File functions and classes
+ *  @{
+ */
 namespace iofile {
-
-	/** @defgroup FileGroup File Doxygen Group
-	 *  File functions and classes
-	 *  @{
-	 */
 
 	namespace {
 		/**
@@ -144,6 +143,14 @@ namespace iofile {
 			template <typename str_type>
 			void write_ofile(str_type str);
 
+			/**
+			 * @brief Function: void write_ofile(first_str_type first_str, other_str_type ... str)
+			 *
+			 * \param first_str: string to write to output stream
+			 * \param str: remaining string to write to output stream
+			 *
+			 * Write recursively string to output stream
+			 */
 			template <typename first_str_type, typename... other_str_type>
 			void write_ofile(first_str_type first_str, other_str_type ... str);
 
@@ -221,8 +228,8 @@ namespace iofile {
 			 */
 			void set_access_flags();
 	};
-	/** @} */ // End of FileGroup group
 }
+/** @} */ // End of FileGroup group
 
 // ================================================================
 // Output stream (write)

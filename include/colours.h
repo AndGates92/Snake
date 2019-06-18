@@ -14,6 +14,10 @@
 
 using namespace std;
 
+/** @defgroup ColoursGroup Character LUT Doxygen Group
+ *  Colour functions and classes
+ *  @{
+ */
 namespace colours {
 
 	namespace {
@@ -85,6 +89,7 @@ namespace colours {
 	pixel_type * get_pixel_colour (palette_e colour_name);
 
 }
+/** @} */ // End of ColoursGroup group
 
 
 template <typename pixel_type>

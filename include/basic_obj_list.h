@@ -8,12 +8,11 @@
  * @brief Basic Object List header file
 */
 
+/** @defgroup BasicObjListGroup Basic Object List Doxygen Group
+ *  Basic Object List functions and classes
+ *  @{
+ */
 namespace basic_obj_list {
-	/** @defgroup BasicObjListGroup Basic Object List Doxygen Group
-	 *  Basic Object List functions and classes
-	 *  @{
-	 */
-
 	template <class class_node>
 	class BasicObjList {
 		public:
@@ -126,8 +125,8 @@ namespace basic_obj_list {
 			 */
 			std::string name;
 	};
-	/** @} */ // End of BasicObjListGroup group
 }
+/** @} */ // End of BasicObjListGroup group
 
 template <class class_node>
 basic_obj_list::BasicObjList<class_node>::~BasicObjList() {

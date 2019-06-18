@@ -8,12 +8,36 @@
  * @brief Graphics header file
 */
 
+/** @defgroup GraphicsGroup Graphics Doxygen Group
+ *  Graphics functions and classes
+ *  @{
+ */
 namespace graphics {
 
+
+	/**
+	 * @brief Function: void init_graphics(int argc, char** argv)
+	 *
+	 * \param argc: number of arguments
+	 * \param argv: value of arguments
+	 *
+	 * This function initialize graphics
+	 */
 	void init_graphics(int argc, char** argv);
 
+	/**
+	 * @brief Function: void add_graphics()
+	 *
+	 * This function instatiate windows classes and add them to the WindowList
+	 */
 	void add_graphics();
 
+
+	/**
+	 * @brief Function: void start_game()
+	 *
+	 * Start the game base don user settings
+	 */
 	void start_game();
 
 	/**
@@ -51,5 +75,6 @@ namespace graphics {
 	void set_id(int id, std::string type);
 
 }
+/** @} */ // End of GraphicsGroup group
 
 #endif // GRAPHICS_H

@@ -161,6 +161,11 @@ namespace settings {
 	class Settings {
 		public:
 			// Constructor
+			/**
+			 * @brief Function: Settings()
+			 *
+			 * Constructor of Settings
+			 */
 			Settings(): auto_ride(settings::init_auto_ride), hard_wall(settings::init_hard_wall), dump_filename(settings::init_dumpfilename), save_filename(settings::init_savefilename), game_status(init_game_status), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_colour(settings::init_snake_colour), obs_colour(settings::init_obs_colour), tile_height(settings::init_tile_height), tile_width(settings::init_tile_width), score(settings::init_score) {
 				std::string pretext ("Settings Constructor");
 				settings::Settings::print_info(logging::verb_level_e::LOW, pretext);
@@ -176,45 +181,349 @@ namespace settings {
 			~Settings();
 
 			// Set functions
+			/**
+			 * @brief Function: void set_auto_ride_flag(bool value);
+			 *
+			 * param value: new value of auto ride flag
+			 *
+			 * Update value of auto ride flag
+			 */
 			void set_auto_ride_flag(bool value);
+
+			/**
+			 * @brief Function: void set_hard_wall_flag(bool value);
+			 *
+			 * param value: new value of hard wall flag
+			 *
+			 * Update value of hard wall flag
+			 */
 			void set_hard_wall_flag(bool value);
+
+			/**
+			 * @brief Function: void set_dump_filename(std::string name);
+			 *
+			 * param value: new value of filename where data are dumped in case of failure
+			 *
+			 * Update value of filename where data are dumped in case of failure
+			 */
 			void set_dump_filename(std::string name);
+
+			/**
+			 * @brief Function: void set_save_filename(std::string name);
+			 *
+			 * param value: new value of filename where data are saved upon user request
+			 *
+			 * Update value of filename where data are saved upon user request
+			 */
 			void set_save_filename(std::string name);
+
+			/**
+			 * @brief Function: void set_game_status(settings::game_status_e game_status_new);
+			 *
+			 * param value: new value of the status of the game
+			 *
+			 * Update value of status of the game
+			 */
 			void set_game_status(settings::game_status_e game_status_new);
+
+			/**
+			 * @brief Function: void set_speed(int value);
+			 *
+			 * param value: new value of the speed
+			 *
+			 * Update value of the speed the snake is moving at
+			 */
 			void set_speed(int value);
+
+			/**
+			 * @brief Function: void set_speed_incr(int value);
+			 *
+			 * param value: new value of the speed increment
+			 *
+			 * Update value of the speed increment
+			 */
 			void set_speed_incr(int value);
+
+			/**
+			 * @brief Function: void set_node_height(int value);
+			 *
+			 * param value: new value of height of snake nodes
+			 *
+			 * Update value of height of snake nodes
+			 */
 			void set_node_height(int value);
+
+			/**
+			 * @brief Function: void set_node_width(int value);
+			 *
+			 * param value: new value of width of snake nodes
+			 *
+			 * Update value of width of snake nodes
+			 */
 			void set_node_width(int value);
+
+			/**
+			 * @brief Function: void set_snake_units(int value);
+			 *
+			 * param value: new value of the number of snake units
+			 *
+			 * Update value of the number of snake units
+			 */
 			void set_snake_units(int value);
+
+			/**
+			 * @brief Function: void set_obs_no(int value);
+			 *
+			 * param value: new value of the number of obstacles
+			 *
+			 * Update value of the number of obstacles
+			 */
 			void set_obs_no(int value);
+
+			/**
+			 * @brief Function: void set_head_centre_x(int value);
+			 *
+			 * param value: new value of x coordinate of the snake head
+			 *
+			 * Update value of x coordinate of the snake head
+			 */
 			void set_head_centre_x(int value);
+
+			/**
+			 * @brief Function: void set_head_centre_y(int value);
+			 *
+			 * param value: new value of y coordinate of the snake head
+			 *
+			 * Update value of y coordinate of the snake head
+			 */
 			void set_head_centre_y(int value);
+
+			/**
+			 * @brief Function: void set_head_dir(snake_utils::direction_e value);
+			 *
+			 * param value: new value of the direction of the snake head
+			 *
+			 * Update value of the direction of the snake head
+			 */
 			void set_head_dir(snake_utils::direction_e value);
+
+			/**
+			 * @brief Function: void set_snake_colour(colours::palette_e new_colour);
+			 *
+			 * param new_colour: new colour of the snake
+			 *
+			 * Update value of the colour of the snake
+			 */
 			void set_snake_colour(colours::palette_e new_colour);
+
+			/**
+			 * @brief Function: void set_obs_colour(colours::palette_e new_colour);
+			 *
+			 * param new_colour: new colour of the obstacles
+			 *
+			 * Update value of the colour of obstacles
+w
+			 */
 			void set_obs_colour(colours::palette_e new_colour);
+
+			/**
+			 * @brief Function: void set_tile_height(int value);
+			 *
+			 * param value: new value of the height of the tile
+			 *
+			 * Update value of the height of the tile
+			 */
 			void set_tile_height(int value);
+
+			/**
+			 * @brief Function: void set_tile_width(int value);
+			 *
+			 * param value: new value of the width of the tile
+			 *
+			 * Update value of the width of the tile
+			 */
 			void set_tile_width(int value);
+
+			/**
+			 * @brief Function: void set_score(int value);
+			 *
+			 * param value: new value of score
+			 *
+			 * Update value of the score
+			 */
 			void set_score(int value);
 
+
 			// Get functions
+			/**
+			 * @brief Function: bool get_auto_ride_flag()
+			 *
+			 * \return value of auto ride flag
+			 *
+			 * Provide value of auto ride flag
+			 */
 			bool get_auto_ride_flag();
+
+			/**
+			 * @brief Function: bool get_hard_wall_flag()
+			 *
+			 * \return value of hard wall flag
+			 *
+			 * Provide value of hard wall flag
+			 */
 			bool get_hard_wall_flag();
+
+			/**
+			 * @brief Function: std::string get_dump_filename()
+			 *
+			 * \return value of dump_filename
+			 *
+			 * Provide value of dump_filename
+			 */
 			std::string get_dump_filename();
+
+			/**
+			 * @brief Function: std::string get_save_filename()
+			 *
+			 * \return value of save_filename
+			 *
+			 * Provide value of save_filename
+			 */
 			std::string get_save_filename();
+
+			/**
+			 * @brief Function: settings::game_status_e get_game_status()
+			 *
+			 * \return value of game_status
+			 *
+			 * Provide value of game_status
+			 */
 			settings::game_status_e get_game_status();
+
+			/**
+			 * @brief Function: int get_speed()
+			 *
+			 * \return value of speed
+			 *
+			 * Provide value of speed
+			 */
 			int get_speed();
+
+			/**
+			 * @brief Function: int get_speed_incr()
+			 *
+			 * \return value of speed increment
+			 *
+			 * Provide value of speed increment
+			 */
 			int get_speed_incr();
+
+			/**
+			 * @brief Function: int get_node_height()
+			 *
+			 * \return value of the height of a node
+			 *
+			 * Provide value of the height of a node
+			 */
 			int get_node_height();
+
+			/**
+			 * @brief Function: int get_node_width()
+			 *
+			 * \return value of the width of a node
+			 *
+			 * Provide value of the width of a node
+			 */
 			int get_node_width();
+
+			/**
+			 * @brief Function: int get_snake_units()
+			 *
+			 * \return value of number of snake units
+			 *
+			 * Provide value of number of snake units
+			 */
 			int get_snake_units();
+
+			/**
+			 * @brief Function: int get_obs_no()
+			 *
+			 * \return value of the number of obstacles
+			 *
+			 * Provide value of the number of obstacles
+			 */
 			int get_obs_no();
+
+			/**
+			 * @brief Function: int get_head_centre_x()
+			 *
+			 * \return value of the x coordinate of the snake head
+			 *
+			 * Provide value of the x coordinate of the snake head
+			 */
 			int get_head_centre_x();
+
+			/**
+			 * @brief Function: int get_head_centre_y()
+			 *
+			 * \return value of the y coordinate of the snake head
+			 *
+			 * Provide value of the y coordinate of the snake head
+			 */
 			int get_head_centre_y();
+
+			/**
+			 * @brief Function: snake_utils::direction_e get_head_dir()
+			 *
+			 * \return value of direction of the snake head
+			 *
+			 * Provide value of direction of the snake head
+			 */
 			snake_utils::direction_e get_head_dir();
+
+			/**
+			 * @brief Function: colours::palette_e get_snake_colour()
+			 *
+			 * \return value of colour of snakes
+			 *
+			 * Provide value of colour of snakes
+			 */
 			colours::palette_e get_snake_colour();
+
+			/**
+			 * @brief Function: colours::palette_e get_obs_colour()
+			 *
+			 * \return value of colour of obstacles
+			 *
+			 * Provide value of colour of obstacles
+			 */
 			colours::palette_e get_obs_colour();
+
+			/**
+			 * @brief Function: int get_tile_height()
+			 *
+			 * \return value of the height of tiles
+			 *
+			 * Provide value of the height of tiles
+			 */
 			int get_tile_height();
+
+			/**
+			 * @brief Function: int get_tile_width()
+			 *
+			 * \return value of the width of tiles
+			 *
+			 * Provide value of the width of tiles
+			 */
 			int get_tile_width();
+
+			/**
+			 * @brief Function: int get_score()
+			 *
+			 * \return value of score
+			 *
+			 * Provide value of score
+			 */
 			int get_score();
 
 			/**
@@ -226,34 +535,140 @@ namespace settings {
 			 * Print Settings information
 			 */
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
+
+			/**
+			 * @brief Function: void save_data(iofile::File & savefile)
+			 *
+			 * \param savefile: filename where to save settings to
+			 *
+			 * Save Settings information to a file
+			 */
 			void save_data(iofile::File & savefile);
 
 		private:
+			/**
+			 * @brief Auto ride flag
+			 *
+			 */
 			bool auto_ride;
+			/**
+			 * @brief hard wall flag
+			 *
+			 */
 			bool hard_wall;
+
+			/**
+			 * @brief dump filename
+			 *
+			 */
 			std::string dump_filename;
+
+			/**
+			 * @brief save filename
+			 *
+			 */
 			std::string save_filename;
+
+			/**
+			 * @brief game status
+			 *
+			 */
 			settings::game_status_e game_status;
+
+			/**
+			 * @brief speed
+			 *
+			 */
 			int speed;
+
+			/**
+			 * @brief speed increment
+			 *
+			 */
 			int speed_incr;
+
+			/**
+			 * @brief height of a node
+			 *
+			 */
 			int node_height;
+
+			/**
+			 * @brief width of a node
+			 *
+			 */
 			int node_width;
+
+			/**
+			 * @brief number of snake units
+			 *
+			 */
 			int snake_units;
+
+			/**
+			 * @brief number of obstacles
+			 *
+			 */
 			int obs_no;
+
+			/**
+			 * @brief x coordinate of the snake head
+			 *
+			 */
 			int head_centre_x;
+
+			/**
+			 * @brief y coordinate of the snake head
+			 *
+			 */
 			int head_centre_y;
+
+			/**
+			 * @brief head_dir
+			 *
+			 */
 			snake_utils::direction_e head_dir;
+
+			/**
+			 * @brief snake_colour
+			 *
+			 */
 			colours::palette_e snake_colour;
+
+			/**
+			 * @brief obs_colour
+			 *
+			 */
 			colours::palette_e obs_colour;
+
+			/**
+			 * @brief tile_height
+			 *
+			 */
 			int tile_height;
+
+			/**
+			 * @brief tile_width
+			 *
+			 */
 			int tile_width;
+
+			/**
+			 * @brief score
+			 *
+			 */
 			int score;
+
 
 		protected:
 	};
 	/** @} */ // End of SettingsGroup group
 }
 
+/**
+ * @brief Global variable snake_settins
+ *
+ */
 extern settings::Settings snake_settings;
 
 #endif // SETTINGS_H

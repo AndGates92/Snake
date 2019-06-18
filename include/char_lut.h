@@ -18,11 +18,11 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+/** @defgroup CharLUTGroup Character LUT Doxygen Group
+ *  Character LUT functions and classes
+ *  @{
+ */
 namespace char_lut {
-	/** @defgroup CharLUTGroup Character LUT Doxygen Group
-	 *  Character LUT functions and classes
-	 *  @{
-	 */
 	namespace {
 		// Colouring
 		/**
@@ -298,8 +298,8 @@ namespace char_lut {
 	template <typename stat_pixel_type>
 	void draw_string(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const string & str);
 
-	/** @} */ // End of CharLUTGroup group
 }
+/** @} */ // End of CharLUTGroup group
 
 template <typename pixel_type>
 void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const char & char_print) {

@@ -69,12 +69,12 @@
 	}
 #endif // ENABLE_ASSERTIONS
 
+/** @defgroup LogGroup Log Doxygen Group
+ *  Functions and defines logging progress
+ *  @{
+ */
 namespace logging {
 
-	/** @defgroup LogGroup Log Doxygen Group
-	 *  Functions and defines logging progress
-	 *  @{
-	 */
 	/**
 	 * @brief Verbosity levels
 	 *
@@ -109,7 +109,7 @@ namespace logging {
 	void log_info (logging::verb_level_e verbosity, info_type... info);
 
 	/** 
-	 * @brief Function: void print_str(info_type... info)
+	 * @brief Function: void print_str(file_type& file, first_str_type first_str, other_str_type ... str)
 	 *
 	 * \param file:            file pointer that should be written
 	 * \param first_str:       first string to be selected (top of the queue)
@@ -121,13 +121,26 @@ namespace logging {
 	template <typename file_type, typename first_str_type, typename... other_str_type>
 	void print_str(file_type& file, first_str_type first_str, other_str_type ... str);
 
+	/** 
+	 * @brief Function: void print_str(file_type& file, str_type str)
+	 *
+	 * \param file:            file pointer that should be written
+	 * \param str:             Next part fo the string
+	 *
+	 * Log information to a logfile
+	 * If log file is not opened, it will open for write
+	 */
 	template <typename file_type, typename str_type>
 	void print_str(file_type& file, str_type str);
 
+	/**
+	 * @brief Global variable logfile
+	 *
+	 */
 	static iofile::File logfile(STRINGIFY(LOGFILE), iofile::mode_e::WO);
 
-/** @} */ // End of LogGroup group
 }
+/** @} */ // End of LogGroup group
 
 template <typename file_type, typename str_type>
 void logging::print_str(file_type& file, str_type str) {

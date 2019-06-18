@@ -11,12 +11,11 @@
 #include "colours.h"
 #include "file.h"
 
+/** @defgroup BasicObjectGroup BasicObject Doxygen Group
+ *  Basic Object functions and classes
+ *  @{
+ */
 namespace basic_object {
-	/** @defgroup BasicObjectGroup BasicObject Doxygen Group
-	 *  Basic Object functions and classes
-	 *  @{
-	 */
-
 	namespace {
 		/**
 		 * @brief Node Height
@@ -238,8 +237,8 @@ namespace basic_object {
 		protected:
 	};
 
-	/** @} */ // End of BasicObjectGroup group
 }
+/** @} */ // End of BasicObjectGroup group
 
 template <typename pixel_type>
 void basic_object::BasicObject::draw(pixel_type * & pixels, const int & win_width, const int & win_height) {

@@ -17,12 +17,11 @@
 using namespace std;
 using namespace logging;
 
+/** @defgroup BasicObjNodeGroup Basic Node Doxygen Group
+ *  Basic Node functions and classes
+ *  @{
+ */
 namespace basic_obj_node {
-	/** @defgroup BasicObjNodeGroup Basic Node Doxygen Group
-	 *  Basic Node functions and classes
-	 *  @{
-	 */
-
 	template <class class_node>
 	class BasicObjNode {
 		public:
@@ -115,8 +114,8 @@ namespace basic_obj_node {
 			 */
 			class_node * next;
 	};
-	/** @} */ // End of BasicObjNodeGroup group
 }
+/** @} */ // End of BasicObjNodeGroup group
 
 // ================================================================
 // Obstacle Node

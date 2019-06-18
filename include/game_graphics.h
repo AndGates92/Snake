@@ -19,6 +19,11 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+
+/** @defgroup GameGraphics Game graphics Doxygen Group
+ *  Game graphics functions and classes
+ *  @{
+ */
 namespace game_graphics {
 	/**
 	 * @brief Function: void wrapper_game_cb()
@@ -76,6 +81,7 @@ namespace game_graphics {
 	void keyboard_game_cb(unsigned char key, int x, int y);
 
 }
+/** @} */ // End of GameGraphicsGroup group
 
 
 #endif // GAME_GRAPHICS_H

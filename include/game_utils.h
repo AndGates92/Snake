@@ -19,6 +19,12 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+
+/** @defgroup GameUtilsGroup Game utility Doxygen Group
+ *  Game utility functions and classes
+ *  @{
+ */
+
 /**
  * @brief GAME_OVER(...)
  *
@@ -266,6 +272,8 @@ namespace game_utils {
 	 */
 	snake_utils::direction_e get_head_dir();
 }
+
+/** @} */ // End of GameUtilsGroup group
 
 template <typename game_pixel_type>
 game_pixel_type * game_utils::get_game_pixel_array (int & win_width, int & win_height) {

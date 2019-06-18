@@ -8,11 +8,11 @@
  * @brief Command Line Parser header file
 */
 
+/** @defgroup CmdlineParserGroup Command Line Parser Doxygen Group
+ *  Command Line Parser functions and classes
+ *  @{
+ */
 namespace cmdline_parser {
-	/** @defgroup CmdlineParserGroup Command Line Parser Doxygen Group
-	 *  Command Line Parser functions and classes
-	 *  @{
-	 */
 
 	/**
 	 * @brief Object type
@@ -175,8 +175,8 @@ namespace cmdline_parser {
 	 * Create object
 	 */
 	void create_obj (cmdline_parser::obj_e object, std::string type, std::string title, int x_centre, int y_centre, int width, int height, colours::palette_e colour, snake_utils::direction_e direction);
-	/** @} */ // End of CmdlineParserGroup group
 }
+/** @} */ // End of CmdlineParserGroup group
 
 
 #endif // CMDLINE_PARSER_H
