@@ -19,8 +19,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
-
-/** @defgroup GameGraphics Game graphics Doxygen Group
+/** @defgroup GameGraphicsGroup Game graphics Doxygen Group
  *  Game graphics functions and classes
  *  @{
  */
@@ -82,6 +81,5 @@ namespace game_graphics {
 
 }
 /** @} */ // End of GameGraphicsGroup group
-
 
 #endif // GAME_GRAPHICS_H

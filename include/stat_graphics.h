@@ -14,6 +14,10 @@
 
 using namespace char_lut;
 
+/** @defgroup StatGraphicsGroup Statistics graphics Doxygen Group
+ *  Statistics graphics functions and classes
+ *  @{
+ */
 namespace stat_graphics {
 
 	namespace {
@@ -153,5 +157,6 @@ stat_pixel_type * stat_graphics::get_stat_pixel_array (int & win_width, int & wi
 	return pixels;
 
 }
+/** @} */ // End of StatGraphicsGroup group
 
 #endif // STAT_GRAPHICS_H

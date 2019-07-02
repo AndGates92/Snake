@@ -14,6 +14,7 @@
  *  File functions and classes
  *  @{
  */
+
 namespace iofile {
 
 	namespace {
@@ -44,6 +45,10 @@ namespace iofile {
 	 */
 	std::ostream& operator<< (std::ostream& os, iofile::mode_e mode);
 
+	/**
+	 * @brief File class
+	 *
+	 */
 	class File {
 		public:
 			// Constructor

@@ -12,11 +12,11 @@
 #include "colours.h"
 #include "basic_object.h"
 
+/** @defgroup WindowGroup Window Doxygen Group
+ *  Window functions and classes
+ *  @{
+ */
 namespace window {
-	/** @defgroup WindowGroup Window Doxygen Group
-	 *  Window functions and classes
-	 *  @{
-	 */
 	/**
 	 * @brief Window position on the x coordinate
 	 *
@@ -35,6 +35,10 @@ namespace window {
 	 */
 	#define WIN_NAME_LENGTH_MAX 20
 
+	/**
+	 * @brief Window class
+	 *
+	 */
 	class Window : public basic_object::BasicObject {
 		public:
 			// Constructor
@@ -154,7 +158,7 @@ namespace window {
 			int id;
 
 	};
-	/** @} */ // End of WindowGroup group
 }
+/** @} */ // End of WindowGroup group
 
 #endif // WINDOW_H

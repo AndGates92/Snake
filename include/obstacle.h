@@ -12,12 +12,11 @@
 #include "basic_object.h"
 #include "basic_obj_node.h"
 
+/** @defgroup ObstacleGroup Obstacle Doxygen Group
+ *  Obstacle functions and classes
+ *  @{
+ */
 namespace obstacle {
-	/** @defgroup ObstacleGroup Obstacle Doxygen Group
-	 *  Obstacle functions and classes
-	 *  @{
-	 */
-
 	namespace {
 		/**
 		 * @brief Node Height
@@ -32,7 +31,10 @@ namespace obstacle {
 		const static int init_obs_width = 10;
 	}
 
-
+	/**
+	 * @brief Obstacle class
+	 *
+	 */
 	class Obstacle : public basic_object::BasicObject {
 		public:
 			// Constructor
@@ -88,6 +90,10 @@ namespace obstacle {
 		protected:
 	};
 
+	/**
+	 * @brief ObstacleNode class
+	 *
+	 */
 	class ObstacleNode : public basic_obj_node::BasicObjNode<ObstacleNode>, public Obstacle {
 		public:
 			// Constructor
@@ -139,7 +145,7 @@ namespace obstacle {
 
 		private:
 	};
-	/** @} */ // End of ObstacleGroup group
 }
+/** @} */ // End of ObstacleGroup group
 
 #endif // OBSTACLE_H

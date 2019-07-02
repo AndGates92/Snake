@@ -14,12 +14,11 @@
 
 using namespace std;
 
+/** @defgroup GraphicsUtilsGroup Graphics Utils Doxygen Group
+ *  Graphic utility functions and classes
+ *  @{
+ */
 namespace graphics_utils {
-
-	/** @defgroup GraphicsUtilsGroup Graphics Utils Doxygen Group
-	 *  Graphic utility functions and classes
-	 *  @{
-	 */
 
 	namespace {
 
@@ -133,9 +132,8 @@ namespace graphics_utils {
 	 * Save status of the game
 	 */
 	void save_window(iofile::File & savefile);
-	/** @} */ // End of GraphicsUtilsGroup group
 
 }
-
+/** @} */ // End of GraphicsUtilsGroup group
 
 #endif // GRAPHICS_UTILS_H

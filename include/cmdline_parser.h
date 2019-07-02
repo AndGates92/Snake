@@ -97,7 +97,7 @@ namespace cmdline_parser {
 	 * \param var_name: variable name extracted from the line
 	 * \param var_value: variable value extracted from the line
 	 *
-	 * Decode line word by word (It is expected the format <varName>: <varValue>)
+	 * Decode line word by word (It is expected the format \<varName\>: \<varValue\>)
 	 */
 	void decode_line(std::string line, std::string & var_name, std::string & var_value);
 

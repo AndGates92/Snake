@@ -10,12 +10,11 @@
 
 #include <ostream>
 
+/** @defgroup SnakeUtilsGroup Snake Utility Doxygen Group
+ *  Snake Utils functions and classes
+ *  @{
+ */
 namespace snake_utils {
-
-	/** @defgroup SnakeUtilsGroup Snake Utility Doxygen Group
-	 *  Snake Utils functions and classes
-	 *  @{
-	 */
 
 	/**
 	 * @brief Directions
@@ -49,6 +48,6 @@ namespace snake_utils {
 	 * Converts a string into a direction_e enumerate value
 	 */
 	snake_utils::direction_e str_to_direction (std::string dir);
-	/** @} */ // End of SnakeUtilsGroup group
 }
+/** @} */ // End of SnakeUtilsGroup group
 #endif // SNAKE_UTILS_H

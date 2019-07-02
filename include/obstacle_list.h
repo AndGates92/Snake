@@ -12,12 +12,15 @@
 #include "basic_obj_list.h"
 #include "obstacle.h"
 
+/** @defgroup ObstacleListGroup Obstacle List Doxygen Group
+ *  Obstacle List functions and classes
+ *  @{
+ */
 namespace obstacle_list {
-	/** @defgroup ObstacleListGroup Obstacle List Doxygen Group
-	 *  Obstacle List functions and classes
-	 *  @{
+	/**
+	 * @brief ObstacleList class
+	 *
 	 */
-
 	class ObstacleList : public basic_obj_list::BasicObjList<obstacle::ObstacleNode> {
 		public:
 			// Constructor
@@ -64,9 +67,7 @@ namespace obstacle_list {
 
 		private:
 	};
-	/** @} */ // End of ObstacleListGroup group
 }
-
-
+/** @} */ // End of ObstacleListGroup group
 
 #endif // OBSTACLE_LIST_H

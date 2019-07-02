@@ -22,6 +22,10 @@ using namespace logging;
  *  @{
  */
 namespace basic_obj_node {
+	/**
+	 * @brief BasicObjNode class
+	 *
+	 */
 	template <class class_node>
 	class BasicObjNode {
 		public:

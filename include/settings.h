@@ -13,12 +13,11 @@
 #include "snake_utils.h"
 #include "colours.h"
 
+/** @defgroup SettingsGroup Settings Doxygen Group
+ *  Settings functions and classes
+ *  @{
+ */
 namespace settings {
-
-	/** @defgroup SettingsGroup Settings Doxygen Group
-	 *  Settings functions and classes
-	 *  @{
-	 */
 
 	/**
 	 * @brief Game status
@@ -157,7 +156,10 @@ namespace settings {
 		const static int init_score = 0;
 	}
 
-
+	/**
+	 * @brief Settings class
+	 *
+	 */
 	class Settings {
 		public:
 			// Constructor
@@ -662,8 +664,8 @@ w
 
 		protected:
 	};
-	/** @} */ // End of SettingsGroup group
 }
+/** @} */ // End of SettingsGroup group
 
 /**
  * @brief Global variable snake_settins

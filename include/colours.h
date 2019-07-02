@@ -14,7 +14,7 @@
 
 using namespace std;
 
-/** @defgroup ColoursGroup Character LUT Doxygen Group
+/** @defgroup ColoursGroup Colours Doxygen Group
  *  Colour functions and classes
  *  @{
  */

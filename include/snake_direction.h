@@ -26,6 +26,10 @@ namespace snake_direction {
 		const static snake_utils::direction_e init_direction = snake_utils::direction_e::UNKNOWN;
 	}
 
+	/**
+	 * @brief SnakeDirection class
+	 *
+	 */
 	class SnakeDirection {
 		public:
 			// Constructor
@@ -102,6 +106,10 @@ namespace snake_direction {
 		protected:
 	};
 
+	/**
+	 * @brief SnakeDirectionNode class
+	 *
+	 */
 	class SnakeDirectionNode : public basic_obj_node::BasicObjNode<SnakeDirectionNode>, public SnakeDirection {
 		public:
 			// Constructor

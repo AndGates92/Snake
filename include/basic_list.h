@@ -15,6 +15,11 @@
  *  @{
  */
 namespace basic_list {
+
+	/**
+	 * @brief BasicList class
+	 *
+	 */
 	template <class class_node>
 	class BasicList {
 		public:
@@ -43,6 +48,13 @@ namespace basic_list {
 			 */
 			~BasicList();
 
+			/**
+			 * @brief Function: void remove_node(class_node * & node)
+			 *
+			 * \param node: node to delete
+			 *
+			 * Delete node
+			 */
 			void remove_node(class_node * & node);
 
 			/**

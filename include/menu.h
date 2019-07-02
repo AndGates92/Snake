@@ -22,12 +22,12 @@
 using namespace std;
 using namespace logging;
 
-namespace menu {
-	/** @defgroup MenuGroup Menu Doxygen Group
-	 *  Menu functions and classes
-	 *  @{
-	 */
+/** @defgroup MenuGroup Menu Doxygen Group
+ *  Menu functions and classes
+ *  @{
+ */
 
+namespace menu {
 	/**
 	 * @brief Snake menu entries
 	 *
@@ -124,6 +124,10 @@ namespace menu {
 		};
 	}
 
+	/**
+	 * @brief Menu class
+	 *
+	 */
 	class Menu {
 		public:
 			// Constructor
@@ -231,7 +235,7 @@ namespace menu {
 
 	};
 
-	/** @} */ // End of MenuGroup group
 }
+/** @} */ // End of MenuGroup group
 
 #endif // MENU_H

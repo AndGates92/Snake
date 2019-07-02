@@ -12,12 +12,15 @@
 #include "basic_obj_node.h"
 #include "colours.h"
 
+/** @defgroup WindowNodeGroup Window Node Doxygen Group
+ *  Window Node functions and classes
+ *  @{
+ */
 namespace window_node {
-	/** @defgroup WindowNodeGroup Window Node Doxygen Group
-	 *  Window Node functions and classes
-	 *  @{
+	/**
+	 * @brief WindowNode class
+	 *
 	 */
-
 	class WindowNode : public basic_obj_node::BasicObjNode<WindowNode>, public window_obj::WindowObj {
 		public:
 			// Constructor
@@ -80,7 +83,7 @@ namespace window_node {
 
 		private:
 	};
-	/** @} */ // End of WindowNodeGroup group
 }
+/** @} */ // End of WindowNodeGroup group
 
 #endif // WINDOW_NODE_H

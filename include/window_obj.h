@@ -13,12 +13,15 @@
 #include "window.h"
 #include "colours.h"
 
+/** @defgroup WindowObjectGroup Window Object Doxygen Group
+ *  Window Object functions and classes
+ *  @{
+ */
 namespace window_obj {
-	/** @defgroup WindowObjectGroup Window Object Doxygen Group
-	 *  Window Object functions and classes
-	 *  @{
+	/**
+	 * @brief WindowObj class
+	 *
 	 */
-
 	class WindowObj {
 		public:
 			// Constructor
@@ -139,7 +142,7 @@ namespace window_obj {
 			 */
 			menu::Menu action_list;
 	};
-	/** @} */ // End of WindowObjectGroup group
 }
+/** @} */ // End of WindowObjectGroup group
 
 #endif // WINDOW_OBJ_H

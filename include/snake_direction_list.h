@@ -16,16 +16,17 @@
  *  Snake Direction functions and classes
  *  @{
  */
-
 namespace snake_direction_list {
 
+	/**
+	 * @brief SnakeDirectionList class
+	 *
+	 */
 	class SnakeDirectionList : public basic_list::BasicList<snake_direction::SnakeDirectionNode> {
 		public:
 			// Constructor
 			/**
 			 * @brief Function: SnakeDirectionList(snake_utils::direction_e snake_direction = snake_direction::init_direction)
-			 *
-			 * \param snake_direction: direction of the snake unit
 			 *
 			 * SnakeDirectionList constructor
 			 */

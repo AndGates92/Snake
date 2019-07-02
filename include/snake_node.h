@@ -13,12 +13,11 @@
 #include "snake_utils.h"
 #include "colours.h"
 
+/** @defgroup SnakeNodeGroup Snake Node Doxygen Group
+ *  Snake Node functions and classes
+ *  @{
+ */
 namespace snake_node {
-
-	/** @defgroup SnakeNodeGroup Snake Node Doxygen Group
-	 *  Snake Node functions and classes
-	 *  @{
-	 */
 
 	namespace {
 		/**
@@ -40,6 +39,10 @@ namespace snake_node {
 		const static int init_node_width = 10;
 	}
 
+	/**
+	 * @brief SnakeUnit class
+	 *
+	 */
 	class SnakeUnit : public basic_object::BasicObject {
 		public:
 			// Constructor
@@ -142,6 +145,10 @@ namespace snake_node {
 		protected:
 	};
 
+	/**
+	 * @brief SnakeNode class
+	 *
+	 */
 	class SnakeNode : public basic_obj_node::BasicObjNode<SnakeNode>, public SnakeUnit {
 		public:
 			// Constructor
@@ -194,6 +201,7 @@ namespace snake_node {
 
 		private:
 	};
-	/** @} */ // End of SnakeNodeGroup group
 }
+/** @} */ // End of SnakeNodeGroup group
+
 #endif // SNAKE_NODE_H

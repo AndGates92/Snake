@@ -11,12 +11,15 @@
 #include "window_node.h"
 #include "basic_obj_list.h"
 
+/** @defgroup WindowListGroup Window List Doxygen Group
+ *  Window List functions and classes
+ *  @{
+ */
 namespace window_list {
-	/** @defgroup WindowListGroup Window List Doxygen Group
-	 *  Window List functions and classes
-	 *  @{
+	/**
+	 * @brief WindowList class
+	 *
 	 */
-
 	class WindowList : public basic_obj_list::BasicObjList<window_node::WindowNode> {
 		public:
 			// Constructor
@@ -96,7 +99,7 @@ namespace window_list {
 
 		private:
 	};
-	/** @} */ // End of WindowListGroup group
 }
+/** @} */ // End of WindowListGroup group
 
 #endif // WINDOW_LIST_H

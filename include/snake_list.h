@@ -13,12 +13,15 @@
 #include "snake_utils.h"
 #include "colours.h"
 
+/** @defgroup SnakeListGroup Snake List Doxygen Group
+ *  Snake List functions and classes
+ *  @{
+ */
 namespace snake_list {
-	/** @defgroup SnakeListGroup Snake List Doxygen Group
-	 *  Snake List functions and classes
-	 *  @{
+	/**
+	 * @brief SnakeList class
+	 *
 	 */
-
 	class SnakeList : public basic_obj_list::BasicObjList<snake_node::SnakeNode> {
 		public:
 			// Constructor
@@ -164,7 +167,7 @@ namespace snake_list {
 
 		private:
 	};
-	/** @} */ // End of SnakeListGroup group
 }
+/** @} */ // End of SnakeListGroup group
 
 #endif // SNAKE_LIST_H

@@ -30,7 +30,10 @@ namespace basic_object {
 		const static int init_obj_width = 10;
 	}
 
-
+	/**
+	 * @brief BasicObject class
+	 *
+	 */
 	class BasicObject {
 		public:
 			// Constructor

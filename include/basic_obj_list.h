@@ -15,6 +15,10 @@
  *  @{
  */
 namespace basic_obj_list {
+	/**
+	 * @brief BasicObjList class
+	 *
+	 */
 	template <class class_node>
 	class BasicObjList : public basic_list::BasicList<class_node> {
 		public:

@@ -11,12 +11,11 @@
 #include <string>
 #include "colours.h"
 
+/** @defgroup SharedConstantsGroup Shared Constants Doxygen Group
+ *  Shared constants
+ *  @{
+ */
 namespace shared_constants {
-
-	/** @defgroup SharedConstantsGroup Shared Constants Doxygen Group
-	 *  Shared constants
-	 *  @{
-	 */
 
 	// Game window
 	/**
@@ -88,8 +87,7 @@ namespace shared_constants {
 	 */
 	const static std::string comment("//");
 
-	/** @} */ // End of SharedConstantsGroup group
-
 }
+/** @} */ // End of SharedConstantsGroup group
 
 #endif // SHARED_CONSTANTS_H
