@@ -8,24 +8,21 @@
  * @brief Basic List header file
 */
 
+/** @defgroup BasicListGroup Basic List Doxygen Group
+ *  Basic List functions and classes
+ *  @{
+ */
 namespace basic_list {
-	/** @defgroup BasicListGroup Basic List Doxygen Group
-	 *  Basic List functions and classes
-	 *  @{
-	 */
-
 	template <class class_node>
 	class BasicList {
 		public:
 			// Constructor
 			/**
-			 * @brief Function: BasicList(std::string name_list = "Unknown")
-			 *
-			 * \param name_list: Name of the list 
+			 * @brief Function: BasicList()
 			 *
 			 * BasicList constructor
 			 */
-			BasicList(std::string name_list = "Unknown"): head(nullptr), name(name_list) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
+			BasicList(): head(nullptr) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
 
 			/**
 			 * @brief Function: BasicList(const BasicList& copy)
@@ -34,7 +31,7 @@ namespace basic_list {
 			 *
 			 * BasicList copy constructor
 			 */
-			BasicList(const BasicList& copy): head(copy.head), name(copy.name) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
+			BasicList(const BasicList& copy): head(copy.head) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
 			/**
@@ -56,20 +53,36 @@ namespace basic_list {
 			 */
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
+			/**
+			 * @brief Function: class_node * & get_head()
+			 *
+			 * \return head of BasicList
+			 *
+			 * Return a pointer to te head of the list 
+			 */
 			class_node * & get_head();
-			void set_head(class_node * & new_head);
 
-			std::string get_name();
-			void set_name(std::string new_name);
+			/**
+			 * @brief Function: void set_head(class_node * & new_head)
+			 *
+			 * \param new_head: set head of BasicList
+			 *
+			 * Set the head pointer of the list
+			 */
+			void set_head(class_node * & new_head);
 
 		protected:
 
 		private:
+			/**
+			 * @brief Head of the list
+			 *
+			 */
 			class_node * head;
-			std::string name;
+
 	};
-	/** @} */ // End of BasicListGroup group
 }
+/** @} */ // End of BasicListGroup group
 
 template <class class_node>
 basic_list::BasicList<class_node>::~BasicList() {
@@ -115,11 +128,11 @@ void basic_list::BasicList<class_node>::remove_node(class_node * & node) {
 
 template <class class_node>
 void basic_list::BasicList<class_node>::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	class_node * basic_list = this->head;
+	class_node * node_ptr = this->head;
 
-	while (basic_list != nullptr) {
-		basic_list->print_info(verbosity, pretext);
-		basic_list = basic_list->get_next();
+	while (node_ptr != nullptr) {
+		node_ptr->print_info(verbosity, pretext);
+		node_ptr = node_ptr->get_next();
 	}
 }
 
@@ -129,17 +142,8 @@ class_node * & basic_list::BasicList<class_node>::get_head() {
 }
 
 template <class class_node>
-std::string basic_list::BasicList<class_node>::get_name() {
-	return this->name;
-}
-
-template <class class_node>
 void basic_list::BasicList<class_node>::set_head(class_node * & new_head) {
 	this->head = new_head;
 }
 
-template <class class_node>
-void basic_list::BasicList<class_node>::set_name(std::string new_name) {
-	this->name = new_name;
-}
 #endif // BASIC_LIST_H
