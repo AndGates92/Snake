@@ -46,16 +46,6 @@ namespace basic_obj_list {
 			~BasicObjList();
 
 			/**
-			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)
-			 *
-			 * \param verbosity: verbosity level
-			 * \param pretext: text to prepend to the BasicObjList information
-			 *
-			 * Print BasicObjList information
-			 */
-//			void print_info(logging::verb_level_e verbosity, std::string pretext);
-
-			/**
 			 * @brief Function: std::string get_name()
 			 *
 			 * \return name of the BasicObjList instance
@@ -107,18 +97,6 @@ basic_obj_list::BasicObjList<class_node>::~BasicObjList() {
 	LOG_INFO(logging::verb_level_e::HIGH, "Basic Object list destroyed");
 
 }
-
-/*
-template <class class_node>
-void basic_obj_list::BasicObjList<class_node>::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	class_node * basic_obj = this->head;
-
-	while (basic_obj != nullptr) {
-		basic_obj->print_info(verbosity, pretext);
-		basic_obj = basic_obj->get_next();
-	}
-}
-*/
 
 template <class class_node>
 std::string basic_obj_list::BasicObjList<class_node>::get_name() {
