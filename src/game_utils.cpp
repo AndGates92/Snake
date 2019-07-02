@@ -286,9 +286,10 @@ void game_utils::save_game(std::string filename) {
 		save.write_ofile("//******************************\n");
 		save.write_ofile("// Obstacle Node ", obs_node_cnt, "\n");
 		save.write_ofile("//******************************\n");
-		curr_obs_node->save_data(save);
 
 		// Save temporary obstacle
+		curr_obs_node->save_data(save);
+
 		curr_obs_node = curr_obs_node->get_next();
 		obs_node_cnt++;
 	}
