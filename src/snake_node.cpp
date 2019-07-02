@@ -12,7 +12,6 @@
 #include "snake_node.h"
 #include "snake_utils.h"
 #include "logging.h"
-#include "graphics_utils.h"
 
 using namespace std;
 using namespace snake_node;
