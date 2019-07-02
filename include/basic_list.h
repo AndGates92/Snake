@@ -8,6 +8,8 @@
  * @brief Basic List header file
 */
 
+#include "logging.h"
+
 /** @defgroup BasicListGroup Basic List Doxygen Group
  *  Basic List functions and classes
  *  @{
