@@ -80,12 +80,12 @@ void game_utils::populate_snake_list() {
 	int snake_units = snake_settings.get_snake_units();
 	int node_height = snake_settings.get_node_height();
 	int node_width = snake_settings.get_node_width();
-	snake_utils::direction_e head_dir = snake_settings.get_head_dir();
+	snake_utils::direction_e snake_head_dir = snake_settings.get_head_dir();
 	colours::palette_e colour = snake_settings.get_snake_colour();
 
 	for (int unit_no=0; unit_no < snake_units; unit_no++) {
 
-		game_utils::add_snake_node(centre_x, centre_y, node_width, node_height, head_dir, colour);
+		game_utils::add_snake_node(centre_x, centre_y, node_width, node_height, snake_head_dir, colour);
 		//game_utils::snake->add_node(centre_x, centre_y, game_utils::node_width, game_utils::node_height, game_utils::init_head_dir, (colours::palette_e) unit_no);
 		centre_x += node_width;
 		//game_utils::snake->add_node(centre_x, centre_y, game_utils::node_width, game_utils::node_height, game_utils::init_head_dir, colours::palette_e::RED);
@@ -102,8 +102,8 @@ void game_utils::populate_snake_list() {
 void game_utils::set_snake_settings() {
 
 	snake_node::SnakeNode * snake_head = game_utils::snake->get_head();
-	snake_utils::direction_e head_dir = snake_head->get_direction();
-	snake_settings.set_head_dir(head_dir);
+	snake_utils::direction_e snake_head_dir = snake_head->get_direction();
+	snake_settings.set_head_dir(snake_head_dir);
 	int snake_head_x = snake_head->get_x_centre();
 	snake_settings.set_head_centre_x(snake_head_x);
 	int snake_head_y = snake_head->get_y_centre();
@@ -307,7 +307,7 @@ void game_utils::free_game_memory() {
 void game_utils::auto_change_dir() {
 
 	snake_node::SnakeNode * snake_head = game_utils::snake->get_head();
-	snake_utils::direction_e head_dir = snake_head->get_direction();
+	snake_utils::direction_e snake_head_dir = snake_head->get_direction();
 
 	// Coordinates
 	int snake_head_x = snake_head->get_x_centre();
@@ -321,10 +321,10 @@ void game_utils::auto_change_dir() {
 
 	int max_auto_ride_count = 0;
 
-	if ((head_dir == snake_utils::direction_e::LEFT) | (head_dir == snake_utils::direction_e::RIGHT)) {
+	if ((snake_head_dir == snake_utils::direction_e::LEFT) | (snake_head_dir == snake_utils::direction_e::RIGHT)) {
 		float result = ((float)width)/((float)speed);
 		max_auto_ride_count = (int) floor(result);
-	} else if ((head_dir == snake_utils::direction_e::UP) | (head_dir == snake_utils::direction_e::DOWN)) {
+	} else if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
 		float result = ((float)height)/((float)speed);
 		max_auto_ride_count = (int) floor(result);
 	}
@@ -334,16 +334,16 @@ void game_utils::auto_change_dir() {
 	int obs_head_x = obs_head->get_x_centre();
 	int obs_head_y = obs_head->get_y_centre();
 
-	cout << "Snake Head: dir " << head_dir << " X " << snake_head_x << " Y " << snake_head_y << " Obs X " << obs_head_x << " Y " << obs_head_y << endl;
+	cout << "Snake Head: dir " << snake_head_dir << " X " << snake_head_x << " Y " << snake_head_y << " Obs X " << obs_head_x << " Y " << obs_head_y << endl;
 
 	if (auto_ride_count >= max_auto_ride_count) {
-		if (head_dir == snake_utils::direction_e::LEFT) {
+		if (snake_head_dir == snake_utils::direction_e::LEFT) {
 			game_utils::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, obs_head_x, snake_head_x, snake_head_y, obs_head_y);
-		} else if (head_dir == snake_utils::direction_e::RIGHT) {
+		} else if (snake_head_dir == snake_utils::direction_e::RIGHT) {
 			game_utils::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, snake_head_x, obs_head_x, snake_head_y, obs_head_y);
-		} else if (head_dir == snake_utils::direction_e::UP) {
+		} else if (snake_head_dir == snake_utils::direction_e::UP) {
 			game_utils::choose_dir(snake_utils::direction_e::RIGHT, snake_utils::direction_e::LEFT, snake_head_y, obs_head_y, snake_head_x, obs_head_x);
-		} else if (head_dir == snake_utils::direction_e::DOWN) {
+		} else if (snake_head_dir == snake_utils::direction_e::DOWN) {
 			game_utils::choose_dir(snake_utils::direction_e::RIGHT, snake_utils::direction_e::LEFT, obs_head_y, snake_head_y, snake_head_x, obs_head_x);
 		}
 		auto_ride_count = 0;
