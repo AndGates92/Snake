@@ -395,14 +395,35 @@ void game_utils::check_dir(snake_utils::direction_e snake_head_dir) {
 
 	game_utils::populate_flags(snake_dir_list, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
 
-	// If direction has changed
-	if (snake_head_dir != game_utils::head_dir) {
-		bool collision_risk = game_utils::unit_in_trajectory(game_utils::head_dir, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
+	bool collision_risk = game_utils::unit_in_trajectory(game_utils::head_dir, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
 
+	snake_utils::direction_e dir1 = snake_utils::direction_e::UNKNOWN;
+	snake_utils::direction_e dir2 = snake_utils::direction_e::UNKNOWN;
+
+	if (collision_risk == true) {
+		if ((snake_head_dir == snake_utils::direction_e::RIGHT) | (snake_head_dir == snake_utils::direction_e::LEFT)) {
+			dir1 = snake_utils::direction_e::UP;
+			dir2 = snake_utils::direction_e::DOWN;
+		} else if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
+			dir1 = snake_utils::direction_e::RIGHT;
+			dir2 = snake_utils::direction_e::LEFT;
+		}
+		ASSERT(dir1 != snake_utils::direction_e::UNKNOWN);
+		ASSERT(dir2 != snake_utils::direction_e::UNKNOWN);
+
+		bool collision_risk_dir1 = game_utils::unit_in_trajectory(dir1, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
+		bool collision_risk_dir2 = game_utils::unit_in_trajectory(dir2, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
+		if (collision_risk_dir1 == false) {
+			game_utils::head_dir = dir1;
+		} else if (collision_risk_dir2 == false) {
+			game_utils::head_dir = dir2;
+		} else {
+			LOG_ERROR("Unabel to find a direction with no collision risk. Current direction:", snake_head_dir, " direction 1: ", dir1, " direction 2:", dir2);
+		}
 	}
 }
 
-bool game_utils::unit_in_trajectory(snake_utils::direction_e dir, int & left_dist, int & right_dist, int & up_dist, int & down_dist) {
+bool game_utils::unit_in_trajectory(snake_utils::direction_e dir, int left_dist, int right_dist, int up_dist, int down_dist) {
 
 	bool collision_risk = false;
 
