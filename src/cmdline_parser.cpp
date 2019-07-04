@@ -28,12 +28,11 @@ using namespace iofile;
 using namespace snake_list;
 using namespace obstacle;
 
+/** @addtogroup CmdlineParserGroup
+ *
+ *  @{
+ */
 namespace cmdline_parser {
-	/** @defgroup CmdlineParserGroup Command Line Parser Doxygen Group
-	 *  Command Lie Parser functions and classes
-	 *  @{
-	 */
-
 	namespace {
 		/**
 		 * @brief input file option
@@ -73,6 +72,7 @@ namespace cmdline_parser {
 
 	}
 }
+/** @} */ // End of addtogroup CmdlineParserGroup
 
 bool cmdline_parser::parse(int argc, char** argv) {
 	LOG_INFO(logging::verb_level_e::ZERO,"[Parse] Command line:");

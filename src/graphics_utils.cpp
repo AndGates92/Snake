@@ -26,9 +26,20 @@ using namespace window_list;
 using namespace window_obj;
 using namespace graphics_utils;
 
-namespace {
-	static window_list::WindowList * windows;
+/** @addtogroup WindowGroup
+ *
+ *  @{
+ */
+namespace cmdline_parser {
+	namespace {
+		/**
+		 * @brief pointer to windows
+		 *
+		 */
+		static window_list::WindowList * windows;
+	}
 }
+/** @} */ // End of addtogroup WindowGroup
 
 void graphics_utils::init_window_list() {
 	windows = new window_list::WindowList("Window");

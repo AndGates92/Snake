@@ -36,10 +36,25 @@ using namespace game_graphics;
 using namespace game_utils;
 using namespace cmdline_parser;
 
-namespace {
-	static int game_win_id;
-	static int stat_win_id;
+/** @addtogroup GraphicsGroup
+ *
+ *  @{
+ */
+namespace graphics {
+	namespace {
+		/**
+		 * @brief game window ID
+		 *
+		 */
+		static int game_win_id;
+		/**
+		 * @brief statistics window ID
+		 *
+		 */
+		static int stat_win_id;
+	}
 }
+/** @} */ // End of addtogroup GraphicsGroup
 
 void graphics::init_graphics(int argc, char** argv) {
 	LOG_INFO(logging::verb_level_e::ZERO, "Initialize GLUT");
