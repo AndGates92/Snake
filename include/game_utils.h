@@ -12,6 +12,7 @@
 #include "window_node.h"
 #include "snake_list.h"
 #include "obstacle_list.h"
+#include "snake_direction_list.h"
 #include "settings.h"
 #include "colours.h"
 
@@ -255,13 +256,77 @@ namespace game_utils {
 	void auto_change_dir();
 
 	/**
+	 * @brief Function: void check_dir(snake_utils::direction_e snake_head_dir)
+	 *
+	 * \param snake_head_dir: current direction of the snake head
+	 *
+	 * This function checks that the chosen direction of the head will not lead to a collision
+	 */
+	void check_dir(snake_utils::direction_e snake_head_dir);
+
+	/**
+	 * @brief Function: void populate_flags(snake_direction_list::SnakeDirectionList * & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist)
+	 *
+	 * \param dir_list: sequence of directions of snake units
+	 * \param left_dist: flag indicating if there is a snake unit on the left of the head
+	 * \param right_dist: flag indicating if there is a snake unit on the right of the head
+	 * \param up_dist: flag indicating if there is a snake unit above the head
+	 * \param down_dist: flag indicating if there is a snake unit below the head
+	 *
+	 * This function populates the flags required to check if the chosen direction of the head will not lead to a collision
+	 */
+	void populate_flags(snake_direction_list::SnakeDirectionList * & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist);
+
+	/**
+	 * @brief Function: bool unit_in_trajectory(snake_utils::direction_e dir, int & left_dist, int & right_dist, int & up_dist, int & down_dist)
+	 *
+	 * \param dir: direction to check collision risk for
+	 * \param left_dist: flag indicating if there is a snake unit on the left of the head
+	 * \param right_dist: flag indicating if there is a snake unit on the right of the head
+	 * \param up_dist: flag indicating if there is a snake unit above the head
+	 * \param down_dist: flag indicating if there is a snake unit below the head
+	 *
+	 * \return returns whether there is a snake unit in the head trajectory
+	 *
+	 * This function flags collision risk, i.e. when the head is heading towards a snake unit
+	 */
+	bool unit_in_trajectory(snake_utils::direction_e dir, int & left_dist, int & right_dist, int & up_dist, int & down_dist);
+
+	/**
 	 * @brief Function: void set_head_dir(snake_utils::direction_e dir);
 	 *
-	 * \param dir:  direction to set the nead to
+	 * \param dir: direction to set the nead to
 	 *
 	 * This function sets the head direction
 	 */
 	void set_head_dir(snake_utils::direction_e dir);
+
+	/**
+	 * @brief Function: bool coord_overlap(int coord1_min, int coord1_max, int coord2_min, int coord2_max)
+	 *
+	 * \param coord1_min: minimum value of coordinate1
+	 * \param coord1_max: maximum value of coordinate1
+	 * \param coord2_min: minimum value of coordinate2
+	 * \param coord2_max: maximum value of coordinate2
+	 *
+	 * \return returns whether coordinate1 overlaps coordinate2
+	 *
+	 * This function flags whether here is an overlap beteen coordinate1 and coordinate2 ranges
+	 */
+	bool coord_overlap(int coord1_min, int coord1_max, int coord2_min, int coord2_max);
+
+	/**
+	 * @brief Function: void update_dist(int coord1, int coord2, int avg_dim, int & dist_1l2, int & dist_1s2)
+	 *
+	 * \param coord1: coordinate1
+	 * \param coord2: coordinate2
+	 * \param avg_dim: average dimension
+	 * \param dist_1l2: distance to update if coordinate1 is larger than coordinate2
+	 * \param dist_1s2: distance to update if coordinate1 is smaller than coordinate2
+	 *
+	 * This function update distances between head and unit
+	 */
+	void update_dist(int coord1, int coord2, int avg_dim, int & dist_1l2, int & dist_1s2);
 
 	/**
 	 * @brief Function: snake_utils::direction_e get_head_dir();

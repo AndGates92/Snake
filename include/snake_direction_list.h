@@ -51,6 +51,15 @@ namespace snake_direction_list {
 			 */
 			~SnakeDirectionList();
 
+			/**
+			 * @brief Function: void add_node(snake_utils::direction_e direction)
+			 *
+			 * \param direction: direction to add to the linked list
+			 *
+			 * Add node to the snake_direction_list
+			 */
+			void add_node(snake_utils::direction_e direction);
+
 		protected:
 
 		private:

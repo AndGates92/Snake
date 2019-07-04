@@ -18,7 +18,12 @@
 #include "snake_list.h"
 #include "snake_node.h"
 #include "snake_utils.h"
+#include "snake_direction_list.h"
 
+/** @addtogroup GameUtilsGroup
+ *
+ *  @{
+ */
 namespace game_utils {
 
 	namespace {
@@ -46,8 +51,15 @@ namespace game_utils {
 		 */
 		static obstacle_list::ObstacleList * obstacles;
 
+		/**
+		 * @brief Value of distance normalized by snake unit between head and unit width for which chanign direction is required
+		 *
+		 */
+		const int min_dist_force_change_dir = 4;
+
 	}
 }
+/** @} */ // End of addtogroup GameUtilsGroup
 
 void game_utils::init_snake_list() {
 	std::string type("Snake");
@@ -348,6 +360,7 @@ void game_utils::auto_change_dir() {
 		}
 		auto_ride_count = 0;
 		cout << " Check " << endl;
+		game_utils::check_dir(snake_head_dir);
 	} else {
 		auto_ride_count++;
 	}
@@ -372,6 +385,130 @@ void game_utils::choose_dir(snake_utils::direction_e dir1, snake_utils::directio
 
 }
 
+void game_utils::check_dir(snake_utils::direction_e snake_head_dir) {
+
+	snake_direction_list::SnakeDirectionList * snake_dir_list = nullptr;
+	int snake_unit_left_dist = 0;
+	int snake_unit_right_dist = 0;
+	int snake_unit_up_dist = 0;
+	int snake_unit_down_dist = 0;
+
+	game_utils::populate_flags(snake_dir_list, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
+
+	// If direction has changed
+	if (snake_head_dir != game_utils::head_dir) {
+		bool collision_risk = game_utils::unit_in_trajectory(game_utils::head_dir, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
+
+	}
+}
+
+bool game_utils::unit_in_trajectory(snake_utils::direction_e dir, int & left_dist, int & right_dist, int & up_dist, int & down_dist) {
+
+	bool collision_risk = false;
+
+	switch (dir) {
+		case snake_utils::direction_e::RIGHT:
+			collision_risk = (right_dist >= min_dist_force_change_dir);
+			break;
+		case snake_utils::direction_e::LEFT:
+			collision_risk = (left_dist >= min_dist_force_change_dir);
+			break;
+		case snake_utils::direction_e::UP:
+			collision_risk = (up_dist >= min_dist_force_change_dir);
+			break;
+		case snake_utils::direction_e::DOWN:
+			collision_risk = (down_dist >= min_dist_force_change_dir);
+			break;
+		default:
+			LOG_ERROR("Unknown direction");
+			break;
+	}
+
+	return collision_risk;
+
+}
+
+void game_utils::populate_flags(snake_direction_list::SnakeDirectionList * & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist) {
+	snake_node::SnakeNode * snake_head = game_utils::snake->get_head();
+
+	snake_utils::direction_e prev_dir = snake_head->get_direction();
+	snake_utils::direction_e curr_dir = snake_head->get_direction();
+
+	dir_list->add_node(curr_dir);
+
+	int snake_head_x = snake_head->get_x_centre();
+	int snake_head_width = snake_head->get_width();
+	int snake_head_x_min = snake_head_x - snake_head_width/2;
+	int snake_head_x_max = snake_head_x + snake_head_width/2;
+	int snake_head_y = snake_head->get_y_centre();
+	int snake_head_height = snake_head->get_height();
+	int snake_head_y_min = snake_head_y - snake_head_height/2;
+	int snake_head_y_max = snake_head_y + snake_head_height/2;
+
+	// Move away from the head
+	snake_head = snake_head->get_next();
+
+	while (snake_head != nullptr) {
+
+		int snake_unit_x = snake_head->get_x_centre();
+		int snake_unit_width = snake_head->get_width();
+		int snake_unit_x_min = snake_unit_x - snake_unit_width/2;
+		int snake_unit_x_max = snake_unit_x + snake_unit_width/2;
+		int snake_unit_y = snake_head->get_y_centre();
+		int snake_unit_height = snake_head->get_height();
+		int snake_unit_y_min = snake_unit_y - snake_unit_height/2;
+		int snake_unit_y_max = snake_unit_y + snake_unit_height/2;
+		int avg_height = (snake_unit_height + snake_head_height)/2;
+		int avg_width  = (snake_unit_width + snake_head_width)/2;
+
+		if (
+			// head and unit are aligned on the X axis
+			game_utils::coord_overlap(snake_head_x_min, snake_head_x_max, snake_unit_x_min, snake_unit_x_max) == true
+		) {
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Populate Flags] Y coordinates: Snake->", snake_head_y, ", Unit->", snake_unit_y, " Distance: Up->", up_dist, " Down->", down_dist);
+			game_utils::update_dist(snake_head_y, snake_unit_y, avg_height, up_dist, down_dist);
+		} else if (
+			// head and unit are aligned on the Y axis
+			game_utils::coord_overlap(snake_head_y_min, snake_head_y_max, snake_unit_y_min, snake_unit_y_max) == true
+		) {
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Populate Flags] X coordinates: Snake->", snake_head_x, ", Unit->", snake_unit_x, ", Distance: Left->", left_dist, " Right->", right_dist);
+			game_utils::update_dist(snake_head_x, snake_unit_x, avg_width, left_dist, right_dist);
+		}
+
+		curr_dir = snake_head->get_direction();
+		if (curr_dir != prev_dir) {
+			dir_list->add_node(curr_dir);
+		}
+
+		snake_head = snake_head->get_next();
+		prev_dir = curr_dir;
+
+	}
+
+}
+
+bool game_utils::coord_overlap(int coord1_min, int coord1_max, int coord2_min, int coord2_max) {
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Coordinate Overlap] Coordinate1: minimum->", coord1_min, ", maximum->", coord1_max, " Coordinate2: minimum->", coord2_min, ", maximum->", coord2_max);
+	bool overlap = ((coord1_min >= coord2_min) & (coord1_min <= coord2_max)) | ((coord1_max >= coord2_min) & (coord1_max <= coord2_max));
+	return overlap;
+}
+
+void game_utils::update_dist(int coord1, int coord2, int avg_dim, int & dist_1l2, int & dist_1s2) {
+	int abs_dist = abs(coord1 - coord2);
+	float dist_norm = ((float)abs_dist)/((float)avg_dim);
+	int dist_norm_ceil = (int) ceil(dist_norm);
+
+	LOG_INFO(logging::verb_level_e::DEBUG,"[Update Distance] Coordinate1->", coord1, " Coordinate2->", coord2, " Distance: 1l2->", dist_1l2, " 1s2->", dist_1s2, " Current->", dist_norm_ceil);
+	if (coord1 >= coord2) {
+		if ((dist_1l2 == 0) | (dist_1l2 > dist_norm_ceil)) {
+			dist_1l2 = dist_norm_ceil;
+		}
+	} else {
+		if ((dist_1s2 == 0) | (dist_1s2 > dist_norm_ceil)) {
+			dist_1s2 = dist_norm_ceil;
+		}
+	}
+}
 
 void game_utils::set_head_dir(snake_utils::direction_e dir) {
 	game_utils::head_dir = dir;

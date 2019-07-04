@@ -85,6 +85,13 @@ namespace basic_list {
 			 */
 			void set_head(class_node * & new_head);
 
+			/**
+			 * @brief Function: void add_node()
+			 *
+			 * Function to add a node. It must be implemented in the derived class
+			 */
+			void add_node();
+
 		protected:
 
 		private:
@@ -158,6 +165,11 @@ class_node * & basic_list::BasicList<class_node>::get_head() {
 template <class class_node>
 void basic_list::BasicList<class_node>::set_head(class_node * & new_head) {
 	this->head = new_head;
+}
+
+template <class class_node>
+void basic_list::BasicList<class_node>::add_node() {
+	LOG_ERROR("add_node function was not implemented in BasicList class. Please code it up in the derived class");
 }
 
 #endif // BASIC_LIST_H
