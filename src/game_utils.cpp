@@ -351,8 +351,6 @@ void game_utils::auto_change_dir() {
 	int obs_head_x = obs_head->get_x_centre();
 	int obs_head_y = obs_head->get_y_centre();
 
-	cout << "Snake Head: dir " << snake_head_dir << " X " << snake_head_x << " Y " << snake_head_y << " Obs X " << obs_head_x << " Y " << obs_head_y << endl;
-
 	if (auto_ride_count >= max_auto_ride_count) {
 		if (snake_head_dir == snake_utils::direction_e::LEFT) {
 			game_utils::choose_dir(snake_utils::direction_e::UP, snake_utils::direction_e::DOWN, obs_head_x, snake_head_x, snake_head_y, obs_head_y);
@@ -364,7 +362,6 @@ void game_utils::auto_change_dir() {
 			game_utils::choose_dir(snake_utils::direction_e::RIGHT, snake_utils::direction_e::LEFT, obs_head_y, snake_head_y, snake_head_x, obs_head_x);
 		}
 		auto_ride_count = 0;
-		cout << " Check " << endl;
 		game_utils::check_dir(snake_head_dir);
 	} else {
 		auto_ride_count++;
@@ -531,7 +528,6 @@ cout << "Y axis alignment Snake->" << snake_head_x << ", Unit->"<< snake_unit_x 
 bool game_utils::coord_overlap(int coord1_min, int coord1_max, int coord2_min, int coord2_max) {
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Coordinate Overlap] Coordinate1: minimum->", coord1_min, ", maximum->", coord1_max, " Coordinate2: minimum->", coord2_min, ", maximum->", coord2_max);
 	bool overlap = ((coord1_min >= coord2_min) && (coord1_min < coord2_max)) || ((coord1_max > coord2_min) && (coord1_max <= coord2_max));
-	cout << "[Coordinate Overlap] Coordinate1: minimum->" <<  coord1_min <<  " <<  maximum->" <<  coord1_max <<  " Coordinate2: minimum->" <<  coord2_min <<  " <<  maximum->" <<  coord2_max << " overlap " << overlap << endl;
 	return overlap;
 }
 
