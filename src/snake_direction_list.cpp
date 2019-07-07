@@ -28,21 +28,21 @@ snake_direction_list::SnakeDirectionList::~SnakeDirectionList() {
 
 void snake_direction_list::SnakeDirectionList::add_node(snake_utils::direction_e direction) {
 
-	snake_direction::SnakeDirectionNode * head(this->get_head());
+	snake_direction::SnakeDirectionNode * head_dir(this->get_head());
 
 	LOG_INFO(logging::verb_level_e::LOW, "[Add node] Create node with direction ", direction);
-	snake_direction::SnakeDirectionNode * new_window = new snake_direction::SnakeDirectionNode(direction);
-	if (new_window == nullptr) {
-		LOG_ERROR("Can't allocate memory for window node");
+	snake_direction::SnakeDirectionNode * new_dir = new snake_direction::SnakeDirectionNode(direction);
+	if (new_dir == nullptr) {
+		LOG_ERROR("Can't allocate memory for direction node");
 	}
 
-	new_window->set_prev(nullptr);
+	new_dir->set_prev(nullptr);
 
-	if(head != nullptr) {
-		head->set_prev(new_window);
+	if(head_dir != nullptr) {
+		head_dir->set_prev(new_dir);
 	}
 
-	new_window->set_next(head);
-	this->set_head(new_window);
+	new_dir->set_next(head_dir);
+	this->set_head(new_dir);
 
 }
