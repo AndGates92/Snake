@@ -346,7 +346,7 @@ void game_utils::auto_change_dir() {
 	int obs_head_x = obs_head->get_x_centre();
 	int obs_head_y = obs_head->get_y_centre();
 
-	cout << "Snake Head: dir " << snake_head_dir << " X " << snake_head_x << " Y " << snake_head_y << " Obs X " << obs_head_x << " Y " << obs_head_y << endl;
+	cout << "Snake Head: dir " << snake_head_dir << " X " << snake_head_x << " Y " << snake_head_y << " Obs X " << obs_head_x << " Y " << obs_head_y << " dir " << snake_head_dir << endl;
 
 	if (auto_ride_count >= max_auto_ride_count) {
 		if (snake_head_dir == snake_utils::direction_e::LEFT) {
@@ -365,7 +365,6 @@ void game_utils::auto_change_dir() {
 		auto_ride_count++;
 	}
 
-	cout << "Count " << auto_ride_count << " Max " << max_auto_ride_count << endl;
 	ASSERT(auto_ride_count <= max_auto_ride_count);
 
 }
@@ -387,13 +386,15 @@ void game_utils::choose_dir(snake_utils::direction_e dir1, snake_utils::directio
 
 void game_utils::check_dir(snake_utils::direction_e snake_head_dir) {
 
-	snake_direction_list::SnakeDirectionList * snake_dir_list = nullptr;
+	snake_direction_list::SnakeDirectionList * snake_dir_list = new snake_direction_list::SnakeDirectionList();
 	int snake_unit_left_dist = 0;
 	int snake_unit_right_dist = 0;
 	int snake_unit_up_dist = 0;
 	int snake_unit_down_dist = 0;
 
 	game_utils::populate_flags(snake_dir_list, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
+
+	cout << "Head dir " << snake_head_dir << " ditances left:" << snake_unit_left_dist << " right: " << snake_unit_right_dist << " up: " << snake_unit_up_dist << " down: " << snake_unit_down_dist << endl;
 
 	bool collision_risk = game_utils::unit_in_trajectory(game_utils::head_dir, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
 
