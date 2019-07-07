@@ -196,14 +196,14 @@ bool game_utils::contact_between_snake_obs() {
 		if (
 			(
 			// snake head X minimum coordinate is between obstacle X minimum and X maximum
-			((snake_head_x_min <= obs_x_max) & (snake_head_x_min >= obs_x_min)) |
+			((snake_head_x_min <= obs_x_max) && (snake_head_x_min >= obs_x_min)) ||
 			// snake head X maximum coordinate is between obstacle X minimum and X maximum
-			((snake_head_x_max <= obs_x_max) & (snake_head_x_max >= obs_x_min))
-			) & (
+			((snake_head_x_max <= obs_x_max) && (snake_head_x_max >= obs_x_min))
+			) && (
 			// snake head Y minimum coordinate is between obstacle Y minimum and X maximum
-			((snake_head_y_min <= obs_y_max) & (snake_head_y_min >= obs_y_min)) |
+			((snake_head_y_min <= obs_y_max) && (snake_head_y_min >= obs_y_min)) ||
 			// snake head Y maximum coordinate is between obstacle Y minimum and X maximum
-			((snake_head_y_max <= obs_y_max) & (snake_head_y_max >= obs_y_min))
+			((snake_head_y_max <= obs_y_max) && (snake_head_y_max >= obs_y_min))
 			)
 		) {
 
@@ -447,16 +447,16 @@ bool game_utils::unit_in_trajectory(snake_utils::direction_e dir, int left_dist,
 
 	switch (dir) {
 		case snake_utils::direction_e::RIGHT:
-			collision_risk = ((right_dist <= game_utils::min_dist_force_change_dir) & (right_dist != game_utils::dist_init_val));
+			collision_risk = ((right_dist <= game_utils::min_dist_force_change_dir) && (right_dist != game_utils::dist_init_val));
 			break;
 		case snake_utils::direction_e::LEFT:
-			collision_risk = ((left_dist <= game_utils::min_dist_force_change_dir) & (left_dist != game_utils::dist_init_val));
+			collision_risk = ((left_dist <= game_utils::min_dist_force_change_dir) && (left_dist != game_utils::dist_init_val));
 			break;
 		case snake_utils::direction_e::UP:
-			collision_risk = ((up_dist <= game_utils::min_dist_force_change_dir) & (up_dist != game_utils::dist_init_val));
+			collision_risk = ((up_dist <= game_utils::min_dist_force_change_dir) && (up_dist != game_utils::dist_init_val));
 			break;
 		case snake_utils::direction_e::DOWN:
-			collision_risk = ((down_dist <= game_utils::min_dist_force_change_dir) & (down_dist != game_utils::dist_init_val));
+			collision_risk = ((down_dist <= game_utils::min_dist_force_change_dir) && (down_dist != game_utils::dist_init_val));
 			break;
 		default:
 			LOG_ERROR("Unknown direction");

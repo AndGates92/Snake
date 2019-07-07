@@ -60,7 +60,7 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 
 		bool found = false;
 
-		while ((snake_list != nullptr) & (found == false)) {
+		while ((snake_list != nullptr) && (found == false)) {
 
 			int curr_x = snake_list->get_x_centre();
 			int curr_y = snake_list->get_y_centre();
@@ -160,13 +160,13 @@ bool snake_list::SnakeList::is_neightbour(int curr_x, int curr_y, int new_x, int
 
 	if (
 		// LEFT: X coordinate of the head is smaller that coordinate of other snake units
-		   ((curr_x >= new_x) & (curr_y == new_y) & (dir == snake_utils::direction_e::LEFT))
+		   ((curr_x >= new_x) && (curr_y == new_y) && (dir == snake_utils::direction_e::LEFT))
 		// RIGHT: X coordinate of the head is larger that coordinate of other snake units
-		|| ((curr_x < new_x)  & (curr_y == new_y) & (dir == snake_utils::direction_e::RIGHT))
+		|| ((curr_x < new_x)  && (curr_y == new_y) && (dir == snake_utils::direction_e::RIGHT))
 		// DOWN: Y coordinate of the head is smaller that coordinate of other snake units
-		|| ((curr_y >= new_y) & (curr_x == new_x) & (dir == snake_utils::direction_e::DOWN))
+		|| ((curr_y >= new_y) && (curr_x == new_x) && (dir == snake_utils::direction_e::DOWN))
 		// UP: Y coordinate of the head is larger that coordinate of other snake units
-		|| ((curr_y < new_y)  & (curr_x == new_x) & (dir == snake_utils::direction_e::UP))
+		|| ((curr_y < new_y)  && (curr_x == new_x) && (dir == snake_utils::direction_e::UP))
 	) {
 		found_neightbour = true;
 	} else {
@@ -242,10 +242,10 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 
 				// Consecutive units can't travel in opposite direction
 				ASSERT(
-					((direction_curr == snake_utils::direction_e::RIGHT) & (direction_prev != snake_utils::direction_e::LEFT))  |
-					((direction_curr == snake_utils::direction_e::LEFT)  & (direction_prev != snake_utils::direction_e::RIGHT)) |
-					((direction_curr == snake_utils::direction_e::UP)    & (direction_prev != snake_utils::direction_e::DOWN))  |
-					((direction_curr == snake_utils::direction_e::DOWN)  & (direction_prev != snake_utils::direction_e::UP))
+					((direction_curr == snake_utils::direction_e::RIGHT) && (direction_prev != snake_utils::direction_e::LEFT))  ||
+					((direction_curr == snake_utils::direction_e::LEFT)  && (direction_prev != snake_utils::direction_e::RIGHT)) ||
+					((direction_curr == snake_utils::direction_e::UP)    && (direction_prev != snake_utils::direction_e::DOWN))  ||
+					((direction_curr == snake_utils::direction_e::DOWN)  && (direction_prev != snake_utils::direction_e::UP))
 				);
 
 				// Adjust coordinate centres of pervious and current unit must be aligned as to ditance between centres is kept constant
@@ -320,7 +320,7 @@ int snake_list::SnakeList::change_dir(snake_node::SnakeNode * & snake_el, int wi
 
 	// Adjustment: distance between centres - actual distance between centres 
 	int adjustment = centre_distance - curr_distance;
-	ASSERT((adjustment >= 0) & (adjustment <= centre_distance));
+	ASSERT((adjustment >= 0) && (adjustment <= centre_distance));
 
 	int centre_adj = curr_coord_mov_dir + sign * adjustment;
 	int adj_distance = compute_centre_distance(prev_coord_mov_dir, centre_adj, win_dim, centre_distance);
