@@ -404,24 +404,36 @@ void game_utils::check_dir(snake_utils::direction_e snake_head_dir) {
 	cout << "Head dir " << snake_head_dir << " ditances left:" << snake_unit_left_dist << " right: " << snake_unit_right_dist << " up: " << snake_unit_up_dist << " down: " << snake_unit_down_dist << " collision_risk " << collision_risk << endl;
 
 	snake_utils::direction_e dir1 = snake_utils::direction_e::UNKNOWN;
+	int dist_dir1 = game_utils::dist_init_val;
+
 	snake_utils::direction_e dir2 = snake_utils::direction_e::UNKNOWN;
+	int dist_dir2 = game_utils::dist_init_val;
 
 	if (collision_risk == true) {
 		if ((snake_head_dir == snake_utils::direction_e::RIGHT) | (snake_head_dir == snake_utils::direction_e::LEFT)) {
 			dir1 = snake_utils::direction_e::UP;
+			dist_dir1 = snake_unit_up_dist;
 			dir2 = snake_utils::direction_e::DOWN;
+			dist_dir2 = snake_unit_down_dist;
 		} else if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
 			dir1 = snake_utils::direction_e::RIGHT;
+			dist_dir1 = snake_unit_right_dist;
 			dir2 = snake_utils::direction_e::LEFT;
+			dist_dir2 = snake_unit_left_dist;
 		}
 		ASSERT(dir1 != snake_utils::direction_e::UNKNOWN);
 		ASSERT(dir2 != snake_utils::direction_e::UNKNOWN);
 
 		bool collision_risk_dir1 = game_utils::unit_in_trajectory(dir1, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
 		bool collision_risk_dir2 = game_utils::unit_in_trajectory(dir2, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
-		if (collision_risk_dir1 == false) {
+
+		// Assert that distance on direction1 and distance on direction2 are not 1 at the same time
+		ASSERT((dist_dir1 != 1) || (dist_dir2 != 1));
+
+		// if no risk of collision or risk of collision on direction2 and distance measured in direction1 is larger than the one on direction2
+		if ((collision_risk_dir1 == false) || ((collision_risk_dir2 == true) && (dist_dir1 >= dist_dir2))) {
 			game_utils::head_dir = dir1;
-		} else if (collision_risk_dir2 == false) {
+		} else if ((collision_risk_dir2 == false) || ((collision_risk_dir1 == true) && (dist_dir2 >= dist_dir1))) {
 			game_utils::head_dir = dir2;
 		} else {
 			LOG_ERROR("Unable to find a direction with no collision risk. Current direction: ", snake_head_dir, " direction 1: ", dir1, " direction 2: ", dir2);
