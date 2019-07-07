@@ -274,9 +274,9 @@ void cmdline_parser::assign_common_var(std::string var_name, std::string var_val
 
 void cmdline_parser::delete_special_characters(std::string & word) {
 	for (std::string::size_type char_no=0; char_no < word.length(); char_no++) {
-		if ( ((word.at(char_no) >= 'a') & (word.at(char_no) <= 'z')) |
-		     ((word.at(char_no) >= 'A') & (word.at(char_no) <= 'Z')) |
-		     ((word.at(char_no) >= '0') & (word.at(char_no) <= '9')) ) {
+		if ( ((word.at(char_no) >= 'a') && (word.at(char_no) <= 'z')) ||
+		     ((word.at(char_no) >= 'A') && (word.at(char_no) <= 'Z')) ||
+		     ((word.at(char_no) >= '0') && (word.at(char_no) <= '9')) ) {
 			// No action if alpha-numerical character
 			continue;
 		} else {

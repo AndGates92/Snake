@@ -86,7 +86,7 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 		}
 
 
-		if ((head == nullptr) || ((snake_found == nullptr) & (found == true))) {
+		if ((head == nullptr) || ((snake_found == nullptr) && (found == true))) {
 			snake_node::SnakeNode * snake_head = head;
 
 			new_snake->set_next(snake_head);
@@ -230,12 +230,12 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 				int y_diff = abs(y_centre_curr - y_centre_prev);
 				int width_centre_distance = (width_curr + width_prev)/2;
 				int x_diff = abs(x_centre_curr - x_centre_prev);
-				if (((direction_curr == snake_utils::direction_e::RIGHT) & (direction_prev == snake_utils::direction_e::LEFT)) || ((direction_curr == snake_utils::direction_e::LEFT) & (direction_prev == snake_utils::direction_e::RIGHT))) {
-					if ((y_diff < height_centre_distance) & (x_diff < width_centre_distance)) {
+				if (((direction_curr == snake_utils::direction_e::RIGHT) && (direction_prev == snake_utils::direction_e::LEFT)) || ((direction_curr == snake_utils::direction_e::LEFT) && (direction_prev == snake_utils::direction_e::RIGHT))) {
+					if ((y_diff < height_centre_distance) && (x_diff < width_centre_distance)) {
 						LOG_ERROR("Units moving in opposite horizintal movement and colliding");
 					}
-				} else if (((direction_curr == snake_utils::direction_e::UP) & (direction_prev == snake_utils::direction_e::DOWN)) || ((direction_curr == snake_utils::direction_e::DOWN) & (direction_prev == snake_utils::direction_e::UP))) {
-					if ((x_diff < width_centre_distance) & (y_diff < height_centre_distance)) {
+				} else if (((direction_curr == snake_utils::direction_e::UP) && (direction_prev == snake_utils::direction_e::DOWN)) || ((direction_curr == snake_utils::direction_e::DOWN) && (direction_prev == snake_utils::direction_e::UP))) {
+					if ((x_diff < width_centre_distance) && (y_diff < height_centre_distance)) {
 						LOG_ERROR("Units moving in opposite vertical movement and colliding");
 					}
 				}
@@ -251,7 +251,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 				// Adjust coordinate centres of pervious and current unit must be aligned as to ditance between centres is kept constant
 				// Y for horizontal to vertical movement
 				// X for vertical to horizontal movement
-				if (((direction_curr == snake_utils::direction_e::RIGHT) || (direction_curr == snake_utils::direction_e::LEFT)) & ((int) abs(x_centre_prev - x_centre_curr) < speed)) {
+				if (((direction_curr == snake_utils::direction_e::RIGHT) || (direction_curr == snake_utils::direction_e::LEFT)) && ((int) abs(x_centre_prev - x_centre_curr) < speed)) {
 
 					// Unit moving horizontally:
 					// - X is force to aligned (set previous unit X coordinate)
@@ -260,7 +260,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 					LOG_INFO(logging::verb_level_e::HIGH, "[Snake List Move] Change drection to ", direction_prev, " New coordinates X ", x_centre_prev, " Y ", centre_adj);
 					snake_el->set_x_centre(x_centre_prev);
 					snake_el->set_y_centre(centre_adj);
-				} else if (((direction_curr == snake_utils::direction_e::UP) || (direction_curr == snake_utils::direction_e::DOWN)) & ((int) abs(y_centre_prev - y_centre_curr) < speed)) {
+				} else if (((direction_curr == snake_utils::direction_e::UP) || (direction_curr == snake_utils::direction_e::DOWN)) && ((int) abs(y_centre_prev - y_centre_curr) < speed)) {
 					// Unit moving vertically:
 					// - Y is force to aligned (set previous unit Y coordinate)
 					// - X is adjusted to keep distance between centre constant
@@ -477,16 +477,16 @@ void snake_list::SnakeList::check_snake_collision() {
 				int y_dist = (int) abs(y_centre1 - y_centre2);
 				int tot_dist = x_dist + y_dist;
 
-				if ((x_dist < x_centre_distance) & (y_dist < y_centre_distance)) {
+				if ((x_dist < x_centre_distance) && (y_dist < y_centre_distance)) {
 					// Unit1 and Unit2 are getting closer to each other on the x axis
-					if (((x_centre1 >= x_centre2) & (direction1 == snake_utils::direction_e::RIGHT)) || ((x_centre1 <= x_centre2) & (direction1 == snake_utils::direction_e::LEFT))) {
+					if (((x_centre1 >= x_centre2) && (direction1 == snake_utils::direction_e::RIGHT)) || ((x_centre1 <= x_centre2) && (direction1 == snake_utils::direction_e::LEFT))) {
 						if (tot_dist < total_centre_distance) {
 							GAME_OVER("Collision on the X axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
 						}
 					}
 
 					// Unit1 and Unit2 are getting closer to each other on the y axis
-					if (((y_centre1 >= y_centre2) & (direction1 == snake_utils::direction_e::DOWN)) || ((y_centre1 <= y_centre2) & (direction1 == snake_utils::direction_e::UP))) {
+					if (((y_centre1 >= y_centre2) && (direction1 == snake_utils::direction_e::DOWN)) || ((y_centre1 <= y_centre2) && (direction1 == snake_utils::direction_e::UP))) {
 						if (tot_dist < total_centre_distance) {
 							GAME_OVER("Collision on the Y axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
 						}
