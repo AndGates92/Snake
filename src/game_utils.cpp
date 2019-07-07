@@ -57,6 +57,11 @@ namespace game_utils {
 		 */
 		const int min_dist_force_change_dir = 4;
 
+		/**
+		 * @brief Initial value of distance on each side
+		 *
+		 */
+		const int dist_init_val = -1;
 	}
 }
 /** @} */ // End of addtogroup GameUtilsGroup
@@ -346,7 +351,7 @@ void game_utils::auto_change_dir() {
 	int obs_head_x = obs_head->get_x_centre();
 	int obs_head_y = obs_head->get_y_centre();
 
-	cout << "Snake Head: dir " << snake_head_dir << " X " << snake_head_x << " Y " << snake_head_y << " Obs X " << obs_head_x << " Y " << obs_head_y << " dir " << snake_head_dir << endl;
+	cout << "Snake Head: dir " << snake_head_dir << " X " << snake_head_x << " Y " << snake_head_y << " Obs X " << obs_head_x << " Y " << obs_head_y << endl;
 
 	if (auto_ride_count >= max_auto_ride_count) {
 		if (snake_head_dir == snake_utils::direction_e::LEFT) {
@@ -387,16 +392,16 @@ void game_utils::choose_dir(snake_utils::direction_e dir1, snake_utils::directio
 void game_utils::check_dir(snake_utils::direction_e snake_head_dir) {
 
 	snake_direction_list::SnakeDirectionList * snake_dir_list = new snake_direction_list::SnakeDirectionList();
-	int snake_unit_left_dist = 0;
-	int snake_unit_right_dist = 0;
-	int snake_unit_up_dist = 0;
-	int snake_unit_down_dist = 0;
+	int snake_unit_left_dist = game_utils::dist_init_val;
+	int snake_unit_right_dist = game_utils::dist_init_val;
+	int snake_unit_up_dist = game_utils::dist_init_val;
+	int snake_unit_down_dist = game_utils::dist_init_val;
 
 	game_utils::populate_flags(snake_dir_list, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
 
-	cout << "Head dir " << snake_head_dir << " ditances left:" << snake_unit_left_dist << " right: " << snake_unit_right_dist << " up: " << snake_unit_up_dist << " down: " << snake_unit_down_dist << endl;
-
 	bool collision_risk = game_utils::unit_in_trajectory(game_utils::head_dir, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
+
+	cout << "Head dir " << snake_head_dir << " ditances left:" << snake_unit_left_dist << " right: " << snake_unit_right_dist << " up: " << snake_unit_up_dist << " down: " << snake_unit_down_dist << " collision_risk " << collision_risk << endl;
 
 	snake_utils::direction_e dir1 = snake_utils::direction_e::UNKNOWN;
 	snake_utils::direction_e dir2 = snake_utils::direction_e::UNKNOWN;
@@ -419,7 +424,7 @@ void game_utils::check_dir(snake_utils::direction_e snake_head_dir) {
 		} else if (collision_risk_dir2 == false) {
 			game_utils::head_dir = dir2;
 		} else {
-			LOG_ERROR("Unabel to find a direction with no collision risk. Current direction:", snake_head_dir, " direction 1: ", dir1, " direction 2:", dir2);
+			LOG_ERROR("Unable to find a direction with no collision risk. Current direction: ", snake_head_dir, " direction 1: ", dir1, " direction 2: ", dir2);
 		}
 	}
 }
@@ -430,16 +435,16 @@ bool game_utils::unit_in_trajectory(snake_utils::direction_e dir, int left_dist,
 
 	switch (dir) {
 		case snake_utils::direction_e::RIGHT:
-			collision_risk = (right_dist >= min_dist_force_change_dir);
+			collision_risk = ((right_dist <= game_utils::min_dist_force_change_dir) & (right_dist != game_utils::dist_init_val));
 			break;
 		case snake_utils::direction_e::LEFT:
-			collision_risk = (left_dist >= min_dist_force_change_dir);
+			collision_risk = ((left_dist <= game_utils::min_dist_force_change_dir) & (left_dist != game_utils::dist_init_val));
 			break;
 		case snake_utils::direction_e::UP:
-			collision_risk = (up_dist >= min_dist_force_change_dir);
+			collision_risk = ((up_dist <= game_utils::min_dist_force_change_dir) & (up_dist != game_utils::dist_init_val));
 			break;
 		case snake_utils::direction_e::DOWN:
-			collision_risk = (down_dist >= min_dist_force_change_dir);
+			collision_risk = ((down_dist <= game_utils::min_dist_force_change_dir) & (down_dist != game_utils::dist_init_val));
 			break;
 		default:
 			LOG_ERROR("Unknown direction");
@@ -487,14 +492,16 @@ void game_utils::populate_flags(snake_direction_list::SnakeDirectionList * & dir
 			// head and unit are aligned on the X axis
 			game_utils::coord_overlap(snake_head_x_min, snake_head_x_max, snake_unit_x_min, snake_unit_x_max) == true
 		) {
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Populate Flags] Y coordinates: Snake->", snake_head_y, ", Unit->", snake_unit_y, " Distance: Up->", up_dist, " Down->", down_dist);
-			game_utils::update_dist(snake_head_y, snake_unit_y, avg_height, up_dist, down_dist);
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Populate Flags] Y coordinates: Snake Head->", snake_head_y, ", Snake Unit->", snake_unit_y, " Distance: Up->", up_dist, " Down->", down_dist);
+			game_utils::update_dist(snake_head_y, snake_unit_y, avg_height, down_dist, up_dist);
+cout << "X axis alignment Snake->" << snake_head_y << ", Unit->"<< snake_unit_y <<" Distance: Up->" << up_dist<< " Down->"<< down_dist << endl;
 		} else if (
 			// head and unit are aligned on the Y axis
 			game_utils::coord_overlap(snake_head_y_min, snake_head_y_max, snake_unit_y_min, snake_unit_y_max) == true
 		) {
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Populate Flags] X coordinates: Snake->", snake_head_x, ", Unit->", snake_unit_x, ", Distance: Left->", left_dist, " Right->", right_dist);
+			LOG_INFO(logging::verb_level_e::DEBUG,"[Populate Flags] X coordinates: Snake Head->", snake_head_x, ", Snake Unit->", snake_unit_x, ", Distance: Left->", left_dist, " Right->", right_dist);
 			game_utils::update_dist(snake_head_x, snake_unit_x, avg_width, left_dist, right_dist);
+cout << "Y axis alignment Snake->" << snake_head_x << ", Unit->"<< snake_unit_x <<" Distance: left->" << left_dist<< " right->"<< right_dist << endl;
 		}
 
 		curr_dir = snake_head->get_direction();
@@ -511,7 +518,8 @@ void game_utils::populate_flags(snake_direction_list::SnakeDirectionList * & dir
 
 bool game_utils::coord_overlap(int coord1_min, int coord1_max, int coord2_min, int coord2_max) {
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Coordinate Overlap] Coordinate1: minimum->", coord1_min, ", maximum->", coord1_max, " Coordinate2: minimum->", coord2_min, ", maximum->", coord2_max);
-	bool overlap = ((coord1_min >= coord2_min) & (coord1_min <= coord2_max)) | ((coord1_max >= coord2_min) & (coord1_max <= coord2_max));
+	bool overlap = ((coord1_min >= coord2_min) && (coord1_min < coord2_max)) || ((coord1_max > coord2_min) && (coord1_max <= coord2_max));
+	cout << "[Coordinate Overlap] Coordinate1: minimum->" <<  coord1_min <<  " <<  maximum->" <<  coord1_max <<  " Coordinate2: minimum->" <<  coord2_min <<  " <<  maximum->" <<  coord2_max << " overlap " << overlap << endl;
 	return overlap;
 }
 
@@ -522,11 +530,11 @@ void game_utils::update_dist(int coord1, int coord2, int avg_dim, int & dist_1l2
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Update Distance] Coordinate1->", coord1, " Coordinate2->", coord2, " Distance: 1l2->", dist_1l2, " 1s2->", dist_1s2, " Current->", dist_norm_ceil);
 	if (coord1 >= coord2) {
-		if ((dist_1l2 == 0) | (dist_1l2 > dist_norm_ceil)) {
+		if ((dist_1l2 == game_utils::dist_init_val) | (dist_1l2 > dist_norm_ceil)) {
 			dist_1l2 = dist_norm_ceil;
 		}
 	} else {
-		if ((dist_1s2 == 0) | (dist_1s2 > dist_norm_ceil)) {
+		if ((dist_1s2 == game_utils::dist_init_val) | (dist_1s2 > dist_norm_ceil)) {
 			dist_1s2 = dist_norm_ceil;
 		}
 	}
