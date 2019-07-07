@@ -338,10 +338,10 @@ void game_utils::auto_change_dir() {
 
 	int max_auto_ride_count = 0;
 
-	if ((snake_head_dir == snake_utils::direction_e::LEFT) | (snake_head_dir == snake_utils::direction_e::RIGHT)) {
+	if ((snake_head_dir == snake_utils::direction_e::LEFT) || (snake_head_dir == snake_utils::direction_e::RIGHT)) {
 		float result = ((float)width)/((float)speed);
 		max_auto_ride_count = (int) floor(result);
-	} else if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
+	} else if ((snake_head_dir == snake_utils::direction_e::UP) || (snake_head_dir == snake_utils::direction_e::DOWN)) {
 		float result = ((float)height)/((float)speed);
 		max_auto_ride_count = (int) floor(result);
 	}
@@ -410,12 +410,12 @@ void game_utils::check_dir(snake_utils::direction_e snake_head_dir) {
 	int dist_dir2 = game_utils::dist_init_val;
 
 	if (collision_risk == true) {
-		if ((snake_head_dir == snake_utils::direction_e::RIGHT) | (snake_head_dir == snake_utils::direction_e::LEFT)) {
+		if ((snake_head_dir == snake_utils::direction_e::RIGHT) || (snake_head_dir == snake_utils::direction_e::LEFT)) {
 			dir1 = snake_utils::direction_e::UP;
 			dist_dir1 = snake_unit_up_dist;
 			dir2 = snake_utils::direction_e::DOWN;
 			dist_dir2 = snake_unit_down_dist;
-		} else if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
+		} else if ((snake_head_dir == snake_utils::direction_e::UP) || (snake_head_dir == snake_utils::direction_e::DOWN)) {
 			dir1 = snake_utils::direction_e::RIGHT;
 			dist_dir1 = snake_unit_right_dist;
 			dir2 = snake_utils::direction_e::LEFT;
@@ -542,11 +542,11 @@ void game_utils::update_dist(int coord1, int coord2, int avg_dim, int & dist_1l2
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Update Distance] Coordinate1->", coord1, " Coordinate2->", coord2, " Distance: 1l2->", dist_1l2, " 1s2->", dist_1s2, " Current->", dist_norm_ceil);
 	if (coord1 >= coord2) {
-		if ((dist_1l2 == game_utils::dist_init_val) | (dist_1l2 > dist_norm_ceil)) {
+		if ((dist_1l2 == game_utils::dist_init_val) || (dist_1l2 > dist_norm_ceil)) {
 			dist_1l2 = dist_norm_ceil;
 		}
 	} else {
-		if ((dist_1s2 == game_utils::dist_init_val) | (dist_1s2 > dist_norm_ceil)) {
+		if ((dist_1s2 == game_utils::dist_init_val) || (dist_1s2 > dist_norm_ceil)) {
 			dist_1s2 = dist_norm_ceil;
 		}
 	}

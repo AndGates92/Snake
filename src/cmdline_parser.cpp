@@ -197,7 +197,7 @@ bool cmdline_parser::detect_comment_line(std::string line) {
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Decode] Comment: ", shared_constants::comment, " Current line ", word);
 
-	if ((shared_constants::comment.compare(word) == 0) | (no_data_in_line == true)) {
+	if ((shared_constants::comment.compare(word) == 0) || (no_data_in_line == true)) {
 		skip_line = true;
 	} else {
 		skip_line = false;
@@ -231,40 +231,40 @@ void cmdline_parser::decode_line(std::string line, std::string & var_name, std::
 
 void cmdline_parser::assign_common_var(std::string var_name, std::string var_value, cmdline_parser::obj_e & object, std::string & type, std::string & title, int & x_centre, int & y_centre, int & width, int & height, colours::palette_e & colour, snake_utils::direction_e & direction) {
 
-	if ((var_name.compare("TYPE") == 0) | (var_name.compare("Type") == 0) | (var_name.compare("type") == 0)) {
+	if ((var_name.compare("TYPE") == 0) || (var_name.compare("Type") == 0) || (var_name.compare("type") == 0)) {
 		if (object != cmdline_parser::obj_e::UNKNOWN) {
 			cmdline_parser::create_obj(object, type, title, x_centre, y_centre, width, height, colour, direction);
 		}
 		cmdline_parser::reset_common_var(object, type, title, x_centre, y_centre, width, height, colour, direction);
 		type = var_value;
 		object = cmdline_parser::str_to_obj(var_value);
-	} else if ((var_name.compare("TITLE") == 0) | (var_name.compare("Title") == 0) | (var_name.compare("title") == 0)) {
+	} else if ((var_name.compare("TITLE") == 0) || (var_name.compare("Title") == 0) || (var_name.compare("title") == 0)) {
 		title = var_value;
-	} else if ((var_name.compare("X") == 0) | (var_name.compare("x") == 0)) {
+	} else if ((var_name.compare("X") == 0) || (var_name.compare("x") == 0)) {
 		x_centre = utility::str_to_int(var_value);
-	} else if ((var_name.compare("Y") == 0) | (var_name.compare("y") == 0)) {
+	} else if ((var_name.compare("Y") == 0) || (var_name.compare("y") == 0)) {
 		y_centre = utility::str_to_int(var_value);
-	} else if ((var_name.compare("WIDTH") == 0) | (var_name.compare("Width") == 0) | (var_name.compare("width") == 0)) {
+	} else if ((var_name.compare("WIDTH") == 0) || (var_name.compare("Width") == 0) || (var_name.compare("width") == 0)) {
 		width = utility::str_to_int(var_value);
-	} else if ((var_name.compare("HEIGHT") == 0) | (var_name.compare("Height") == 0) | (var_name.compare("height") == 0)) {
+	} else if ((var_name.compare("HEIGHT") == 0) || (var_name.compare("Height") == 0) || (var_name.compare("height") == 0)) {
 		height = utility::str_to_int(var_value);
-	} else if ((var_name.compare("COLOUR") == 0) | (var_name.compare("Colour") == 0) | (var_name.compare("colour") == 0)) {
+	} else if ((var_name.compare("COLOUR") == 0) || (var_name.compare("Colour") == 0) || (var_name.compare("colour") == 0)) {
 		colour = colours::str_to_colour(var_value);
-	} else if ((var_name.compare("DIRECTION") == 0) | (var_name.compare("Direction") == 0) | (var_name.compare("direction") == 0)) {
+	} else if ((var_name.compare("DIRECTION") == 0) || (var_name.compare("Direction") == 0) || (var_name.compare("direction") == 0)) {
 		direction = snake_utils::str_to_direction(var_value);
-	} else if ((var_name.compare("DUMP") == 0) | (var_name.compare("Dump") == 0) | (var_name.compare("dump") == 0)) {
+	} else if ((var_name.compare("DUMP") == 0) || (var_name.compare("Dump") == 0) || (var_name.compare("dump") == 0)) {
 		snake_settings.set_dump_filename(var_value);
-	} else if ((var_name.compare("SAVE") == 0) | (var_name.compare("Save") == 0) | (var_name.compare("save") == 0)) {
+	} else if ((var_name.compare("SAVE") == 0) || (var_name.compare("Save") == 0) || (var_name.compare("save") == 0)) {
 		snake_settings.set_save_filename(var_value);
-	} else if ((var_name.compare("SPEED") == 0) | (var_name.compare("Speed") == 0) | (var_name.compare("speed") == 0)) {
+	} else if ((var_name.compare("SPEED") == 0) || (var_name.compare("Speed") == 0) || (var_name.compare("speed") == 0)) {
 		snake_settings.set_speed(utility::str_to_int(var_value));
-	} else if ((var_name.compare("WALL") == 0) | (var_name.compare("Wall") == 0) | (var_name.compare("wall") == 0)) {
+	} else if ((var_name.compare("WALL") == 0) || (var_name.compare("Wall") == 0) || (var_name.compare("wall") == 0)) {
 		snake_settings.set_hard_wall_flag(utility::str_to_bool(var_value));
-	} else if ((var_name.compare("SNAKEUNITS") == 0) | (var_name.compare("SnakeUnits") == 0) | (var_name.compare("Snakeunits") == 0) | (var_name.compare("snakeunits") == 0)) {
+	} else if ((var_name.compare("SNAKEUNITS") == 0) || (var_name.compare("SnakeUnits") == 0) || (var_name.compare("Snakeunits") == 0) || (var_name.compare("snakeunits") == 0)) {
 		snake_settings.set_snake_units(utility::str_to_int(var_value));
-	} else if ((var_name.compare("OBSTACLES") == 0) | (var_name.compare("Obstacles") == 0) | (var_name.compare("obstacles") == 0)) {
+	} else if ((var_name.compare("OBSTACLES") == 0) || (var_name.compare("Obstacles") == 0) || (var_name.compare("obstacles") == 0)) {
 		snake_settings.set_obs_no(utility::str_to_int(var_value));
-	} else if ((var_name.compare("SCORE") == 0) | (var_name.compare("Score") == 0) | (var_name.compare("score") == 0)) {
+	} else if ((var_name.compare("SCORE") == 0) || (var_name.compare("Score") == 0) || (var_name.compare("score") == 0)) {
 		snake_settings.set_score(utility::str_to_int(var_value));
 	} else {
 		LOG_ERROR("Unknown variable name: ", var_name);
@@ -358,19 +358,19 @@ cmdline_parser::obj_e cmdline_parser::str_to_obj (std::string type) {
 
 	cmdline_parser::obj_e obj = cmdline_parser::obj_e::UNKNOWN;
 
-	if ((type.compare("SNAKE") == 0) | (type.compare("Snake") == 0) | (type.compare("snake") == 0)) {
+	if ((type.compare("SNAKE") == 0) || (type.compare("Snake") == 0) || (type.compare("snake") == 0)) {
 		obj = cmdline_parser::obj_e::SNAKE;
-	} else if ((type.compare("OBSTACLE") == 0) | (type.compare("Obstacle") == 0) | (type.compare("obstacle") == 0)) {
+	} else if ((type.compare("OBSTACLE") == 0) || (type.compare("Obstacle") == 0) || (type.compare("obstacle") == 0)) {
 		obj = cmdline_parser::obj_e::OBSTACLE;
-	} else if ((type.compare("WINDOW") == 0) | (type.compare("Window") == 0) | (type.compare("window") == 0)) {
+	} else if ((type.compare("WINDOW") == 0) || (type.compare("Window") == 0) || (type.compare("window") == 0)) {
 		obj = cmdline_parser::obj_e::WINDOW;
-	} else if ((type.compare("MENU") == 0) | (type.compare("Menu") == 0) | (type.compare("menu") == 0)) {
+	} else if ((type.compare("MENU") == 0) || (type.compare("Menu") == 0) || (type.compare("menu") == 0)) {
 		obj = cmdline_parser::obj_e::MENU;
-	} else if ((type.compare("SETTINGS") == 0) | (type.compare("Settings") == 0) | (type.compare("settings") == 0)) {
+	} else if ((type.compare("SETTINGS") == 0) || (type.compare("Settings") == 0) || (type.compare("settings") == 0)) {
 		obj = cmdline_parser::obj_e::SETTINGS;
-	} else if ((type.compare("TILE") == 0) | (type.compare("Tile") == 0) | (type.compare("tile") == 0)) {
+	} else if ((type.compare("TILE") == 0) || (type.compare("Tile") == 0) || (type.compare("tile") == 0)) {
 		obj = cmdline_parser::obj_e::TILE;
-	} else if ((type.compare("UNKNOWN") == 0) | (type.compare("Unknown") == 0) | (type.compare("unknown") == 0)) {
+	} else if ((type.compare("UNKNOWN") == 0) || (type.compare("Unknown") == 0) || (type.compare("unknown") == 0)) {
 		obj = cmdline_parser::obj_e::UNKNOWN;
 	} else {
 		obj = cmdline_parser::obj_e::UNKNOWN;

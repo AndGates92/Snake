@@ -148,25 +148,25 @@ void game_graphics::specialkey_game_cb(int key, int x, int y) {
 		switch (key) {
 			case GLUT_KEY_UP:
 				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to UP because of pressing key Arrow Up");
-				if ((snake_head_dir == snake_utils::direction_e::RIGHT) | (snake_head_dir == snake_utils::direction_e::LEFT)) {
+				if ((snake_head_dir == snake_utils::direction_e::RIGHT) || (snake_head_dir == snake_utils::direction_e::LEFT)) {
 					game_utils::set_head_dir(snake_utils::direction_e::UP);
 				}
 				break;
 			case GLUT_KEY_DOWN:
 				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to DOWN because of pressing key Arrow Down");
-				if ((snake_head_dir == snake_utils::direction_e::RIGHT) | (snake_head_dir == snake_utils::direction_e::LEFT)) {
+				if ((snake_head_dir == snake_utils::direction_e::RIGHT) || (snake_head_dir == snake_utils::direction_e::LEFT)) {
 					game_utils::set_head_dir(snake_utils::direction_e::DOWN);
 				}
 				break;
 			case GLUT_KEY_LEFT:
 				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to LEFT because of pressing key Arrow Left");
-				if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
+				if ((snake_head_dir == snake_utils::direction_e::UP) || (snake_head_dir == snake_utils::direction_e::DOWN)) {
 					game_utils::set_head_dir(snake_utils::direction_e::LEFT);
 				}
 				break;
 			case GLUT_KEY_RIGHT:
 				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Change direction to RIGHT because of pressing key Arrow Right");
-				if ((snake_head_dir == snake_utils::direction_e::UP) | (snake_head_dir == snake_utils::direction_e::DOWN)) {
+				if ((snake_head_dir == snake_utils::direction_e::UP) || (snake_head_dir == snake_utils::direction_e::DOWN)) {
 					game_utils::set_head_dir(snake_utils::direction_e::RIGHT);
 				}
 				break;

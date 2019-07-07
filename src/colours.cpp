@@ -57,25 +57,25 @@ colours::palette_e colours::str_to_colour (std::string colour) {
 
 	colours::palette_e colour_tmp = colours::palette_e::UNKNOWN;
 
-	if ((colour.compare("RED") == 0) | (colour.compare("Up") == 0) | (colour.compare("up") == 0)) {
+	if ((colour.compare("RED") == 0) || (colour.compare("Up") == 0) || (colour.compare("up") == 0)) {
 		colour_tmp = colours::palette_e::RED;
-	} else if ((colour.compare("BLUE") == 0) | (colour.compare("Blue") == 0) | (colour.compare("blue") == 0)) {
+	} else if ((colour.compare("BLUE") == 0) || (colour.compare("Blue") == 0) || (colour.compare("blue") == 0)) {
 		colour_tmp = colours::palette_e::BLUE;
-	} else if ((colour.compare("GREEN") == 0) | (colour.compare("Green") == 0) | (colour.compare("green") == 0)) {
+	} else if ((colour.compare("GREEN") == 0) || (colour.compare("Green") == 0) || (colour.compare("green") == 0)) {
 		colour_tmp = colours::palette_e::GREEN;
-	} else if ((colour.compare("YELLOW") == 0) | (colour.compare("Yellow") == 0) | (colour.compare("yellow") == 0)) {
+	} else if ((colour.compare("YELLOW") == 0) || (colour.compare("Yellow") == 0) || (colour.compare("yellow") == 0)) {
 		colour_tmp = colours::palette_e::YELLOW;
-	} else if ((colour.compare("PURPLE") == 0) | (colour.compare("Purple") == 0) | (colour.compare("purple") == 0)) {
+	} else if ((colour.compare("PURPLE") == 0) || (colour.compare("Purple") == 0) || (colour.compare("purple") == 0)) {
 		colour_tmp = colours::palette_e::PURPLE;
-	} else if ((colour.compare("PINK") == 0) | (colour.compare("Pink") == 0) | (colour.compare("pink") == 0)) {
+	} else if ((colour.compare("PINK") == 0) || (colour.compare("Pink") == 0) || (colour.compare("pink") == 0)) {
 		colour_tmp = colours::palette_e::PINK;
-	} else if ((colour.compare("BROWN") == 0) | (colour.compare("Brown") == 0) | (colour.compare("brown") == 0)) {
+	} else if ((colour.compare("BROWN") == 0) || (colour.compare("Brown") == 0) || (colour.compare("brown") == 0)) {
 		colour_tmp = colours::palette_e::BROWN;
-	} else if ((colour.compare("WHITE") == 0) | (colour.compare("White") == 0) | (colour.compare("white") == 0)) {
+	} else if ((colour.compare("WHITE") == 0) || (colour.compare("White") == 0) || (colour.compare("white") == 0)) {
 		colour_tmp = colours::palette_e::WHITE;
-	} else if ((colour.compare("BLACK") == 0) | (colour.compare("Black") == 0) | (colour.compare("black") == 0)) {
+	} else if ((colour.compare("BLACK") == 0) || (colour.compare("Black") == 0) || (colour.compare("black") == 0)) {
 		colour_tmp = colours::palette_e::BLACK;
-	} else if ((colour.compare("UNKNOWN") == 0) | (colour.compare("Unknown") == 0) | (colour.compare("unknown") == 0)) {
+	} else if ((colour.compare("UNKNOWN") == 0) || (colour.compare("Unknown") == 0) || (colour.compare("unknown") == 0)) {
 		colour_tmp = colours::palette_e::UNKNOWN;
 	} else {
 		colour_tmp = colours::palette_e::UNKNOWN;
