@@ -36,13 +36,21 @@ void snake_direction_list::SnakeDirectionList::add_node(snake_utils::direction_e
 		LOG_ERROR("Can't allocate memory for direction node");
 	}
 
-	new_dir->set_prev(nullptr);
-
 	if(head_dir != nullptr) {
-		head_dir->set_prev(new_dir);
+		// Append new element at the end of the linked list
+		while (head_dir->get_next() != nullptr) {
+			head_dir = head_dir->get_next();
+		}
 	}
 
-	new_dir->set_next(head_dir);
-	this->set_head(new_dir);
+	new_dir->set_next(nullptr);
+	new_dir->set_prev(head_dir);
+
+	if(head_dir != nullptr) {
+		head_dir->set_next(new_dir);
+	} else {
+		this->set_head(new_dir);
+	}
+
 
 }
