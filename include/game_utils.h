@@ -278,9 +278,10 @@ namespace game_utils {
 	void populate_flags(snake_direction_list::SnakeDirectionList * & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist);
 
 	/**
-	 * @brief Function: bool unit_in_trajectory(snake_utils::direction_e dir, int left_dist, int right_dist, int up_dist, int down_dist)
+	 * @brief Function: bool unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int left_dist, int right_dist, int up_dist, int down_dist)
 	 *
 	 * \param dir: direction to check collision risk for
+	 * \param dirs: useful directions required to make a decision on the next move
 	 * \param left_dist: flag indicating if there is a snake unit on the left of the head
 	 * \param right_dist: flag indicating if there is a snake unit on the right of the head
 	 * \param up_dist: flag indicating if there is a snake unit above the head
@@ -290,7 +291,7 @@ namespace game_utils {
 	 *
 	 * This function flags collision risk, i.e. when the head is heading towards a snake unit
 	 */
-	bool unit_in_trajectory(snake_utils::direction_e dir, int left_dist, int right_dist, int up_dist, int down_dist);
+	bool unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int left_dist, int right_dist, int up_dist, int down_dist);
 
 	/**
 	 * @brief Function: void set_head_dir(snake_utils::direction_e dir);

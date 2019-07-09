@@ -402,7 +402,21 @@ void game_utils::check_dir(snake_utils::direction_e snake_head_dir) {
 
 	game_utils::populate_flags(snake_dir_list, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
 
-	bool collision_risk = game_utils::unit_in_trajectory(game_utils::head_dir, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
+	snake_utils::direction_e * dirs = new snake_utils::direction_e[game_utils::num_useful_dirs];
+	snake_direction::SnakeDirectionNode * dir_list_head (snake_dir_list->get_head());
+
+	for (int dir_no = 0; dir_no < game_utils::num_useful_dirs; dir_no++) {
+cout << "dir iter " << dir_no << endl;
+		if (dir_list_head != nullptr) {
+			dirs[dir_no] = dir_list_head->get_direction();
+			dir_list_head = dir_list_head->get_next();
+		} else {
+			dirs[dir_no] = snake_utils::direction_e::UNKNOWN;
+		}
+cout << "dir["<< dir_no << "]: " << dirs[dir_no] << endl;
+	}
+
+	bool collision_risk = game_utils::unit_in_trajectory(game_utils::head_dir, dirs,  snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
 
 	cout << "Head dir " << snake_head_dir << " game_head_dir " << game_utils::head_dir << " ditances left:" << snake_unit_left_dist << " right: " << snake_unit_right_dist << " up: " << snake_unit_up_dist << " down: " << snake_unit_down_dist << " collision_risk " << collision_risk << endl;
 
@@ -427,27 +441,15 @@ void game_utils::check_dir(snake_utils::direction_e snake_head_dir) {
 		ASSERT(dir1 != snake_utils::direction_e::UNKNOWN);
 		ASSERT(dir2 != snake_utils::direction_e::UNKNOWN);
 
-		snake_utils::direction_e * dirs = new snake_utils::direction_e[game_utils::num_useful_dirs];
-		snake_direction::SnakeDirectionNode * dir_list_head (snake_dir_list->get_head());
-
-		for (int dir_no = 0; dir_no < game_utils::num_useful_dirs; dir_no++) {
-cout << "dir iter " << dir_no << endl;
-			if (dir_list_head != nullptr) {
-				dirs[dir_no] = dir_list_head->get_direction();
-				dir_list_head = dir_list_head->get_next();
-			} else {
-				dirs[dir_no] = snake_utils::direction_e::UNKNOWN;
-			}
-cout << "dir["<< dir_no << "]: " << dirs[dir_no] << endl;
-		}
-
-		bool collision_risk_dir1 = game_utils::unit_in_trajectory(dir1, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
-		bool collision_risk_dir2 = game_utils::unit_in_trajectory(dir2, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
+		bool collision_risk_dir1 = game_utils::unit_in_trajectory(dir1, dirs,  snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
+		bool collision_risk_dir2 = game_utils::unit_in_trajectory(dir2, dirs, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist);
 
 		bool opposite_dirs = (((dirs[0] == snake_utils::direction_e::RIGHT) && (dirs[2] == snake_utils::direction_e::LEFT)) || ((dirs[0] == snake_utils::direction_e::LEFT) && (dirs[2] == snake_utils::direction_e::RIGHT)) || ((dirs[0] == snake_utils::direction_e::DOWN) && (dirs[2] == snake_utils::direction_e::UP)) || ((dirs[0] == snake_utils::direction_e::UP) && (dirs[2] == snake_utils::direction_e::DOWN)));
 
 		bool dir1_valid = ((dir2 != dirs[1]) || (opposite_dirs == false));
 		bool dir2_valid = ((dir1 != dirs[1]) || (opposite_dirs == false));
+
+cout << "dir1_valid " << dir1_valid << " dir2_valid " << dir2_valid << " opposite_dirs " << opposite_dirs << " collision dir1->" << collision_risk_dir1 << " dir2->" << collision_risk_dir2 << endl;
 
 		// Assert that distance on direction1 and distance on direction2 are not 1 at the same time
 		ASSERT((dist_dir1 != 1) || (dist_dir2 != 1));
@@ -468,27 +470,37 @@ cout << "dir["<< dir_no << "]: " << dirs[dir_no] << endl;
 	delete snake_dir_list;
 }
 
-bool game_utils::unit_in_trajectory(snake_utils::direction_e dir, int left_dist, int right_dist, int up_dist, int down_dist) {
+bool game_utils::unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int left_dist, int right_dist, int up_dist, int down_dist) {
 
-	bool collision_risk = false;
+	bool dist_collision = false;
+	snake_utils::direction_e opposite_dir = snake_utils::direction_e::UNKNOWN;
+
+	bool unit_opposite_dirs = (((dirs[0] == snake_utils::direction_e::RIGHT) && (dirs[2] == snake_utils::direction_e::LEFT)) || ((dirs[0] == snake_utils::direction_e::LEFT) && (dirs[2] == snake_utils::direction_e::RIGHT)) || ((dirs[0] == snake_utils::direction_e::DOWN) && (dirs[2] == snake_utils::direction_e::UP)) || ((dirs[0] == snake_utils::direction_e::UP) && (dirs[2] == snake_utils::direction_e::DOWN)));
 
 	switch (dir) {
 		case snake_utils::direction_e::RIGHT:
-			collision_risk = ((right_dist <= game_utils::min_dist_force_change_dir) && (right_dist != game_utils::dist_init_val));
+			opposite_dir = snake_utils::direction_e::LEFT;
+			dist_collision = ((right_dist <= game_utils::min_dist_force_change_dir) && (right_dist != game_utils::dist_init_val));
 			break;
 		case snake_utils::direction_e::LEFT:
-			collision_risk = ((left_dist <= game_utils::min_dist_force_change_dir) && (left_dist != game_utils::dist_init_val));
+			opposite_dir = snake_utils::direction_e::RIGHT;
+			dist_collision = ((left_dist <= game_utils::min_dist_force_change_dir) && (left_dist != game_utils::dist_init_val));
 			break;
 		case snake_utils::direction_e::UP:
-			collision_risk = ((up_dist <= game_utils::min_dist_force_change_dir) && (up_dist != game_utils::dist_init_val));
+			opposite_dir = snake_utils::direction_e::DOWN;
+			dist_collision = ((up_dist <= game_utils::min_dist_force_change_dir) && (up_dist != game_utils::dist_init_val));
 			break;
 		case snake_utils::direction_e::DOWN:
-			collision_risk = ((down_dist <= game_utils::min_dist_force_change_dir) && (down_dist != game_utils::dist_init_val));
+			opposite_dir = snake_utils::direction_e::UP;
+			dist_collision = ((down_dist <= game_utils::min_dist_force_change_dir) && (down_dist != game_utils::dist_init_val));
 			break;
 		default:
 			LOG_ERROR("Unknown direction");
 			break;
 	}
+
+	bool heading_collision = ((opposite_dir == dirs[1]) && (unit_opposite_dirs == true));
+	bool collision_risk = heading_collision || dist_collision;
 
 	return collision_risk;
 
