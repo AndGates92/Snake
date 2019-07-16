@@ -446,8 +446,8 @@ cout << "dir["<< dir_no << "]: " << dirs[dir_no] << endl;
 
 		bool opposite_dirs = (((dirs[0] == snake_utils::direction_e::RIGHT) && (dirs[2] == snake_utils::direction_e::LEFT)) || ((dirs[0] == snake_utils::direction_e::LEFT) && (dirs[2] == snake_utils::direction_e::RIGHT)) || ((dirs[0] == snake_utils::direction_e::DOWN) && (dirs[2] == snake_utils::direction_e::UP)) || ((dirs[0] == snake_utils::direction_e::UP) && (dirs[2] == snake_utils::direction_e::DOWN)));
 
-		bool dir1_valid = ((dir2 != dirs[1]) || (opposite_dirs == false));
-		bool dir2_valid = ((dir1 != dirs[1]) || (opposite_dirs == false));
+		bool dir1_valid = ((dist_dir1 == game_utils::min_dist_force_change_dir) || (dir2 != dirs[1]) || (opposite_dirs == false));
+		bool dir2_valid = ((dist_dir2 == game_utils::min_dist_force_change_dir) || (dir1 != dirs[1]) || (opposite_dirs == false));
 
 cout << "dir1_valid " << dir1_valid << " dir2_valid " << dir2_valid << " opposite_dirs " << opposite_dirs << " collision dir1->" << collision_risk_dir1 << " dir2->" << collision_risk_dir2 << endl;
 
@@ -472,7 +472,7 @@ cout << "dir1_valid " << dir1_valid << " dir2_valid " << dir2_valid << " opposit
 
 bool game_utils::unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int left_dist, int right_dist, int up_dist, int down_dist) {
 
-	bool dist_collision = false;
+	int dist = 0;
 	snake_utils::direction_e opposite_dir = snake_utils::direction_e::UNKNOWN;
 
 	bool unit_opposite_dirs = (((dirs[0] == snake_utils::direction_e::RIGHT) && (dirs[2] == snake_utils::direction_e::LEFT)) || ((dirs[0] == snake_utils::direction_e::LEFT) && (dirs[2] == snake_utils::direction_e::RIGHT)) || ((dirs[0] == snake_utils::direction_e::DOWN) && (dirs[2] == snake_utils::direction_e::UP)) || ((dirs[0] == snake_utils::direction_e::UP) && (dirs[2] == snake_utils::direction_e::DOWN)));
@@ -480,27 +480,28 @@ bool game_utils::unit_in_trajectory(snake_utils::direction_e dir, snake_utils::d
 	switch (dir) {
 		case snake_utils::direction_e::RIGHT:
 			opposite_dir = snake_utils::direction_e::LEFT;
-			dist_collision = ((right_dist <= game_utils::min_dist_force_change_dir) && (right_dist != game_utils::dist_init_val));
+			dist = right_dist;
 			break;
 		case snake_utils::direction_e::LEFT:
 			opposite_dir = snake_utils::direction_e::RIGHT;
-			dist_collision = ((left_dist <= game_utils::min_dist_force_change_dir) && (left_dist != game_utils::dist_init_val));
+			dist = left_dist;
 			break;
 		case snake_utils::direction_e::UP:
 			opposite_dir = snake_utils::direction_e::DOWN;
-			dist_collision = ((up_dist <= game_utils::min_dist_force_change_dir) && (up_dist != game_utils::dist_init_val));
+			dist = up_dist;
 			break;
 		case snake_utils::direction_e::DOWN:
 			opposite_dir = snake_utils::direction_e::UP;
-			dist_collision = ((down_dist <= game_utils::min_dist_force_change_dir) && (down_dist != game_utils::dist_init_val));
+			dist = down_dist;
 			break;
 		default:
 			LOG_ERROR("Unknown direction");
 			break;
 	}
 
+	bool dist_collision = (dist <= game_utils::min_dist_force_change_dir);
 	bool heading_collision = ((opposite_dir == dirs[1]) && (unit_opposite_dirs == true));
-	bool collision_risk = heading_collision || dist_collision;
+	bool collision_risk = ((heading_collision || dist_collision) && (dist != game_utils::dist_init_val));
 
 	return collision_risk;
 
