@@ -290,20 +290,24 @@ namespace game_utils {
 	void populate_flags_obs(int & left_dist, int & right_dist, int & up_dist, int & down_dist);
 
 	/**
-	 * @brief Function: bool unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int left_dist, int right_dist, int up_dist, int down_dist)
+	 * @brief Function: bool unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist)
 	 *
 	 * \param dir: direction to check collision risk for
 	 * \param dirs: useful directions required to make a decision on the next move
-	 * \param left_dist: flag indicating if there is a snake unit on the left of the head
-	 * \param right_dist: flag indicating if there is a snake unit on the right of the head
-	 * \param up_dist: flag indicating if there is a snake unit above the head
-	 * \param down_dist: flag indicating if there is a snake unit below the head
+	 * \param snake_left_dist: flag indicating if there is a snake unit on the left of the head
+	 * \param snake_right_dist: flag indicating if there is a snake unit on the right of the head
+	 * \param snake_up_dist: flag indicating if there is a snake unit above the head
+	 * \param snake_down_dist: flag indicating if there is a snake unit below the head
+	 * \param obs_left_dist: flag indicating if there is an obstacle on the left of the head
+	 * \param obs_right_dist: flag indicating if there is an obstacle on the right of the head
+	 * \param obs_up_dist: flag indicating if there is an obstacle above the head
+	 * \param obs_down_dist: flag indicating if there is an obstacle below the head
 	 *
 	 * \return returns whether there is a snake unit in the head trajectory
 	 *
 	 * This function flags collision risk, i.e. when the head is heading towards a snake unit
 	 */
-	bool unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int left_dist, int right_dist, int up_dist, int down_dist);
+	bool unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist);
 
 	/**
 	 * @brief Function: void game_utils::get_boundaries(ptr_t * ptr, int & x_centre, int & x_min, int & x_max, int & y_centre, int & y_min, int & y_max)
