@@ -265,7 +265,7 @@ namespace game_utils {
 	void check_dir(snake_utils::direction_e snake_head_dir);
 
 	/**
-	 * @brief Function: void populate_flags(snake_direction_list::SnakeDirectionList * & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist)
+	 * @brief Function: void populate_flags_snake(snake_direction_list::SnakeDirectionList * & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist)
 	 *
 	 * \param dir_list: sequence of directions of snake units
 	 * \param left_dist: flag indicating if there is a snake unit on the left of the head
@@ -275,7 +275,19 @@ namespace game_utils {
 	 *
 	 * This function populates the flags required to check if the chosen direction of the head will not lead to a collision
 	 */
-	void populate_flags(snake_direction_list::SnakeDirectionList * & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist);
+	void populate_flags_snake(snake_direction_list::SnakeDirectionList * & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist);
+
+	/**
+	 * @brief Function: void populate_flags_obs(int & left_dist, int & right_dist, int & up_dist, int & down_dist)
+	 *
+	 * \param left_dist: distance between snake head and obstacles on the left of the head
+	 * \param right_dist: distance between snake head and obstacles on the right of the head
+	 * \param up_dist: distance between snake head and obstacles above the head
+	 * \param down_dist: distance between snake head and obstacles below the head
+	 *
+	 * This function populates the flags required to check if the chosen direction of the head will not lead to a collision
+	 */
+	void populate_flags_obs(int & left_dist, int & right_dist, int & up_dist, int & down_dist);
 
 	/**
 	 * @brief Function: bool unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int left_dist, int right_dist, int up_dist, int down_dist)
@@ -292,6 +304,33 @@ namespace game_utils {
 	 * This function flags collision risk, i.e. when the head is heading towards a snake unit
 	 */
 	bool unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int left_dist, int right_dist, int up_dist, int down_dist);
+
+	/**
+	 * @brief Function: void game_utils::get_boundaries(ptr_t * ptr, int & x_centre, int & x_min, int & x_max, int & y_centre, int & y_min, int & y_max)
+	 *
+	 * \param ptr: pointer to extract informations from
+	 * \param x_centre: x coordinate of the centre
+	 * \param x_min: minimum x coordinate
+	 * \param x_max: maximum x coordinate
+	 * \param y_centre: y coordinate of the centre
+	 * \param y_min: minimum y coordinate
+	 * \param y_max: maximum y coordinate
+	 *
+	 * This function computes the boundaries of an object
+	 */
+	template <typename ptr_t>
+	void get_boundaries(ptr_t * ptr, int & x_centre, int & x_min, int & x_max, int & y_centre, int & y_min, int & y_max);
+
+	/**
+	 * @brief Function: void game_utils::get_coord_range(int centre, int dim, int & min_coord, int & max_coord)
+	 *
+	 * \param centre: coordinate of the centre
+	 * \param min_coord: minimum coordinate
+	 * \param max_coord: maximum coordinate
+	 *
+	 * This function computes the boundaries of an object
+	 */
+	void get_coord_range(int centre, int dim, int & min_coord, int & max_coord);
 
 	/**
 	 * @brief Function: void set_head_dir(snake_utils::direction_e dir);
