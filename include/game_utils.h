@@ -256,13 +256,36 @@ namespace game_utils {
 	void auto_change_dir();
 
 	/**
-	 * @brief Function: void check_dir(snake_utils::direction_e snake_head_dir)
+	 * @brief Function: void check_snake_collision(snake_utils::direction_e snake_head_dir)
 	 *
 	 * \param snake_head_dir: current direction of the snake head
 	 *
 	 * This function checks that the chosen direction of the head will not lead to a collision
 	 */
-	void check_dir(snake_utils::direction_e snake_head_dir);
+	void check_snake_collision(snake_utils::direction_e snake_head_dir);
+
+	#ifdef HARD_WALL
+	/**
+	 * @brief Function: void check_wall_collision(snake_utils::direction_e snake_head_dir)
+	 *
+	 * \param snake_head_dir: current direction of the snake head
+	 *
+	 * This function checks that the chosen direction of the head will collide with the wall
+	 */
+	void check_wall_collision(snake_utils::direction_e snake_head_dir);
+
+	/**
+	 * @brief Function: bool wall_crossing(int coord_obj, int reference, int increment, bool min)
+	 *
+	 * \param coord_obj: coordinate of the object to compare
+	 * \param reference: reference coordinate
+	 * \param increment: value to add or substract from coord_obj
+	 * \param min: flag to know whether it is a minimum or a maximum
+	 *
+	 * This function checks if a wall will be hit in the next step
+	 */
+	bool wall_crossing(int coord_obj, int reference, int increment, bool min);
+	#endif // HARD_WALL
 
 	/**
 	 * @brief Function: void populate_flags_snake(snake_direction_list::SnakeDirectionList * & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist)
@@ -288,6 +311,40 @@ namespace game_utils {
 	 * This function populates the flags required to check if the chosen direction of the head will not lead to a collision
 	 */
 	void populate_flags_obs(int & left_dist, int & right_dist, int & up_dist, int & down_dist);
+
+	/**
+	 * @brief Function: snake_utils::direction_e * populate_dirs(snake_direction_list::SnakeDirectionList * dir_list)
+	 *
+	 * \param dir_list: sequence of directions of snake units
+	 *
+	 * \return returns the list of useful directions
+	 *
+	 * This function populates the directions required to ensure the likelihood of a collision is minimal
+	 */
+	snake_utils::direction_e * populate_dirs(snake_direction_list::SnakeDirectionList * dir_list);
+
+	/**
+	 * @brief Function: void set_dir_no_collision(snake_utils::direction_e dir1, int snake_dist_dir2, int obs_dist_dir2, snake_utils::direction_e dir2, int snake_dist_dir2, int obs_dist_dir2, snake_utils::direction_e * dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist)
+	 *
+	 * \param dir1: first possible direction to check collision risk for
+	 * \param snake_dist_dir1: distance between snake units first possible direction
+	 * \param obs_dist_dir1: distance between snake and obstacle on the first possible direction
+	 * \param dir2: first possible direction to check collision risk for
+	 * \param snake_dist_dir2: distance between snake units second possible direction
+	 * \param obs_dist_dir2: distance between snake and obstacle on the second possible direction
+	 * \param dirs: useful directions required to make a decision on the next move
+	 * \param snake_left_dist: flag indicating if there is a snake unit on the left of the head
+	 * \param snake_right_dist: flag indicating if there is a snake unit on the right of the head
+	 * \param snake_up_dist: flag indicating if there is a snake unit above the head
+	 * \param snake_down_dist: flag indicating if there is a snake unit below the head
+	 * \param obs_left_dist: flag indicating if there is an obstacle on the left of the head
+	 * \param obs_right_dist: flag indicating if there is an obstacle on the right of the head
+	 * \param obs_up_dist: flag indicating if there is an obstacle above the head
+	 * \param obs_down_dist: flag indicating if there is an obstacle below the head
+	 *
+	 * This function sets the less likely direction that can cause a collision
+	 */
+	void set_dir_no_collision(snake_utils::direction_e dir1, int snake_dist_dir1, int obs_dist_dir1, snake_utils::direction_e dir2, int snake_dist_dir2, int obs_dist_dir2, snake_utils::direction_e * dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist);
 
 	/**
 	 * @brief Function: bool unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist)
