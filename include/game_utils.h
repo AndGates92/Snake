@@ -256,13 +256,11 @@ namespace game_utils {
 	void auto_change_dir();
 
 	/**
-	 * @brief Function: void check_snake_collision(snake_utils::direction_e snake_head_dir)
-	 *
-	 * \param snake_head_dir: current direction of the snake head
+	 * @brief Function: void check_snake_collision()
 	 *
 	 * This function checks that the chosen direction of the head will not lead to a collision
 	 */
-	void check_snake_collision(snake_utils::direction_e snake_head_dir);
+	void check_snake_collision();
 
 	#ifdef HARD_WALL
 	/**

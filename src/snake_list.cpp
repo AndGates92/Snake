@@ -416,18 +416,26 @@ void snake_list::SnakeList::check_wall_collision(const int & win_width, const in
 		int height = snake->get_height();
 		int width = snake->get_width();
 
-		for (int h = -height/2; h < height/2; h++) {
-			int coord = y_centre + h;
-			if ((coord < 0) || (coord > win_height)) {
-				GAME_OVER("Snake unit is crossing the hard wall. Snake Unit coordinate (Valid value: 0 to ", win_height, "): ", coord);
-			}
+		int coord = 0;
+
+		coord = y_centre + height/2;
+		if (coord > win_height) {
+			GAME_OVER("Snake unit is crossing the hard wall at the top of the window. Snake Unit coordinate (Valid value: 0 to ", win_height, "): ", coord);
 		}
 
-		for (int w = -width/2; w < width/2; w++) {
-			int coord = x_centre + w;
-			if ((coord < 0) || (coord > win_width)) {
-				GAME_OVER("Snake unit is crossing the hard wall. Snake Unit coordinate (Valid value: 0 to ", win_width, "): ", coord);
-			}
+		coord = y_centre - height/2;
+		if (coord < 0) {
+			GAME_OVER("Snake unit is crossing the hard wall at the bottom of the window. Snake Unit coordinate (Valid value: 0 to ", win_height, "): ", coord);
+		}
+
+		coord = x_centre + width/2;
+		if (coord > win_width) {
+			GAME_OVER("Snake unit is crossing the hard wall on the right hand side of the window. Snake Unit coordinate (Valid value: 0 to ", win_width, "): ", coord);
+		}
+
+		coord = x_centre - width/2;
+		if (coord < 0) {
+			GAME_OVER("Snake unit is crossing the hard wall on the right hand side of the window. Snake Unit coordinate (Valid value: 0 to ", win_width, "): ", coord);
 		}
 
 		snake = snake->get_next();

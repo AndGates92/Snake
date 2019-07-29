@@ -374,7 +374,7 @@ void game_utils::auto_change_dir() {
 		auto_ride_count++;
 	}
 
-	game_utils::check_snake_collision(snake_head_dir);
+	game_utils::check_snake_collision();
 
 	#ifdef HARD_WALL
 	bool hard_wall = snake_settings.get_hard_wall_flag();
@@ -384,6 +384,7 @@ void game_utils::auto_change_dir() {
 	}
 	#endif // HARD_WALL
 
+//cout << "snake " << snake_head_dir << " curr_dir " << game_utils::head_dir << endl;
 	ASSERT(auto_ride_count <= max_auto_ride_count);
 
 }
@@ -426,6 +427,7 @@ void game_utils::check_wall_collision(snake_utils::direction_e snake_head_dir) {
 	}
 
 cout << "Wall crossing " << crossing << " curr_dir " << curr_dir << " snake_head_dir " << snake_head_dir << endl;
+cout << "X min " << snake_head_x_min << " max " << snake_head_x_max << " centre " << snake_head_x <<  " Y min " << snake_head_y_min << " max " << snake_head_y_max << " centre " << snake_head_y << endl;
 
 	if (crossing == true) {
 		snake_direction_list::SnakeDirectionList * snake_dir_list = new snake_direction_list::SnakeDirectionList();
@@ -451,14 +453,14 @@ cout << "Wall crossing " << crossing << " curr_dir " << curr_dir << " snake_head
 		int snake_dist_dir2 = game_utils::dist_init_val;
 		int obs_dist_dir2 = game_utils::dist_init_val;
 
-		if ((snake_head_dir == snake_utils::direction_e::RIGHT) || (snake_head_dir == snake_utils::direction_e::LEFT)) {
+		if ((curr_dir == snake_utils::direction_e::RIGHT) || (curr_dir == snake_utils::direction_e::LEFT)) {
 			dir1 = snake_utils::direction_e::UP;
 			snake_dist_dir1 = snake_unit_up_dist;
 			obs_dist_dir1 = obs_up_dist;
 			dir2 = snake_utils::direction_e::DOWN;
 			snake_dist_dir2 = snake_unit_down_dist;
 			obs_dist_dir2 = obs_down_dist;
-		} else if ((snake_head_dir == snake_utils::direction_e::UP) || (snake_head_dir == snake_utils::direction_e::DOWN)) {
+		} else if ((curr_dir == snake_utils::direction_e::UP) || (curr_dir == snake_utils::direction_e::DOWN)) {
 			dir1 = snake_utils::direction_e::RIGHT;
 			snake_dist_dir1 = snake_unit_right_dist;
 			obs_dist_dir1 = obs_right_dist;
@@ -480,7 +482,7 @@ cout << "Wall crossing " << crossing << " curr_dir " << curr_dir << " snake_head
 			delete [] dirs;
 		}
 
-		cout << " Change dir to " << game_utils::head_dir << endl;
+cout << " Change dir to " << game_utils::head_dir << endl;
 	}
 }
 
@@ -517,7 +519,7 @@ void game_utils::choose_dir(snake_utils::direction_e dir1, snake_utils::directio
 
 }
 
-void game_utils::check_snake_collision(snake_utils::direction_e snake_head_dir) {
+void game_utils::check_snake_collision() {
 
 	snake_direction_list::SnakeDirectionList * snake_dir_list = new snake_direction_list::SnakeDirectionList();
 	int snake_unit_left_dist = game_utils::dist_init_val;
@@ -536,9 +538,11 @@ void game_utils::check_snake_collision(snake_utils::direction_e snake_head_dir) 
 
 	snake_utils::direction_e * dirs = game_utils::populate_dirs(snake_dir_list);
 
-	bool collision_risk = game_utils::unit_in_trajectory(game_utils::head_dir, dirs,  snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist, obs_left_dist, obs_right_dist, obs_up_dist, obs_down_dist);
+	snake_utils::direction_e curr_dir = game_utils::head_dir;
 
-//	cout << "Head dir " << snake_head_dir << " game_head_dir " << game_utils::head_dir << " ditances left:" << snake_unit_left_dist << " right: " << snake_unit_right_dist << " up: " << snake_unit_up_dist << " down: " << snake_unit_down_dist << " collision_risk " << collision_risk << endl;
+	bool collision_risk = game_utils::unit_in_trajectory(curr_dir, dirs,  snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist, obs_left_dist, obs_right_dist, obs_up_dist, obs_down_dist);
+
+//	cout << "Game_head_dir " << curr_dir << " ditances left:" << snake_unit_left_dist << " right: " << snake_unit_right_dist << " up: " << snake_unit_up_dist << " down: " << snake_unit_down_dist << " collision_risk " << collision_risk << endl;
 //	cout << "Obstacle ditances left:" << obs_left_dist << " right: " << obs_right_dist << " up: " << obs_up_dist << " down: " << obs_down_dist << endl;
 
 	if (collision_risk == true) {
@@ -550,14 +554,14 @@ void game_utils::check_snake_collision(snake_utils::direction_e snake_head_dir) 
 		int snake_dist_dir2 = game_utils::dist_init_val;
 		int obs_dist_dir2 = game_utils::dist_init_val;
 
-		if ((snake_head_dir == snake_utils::direction_e::RIGHT) || (snake_head_dir == snake_utils::direction_e::LEFT)) {
+		if ((curr_dir == snake_utils::direction_e::RIGHT) || (curr_dir == snake_utils::direction_e::LEFT)) {
 			dir1 = snake_utils::direction_e::UP;
 			snake_dist_dir1 = snake_unit_up_dist;
 			obs_dist_dir1 = obs_up_dist;
 			dir2 = snake_utils::direction_e::DOWN;
 			snake_dist_dir2 = snake_unit_down_dist;
 			obs_dist_dir2 = obs_down_dist;
-		} else if ((snake_head_dir == snake_utils::direction_e::UP) || (snake_head_dir == snake_utils::direction_e::DOWN)) {
+		} else if ((curr_dir == snake_utils::direction_e::UP) || (curr_dir == snake_utils::direction_e::DOWN)) {
 			dir1 = snake_utils::direction_e::RIGHT;
 			snake_dist_dir1 = snake_unit_right_dist;
 			obs_dist_dir1 = obs_right_dist;
@@ -606,7 +610,7 @@ void game_utils::set_dir_no_collision(snake_utils::direction_e dir1, int snake_d
 		bool dir1_valid = (((snake_dist_dir1 == game_utils::min_dist_force_change_dir) && (((snake_dist_dir1 < obs_dist_dir1) && (obs_dist_dir1 != game_utils::dist_init_val)) || (obs_dist_dir1 == game_utils::dist_init_val))) || (dir2 != dirs[1]) || (opposite_dirs == false));
 		bool dir2_valid = (((snake_dist_dir2 == game_utils::min_dist_force_change_dir) && (((snake_dist_dir2 < obs_dist_dir2) && (obs_dist_dir2 != game_utils::dist_init_val)) || (obs_dist_dir1 == game_utils::dist_init_val))) || (dir1 != dirs[1]) || (opposite_dirs == false));
 
-//cout << "dir1_valid " << dir1_valid << " dir2_valid " << dir2_valid << " opposite_dirs " << opposite_dirs << " collision dir1->" << collision_risk_dir1 << " dir2->" << collision_risk_dir2 << endl;
+cout << "dir1_valid " << dir1_valid << " dir2_valid " << dir2_valid << " opposite_dirs " << opposite_dirs << " collision dir1->" << collision_risk_dir1 << " dir2->" << collision_risk_dir2 << endl;
 
 		// Assert that distance on direction1 and distance on direction2 are not 1 at the same time
 		ASSERT((snake_dist_dir1 != 1) || (snake_dist_dir2 != 1));
@@ -768,7 +772,7 @@ void game_utils::get_boundaries(ptr_t * ptr, int & x_centre, int & x_min, int & 
 	int height = ptr->get_height();
 	game_utils::get_coord_range(y_centre, height, y_min, y_max);
 
-//	cout << "X min " << x_min << " max " << x_max << " centre " << x_centre <<  " Y min " << y_min << " max " << y_max << " centre " << y_centre << endl;
+//cout << "X min " << x_min << " max " << x_max << " centre " << x_centre <<  " Y min " << y_min << " max " << y_max << " centre " << y_centre << endl;
 }
 
 void game_utils::get_coord_range(int centre, int dim, int & min_coord, int & max_coord) {
@@ -777,7 +781,7 @@ void game_utils::get_coord_range(int centre, int dim, int & min_coord, int & max
 }
 
 bool game_utils::coord_overlap(int coord1_min, int coord1_max, int coord2_min, int coord2_max) {
-	cout << "Coord1: min " << coord1_min << " max " << coord1_max << " Coord2: min " << coord2_min << " max " << coord2_max << endl;
+//cout << "Coord1: min " << coord1_min << " max " << coord1_max << " Coord2: min " << coord2_min << " max " << coord2_max << endl;
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Coordinate Overlap] Coordinate1: minimum->", coord1_min, ", maximum->", coord1_max, " Coordinate2: minimum->", coord2_min, ", maximum->", coord2_max);
 	bool overlap = ((coord1_min >= coord2_min) && (coord1_min < coord2_max)) || ((coord1_max > coord2_min) && (coord1_max <= coord2_max));
 	return overlap;
