@@ -232,11 +232,11 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 				int x_diff = abs(x_centre_curr - x_centre_prev);
 				if (((direction_curr == snake_utils::direction_e::RIGHT) && (direction_prev == snake_utils::direction_e::LEFT)) || ((direction_curr == snake_utils::direction_e::LEFT) && (direction_prev == snake_utils::direction_e::RIGHT))) {
 					if ((y_diff < height_centre_distance) && (x_diff < width_centre_distance)) {
-						LOG_ERROR("Units moving in opposite horizintal movement and colliding");
+						LOG_ERROR("Units moving in opposite horizintal movement and colliding. Direction: previous ", direction_prev, " current ", direction_curr, " Coordinate difference: X ", x_diff, " Y ", y_diff, " centre distance: width ", width_centre_distance, " height ", height_centre_distance);
 					}
 				} else if (((direction_curr == snake_utils::direction_e::UP) && (direction_prev == snake_utils::direction_e::DOWN)) || ((direction_curr == snake_utils::direction_e::DOWN) && (direction_prev == snake_utils::direction_e::UP))) {
 					if ((x_diff < width_centre_distance) && (y_diff < height_centre_distance)) {
-						LOG_ERROR("Units moving in opposite vertical movement and colliding");
+						LOG_ERROR("Units moving in opposite vertical movement and colliding. Direction: previous ", direction_prev, " current ", direction_curr, " Coordinate difference: X ", x_diff, " Y ", y_diff, " centre distance: width ", width_centre_distance, " height ", height_centre_distance);
 					}
 				}
 
