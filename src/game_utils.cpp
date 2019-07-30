@@ -707,7 +707,7 @@ void game_utils::populate_flags_snake(snake_direction_list::SnakeDirectionList *
 
 	if (hard_wall == true) {
 		// Initialize distances with snake head coordinates if hard wall is on
-/*		double win_width_dle = glutGet(GLUT_WINDOW_WIDTH);
+		double win_width_dle = glutGet(GLUT_WINDOW_WIDTH);
 		int win_width = (int) win_width_dle;
 
 		double win_height_dle = glutGet(GLUT_WINDOW_HEIGHT);
@@ -715,7 +715,7 @@ void game_utils::populate_flags_snake(snake_direction_list::SnakeDirectionList *
 
 		game_utils::update_win_dist(win_height, snake_head_y, snake_head_height, down_dist, up_dist);
 		game_utils::update_win_dist(win_width, snake_head_x, snake_head_width, left_dist, right_dist);
-*/	}
+	}
 	#endif // HARD_WALL
 
 	while (snake_head != nullptr) {
@@ -776,7 +776,7 @@ void game_utils::populate_flags_obs(int & left_dist, int & right_dist, int & up_
 
 	if (hard_wall == true) {
 		// Initialize distances with snake head coordinates if hard wall is on
-/*		double win_width_dle = glutGet(GLUT_WINDOW_WIDTH);
+		double win_width_dle = glutGet(GLUT_WINDOW_WIDTH);
 		int win_width = (int) win_width_dle;
 
 		double win_height_dle = glutGet(GLUT_WINDOW_HEIGHT);
@@ -784,7 +784,7 @@ void game_utils::populate_flags_obs(int & left_dist, int & right_dist, int & up_
 
 		game_utils::update_win_dist(win_height, snake_head_y, snake_head_height, down_dist, up_dist);
 		game_utils::update_win_dist(win_width, snake_head_x, snake_head_width, left_dist, right_dist);
-*/	}
+	}
 	#endif // HARD_WALL
 
 	while (obs_head != nullptr) {
