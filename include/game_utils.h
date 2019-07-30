@@ -256,11 +256,13 @@ namespace game_utils {
 	void auto_change_dir();
 
 	/**
-	 * @brief Function: void check_snake_collision()
+	 * @brief Function: void check_snake_collision(snake_utils::direction_e snake_head_dir)
+	 *
+	 * \param snake_head_dir: current direction of the snake head
 	 *
 	 * This function checks that the chosen direction of the head will not lead to a collision
 	 */
-	void check_snake_collision();
+	void check_snake_collision(snake_utils::direction_e snake_head_dir);
 
 	#ifdef HARD_WALL
 	/**
@@ -414,6 +416,22 @@ namespace game_utils {
 	 */
 	bool coord_overlap(int coord1_min, int coord1_max, int coord2_min, int coord2_max);
 
+	#ifdef HARD_WALL
+	/**
+	 * @brief Function: void update_win_dist(int win_coord, int obj_coord, int avg_dim, int & dist_close, int & dist_far)
+	 *
+	 * \param obj_coord: window dimension
+	 * \param obj_coord: object coordinate
+	 * \param dim: average dimension
+	 * \param dist_close: distance to furthest coordinate from the origin
+	 * \param dist_far: distance to closest coordinate from the origin
+	 *
+	 * This function update distances between window border and object
+	 */
+	void update_win_dist(int win_coord, int obj_coord, int dim, int & dist_close, int & dist_far); 
+	#endif // HARD_WALL
+
+
 	/**
 	 * @brief Function: void update_dist(int coord1, int coord2, int avg_dim, int & dist_1l2, int & dist_1s2)
 	 *
@@ -423,7 +441,8 @@ namespace game_utils {
 	 * \param dist_1l2: distance to update if coordinate1 is larger than coordinate2
 	 * \param dist_1s2: distance to update if coordinate1 is smaller than coordinate2
 	 *
-	 * This function update distances between head and unit
+	 * This function update distances between head and unit or obstacle
+	 * Perspective is always the snake head
 	 */
 	void update_dist(int coord1, int coord2, int avg_dim, int & dist_1l2, int & dist_1s2);
 
