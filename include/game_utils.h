@@ -8,11 +8,12 @@
  * @brief Game utils header file
 */
 
+#include <vector>
+
 #include "graphics_utils.h"
 #include "window_node.h"
 #include "snake_list.h"
 #include "obstacle_list.h"
-#include "snake_direction_list.h"
 #include "settings.h"
 #include "colours.h"
 
@@ -288,7 +289,7 @@ namespace game_utils {
 	#endif // HARD_WALL
 
 	/**
-	 * @brief Function: void populate_flags_snake(snake_direction_list::SnakeDirectionList * & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist)
+	 * @brief Function: void populate_flags_snake(std::vector<snake_utils::direction_e> & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist)
 	 *
 	 * \param dir_list: sequence of directions of snake units
 	 * \param left_dist: flag indicating if there is a snake unit on the left of the head
@@ -298,7 +299,7 @@ namespace game_utils {
 	 *
 	 * This function populates the flags required to check if the chosen direction of the head will not lead to a collision
 	 */
-	void populate_flags_snake(snake_direction_list::SnakeDirectionList * & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist);
+	void populate_flags_snake(std::vector<snake_utils::direction_e> & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist);
 
 	/**
 	 * @brief Function: void populate_flags_obs(int & left_dist, int & right_dist, int & up_dist, int & down_dist)
@@ -313,7 +314,7 @@ namespace game_utils {
 	void populate_flags_obs(int & left_dist, int & right_dist, int & up_dist, int & down_dist);
 
 	/**
-	 * @brief Function: snake_utils::direction_e * populate_dirs(snake_direction_list::SnakeDirectionList * dir_list)
+	 * @brief Function: std::vector<snake_utils::direction_e> populate_dirs(std::vector<snake_utils::direction_e> dir_list)
 	 *
 	 * \param dir_list: sequence of directions of snake units
 	 *
@@ -321,10 +322,10 @@ namespace game_utils {
 	 *
 	 * This function populates the directions required to ensure the likelihood of a collision is minimal
 	 */
-	snake_utils::direction_e * populate_dirs(snake_direction_list::SnakeDirectionList * dir_list);
+	std::vector<snake_utils::direction_e> populate_dirs(std::vector<snake_utils::direction_e> dir_list);
 
 	/**
-	 * @brief Function: void set_dir_no_collision(snake_utils::direction_e dir1, int snake_dist_dir2, int obs_dist_dir2, snake_utils::direction_e dir2, int snake_dist_dir2, int obs_dist_dir2, snake_utils::direction_e * dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist)
+	 * @brief Function: void set_dir_no_collision(snake_utils::direction_e dir1, int snake_dist_dir2, int obs_dist_dir2, snake_utils::direction_e dir2, int snake_dist_dir2, int obs_dist_dir2, std::vector<snake_utils::direction_e> dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist)
 	 *
 	 * \param dir1: first possible direction to check collision risk for
 	 * \param snake_dist_dir1: distance between snake units first possible direction
@@ -344,10 +345,10 @@ namespace game_utils {
 	 *
 	 * This function sets the less likely direction that can cause a collision
 	 */
-	void set_dir_no_collision(snake_utils::direction_e dir1, int snake_dist_dir1, int obs_dist_dir1, snake_utils::direction_e dir2, int snake_dist_dir2, int obs_dist_dir2, snake_utils::direction_e * dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist);
+	void set_dir_no_collision(snake_utils::direction_e dir1, int snake_dist_dir1, int obs_dist_dir1, snake_utils::direction_e dir2, int snake_dist_dir2, int obs_dist_dir2, std::vector<snake_utils::direction_e> dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist);
 
 	/**
-	 * @brief Function: bool unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist)
+	 * @brief Function: bool unit_in_trajectory(snake_utils::direction_e dir, std::vector<snake_utils::direction_e> dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist)
 	 *
 	 * \param dir: direction to check collision risk for
 	 * \param dirs: useful directions required to make a decision on the next move
@@ -364,7 +365,7 @@ namespace game_utils {
 	 *
 	 * This function flags collision risk, i.e. when the head is heading towards a snake unit
 	 */
-	bool unit_in_trajectory(snake_utils::direction_e dir, snake_utils::direction_e * dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist);
+	bool unit_in_trajectory(snake_utils::direction_e dir, std::vector<snake_utils::direction_e> dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist);
 
 	/**
 	 * @brief Function: void game_utils::get_boundaries(ptr_t * ptr, int & x_centre, int & x_min, int & x_max, int & y_centre, int & y_min, int & y_max)
