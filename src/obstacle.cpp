@@ -29,19 +29,3 @@ obstacle::Obstacle::~Obstacle() {
 void obstacle::Obstacle::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	basic_object::BasicObject::print_info(verbosity, pretext);
 }
-
-// ================================================================
-// Obstacle Node
-// ================================================================
-obstacle::ObstacleNode::~ObstacleNode() {
-	std::string pretext ("Destructor");
-	this->print_info(logging::verb_level_e::LOW, pretext);
-}
-
-void obstacle::ObstacleNode::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	Obstacle::print_info(verbosity, pretext);
-	std::string name_pretext = this->get_type();
-	name_pretext.append(" ");
-	name_pretext.append(pretext);
-	basic_obj_node::BasicObjNode<ObstacleNode>::print_info(verbosity, name_pretext);
-}

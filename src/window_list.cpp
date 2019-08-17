@@ -37,10 +37,10 @@ window_list::WindowList::~WindowList() {
 
 int window_list::WindowList::add_node(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, colours::palette_e background_colour) {
 
-	window_node::WindowNode * head(this->get_head());
+	window_node::WindowObj * head(this->get_head());
 
 	LOG_INFO(logging::verb_level_e::LOW, "[Add node] Create node at ", window_x_pos, ", ", window_y_pos, ". Dimensions: width ", window_width, " height ", window_height, ". Title: ", window_title, " Background colour: ", background_colour);
-	window_node::WindowNode * new_window = new window_node::WindowNode(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour);
+	window_node::WindowObj * new_window = new window_node::WindowObj(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour);
 	if (new_window == nullptr) {
 		LOG_ERROR("Can't allocate memory for window node");
 	}
@@ -61,8 +61,8 @@ int window_list::WindowList::add_node(std::string window_title, std::string wind
 
 void window_list::WindowList::delete_by_win_id(int &win_id) {
 
-	window_node::WindowNode * head(this->get_head());
-	window_node::WindowNode * window_node (head);
+	window_node::WindowObj * head(this->get_head());
+	window_node::WindowObj * window_node (head);
 
 	while (window_node != nullptr) {
 
@@ -85,10 +85,10 @@ void window_list::WindowList::delete_by_win_id(int &win_id) {
 	LOG_ERROR("Couldn't find window matching window ID ", win_id);
 }
 
-window_node::WindowNode * window_list::WindowList::search_by_win_id(int &win_id) {
+window_node::WindowObj * window_list::WindowList::search_by_win_id(int &win_id) {
 
-	window_node::WindowNode * head(this->get_head());
-	window_node::WindowNode * window_node (head);
+	window_node::WindowObj * head(this->get_head());
+	window_node::WindowObj * window_node (head);
 
 	while (window_node != nullptr) {
 
@@ -98,7 +98,7 @@ window_node::WindowNode * window_list::WindowList::search_by_win_id(int &win_id)
 
 		// Current ID matches searched ID
 		if (curr_win_id == win_id) {
-			window_node::WindowNode * window_found = window_node;
+			window_node::WindowObj * window_found = window_node;
 			return window_found;
 		}
 
@@ -107,14 +107,14 @@ window_node::WindowNode * window_list::WindowList::search_by_win_id(int &win_id)
 	}
 
 	LOG_ERROR("Couldn't find window matching window ID ", win_id);
-	window_node::WindowNode * node_err = new window_node::WindowNode("Error");
+	window_node::WindowObj * node_err = new window_node::WindowObj("Error");
 	if (node_err == nullptr) {
 		LOG_ERROR("Can't allocate memory for error node");
 	}
 	return node_err;
 }
 
-void window_list::WindowList::delete_node(window_node::WindowNode * & node) {
+void window_list::WindowList::delete_node(window_node::WindowObj * & node) {
 	this->remove_node(node);
 	node->destroy_node();
 }

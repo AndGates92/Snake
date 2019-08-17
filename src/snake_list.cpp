@@ -14,13 +14,13 @@
 #include "game_utils.h"
 #include "basic_obj_list.h"
 #include "snake_list.h"
-#include "snake_node.h"
+#include "snake_unit.h"
 #include "logging.h"
 
 using namespace std;
 using namespace logging;
 using namespace snake_list;
-using namespace snake_node;
+using namespace snake_unit;
 using namespace colours;
 using namespace game_utils;
 
@@ -38,19 +38,19 @@ snake_list::SnakeList::~SnakeList() {
 // Add nodes from the head down
 void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour) {
 
-	snake_node::SnakeNode * head (this->get_head());
+	snake_unit::SnakeUnit * head (this->get_head());
 	std::string name = this->get_name();
 
-	LOG_INFO(logging::verb_level_e::LOW, "[Add Node] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
-	snake_node::SnakeNode * new_snake = new snake_node::SnakeNode(name, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
+	LOG_INFO(logging::verb_level_e::LOW, "[Add Unit] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
+	snake_unit::SnakeUnit * new_snake = new snake_unit::SnakeUnit(name, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
 	if (new_snake == nullptr) {
 		LOG_ERROR("Can't allocate memory for snake node Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
 	}
 
 	if(head != nullptr) {
-		snake_node::SnakeNode * snake_list = head;
-		snake_node::SnakeNode * snake_found = nullptr;
-		snake_node::SnakeNode * snake_prev = nullptr;
+		snake_unit::SnakeUnit * snake_list = head;
+		snake_unit::SnakeUnit * snake_found = nullptr;
+		snake_unit::SnakeUnit * snake_prev = nullptr;
 
 		int width_head = head->get_width();
 		ASSERT(width_head == snake_width)
@@ -87,7 +87,7 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 
 
 		if ((head == nullptr) || ((snake_found == nullptr) && (found == true))) {
-			snake_node::SnakeNode * snake_head = head;
+			snake_unit::SnakeUnit * snake_head = head;
 
 			new_snake->set_next(snake_head);
 			new_snake->set_prev(nullptr);
@@ -179,9 +179,9 @@ bool snake_list::SnakeList::is_neightbour(int curr_x, int curr_y, int new_x, int
 void snake_list::SnakeList::move(const int & speed, const int & win_width, const int & win_height, const snake_utils::direction_e & head_dir) {
 	LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Window dimensions: Width ", win_width, " Height ", win_height, " Speed: ", speed);
 
-	snake_node::SnakeNode * head (this->get_head());
+	snake_unit::SnakeUnit * head (this->get_head());
 
-	snake_node::SnakeNode * snake_el (head);
+	snake_unit::SnakeUnit * snake_el (head);
 
 	snake_utils::direction_e direction_prev = head_dir;
 	int x_centre_prev = head->get_x_centre();
@@ -313,7 +313,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 	}
 }
 
-int snake_list::SnakeList::change_dir(snake_node::SnakeNode * & snake_el, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir) {
+int snake_list::SnakeList::change_dir(snake_unit::SnakeUnit * & snake_el, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir) {
 	// Distance between centres
 	int centre_distance = ((curr_dim + prev_dim)/2);
 	int curr_distance = compute_centre_distance(curr_coord_mov_dir, prev_coord_mov_dir, win_dim, centre_distance);
@@ -336,8 +336,8 @@ int snake_list::SnakeList::change_dir(snake_node::SnakeNode * & snake_el, int wi
 	return centre_adj;
 }
 
-int snake_list::SnakeList::adj_snake(snake_node::SnakeNode * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov) {
-	snake_node::SnakeNode * head (this->get_head());
+int snake_list::SnakeList::adj_snake(snake_unit::SnakeUnit * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov) {
+	snake_unit::SnakeUnit * head (this->get_head());
 	int centre_distance = ((curr_dim + prev_dim)/2);
 	int adjustment = 0;
 	// Coordinate that must be aligned when moving
@@ -405,9 +405,9 @@ void snake_list::SnakeList::check_collision(const int & win_width, const int & w
 #ifdef HARD_WALL
 void snake_list::SnakeList::check_wall_collision(const int & win_width, const int & win_height) {
 
-	snake_node::SnakeNode * head (this->get_head());
+	snake_unit::SnakeUnit * head (this->get_head());
 
-	snake_node::SnakeNode * snake (head);
+	snake_unit::SnakeUnit * snake (head);
 
 	while (snake != nullptr) {
 
@@ -447,9 +447,9 @@ void snake_list::SnakeList::check_wall_collision(const int & win_width, const in
 
 void snake_list::SnakeList::check_snake_collision() {
 
-	snake_node::SnakeNode * head (this->get_head());
+	snake_unit::SnakeUnit * head (this->get_head());
 
-	snake_node::SnakeNode * snake1 (head);
+	snake_unit::SnakeUnit * snake1 (head);
 
 	while (snake1 != nullptr) {
 
@@ -460,13 +460,13 @@ void snake_list::SnakeList::check_snake_collision() {
 		int width1 = snake1->get_width();
 
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Check Collision] Current Unit: X ", x_centre1, " Y ", y_centre1, " Height ", height1, " Width ", width1);
-		snake_node::SnakeNode * snake1_nxt (snake1->get_next());
+		snake_unit::SnakeUnit * snake1_nxt (snake1->get_next());
 
 		// Consecutive pointer distance check is already performed by move function.
 		// When the direction changes, the centres of consecutive snake units may be closer than the expected distance
 		if (snake1_nxt != nullptr) {
 
-			snake_node::SnakeNode * snake2 (snake1_nxt->get_next());
+			snake_unit::SnakeUnit * snake2 (snake1_nxt->get_next());
 
 			while (snake2 != nullptr) {
 				// Store values of current element before updating its position and direction

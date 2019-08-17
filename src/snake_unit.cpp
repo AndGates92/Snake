@@ -1,6 +1,6 @@
 /**
  * @copyright
- * @file snake_node.cpp
+ * @file snake_unit.cpp
  * @author Andrea Gianarda
  * @date 04th March 2019
  * @brief Snake Node function
@@ -9,29 +9,29 @@
 #include <iostream>
 
 #include "basic_object.h"
-#include "snake_node.h"
+#include "snake_unit.h"
 #include "snake_utils.h"
 #include "logging.h"
 
 using namespace std;
-using namespace snake_node;
+using namespace snake_unit;
 using namespace logging;
 
 // ================================================================
 // Destructor
 // ================================================================
-snake_node::SnakeUnit::~SnakeUnit() {
+snake_unit::SnakeUnit::~SnakeUnit() {
 	std::string pretext ("");
 	this->print_info(logging::verb_level_e::LOW, pretext);
 }
 
-void snake_node::SnakeUnit::print_info(logging::verb_level_e verbosity, std::string pretext) {
+void snake_unit::SnakeUnit::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	basic_object::BasicObject::print_info(verbosity, pretext);
 	std::string type = this->get_type();
 	LOG_INFO(verbosity, "[", type, " ", pretext, "] Direction ", this->direction, ".");
 }
 
-void snake_node::SnakeUnit::save_data (iofile::File & savefile) {
+void snake_unit::SnakeUnit::save_data (iofile::File & savefile) {
 	basic_object::BasicObject::save_data(savefile);
 	savefile.write_ofile("Direction: ", this->direction, "\n");
 }
@@ -39,21 +39,21 @@ void snake_node::SnakeUnit::save_data (iofile::File & savefile) {
 // ================================================================
 // Get functions
 // ================================================================
-snake_utils::direction_e snake_node::SnakeUnit::get_direction() {
+snake_utils::direction_e snake_unit::SnakeUnit::get_direction() {
 	return this->direction;
 }
 
 // ================================================================
 // Set functions
 // ================================================================
-void snake_node::SnakeUnit::set_direction(snake_utils::direction_e new_direction) {
+void snake_unit::SnakeUnit::set_direction(snake_utils::direction_e new_direction) {
 	this->direction = new_direction;
 }
 
 // ================================================================
 // Move function
 // ================================================================
-void snake_node::SnakeUnit::move(const int & speed, const int & win_width, const int & win_height) {
+void snake_unit::SnakeUnit::move(const int & speed, const int & win_width, const int & win_height) {
 
 	int y_centre = this->get_y_centre();
 	int x_centre = this->get_x_centre();
@@ -85,20 +85,3 @@ void snake_node::SnakeUnit::move(const int & speed, const int & win_width, const
 	this->set_y_centre(y_centre);
 	this->set_x_centre(x_centre);
 }
-
-// ================================================================
-// Snake Node
-// ================================================================
-snake_node::SnakeNode::~SnakeNode() {
-	std::string pretext ("Destructor");
-	this->print_info(logging::verb_level_e::LOW, pretext);
-}
-
-void snake_node::SnakeNode::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	SnakeUnit::print_info(verbosity, pretext);
-	std::string name_pretext = this->get_type();
-	name_pretext.append(" ");
-	name_pretext.append(pretext);
-	basic_obj_node::BasicObjNode<SnakeNode>::print_info(verbosity, name_pretext);
-}
-

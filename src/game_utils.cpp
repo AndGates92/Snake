@@ -17,7 +17,7 @@
 #include "game_utils.h"
 #include "graphics_utils.h"
 #include "snake_list.h"
-#include "snake_node.h"
+#include "snake_unit.h"
 #include "snake_utils.h"
 
 /** @addtogroup GameUtilsGroup
@@ -108,7 +108,7 @@ void game_utils::populate_snake_list() {
 
 	for (int unit_no=0; unit_no < snake_units; unit_no++) {
 
-		game_utils::add_snake_node(centre_x, centre_y, node_width, node_height, snake_head_dir, colour);
+		game_utils::add_snake_unit(centre_x, centre_y, node_width, node_height, snake_head_dir, colour);
 		//game_utils::snake->add_node(centre_x, centre_y, game_utils::node_width, game_utils::node_height, game_utils::init_head_dir, (colours::palette_e) unit_no);
 		centre_x += node_width;
 		//game_utils::snake->add_node(centre_x, centre_y, game_utils::node_width, game_utils::node_height, game_utils::init_head_dir, colours::palette_e::RED);
@@ -117,14 +117,14 @@ void game_utils::populate_snake_list() {
 	}
 
 	// Colour snake_head differently to ease debug
-	snake_node::SnakeNode * snake_head = game_utils::snake->get_head();
+	snake_unit::SnakeNode * snake_head = game_utils::snake->get_head();
 	snake_head->set_colour(colours::palette_e::YELLOW);
 
 }
 
 void game_utils::set_snake_settings() {
 
-	snake_node::SnakeNode * snake_head = game_utils::snake->get_head();
+	snake_unit::SnakeNode * snake_head = game_utils::snake->get_head();
 	snake_utils::direction_e snake_head_dir = snake_head->get_direction();
 	snake_settings.set_head_dir(snake_head_dir);
 	int snake_head_x = snake_head->get_x_centre();
@@ -170,7 +170,7 @@ void game_utils::init_game() {
 bool game_utils::contact_between_snake_obs() {
 
 	// Retrieve snake head informations
-	snake_node::SnakeNode * snake_head = game_utils::snake->get_head();
+	snake_unit::SnakeNode * snake_head = game_utils::snake->get_head();
 	int snake_head_x = snake_head->get_x_centre();
 	int snake_head_width = snake_head->get_width();
 	int snake_head_x_min = snake_head_x - snake_head_width/2;
@@ -263,7 +263,7 @@ void game_utils::free_window_list() {
 
 void game_utils::save_game(std::string filename) {
 	// obstacle pointer
-	snake_node::SnakeNode * curr_snake_node = game_utils::snake->get_head();
+	snake_unit::SnakeNode * curr_snake_node = game_utils::snake->get_head();
 
 	std::string tmp_filename(filename);
 	tmp_filename.append(".tmp");
@@ -329,7 +329,7 @@ void game_utils::free_game_memory() {
 
 void game_utils::auto_change_dir() {
 
-	snake_node::SnakeNode * snake_head = game_utils::snake->get_head();
+	snake_unit::SnakeNode * snake_head = game_utils::snake->get_head();
 	snake_utils::direction_e snake_head_dir = snake_head->get_direction();
 
 	// Coordinates
@@ -400,7 +400,7 @@ void game_utils::check_wall_collision(snake_utils::direction_e snake_head_dir) {
 
 	snake_utils::direction_e curr_dir = game_utils::head_dir;
 
-	snake_node::SnakeNode * snake_head = game_utils::snake->get_head();
+	snake_unit::SnakeNode * snake_head = game_utils::snake->get_head();
 
 	int snake_head_x = 0;
 	int snake_head_x_min = 0;
@@ -409,7 +409,7 @@ void game_utils::check_wall_collision(snake_utils::direction_e snake_head_dir) {
 	int snake_head_y_min = 0;
 	int snake_head_y_max = 0;
 
-	game_utils::get_boundaries<snake_node::SnakeNode>(snake_head, snake_head_x, snake_head_x_min, snake_head_x_max, snake_head_y, snake_head_y_min, snake_head_y_max);
+	game_utils::get_boundaries<snake_unit::SnakeNode>(snake_head, snake_head_x, snake_head_x_min, snake_head_x_max, snake_head_y, snake_head_y_min, snake_head_y_max);
 
 	int speed = snake_settings.get_speed();
 
@@ -675,7 +675,7 @@ bool game_utils::unit_in_trajectory(snake_utils::direction_e dir, std::vector<sn
 }
 
 void game_utils::populate_flags_snake(std::vector<snake_utils::direction_e> & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist) {
-	snake_node::SnakeNode * snake_head = game_utils::snake->get_head();
+	snake_unit::SnakeNode * snake_head = game_utils::snake->get_head();
 
 	snake_utils::direction_e prev_dir = snake_head->get_direction();
 	snake_utils::direction_e curr_dir = snake_head->get_direction();
@@ -691,7 +691,7 @@ void game_utils::populate_flags_snake(std::vector<snake_utils::direction_e> & di
 	int snake_head_y_min = 0;
 	int snake_head_y_max = 0;
 
-	game_utils::get_boundaries<snake_node::SnakeNode>(snake_head, snake_head_x, snake_head_x_min, snake_head_x_max, snake_head_y, snake_head_y_min, snake_head_y_max);
+	game_utils::get_boundaries<snake_unit::SnakeNode>(snake_head, snake_head_x, snake_head_x_min, snake_head_x_max, snake_head_y, snake_head_y_min, snake_head_y_max);
 
 	if (snake_head != nullptr) {
 		// Move away from the head
@@ -725,7 +725,7 @@ void game_utils::populate_flags_snake(std::vector<snake_utils::direction_e> & di
 		int snake_unit_y_min = 0;
 		int snake_unit_y_max = 0;
 
-		game_utils::get_boundaries<snake_node::SnakeNode>(snake_head, snake_unit_x, snake_unit_x_min, snake_unit_x_max, snake_unit_y, snake_unit_y_min, snake_unit_y_max);
+		game_utils::get_boundaries<snake_unit::SnakeNode>(snake_head, snake_unit_x, snake_unit_x_min, snake_unit_x_max, snake_unit_y, snake_unit_y_min, snake_unit_y_max);
 
 		int avg_height = (snake_unit_height + snake_head_height)/2;
 		int avg_width  = (snake_unit_width + snake_head_width)/2;
@@ -760,7 +760,7 @@ void game_utils::populate_flags_snake(std::vector<snake_utils::direction_e> & di
 
 void game_utils::populate_flags_obs(int & left_dist, int & right_dist, int & up_dist, int & down_dist) {
 	obstacle::ObstacleNode * obs_head = game_utils::obstacles->get_head();
-	snake_node::SnakeNode * snake_head = game_utils::snake->get_head();
+	snake_unit::SnakeNode * snake_head = game_utils::snake->get_head();
 
 	int snake_head_x = snake_head->get_x_centre();
 	int snake_head_width = snake_head->get_width();

@@ -20,7 +20,7 @@ namespace basic_list {
 	 * @brief BasicList class
 	 *
 	 */
-	template <class class_node>
+	template <class class_element>
 	class BasicList {
 		public:
 			// Constructor
@@ -49,13 +49,13 @@ namespace basic_list {
 			~BasicList();
 
 			/**
-			 * @brief Function: void remove_node(class_node * & node)
+			 * @brief Function: void remove_element(class_element * & element)
 			 *
-			 * \param node: node to delete
+			 * \param element: element to delete
 			 *
-			 * Delete node
+			 * Delete element
 			 */
-			void remove_node(class_node * & node);
+			void remove_element(class_element * & element);
 
 			/**
 			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)
@@ -68,29 +68,29 @@ namespace basic_list {
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 			/**
-			 * @brief Function: class_node * & get_head()
+			 * @brief Function: class_element * & get_head()
 			 *
 			 * \return head of BasicList
 			 *
 			 * Return a pointer to te head of the list 
 			 */
-			class_node * & get_head();
+			std::vector<class_element> & get_head();
 
 			/**
-			 * @brief Function: void set_head(class_node * & new_head)
+			 * @brief Function: void set_head(class_element * & new_head)
 			 *
 			 * \param new_head: set head of BasicList
 			 *
 			 * Set the head pointer of the list
 			 */
-			void set_head(class_node * & new_head);
+			void set_head(std::vector<class_element> & new_head);
 
 			/**
-			 * @brief Function: void add_node()
+			 * @brief Function: void add_element()
 			 *
-			 * Function to add a node. It must be implemented in the derived class
+			 * Function to add a element. It must be implemented in the derived class
 			 */
-			void add_node();
+			void add_element();
 
 		protected:
 
@@ -99,77 +99,58 @@ namespace basic_list {
 			 * @brief Head of the list
 			 *
 			 */
-			class_node * head;
+			std::vector<class_element> head;
 
 	};
 }
 /** @} */ // End of BasicListGroup group
 
-template <class class_node>
-basic_list::BasicList<class_node>::~BasicList() {
+template <class class_element>
+basic_list::BasicList<class_element>::~BasicList() {
 
 	std::string pretext ("Destructor");
 	this->print_info(logging::verb_level_e::LOW, pretext);
 
-	class_node * node_ptr = this->head;
-	while (this->head != nullptr) {
-		node_ptr = this->head;
-		node_ptr->print_info(logging::verb_level_e::LOW, pretext);
-		this->head = this->head->get_next();
-		node_ptr->~class_node();
-		delete node_ptr;
+	for(std::vector<class_element>::iterator element = this->head.begin(); element != this->head.end(); ++element) {
+		element->print_info(verbosity, pretext);
+		this->head.erase(element);
 	}
 	LOG_INFO(logging::verb_level_e::HIGH, "Basic list destroyed");
 
 }
 
-template <class class_node>
-void basic_list::BasicList<class_node>::remove_node(class_node * & node) {
-	if (node == this->head) {
-		// Move head pointer as basic_list list to delete is the head
-		if (node->get_next() == nullptr) {
-			this->head = nullptr;
-		} else {
-			this->head = this->head->get_next();
-			this->head->get_prev() = nullptr;
-		}
+template <class class_element>
+void basic_list::BasicList<class_element>::remove_element(class_element * & element) {
+
+	std::vector<class_element>::iterator element_it = std::find(this->head.begin(), this->head.end(), element);
+	if (element_it != this->head.end()) {
+		this->head.erase(element_it);
 	} else {
-		if (node->get_prev() != nullptr) {
-			node->get_prev()->get_next() = node->get_next();
-		}
-		if (node->get_next() != nullptr) {
-			node->get_next()->get_prev() = node->get_prev();
-		}
-	}
-
-	std::string pretext ("Destructor");
-	node->print_info(logging::verb_level_e::LOW, pretext);
-	delete node;
-}
-
-template <class class_node>
-void basic_list::BasicList<class_node>::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	class_node * node_ptr = this->head;
-
-	while (node_ptr != nullptr) {
-		node_ptr->print_info(verbosity, pretext);
-		node_ptr = node_ptr->get_next();
+		LOG_ERROR("Node ", element, " has not been found");
 	}
 }
 
-template <class class_node>
-class_node * & basic_list::BasicList<class_node>::get_head() {
+template <class class_element>
+void basic_list::BasicList<class_element>::print_info(logging::verb_level_e verbosity, std::string pretext) {
+
+	for(std::vector<class_element>::iterator element = this->head.begin(); element != this->head.end(); ++element) {
+		element->print_info(verbosity, pretext);
+	}
+}
+
+template <class class_element>
+std::vector<class_element> & basic_list::BasicList<class_element>::get_head() {
 	return this->head;
 }
 
-template <class class_node>
-void basic_list::BasicList<class_node>::set_head(class_node * & new_head) {
+template <class class_element>
+void basic_list::BasicList<class_element>::set_head(std::vector<class_element> & new_head) {
 	this->head = new_head;
 }
 
-template <class class_node>
-void basic_list::BasicList<class_node>::add_node() {
-	LOG_ERROR("add_node function was not implemented in BasicList class. Please code it up in the derived class");
+template <class class_element>
+void basic_list::BasicList<class_element>::add_element() {
+	LOG_ERROR("add_element function was not implemented in BasicList class. Please code it up in the derived class");
 }
 
 #endif // BASIC_LIST_H

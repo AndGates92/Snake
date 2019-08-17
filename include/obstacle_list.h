@@ -21,7 +21,7 @@ namespace obstacle_list {
 	 * @brief ObstacleList class
 	 *
 	 */
-	class ObstacleList : public basic_obj_list::BasicObjList<obstacle::ObstacleNode> {
+	class ObstacleList : public basic_obj_list::BasicObjList<obstacle::Obstacle> {
 		public:
 			// Constructor
 			/**
@@ -31,7 +31,7 @@ namespace obstacle_list {
 			 *
 			 * ObstacleList constructor
 			 */
-			ObstacleList(std::string name_obs = "Obstacle List"): basic_obj_list::BasicObjList<obstacle::ObstacleNode>(name_obs) { LOG_INFO(logging::verb_level_e::LOW, "Contructed") };
+			ObstacleList(std::string name_obs = "Obstacle List"): basic_obj_list::BasicObjList<obstacle::Obstacle>(name_obs) { LOG_INFO(logging::verb_level_e::LOW, "Contructed") };
 
 			/**
 			 * @brief Function: ObstacleList(const ObstacleList& copy)
@@ -40,7 +40,7 @@ namespace obstacle_list {
 			 *
 			 * ObstacleList copy constructor
 			 */
-			ObstacleList(const ObstacleList& copy): basic_obj_list::BasicObjList<obstacle::ObstacleNode>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
+			ObstacleList(const ObstacleList& copy): basic_obj_list::BasicObjList<obstacle::Obstacle>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
 			/**
@@ -51,7 +51,7 @@ namespace obstacle_list {
 			~ObstacleList();
 
 			/**
-			 * @brief Function: void add_node(int centre_x, int centre_y, int obstacle_width, int ovstacle_height, colours::palette_e obstacle_colour)
+			 * @brief Function: void add_element(int centre_x, int centre_y, int obstacle_width, int ovstacle_height, colours::palette_e obstacle_colour)
 			 *
 			 * \param centre_x: x coordinate of the obstacle
 			 * \param centre_y: y coordinate of the obstacle
@@ -61,7 +61,7 @@ namespace obstacle_list {
 			 *
 			 * ObstacleList constructor
 			 */
-			void add_node(int centre_x, int centre_y, int obstacle_width, int obstacle_height, colours::palette_e obstacle_colour);
+			void add_element(int centre_x, int centre_y, int obstacle_width, int obstacle_height, colours::palette_e obstacle_colour);
 
 		protected:
 

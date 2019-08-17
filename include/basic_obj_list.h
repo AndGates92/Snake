@@ -19,8 +19,8 @@ namespace basic_obj_list {
 	 * @brief BasicObjList class
 	 *
 	 */
-	template <class class_node>
-	class BasicObjList : public basic_list::BasicList<class_node> {
+	template <class class_element>
+	class BasicObjList : public basic_list::BasicList<class_element> {
 		public:
 			// Constructor
 			/**
@@ -30,7 +30,7 @@ namespace basic_obj_list {
 			 *
 			 * BasicObjList constructor
 			 */
-			BasicObjList(std::string name_obj = "Unknown"): basic_list::BasicList<class_node>(), name(name_obj) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
+			BasicObjList(std::string name_obj = "Unknown"): basic_list::BasicList<class_element>(), name(name_obj) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
 
 			/**
 			 * @brief Function: BasicObjList(const BasicObjList& copy)
@@ -39,7 +39,7 @@ namespace basic_obj_list {
 			 *
 			 * BasicObjList copy constructor
 			 */
-			BasicObjList(const BasicObjList& copy): basic_list::BasicList<class_node>(copy), name(copy.name) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
+			BasicObjList(const BasicObjList& copy): basic_list::BasicList<class_element>(copy), name(copy.name) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
 			/**
@@ -92,8 +92,8 @@ namespace basic_obj_list {
 }
 /** @} */ // End of BasicObjListGroup group
 
-template <class class_node>
-basic_obj_list::BasicObjList<class_node>::~BasicObjList() {
+template <class class_element>
+basic_obj_list::BasicObjList<class_element>::~BasicObjList() {
 
 	std::string pretext ("Destructor");
 	this->print_info(logging::verb_level_e::LOW, pretext);
@@ -102,19 +102,19 @@ basic_obj_list::BasicObjList<class_node>::~BasicObjList() {
 
 }
 
-template <class class_node>
-std::string basic_obj_list::BasicObjList<class_node>::get_name() {
+template <class class_element>
+std::string basic_obj_list::BasicObjList<class_element>::get_name() {
 	return this->name;
 }
 
-template <class class_node>
-void basic_obj_list::BasicObjList<class_node>::set_name(std::string new_name) {
+template <class class_element>
+void basic_obj_list::BasicObjList<class_element>::set_name(std::string new_name) {
 	this->name = new_name;
 }
 
-template <class class_node> template <typename pixel_type>
-void basic_obj_list::BasicObjList<class_node>::draw(pixel_type * & pixels, const int & win_width, const int & win_height, const int & exp_no) {
-	class_node * basic_obj = this->get_head();
+template <class class_element> template <typename pixel_type>
+void basic_obj_list::BasicObjList<class_element>::draw(pixel_type * & pixels, const int & win_width, const int & win_height, const int & exp_no) {
+	class_element * basic_obj = this->get_head();
 
 	int obj_cnt = 0;
 
