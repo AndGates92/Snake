@@ -96,6 +96,14 @@ namespace window_list {
 			 */
 			void delete_element(window_element::WindowObj * & element);
 
+			/**
+			 * @brief Function: bool window_list::WindowList::does_win_id_match(window_node::WindowObj obj)
+			 *
+			 * \param element: WindowObj to delete
+			 *
+			 * Delete WindowObj element
+			 */
+			bool window_list::WindowList::does_win_id_match(window_node::WindowObj obj);
 		private:
 	};
 }
