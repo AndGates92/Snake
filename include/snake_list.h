@@ -102,6 +102,7 @@ namespace snake_list {
 			 * Detect collision between snake and wall 
 			 */
 			int change_dir(snake_element::SnakeUnit * & snake_element, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir);
+
 			/**
 			 * @brief Function: int adj_snake(snake_element::SnakeUnit * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov)
 			 *
@@ -160,9 +161,22 @@ namespace snake_list {
 			 * \param new_y: y coordinate of the new element to add
 			 * \param dir: direction
 			 *
+			 * \return new unit coodinates are close enough to current snake unit
+			 *
 			 * Look for neightbour
 			 */
 			bool is_neightbour(int curr_x, int curr_y, int new_x, int new_y, snake_utils::direction_e dir);
+
+			/**
+			 * @brief Function: bool insert_snake_unit(snake_unit::SnakeUnit unit)
+			 *
+			 * \param unit: snake unit to process
+			 *
+			 * \return whether a new unit needs to be added at the current location
+			 *
+			 * Look for neightbour
+			 */
+			bool insert_snake_unit(snake_unit::SnakeUnit unit);
 
 		private:
 	};

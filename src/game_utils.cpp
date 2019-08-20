@@ -707,7 +707,7 @@ void game_utils::populate_flags_snake(std::vector<snake_utils::direction_e> & di
 	#endif // HARD_WALL
 
 	if (snake_head.size() > 1) {
-		for(std::vector<snake_unit::SnakeNode>::iterator unit = (this->snake_head.begin()+1); unit != this->head.end(); ++unit) {
+		for(std::vector<snake_unit::SnakeUnit>::iterator unit = (this->snake_head.begin()+1); unit != this->head.end(); ++unit) {
 
 			int snake_unit_x = 0;
 			int snake_unit_width = unit->get_width();
