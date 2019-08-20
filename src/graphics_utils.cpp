@@ -85,20 +85,17 @@ int graphics_utils::win_node_add(std::string window_title, std::string window_ty
 
 void graphics_utils::refresh_window(int value) {
 
-	window_node::WindowNode * head(windows->get_head());
-	window_node::WindowNode * window_node (head);
+	std::vector<window_node::WindowNode> window(windows->get_head());
 
 	// Refresh windows
-	while (window_node != nullptr) {
+	for (auto &&node : window) {
 
-		int curr_win_id = window_node->get_win_id();
+		int curr_win_id = node->get_win_id();
 
 		LOG_INFO(logging::verb_level_e::DEBUG,"[Refresh window] Window ID: current ", curr_win_id);
 
 		glutSetWindow(curr_win_id);
 		glutPostRedisplay();
-
-		window_node = window_node->get_next();
 
 	}
 

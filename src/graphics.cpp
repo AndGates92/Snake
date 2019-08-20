@@ -9,6 +9,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 #include <unistd.h>
 
@@ -120,13 +121,12 @@ void graphics::reshape_cb(int width, int height) {
 void graphics::idle_cb() {
 
 	window_list::WindowList * head_list(graphics_utils::get_window_ptr());
-	window_node::WindowNode * head_node(head_list->get_head());
-	window_node::WindowNode * window_node (head_node);
+	std::vector<window_node::WindowNode> window(head_list->get_head());
 
-	while (window_node != nullptr) {
+	for (auto &&node : window) {
 
-		int curr_win_id = window_node->get_win_id();
-		std::string curr_win_title = window_node->get_win_title();
+		int curr_win_id = node->get_win_id();
+		std::string curr_win_title = node->get_win_title();
 
 		LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Callback] Window ID: ", curr_win_id, " Title: ", curr_win_title);
 
@@ -141,8 +141,6 @@ void graphics::idle_cb() {
 		} else {
 			LOG_ERROR("Unknown window ID: ", curr_win_id, " Title: ", curr_win_title);
 		}
-
-		window_node = window_node->get_next();
 
 	}
 
