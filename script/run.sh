@@ -39,7 +39,7 @@ usage () {
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`]  - >$0 <options>"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`]"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`]       --clean|-c:	delete generated files"
-	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`]       --doc|-d:	generate documentation"
+	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`]       --doc|-d:		generate documentation"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`]       --debug|-g:	dump makefile flags to ${LOGDIR}/${DEBUGLOG}"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`]       --compile|-co:	compile only"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`]       --memleak|-m:	compile and check memory leaks using valgrind" 
@@ -164,7 +164,7 @@ if [ ${compile} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Compile sources with no hard wall"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	(set -x; \
-	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXENOHWLOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENOHWNAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} > ${LOGDIR}/${COMPNOHWLOG})
+	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXENOHWLOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXENOHWNAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} 2> ${LOGDIR}/${COMPNOHWLOG})
 
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Clean by-product"
@@ -193,7 +193,7 @@ if [ ${compile} -eq 1 ]; then
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Compile sources with hard wall"
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	(set -x; \
-	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXEHWLOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXEHWNAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} BEHFLAGS=${BEHFLAGS} > ${LOGDIR}/${COMPHWLOG})
+	 make all LOG_DIR=${LOGDIR} LOGFILENAME=${EXEHWLOG} PROJ_NAME=${PROJNAME} EXE_NAME=${EXEHWNAME} BIN_DIR=${EXEDIR} VERBOSITY=${VERBOSITY} CEXTRAFLAGS=${CEXTRAFLAGS} BEHFLAGS=${BEHFLAGS} 2> ${LOGDIR}/${COMPHWLOG})
 
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] ========================================================================="
 	echo "[`date "+${DATE_FORMAT} ${TIME_FORMAT}"`] Clean by-product"
