@@ -8,6 +8,8 @@
  * @brief Basic List header file
 */
 
+#include <vector>
+
 #include "logging.h"
 
 /** @defgroup BasicListGroup Basic List Doxygen Group
@@ -111,8 +113,8 @@ basic_list::BasicList<class_element>::~BasicList() {
 	std::string pretext ("Destructor");
 	this->print_info(logging::verb_level_e::LOW, pretext);
 
-	for(std::vector<class_element>::iterator element = this->head.begin(); element != this->head.end(); ++element) {
-		element->print_info(verbosity, pretext);
+	for(auto && element : this->head) {
+		element->print_info(logging::verb_level_e::HIGH, pretext);
 		this->head.erase(element);
 	}
 	LOG_INFO(logging::verb_level_e::HIGH, "Basic list destroyed");
@@ -122,7 +124,7 @@ basic_list::BasicList<class_element>::~BasicList() {
 template <class class_element>
 void basic_list::BasicList<class_element>::remove_element(class_element * & element) {
 
-	std::vector<class_element>::iterator element_it = std::find(this->head.begin(), this->head.end(), element);
+	typename std::vector<class_element>::iterator element_it = std::find(this->head.begin(), this->head.end(), element);
 	if (element_it != this->head.end()) {
 		this->head.erase(element_it);
 	} else {
@@ -133,7 +135,7 @@ void basic_list::BasicList<class_element>::remove_element(class_element * & elem
 template <class class_element>
 void basic_list::BasicList<class_element>::print_info(logging::verb_level_e verbosity, std::string pretext) {
 
-	for(std::vector<class_element>::iterator element = this->head.begin(); element != this->head.end(); ++element) {
+	for(auto && element : this->head) {
 		element->print_info(verbosity, pretext);
 	}
 }
