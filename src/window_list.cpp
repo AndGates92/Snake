@@ -23,7 +23,7 @@ using namespace logging;
 using namespace is_matching;
 using namespace window_list;
 using namespace window_obj;
-using namespace window_node;
+using namespace window_obj;
 
 window_list::WindowList::~WindowList() {
 
@@ -36,12 +36,12 @@ window_list::WindowList::~WindowList() {
 
 }
 
-int window_list::WindowList::add_node(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, colours::palette_e background_colour) {
+int window_list::WindowList::add_element(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, colours::palette_e background_colour) {
 
-	window_node::WindowObj * head(this->get_head());
+	window_obj::WindowObj * head(this->get_head());
 
 	LOG_INFO(logging::verb_level_e::LOW, "[Add node] Create node at ", window_x_pos, ", ", window_y_pos, ". Dimensions: width ", window_width, " height ", window_height, ". Title: ", window_title, " Background colour: ", background_colour);
-	window_node::WindowObj * new_window = new window_node::WindowObj(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour);
+	window_obj::WindowObj * new_window = new window_obj::WindowObj(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour);
 	if (new_window == nullptr) {
 		LOG_ERROR("Can't allocate memory for window node");
 	}
@@ -53,7 +53,7 @@ int window_list::WindowList::add_node(std::string window_title, std::string wind
 
 }
 
-bool window_list::WindowList::does_win_id_match(window_node::WindowObj obj) {
+bool window_list::WindowList::does_win_id_match(window_obj::WindowObj obj) {
 	// temporary node
 	int curr_win_id = node->get_win_id();
 
@@ -65,7 +65,7 @@ bool window_list::WindowList::does_win_id_match(window_node::WindowObj obj) {
 
 void window_list::WindowList::delete_by_win_id(int &win_id) {
 
-	std::vector<window_node::WindowObj> head(this->get_head());
+	std::vector<window_obj::WindowObj> head(this->get_head());
 
 	// Delete all nodes with ID equal to win_id
 	std::vector<class_element>::iterator element_it = std::find_if(this->head.begin(), this->head.end(), is_matching::IsMatching(win_id));
@@ -78,10 +78,10 @@ void window_list::WindowList::delete_by_win_id(int &win_id) {
 	LOG_ERROR("Couldn't find window matching window ID ", win_id);
 }
 
-window_node::WindowObj * window_list::WindowList::search_by_win_id(int &win_id) {
+window_obj::WindowObj * window_list::WindowList::search_by_win_id(int &win_id) {
 
-	window_node::WindowObj * head(this->get_head());
-	window_node::WindowObj * window_node (head);
+	window_obj::WindowObj * head(this->get_head());
+	window_obj::WindowObj * window_obj (head);
 
 	// Delete all nodes with ID equal to win_id
 	std::vector<class_element>::iterator element_it = std::find_if(this->head.begin(), this->head.end(), is_matching::IsMatching(win_id));
@@ -89,7 +89,7 @@ window_node::WindowObj * window_list::WindowList::search_by_win_id(int &win_id) 
 		return element_it;
 	} else {
 		LOG_ERROR("Couldn't find window matching window ID ", win_id);
-		window_node::WindowObj * node_err = new window_node::WindowObj("Error");
+		window_obj::WindowObj * node_err = new window_obj::WindowObj("Error");
 		if (node_err == nullptr) {
 			LOG_ERROR("Can't allocate memory for error node");
 		}
@@ -97,7 +97,7 @@ window_node::WindowObj * window_list::WindowList::search_by_win_id(int &win_id) 
 	}
 }
 
-void window_list::WindowList::delete_node(window_node::WindowObj * & node) {
+void window_list::WindowList::delete_node(window_obj::WindowObj * & node) {
 	this->remove_node(node);
 	node->destroy_node();
 }

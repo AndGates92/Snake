@@ -79,7 +79,7 @@ namespace graphics_utils {
 	void delete_win_id(int & id);
 
 	/**
-	 * @brief Function: window_node::WindowNode * search_win_id(int & id)
+	 * @brief Function: window_obj::WindowObj * search_win_id(int & id)
 	 *
 	 * \param id: ID of the window to search
 	 *
@@ -87,7 +87,7 @@ namespace graphics_utils {
 	 *
 	 * Search window with ID provided as input
 	 */
-	window_node::WindowNode * search_win_id(int & id);
+	window_obj::WindowObj * search_win_id(int & id);
 
 	/**
 	 * @brief Function: int win_node_add(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, colours::palette_e background_colour)

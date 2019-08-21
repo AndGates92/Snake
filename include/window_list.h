@@ -8,6 +8,7 @@
  * @brief Window List header file
 */
 
+#include "window_obj.h"
 #include "basic_obj_list.h"
 
 /** @defgroup WindowListGroup Window List Doxygen Group
@@ -19,7 +20,7 @@ namespace window_list {
 	 * @brief WindowList class
 	 *
 	 */
-	class WindowList : public basic_obj_list::BasicObjList<window_element::WindowObj> {
+	class WindowList : public basic_obj_list::BasicObjList<window_obj::WindowObj> {
 		public:
 			// Constructor
 			/**
@@ -29,7 +30,7 @@ namespace window_list {
 			 *
 			 * WindowList constructor
 			 */
-			WindowList(std::string name_win = "Window"): basic_obj_list::BasicObjList<window_element::WindowObj>(name_win) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
+			WindowList(std::string name_win = "Window"): basic_obj_list::BasicObjList<window_obj::WindowObj>(name_win) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
 
 			/**
 			 * @brief Function: WindowList(const WindowList& copy)
@@ -38,7 +39,7 @@ namespace window_list {
 			 *
 			 * WindowList copy constructor
 			 */
-			WindowList(const WindowList& copy): basic_obj_list::BasicObjList<window_element::WindowObj>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
+			WindowList(const WindowList& copy): basic_obj_list::BasicObjList<window_obj::WindowObj>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
 			/**
@@ -66,7 +67,7 @@ namespace window_list {
 			int add_element(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, colours::palette_e background_colour);
 
 			/**
-			 * @brief Function: window_element::WindowObj * search_by_win_id(int &win_id)
+			 * @brief Function: window_obj::WindowObj * search_by_win_id(int &win_id)
 			 *
 			 * \param win_id: Window ID to search for
 			 *
@@ -74,7 +75,7 @@ namespace window_list {
 			 *
 			 * Find WindowObj matching ID win_id
 			 */
-			window_element::WindowObj * search_by_win_id(int &win_id);
+			window_obj::WindowObj * search_by_win_id(int &win_id);
 
 			/**
 			 * @brief Function: void delete_by_win_id(int &win_id)
@@ -88,22 +89,22 @@ namespace window_list {
 		protected:
 
 			/**
-			 * @brief Function: void delete_element(window_element::WindowObj * & element)
+			 * @brief Function: void delete_element(window_obj::WindowObj * & element)
 			 *
 			 * \param element: WindowObj to delete
 			 *
 			 * Delete WindowObj element
 			 */
-			void delete_element(window_element::WindowObj * & element);
+			void delete_element(window_obj::WindowObj * & element);
 
 			/**
-			 * @brief Function: bool window_list::WindowList::does_win_id_match(window_node::WindowObj obj)
+			 * @brief Function: bool does_win_id_match(window_obj::WindowObj obj)
 			 *
 			 * \param element: WindowObj to delete
 			 *
 			 * Delete WindowObj element
 			 */
-			bool window_list::WindowList::does_win_id_match(window_node::WindowObj obj);
+			bool does_win_id_match(window_obj::WindowObj obj);
 		private:
 	};
 }

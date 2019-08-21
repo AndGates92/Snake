@@ -41,18 +41,3 @@ snake_utils::direction_e snake_direction::SnakeDirection::get_direction() {
 void snake_direction::SnakeDirection::set_direction(snake_utils::direction_e new_direction) {
 	this->direction = new_direction;
 }
-
-// ================================================================
-// Snake Node
-// ================================================================
-snake_direction::SnakeDirectionNode::~SnakeDirectionNode() {
-	std::string pretext ("Destructor");
-	this->print_info(logging::verb_level_e::LOW, pretext);
-}
-
-void snake_direction::SnakeDirectionNode::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	SnakeDirection::print_info(verbosity, pretext);
-	std::string name_pretext(pretext);
-	basic_obj_node::BasicObjNode<SnakeDirectionNode>::print_info(verbosity, name_pretext);
-}
-

@@ -8,6 +8,7 @@
  * @brief Snake direction class header file
 */
 
+#include "logging.h"
 #include "snake_utils.h"
 
 /** @defgroup SnakeDirectionGroup Snake Direction Doxygen Group
@@ -105,56 +106,6 @@ namespace snake_direction {
 		protected:
 	};
 
-	/**
-	 * @brief SnakeDirectionNode class
-	 *
-	 */
-	class SnakeDirectionNode : public basic_obj_node::BasicObjNode<SnakeDirectionNode>, public SnakeDirection {
-		public:
-			// Constructor
-			/**
-			 * @brief Function: SnakeDirectionNode(snake_utils::direction_e snake_direction = snake_direction::init_direction)
-			 *
-			 * \param snake_direction: direction of the snake node
-			 *
-			 * SnakeDirectionNode constructor
-			 */
-			SnakeDirectionNode(snake_utils::direction_e snake_direction = snake_direction::init_direction): basic_obj_node::BasicObjNode<SnakeDirectionNode>(), SnakeDirection(snake_direction) {
-				std::string pretext ("Snake Direction Node Constructor");
-				snake_direction::SnakeDirectionNode::print_info(logging::verb_level_e::LOW, pretext);
-			};
-
-			/**
-			 * @brief Function: SnakeDirectionNode(const SnakeDirectionNode& copy)
-			 *
-			 * \param copy: SnakeDirectionNode to copy
-			 *
-			 * SnakeDirectionNode copy constructor
-			 */
-			SnakeDirectionNode(const SnakeDirectionNode& copy) : basic_obj_node::BasicObjNode<SnakeDirectionNode>(copy), SnakeDirection(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
-
-			// Destructor
-			/**
-			 * @brief Function: ~SnakeDirectionNode()
-			 *
-			 * Destructor of SnakeDirectionNode
-			 */
-			~SnakeDirectionNode();
-
-			/**
-			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)
-			 *
-			 * \param verbosity: verbosity level
-			 * \param pretext: text to prepend to the SnakeDirectionNode information
-			 *
-			 * Print SnakeDirectionNode information
-			 */
-			void print_info(logging::verb_level_e verbosity, std::string pretext);
-
-		protected:
-
-		private:
-	};
 }
 /** @} */ // End of SnakeDirectionGroup group
 #endif // SNAKE_DIRECTION_H

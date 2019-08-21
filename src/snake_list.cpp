@@ -36,9 +36,9 @@ snake_list::SnakeList::~SnakeList() {
 }
 
 bool snake_list::SnakeList::insert_snake_unit (snake_unit::SnakeUnit unit) {
-	int curr_x = unit->get_x_centre();
-	int curr_y = unit->get_y_centre();
-	snake_utils::direction_e curr_snake_dir = unit->get_direction();
+	int curr_x = unit.get_x_centre();
+	int curr_y = unit.get_y_centre();
+	snake_utils::direction_e curr_snake_dir = unit.get_direction();
 
 	bool found = false;
 
@@ -60,7 +60,7 @@ bool snake_list::SnakeList::insert_snake_unit (snake_unit::SnakeUnit unit) {
 
 
 // Add nodes from the head down
-void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour) {
+void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour) {
 
 	std::vector<snake_unit::SnakeUnit> snake_vector (this->get_head());
 	std::string name = this->get_name();
@@ -75,10 +75,10 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 		snake_unit::SnakeUnit snake_found();
 		snake_unit::SnakeUnit snake_prev();
 
-		int width_head = head->get_width();
+		int width_head = snake_vector.get_width();
 		ASSERT(width_head == snake_width)
 
-		int height_head = head->get_height();
+		int height_head = snake_vector.get_height();
 		ASSERT(height_head == snake_height)
 
 
@@ -98,19 +98,19 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 		bool head_matches = (snake_prev == snake_vector.cbegin());
 
 		if ((head_matches == true) && (found == true)) {
-			snake_vector->insert(new_snake,0);
+			snake_vector.insert(new_snake,0);
 		} else {
 
-			int width_found = snake_found->get_width();
+			int width_found = snake_found.get_width();
 			ASSERT(width_found == snake_width)
 
-			int height_found = snake_found->get_height();
+			int height_found = snake_found.get_height();
 			ASSERT(height_found == snake_height)
 
-			snake_utils::direction_e direction_found = snake_found->get_direction();
+			snake_utils::direction_e direction_found = snake_found.get_direction();
 
-			int x_centre_found = snake_found->get_x_centre();
-			int y_centre_found = snake_found->get_y_centre();
+			int x_centre_found = snake_found.get_x_centre();
+			int y_centre_found = snake_found.get_y_centre();
 
 			int hdistance_units = 0;
 			int hdistance_measured = 0;
@@ -138,10 +138,10 @@ void snake_list::SnakeList::add_node(int centre_x, int centre_y, int snake_width
 			}
 
 			// Insert new snake unit
-			snake_vector->insert(new_snake,(snake_found - snake_vector.begin);
+			snake_vector.insert(new_snake,(snake_found - snake_vector.begin);
 		}
 	} else {
-		snake_vector->insert(new_snake,0);
+		snake_vector.insert(new_snake,0);
 	}
 
 }
@@ -173,17 +173,19 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 
 	std::vector<snake_unit::SnakeUnit> snake_vector (this->get_head());
 
-	snake_utils::direction_e direction_prev = head_dir;
-	int x_centre_prev = head->get_x_centre();
-	int y_centre_prev = head->get_y_centre();
-	int height_prev = head->get_height();
-	int width_prev = head->get_width();
+	snake_unit::SnakeUnit snake_head (snake_vector.at(0));
 
-	snake_utils::direction_e direction_curr = head->get_direction();
-	int x_centre_curr = head->get_x_centre();
-	int y_centre_curr = head->get_y_centre();
-	int height_curr = head->get_height();
-	int width_curr = head->get_width();
+	snake_utils::direction_e direction_prev = head_dir;
+	int x_centre_prev = snake_head.get_x_centre();
+	int y_centre_prev = snake_head.get_y_centre();
+	int height_prev = snake_head.get_height();
+	int width_prev = snake_head.get_width();
+
+	snake_utils::direction_e direction_curr = snake_head.get_direction();
+	int x_centre_curr = snake_head.get_x_centre();
+	int y_centre_curr = snake_head.get_y_centre();
+	int height_curr = snake_head.get_height();
+	int width_curr = snake_head.get_width();
 
 
 	snake_settings.set_head_centre_x(x_centre_curr);
@@ -195,17 +197,17 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 	for(auto && snake_el : snake_vector) {
 
 		// Store values of current element before updating its position and direction
-		direction_curr = snake_el->get_direction();
-		x_centre_curr = snake_el->get_x_centre();
-		y_centre_curr = snake_el->get_y_centre();
-		height_curr = snake_el->get_height();
-		width_curr = snake_el->get_width();
+		direction_curr = snake_el.get_direction();
+		x_centre_curr = snake_el.get_x_centre();
+		y_centre_curr = snake_el.get_y_centre();
+		height_curr = snake_el.get_height();
+		width_curr = snake_el.get_width();
 
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Current Unit: X ", x_centre_curr, " Y ", y_centre_curr, " Direction ", direction_curr);
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Previous Unit: X ", x_centre_prev, " Y ", y_centre_prev, " Direction ", direction_prev);
 
 		if (direction_prev != direction_curr) {
-			if (snake_el != head) {
+			if (snake_el != snake_head) {
 				int sign = 0;
 				// UP
 				if ((direction_prev == snake_utils::direction_e::UP) || (direction_prev == snake_utils::direction_e::RIGHT)) {
@@ -248,22 +250,22 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 					// - Y is adjusted to keep distance between centre constant
 					int centre_adj = snake_list::SnakeList::change_dir(snake_el, win_height, height_curr, height_prev, y_centre_curr, y_centre_prev, sign, direction_prev);
 					LOG_INFO(logging::verb_level_e::HIGH, "[Snake List Move] Change drection to ", direction_prev, " New coordinates X ", x_centre_prev, " Y ", centre_adj);
-					snake_el->set_x_centre(x_centre_prev);
-					snake_el->set_y_centre(centre_adj);
+					snake_el.set_x_centre(x_centre_prev);
+					snake_el.set_y_centre(centre_adj);
 				} else if (((direction_curr == snake_utils::direction_e::UP) || (direction_curr == snake_utils::direction_e::DOWN)) && ((int) abs(y_centre_prev - y_centre_curr) < speed)) {
 					// Unit moving vertically:
 					// - Y is force to aligned (set previous unit Y coordinate)
 					// - X is adjusted to keep distance between centre constant
 					int centre_adj = snake_list::SnakeList::change_dir(snake_el, win_width, width_curr, width_prev, x_centre_curr, x_centre_prev, sign, direction_prev);
 					LOG_INFO(logging::verb_level_e::HIGH, "[Snake List Move] Change drection to ", direction_prev, " New coordinates X ", centre_adj, " Y ", y_centre_prev);
-					snake_el->set_x_centre(centre_adj);
-					snake_el->set_y_centre(y_centre_prev);
+					snake_el.set_x_centre(centre_adj);
+					snake_el.set_y_centre(y_centre_prev);
 				}
 			} else {
-				snake_utils::direction_e direction_next = std::next(snake_el,1)->get_direction();
+				snake_utils::direction_e direction_next = std::next(snake_el,1).get_direction();
 				// If head and second unit have the same direction, the head can change again
 				if (direction_next == direction_curr) {
-					snake_el->set_direction(direction_prev);
+					snake_el.set_direction(direction_prev);
 				}
 			}
 		} else {
@@ -276,7 +278,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 				adjustment = snake_list::SnakeList::adj_snake(snake_el, height_curr, height_prev, y_centre_curr, y_centre_prev, x_centre_curr, x_centre_prev, speed, snake_utils::direction_e::LEFT, snake_utils::direction_e::RIGHT, direction_curr, win_height);
 			}
 
-			if ((adjustment == 0) || (snake_el == head)) {
+			if ((adjustment == 0) || (snake_el == snake_head)) {
 				speed_int = speed;
 			} else {
 				if (adjustment <= speed) {
@@ -288,7 +290,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 
 		}
 
-		snake_el->move(speed_int, win_width, win_height);
+		snake_el.move(speed_int, win_width, win_height);
 
 		// Store values of previous element before updating its position and direction
 		direction_prev = direction_curr;
@@ -300,7 +302,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 	}
 }
 
-int snake_list::SnakeList::change_dir(snake_unit::SnakeUnit * & snake_el, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir) {
+int snake_list::SnakeList::change_dir(snake_unit::SnakeUnit & snake_el, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir) {
 	// Distance between centres
 	int centre_distance = ((curr_dim + prev_dim)/2);
 	int curr_distance = compute_centre_distance(curr_coord_mov_dir, prev_coord_mov_dir, win_dim, centre_distance);
@@ -318,13 +320,13 @@ int snake_list::SnakeList::change_dir(snake_unit::SnakeUnit * & snake_el, int wi
 
 	ASSERT(adj_distance == centre_distance);
 
-	snake_el->set_direction(prev_dir);
+	snake_el.set_direction(prev_dir);
 
 	return centre_adj;
 }
 
-int snake_list::SnakeList::adj_snake(snake_unit::SnakeUnit * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov) {
-	snake_unit::SnakeUnit * head (this->get_head());
+int snake_list::SnakeList::adj_snake(snake_unit::SnakeUnit & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov) {
+	std::vector<snake_unit::SnakeUnit> snake_vector (this->get_head());
 	int centre_distance = ((curr_dim + prev_dim)/2);
 	int adjustment = 0;
 	// Coordinate that must be aligned when moving
@@ -339,9 +341,9 @@ int snake_list::SnakeList::adj_snake(snake_unit::SnakeUnit * & snake_el, int cur
 		}
 		// Change direction to align with previous unit
 		if (curr_coord_perp_dir > prev_coord_perp_dir) {
-			snake_el->set_direction(dir1);
+			snake_el.set_direction(dir1);
 		} else {
-			snake_el->set_direction(dir2);
+			snake_el.set_direction(dir2);
 		}
 		ASSERT(adjustment >= 0);
 	} else {
@@ -362,7 +364,7 @@ int snake_list::SnakeList::adj_snake(snake_unit::SnakeUnit * & snake_el, int cur
 		}
 		adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - adj_prev_coord_mov_dir));
 		// For head adjustment is equal to centre_distance because curr and prev coord are identicals
-		if (snake_el != head) {
+		if (snake_el != snake_vector.begin()) {
 			ASSERT(adjustment == 0);
 		}
 
@@ -396,10 +398,10 @@ void snake_list::SnakeList::check_wall_collision(const int & win_width, const in
 
 	for(auto && snake_el : snake) {
 
-		int x_centre = snake_el->get_x_centre();
-		int y_centre = snake_el->get_y_centre();
-		int height = snake_el->get_height();
-		int width = snake_el->get_width();
+		int x_centre = snake_el.get_x_centre();
+		int y_centre = snake_el.get_y_centre();
+		int height = snake_el.get_height();
+		int width = snake_el.get_width();
 
 		int coord = 0;
 
@@ -434,11 +436,11 @@ void snake_list::SnakeList::check_snake_collision() {
 
 	for(std::vector<snake_unit::SnakeUnit>::iterator unit1 = snake_vector.begin(); unit1 != snake_vector.end(); ++unit1) {
 
-		snake_utils::direction_e direction1 = unit1->get_direction();
-		int x_centre1 = unit1->get_x_centre();
-		int y_centre1 = unit1->get_y_centre();
-		int height1 = unit1->get_height();
-		int width1 = unit1->get_width();
+		snake_utils::direction_e direction1 = unit1.get_direction();
+		int x_centre1 = unit1.get_x_centre();
+		int y_centre1 = unit1.get_y_centre();
+		int height1 = unit1.get_height();
+		int width1 = unit1.get_width();
 
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Check Collision] Current Unit: X ", x_centre1, " Y ", y_centre1, " Height ", height1, " Width ", width1);
 		if (unit1 == (snake_vector.back()-1)) {
@@ -447,10 +449,10 @@ void snake_list::SnakeList::check_snake_collision() {
 			// When the direction changes, the centres of consecutive snake units may be closer than the expected distance
 			for(std::vector<snake_unit::SnakeUnit>::iterator unit2 = std::next(unit1,2); unit2 != snake_vector.end(); ++unit2) {
 				// Store values of current element before updating its position and direction
-				int x_centre2 = unit2->get_x_centre();
-				int y_centre2 = unite2->get_y_centre();
-				int height2 = unit2->get_height();
-				int width2 = unit2->get_width();
+				int x_centre2 = unit2.get_x_centre();
+				int y_centre2 = unite2.get_y_centre();
+				int height2 = unit2.get_height();
+				int width2 = unit2.get_width();
 
 				LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Check Collision] Previous Unit: X ", x_centre2, " Y ", y_centre2, " Height ", height2, " Width ", width2);
 

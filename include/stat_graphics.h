@@ -121,7 +121,7 @@ stat_pixel_type * stat_graphics::get_stat_pixel_array (int & win_width, int & wi
 	int win_id = 0;
 	win_id = glutGetWindow();
 
-	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
+	window_obj::WindowObj * node (graphics_utils::search_win_id(win_id));
 	colours::palette_e background_colour = node->get_colour_bg();
 
 	stat_pixel_type * colour = colours::get_pixel_colour<stat_pixel_type> (background_colour);

@@ -32,7 +32,7 @@ obstacle_list::ObstacleList::~ObstacleList() {
 
 }
 
-void obstacle_list::ObstacleList::add_node(int centre_x, int centre_y, int obstacle_width, int obstacle_height, colours::palette_e obstacle_colour) {
+void obstacle_list::ObstacleList::add_element(int centre_x, int centre_y, int obstacle_width, int obstacle_height, colours::palette_e obstacle_colour) {
 
 	std::string name = this->get_name();
 	obstacle::Obstacle * head = this->get_head();

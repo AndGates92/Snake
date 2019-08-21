@@ -10,6 +10,7 @@
 
 #include "basic_obj_list.h"
 #include "snake_utils.h"
+#include "snake_unit.h"
 #include "colours.h"
 
 /** @defgroup SnakeListGroup Snake List Doxygen Group
@@ -21,7 +22,7 @@ namespace snake_list {
 	 * @brief SnakeList class
 	 *
 	 */
-	class SnakeList : public basic_obj_list::BasicObjList<snake_element::SnakeUnit> {
+	class SnakeList : public basic_obj_list::BasicObjList<snake_unit::SnakeUnit> {
 		public:
 			// Constructor
 			/**
@@ -31,7 +32,7 @@ namespace snake_list {
 			 *
 			 * SnakeList constructor
 			 */
-			SnakeList(std::string name_snake = "Snake"): basic_obj_list::BasicObjList<snake_element::SnakeUnit>(name_snake) { LOG_INFO(logging::verb_level_e::LOW, "Contructor") };
+			SnakeList(std::string name_snake = "Snake"): basic_obj_list::BasicObjList<snake_unit::SnakeUnit>(name_snake) { LOG_INFO(logging::verb_level_e::LOW, "Contructor") };
 
 			/**
 			 * @brief Function: SnakeList(const SnakeList& copy)
@@ -40,7 +41,7 @@ namespace snake_list {
 			 *
 			 * SnakeList copy constructor
 			 */
-			SnakeList(const SnakeList& copy): basic_obj_list::BasicObjList<snake_element::SnakeUnit>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
+			SnakeList(const SnakeList& copy): basic_obj_list::BasicObjList<snake_unit::SnakeUnit>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
 
 			// Destructor
 			/**
@@ -66,7 +67,7 @@ namespace snake_list {
 			 * @brief Function: void add_element(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour)
 			 *
 			 * \param centre_x: x coordinate of the snake element
-			 * \param centre_y: y coordinate of the snake_element 
+			 * \param centre_y: y coordinate of the snake_unit 
 			 * \param snake_width: width of the snake element
 			 * \param snake_height: height of the snake element
 			 * \param snake_direction: direction of the snake element
@@ -88,9 +89,9 @@ namespace snake_list {
 
 		protected:
 			/**
-			 * @brief Function: int change_dir(snake_element::SnakeUnit * & snake_element, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir)
+			 * @brief Function: int change_dir(snake_unit::SnakeUnit * & snake_unit, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir)
 			 *
-			 * \param snake_element: snake element to adjust
+			 * \param snake_unit: snake element to adjust
 			 * \param win_dim: window dimension perpendicular the direction of movement of the current element
 			 * \param curr_dim: current element dimension
 			 * \param prev_dim: previous element dimension
@@ -101,10 +102,10 @@ namespace snake_list {
 			 *
 			 * Detect collision between snake and wall 
 			 */
-			int change_dir(snake_element::SnakeUnit * & snake_element, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir);
+			int change_dir(snake_unit::SnakeUnit * & snake_unit, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir);
 
 			/**
-			 * @brief Function: int adj_snake(snake_element::SnakeUnit * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov)
+			 * @brief Function: int adj_snake(snake_unit::SnakeUnit * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov)
 			 *
 			 * \param snake_el: snake element to adjust
 			 * \param curr_dim: current element dimension
@@ -121,7 +122,7 @@ namespace snake_list {
 			 *
 			 * Adjust snake unit coordinate to ensure snake units are always aligned
 			 */
-			int adj_snake(snake_element::SnakeUnit * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov);
+			int adj_snake(snake_unit::SnakeUnit * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov);
 			/**
 			 * @brief Function: int compute_centre_distance(int coord1, int coord2, int win_dim, int exp_distance)
 			 *

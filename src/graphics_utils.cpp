@@ -55,7 +55,7 @@ void graphics_utils::delete_win_id(int& win_id) {
 }
 
 // Search window having the ID passed as input
-window_node::WindowNode * graphics_utils::search_win_id(int& win_id) {
+window_obj::WindowObj * graphics_utils::search_win_id(int& win_id) {
 	return windows->search_by_win_id(win_id);
 }
 
@@ -79,13 +79,13 @@ window_list::WindowList * & graphics_utils::get_window_ptr() {
 
 // Create new window
 int graphics_utils::win_node_add(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, colours::palette_e background_colour) {
-	int win_id = windows->add_node(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour);
+	int win_id = windows->add_element(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour);
 	return win_id;
 }
 
 void graphics_utils::refresh_window(int value) {
 
-	std::vector<window_node::WindowNode> window(windows->get_head());
+	std::vector<window_obj::WindowObj> window(windows->get_head());
 
 	// Refresh windows
 	for (auto && node : window) {
@@ -109,7 +109,7 @@ void graphics_utils::save_window(iofile::File & savefile) {
 
 	int win_node_cnt = 0;
 
-	std::vector<window_node::WindowNode> win_vector(windows->get_head());
+	std::vector<window_obj::WindowObj> win_vector(windows->get_head());
 
 	for (auto && curr_win_node : win_vector) {
 		savefile.write_ofile("//******************************\n");

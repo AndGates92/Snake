@@ -470,7 +470,7 @@ game_pixel_type * game_utils::get_game_pixel_array (int & win_width, int & win_h
 
 	int win_id = glutGetWindow();
 
-	window_node::WindowNode * node (graphics_utils::search_win_id(win_id));
+	window_obj::WindowObj * node (graphics_utils::search_win_id(win_id));
 	colours::palette_e background_colour = node->get_colour_bg();
 
 	game_pixel_type * colour = colours::get_pixel_colour<game_pixel_type> (background_colour);
@@ -502,8 +502,10 @@ template <typename game_pixel_type>
 void game_utils::draw_snake(game_pixel_type * & pixels, int & win_width, int & win_height) {
 
 	int snake_units = snake_settings.get_snake_units();
-	snake_list::SnakeList * snake_ptr (game_utils::get_snake_ptr());
-	snake_ptr->draw<game_pixel_type>(pixels, win_width, win_height, snake_units);
+	std::vector<snake_unit::SnakeUnit> snake_vector (game_utils::get_snake_ptr());
+	for (auto && snake_ptr : snake_vector) {
+		snake_ptr.draw<game_pixel_type>(pixels, win_width, win_height, snake_units);
+	}
 
 }
 
@@ -511,8 +513,10 @@ template <typename game_pixel_type>
 void game_utils::draw_obstacles(game_pixel_type * & pixels, int & win_width, int & win_height) {
 
 	int obs_no = snake_settings.get_obs_no();
-	obstacle_list::ObstacleList * obs_ptr(game_utils::get_obstacle_ptr());
-	obs_ptr->draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
+	std::vector<obstacle_list::ObstacleList> obs_vector(game_utils::get_obstacle_ptr());
+	for (auto && obs_ptr : obs_vector) {
+		obs_ptr.draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
+	}
 
 }
 #endif // GAME_UTILS_H

@@ -109,9 +109,9 @@ void game_utils::populate_snake_list() {
 	for (int unit_no=0; unit_no < snake_units; unit_no++) {
 
 		game_utils::add_snake_unit(centre_x, centre_y, node_width, node_height, snake_head_dir, colour);
-		//game_utils::snake->add_node(centre_x, centre_y, game_utils::node_width, game_utils::node_height, game_utils::init_head_dir, (colours::palette_e) unit_no);
+		//game_utils::snake->add_element(centre_x, centre_y, game_utils::node_width, game_utils::node_height, game_utils::init_head_dir, (colours::palette_e) unit_no);
 		centre_x += node_width;
-		//game_utils::snake->add_node(centre_x, centre_y, game_utils::node_width, game_utils::node_height, game_utils::init_head_dir, colours::palette_e::RED);
+		//game_utils::snake->add_element(centre_x, centre_y, game_utils::node_width, game_utils::node_height, game_utils::init_head_dir, colours::palette_e::RED);
 		//centre_y += game_utils::node_height;
 
 	}
@@ -135,11 +135,11 @@ void game_utils::set_snake_settings() {
 }
 
 void game_utils::add_snake_node (int centre_x, int centre_y, int node_width, int node_height, snake_utils::direction_e dir, colours::palette_e colour) {
-	game_utils::snake->add_node(centre_x, centre_y, node_width, node_height, dir, colour);
+	game_utils::snake->add_element(centre_x, centre_y, node_width, node_height, dir, colour);
 }
 
 void game_utils::add_obs_node (int centre_x, int centre_y, int node_width, int node_height, colours::palette_e colour) {
-	game_utils::obstacles->add_node(centre_x, centre_y, node_width, node_height, colour);
+	game_utils::obstacles->add_element(centre_x, centre_y, node_width, node_height, colour);
 }
 
 void game_utils::populate_obstacle_list() {
@@ -242,7 +242,7 @@ void game_utils::add_obstacle() {
 	// Random coordinates must be within node_height/2 and (win_height-node_height/2)
 	int centre_y = (rand() % (win_height_int - node_height)) + node_height/2;
 
-	//game_utils::obstacles->add_node(centre_x, centre_y, game_utils::node_width, game_utils::node_height, colours::palette_e::PURPLE);
+	//game_utils::obstacles->add_element(centre_x, centre_y, game_utils::node_width, game_utils::node_height, colours::palette_e::PURPLE);
 	game_utils::add_obs_node(centre_x, centre_y, node_width, node_height, colour);
 }
 
