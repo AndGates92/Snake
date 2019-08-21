@@ -208,6 +208,12 @@ bool cmdline_parser::detect_comment_line(std::string line) {
 
 void cmdline_parser::decode_line(std::string line, std::string & var_name, std::string & var_value) {
 
+/*	std::istreamstring iss_line(line);
+	std::vector<std::string> words(std::stream_iterator<std::string>{iss_line}, std::stream_iterator<std::string>());
+	// First word is the variable name
+	var_name = words.at(0);
+	// Second word is the variable value
+	var_value = words.at(1);*/
 	// Not a comment
 	// Start at the start of the line (position 1)
 	std::string::size_type var_name_start = 1;
@@ -217,6 +223,7 @@ void cmdline_parser::decode_line(std::string line, std::string & var_name, std::
 
 	cmdline_parser::delete_special_characters(var_name);
 
+	// Move to next character
 	std::string::size_type var_value_start = var_name_end + 1;
 	std::string::size_type var_value_end = 0;
 

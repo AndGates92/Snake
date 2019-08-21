@@ -109,9 +109,9 @@ void graphics_utils::save_window(iofile::File & savefile) {
 
 	int win_node_cnt = 0;
 
-	window_node::WindowNode * curr_win_node(windows->get_head());
+	std::vector<window_node::WindowNode> win_vector(windows->get_head());
 
-	while (curr_win_node != nullptr) {
+	for (auto &&curr_win_node : win_vector) {
 		savefile.write_ofile("//******************************\n");
 		savefile.write_ofile("// Window ", win_node_cnt, "\n");
 		savefile.write_ofile("//******************************\n");
@@ -120,7 +120,6 @@ void graphics_utils::save_window(iofile::File & savefile) {
 		savefile.write_ofile("\n");
 
 		// Save temporary obstacle
-		curr_win_node = curr_win_node->get_next();
 		win_node_cnt++;
 	}
 

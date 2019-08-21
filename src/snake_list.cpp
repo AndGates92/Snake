@@ -288,10 +288,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 
 		}
 
-
 		snake_el->move(speed_int, win_width, win_height);
-
-		snake_el = snake_el->get_next();
 
 		// Store values of previous element before updating its position and direction
 		direction_prev = direction_curr;
