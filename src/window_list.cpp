@@ -9,7 +9,6 @@
 #include <iostream>
 
 #include "window_list.h"
-#include "window_node.h"
 #include "window_obj.h"
 #include "logging.h"
 #include "colours.h"

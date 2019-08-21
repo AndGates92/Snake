@@ -12,7 +12,6 @@
 #include "logging.h"
 #include "graphics_utils.h"
 #include "basic_object.h"
-#include "basic_obj_node.h"
 
 using namespace std;
 using namespace obstacle;

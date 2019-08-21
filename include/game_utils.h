@@ -11,7 +11,6 @@
 #include <vector>
 
 #include "graphics_utils.h"
-#include "window_node.h"
 #include "snake_list.h"
 #include "obstacle_list.h"
 #include "settings.h"

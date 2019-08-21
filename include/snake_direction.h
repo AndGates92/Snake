@@ -8,7 +8,6 @@
  * @brief Snake direction class header file
 */
 
-#include "basic_obj_node.h"
 #include "snake_utils.h"
 
 /** @defgroup SnakeDirectionGroup Snake Direction Doxygen Group

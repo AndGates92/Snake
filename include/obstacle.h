@@ -10,7 +10,6 @@
 
 #include "colours.h"
 #include "basic_object.h"
-#include "basic_obj_node.h"
 
 /** @defgroup ObstacleGroup Obstacle Doxygen Group
  *  Obstacle functions and classes

@@ -12,7 +12,6 @@
 #include "logging.h"
 #include "settings.h"
 #include "graphics_utils.h"
-#include "window_node.h"
 
 // include graphical libraries (OPENGL)
 #include <GL/glut.h>
