@@ -153,32 +153,6 @@ namespace snake_list {
 			void check_wall_collision(const int & win_width, const int & win_height);
 			#endif // HARD_WALL
 
-			/**
-			 * @brief Function: bool is_neightbour(int curr_x, int curr_y, int new_x, int new_y, snake_utils::direction_e dir)
-			 *
-			 * \param curr_x: current x coordinate
-			 * \param curr_y: current y coordinate
-			 * \param new_x: x coordinate of the new element to add
-			 * \param new_y: y coordinate of the new element to add
-			 * \param dir: direction
-			 *
-			 * \return new unit coodinates are close enough to current snake unit
-			 *
-			 * Look for neightbour
-			 */
-			bool is_neightbour(int curr_x, int curr_y, int new_x, int new_y, snake_utils::direction_e dir);
-
-			/**
-			 * @brief Function: bool insert_snake_unit(snake_unit::SnakeUnit unit)
-			 *
-			 * \param unit: snake unit to process
-			 *
-			 * \return whether a new unit needs to be added at the current location
-			 *
-			 * Look for neightbour
-			 */
-			bool insert_snake_unit(snake_unit::SnakeUnit unit);
-
 		private:
 	};
 }

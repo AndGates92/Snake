@@ -8,6 +8,8 @@
 
 #include <iostream>
 #include <cmath>
+#include <vector>
+#include <algorithm>
 
 #include "colours.h"
 #include "settings.h"
@@ -16,6 +18,7 @@
 #include "snake_list.h"
 #include "snake_unit.h"
 #include "logging.h"
+#include "insert_snake_unit.h"
 
 using namespace std;
 using namespace logging;
@@ -35,30 +38,6 @@ snake_list::SnakeList::~SnakeList() {
 
 }
 
-bool snake_list::SnakeList::insert_snake_unit (snake_unit::SnakeUnit unit) {
-	int curr_x = unit.get_x_centre();
-	int curr_y = unit.get_y_centre();
-	snake_utils::direction_e curr_snake_dir = unit.get_direction();
-
-	bool found = false;
-
-	bool found_neightbour_same_dir = this->is_neightbour(curr_x, curr_y, centre_x, centre_y, snake_direction);
-	bool found_neightbour_diff_dir = this->is_neightbour(curr_x, curr_y, centre_x, centre_y, curr_snake_dir);
-
-	if (curr_snake_dir == snake_direction) {
-		if (found_neightbour_same_dir == true) {
-			found = true;
-		}
-	} else {
-		if ((found_neightbour_same_dir == true) || (found_neightbour_diff_dir == true)) {
-			found = true;
-		}
-	}
-
-	return found;
-}
-
-
 // Add nodes from the head down
 void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour) {
 
@@ -71,33 +50,40 @@ void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_wi
 		LOG_ERROR("Can't allocate memory for snake node Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
 	}
 
+	// Check whether snake_vector is empty
 	if(snake_vector.size() > 0) {
-		snake_unit::SnakeUnit snake_found();
-		snake_unit::SnakeUnit snake_prev();
+		std::vector<snake_unit::SnakeUnit>::iterator snake_found();
+		std::vector<snake_unit::SnakeUnit>::iterator snake_prev();
+		std::vector<snake_unit::SnakeUnit>::iterator snake_head_it(snake_vector.begin());
+		std::vector<snake_unit::SnakeUnit>::iterator snake_tail(snake_vector.end());
 
-		int width_head = snake_vector.get_width();
+		snake_unit::SnakeUnit snake_head(snake_vector.front());
+
+		int width_head = snake_head.get_width();
 		ASSERT(width_head == snake_width)
 
-		int height_head = snake_vector.get_height();
+		int height_head = snake_head.get_height();
 		ASSERT(height_head == snake_height)
 
+		bool head_found = false;
 
-		std::vector<class_element>::iterator element_it = std::find_if(this->snake_vector.begin(), this->snake_vector.end(), snake_list::SnakeList::insert_snake_unit);
-		if (element_it != this->head.end()) {
-			found = true;
-			if (snake_prev != snake_vector.cbegin()) {
+		std::vector<snake_unit::SnakeUnit>::iterator element_it = std::find_if(snake_vector.begin(), snake_vector.end(), insert_snake_unit::InsertSnakeUnit<snake_utils::direction_e,snake_unit::SnakeUnit>(centre_x, centre_y, snake_direction));
+		snake_prev = element_it;
+
+		if (element_it != snake_tail) {
+			if (element_it != snake_head_it) {
+				head_found = false;
 				snake_found = std::back(element_it, 1);
 			} else {
+				head_found = true;
 				// Set snake_found to the last element as snake_found will be appended at the end of the list
 				snake_found = element_it;
 			}
 		} else {
-			found = false;
+			head_found = false;
 		}
-		snake_prev = element_it;
-		bool head_matches = (snake_prev == snake_vector.cbegin());
 
-		if ((head_matches == true) && (found == true)) {
+		if (found == true) {
 			snake_vector.insert(new_snake,0);
 		} else {
 
@@ -138,7 +124,7 @@ void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_wi
 			}
 
 			// Insert new snake unit
-			snake_vector.insert(new_snake,(snake_found - snake_vector.begin);
+			snake_vector.insert(new_snake,(snake_found - snake_vector.begin()));
 		}
 	} else {
 		snake_vector.insert(new_snake,0);
@@ -146,34 +132,12 @@ void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_wi
 
 }
 
-bool snake_list::SnakeList::is_neightbour(int curr_x, int curr_y, int new_x, int new_y, snake_utils::direction_e dir) {
-
-	bool found_neightbour = false;
-
-	if (
-		// LEFT: X coordinate of the head is smaller that coordinate of other snake units
-		   ((curr_x >= new_x) && (curr_y == new_y) && (dir == snake_utils::direction_e::LEFT))
-		// RIGHT: X coordinate of the head is larger that coordinate of other snake units
-		|| ((curr_x < new_x)  && (curr_y == new_y) && (dir == snake_utils::direction_e::RIGHT))
-		// DOWN: Y coordinate of the head is smaller that coordinate of other snake units
-		|| ((curr_y >= new_y) && (curr_x == new_x) && (dir == snake_utils::direction_e::DOWN))
-		// UP: Y coordinate of the head is larger that coordinate of other snake units
-		|| ((curr_y < new_y)  && (curr_x == new_x) && (dir == snake_utils::direction_e::UP))
-	) {
-		found_neightbour = true;
-	} else {
-		found_neightbour = false;
-	}
-
-	return found_neightbour;
-}
-
 void snake_list::SnakeList::move(const int & speed, const int & win_width, const int & win_height, const snake_utils::direction_e & head_dir) {
 	LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Window dimensions: Width ", win_width, " Height ", win_height, " Speed: ", speed);
 
 	std::vector<snake_unit::SnakeUnit> snake_vector (this->get_head());
 
-	snake_unit::SnakeUnit snake_head (snake_vector.at(0));
+	snake_unit::SnakeUnit snake_head (snake_vector.front());
 
 	snake_utils::direction_e direction_prev = head_dir;
 	int x_centre_prev = snake_head.get_x_centre();
@@ -364,7 +328,7 @@ int snake_list::SnakeList::adj_snake(snake_unit::SnakeUnit & snake_el, int curr_
 		}
 		adjustment = centre_distance - ((int) abs(curr_coord_mov_dir - adj_prev_coord_mov_dir));
 		// For head adjustment is equal to centre_distance because curr and prev coord are identicals
-		if (snake_el != snake_vector.begin()) {
+		if (snake_el != snake_vector.front()) {
 			ASSERT(adjustment == 0);
 		}
 

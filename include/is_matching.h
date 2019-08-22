@@ -8,15 +8,15 @@
  * @brief is_matching header file
 */
 
-#include "basic_obj_list.h"
+#include "logging.h"
 
-/** @defgroup IsMatchingGroup Window List Doxygen Group
+/** @defgroup IsMatchingGroup Doxygen Group
  *  Is matching functions and classes
  *  @{
  */
 namespace is_matching {
 	/**
-	 * @brief WindowList class
+	 * @brief IsMatching class
 	 *
 	 */
 	template <class element_type, class class_type>
@@ -30,23 +30,35 @@ namespace is_matching {
 			 *
 			 * IsMatching constructor
 			 */
-			IsMatching(element_type element): reference(element) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
+			IsMatching(element_type element): reference_id(element) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
 
-			bool operator()(class_type cl) const {
-				// temporary node
-				int curr_win_id = cl->get_win_id();
-
-				LOG_INFO(logging::verb_level_e::DEBUG,"[New search by windows ID] Window ID: current ", curr_win_id, " searched ", win_id);
-
-				// Current ID matches searched ID
-				return (curr_win_id == reference);
-			}
+			/**
+			 * @brief Function: bool operator()(class_type cl) const
+			 *
+			 * \param unit: class to match
+			 *
+			 * \return whether the reference_id and the current class ID match
+			 *
+			 * Determine whether the ID fo the current and refrence clas match 
+			 */
+			bool operator()(class_type cl) const;
 
 		protected:
 
 		private:
-			element_type reference;
-	}
+			element_type reference_id;
+	};
+}
+/** @} */ // End of IsMatchingGroup group
+
+template <class element_type, class class_type>
+bool is_matching::IsMatching<element_type, class_type>::operator()(class_type cl) const {
+	element_type curr_win_id = cl->get_win_id();
+
+	LOG_INFO(logging::verb_level_e::DEBUG,"[New search by windows ID] Window ID: current ", curr_win_id, " searched ", this->reference_id);
+
+	// Current ID matches searched ID
+	return (curr_win_id == this->reference_id);
 }
 
-
+#endif // IS_MATCHING_H
