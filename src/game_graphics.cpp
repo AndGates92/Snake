@@ -138,9 +138,10 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 void game_graphics::specialkey_game_cb(int key, int x, int y) {
 
-	snake_list::SnakeList * snake_ptr (game_utils::get_snake_ptr());
-	snake_unit::SnakeNode * snake_head (snake_ptr->get_head());
-	snake_utils::direction_e snake_head_dir = snake_head->get_direction();
+	snake_list::SnakeList snake_ptr (game_utils::get_snake_ptr());
+	std::vector<snake_unit::SnakeUnit> snake_vector(snake_ptr.get_head());
+	snake_unit::SnakeUnit snake_head = snake_vector.at(0);;
+	snake_utils::direction_e snake_head_dir = snake_head.get_direction();
 
 	bool auto_ride = snake_settings.get_auto_ride_flag();
 
@@ -202,7 +203,7 @@ void game_graphics::idle_game_cb() {
 	int node_width = snake_settings.get_node_width();
 	colours::palette_e colour = snake_settings.get_snake_colour();
 
-	snake_list::SnakeList * snake_ptr (game_utils::get_snake_ptr());
+	snake_list::SnakeList snake_ptr(game_utils::get_snake_ptr());
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Game Callback] Idle Game Callback for window ID: ", win_id);
 
@@ -217,31 +218,34 @@ void game_graphics::idle_game_cb() {
 
 			game_utils::add_obstacle();
 
-			snake_unit::SnakeNode * snake_head = snake_ptr->get_head();
-			int new_snake_node_x = snake_head->get_x_centre();
-			int new_snake_node_y = snake_head->get_y_centre();
-			snake_utils::direction_e snake_head_dir = snake_head->get_direction();
+			std::vector<snake_unit::SnakeUnit> snake_vector(snake_ptr.get_head());
+			snake_unit::SnakeUnit snake_head = snake_vector.at(0);;
+			int new_snake_node_x = snake_head.get_x_centre();
+			int new_snake_node_y = snake_head.get_y_centre();
+			snake_utils::direction_e snake_head_dir = snake_head.get_direction();
 
 			if (snake_head_dir == snake_utils::direction_e::RIGHT) {
-				new_snake_node_x = (snake_head->get_x_centre() + node_width) % win_width;
-				new_snake_node_y = snake_head->get_y_centre();
+				new_snake_node_x = (snake_head.get_x_centre() + node_width) % win_width;
+				new_snake_node_y = snake_head.get_y_centre();
 			} else if (snake_head_dir == snake_utils::direction_e::LEFT) {
-				new_snake_node_x = (snake_head->get_x_centre() - node_width);
+				new_snake_node_x = (snake_head.get_x_centre() - node_width);
 				// If head is vry close to boarded, unit in front of it might be outside of window (negative X)
 				if (new_snake_node_x < 0) {
 					new_snake_node_x += win_width;
 				}
-				new_snake_node_y = snake_head->get_y_centre();
+				new_snake_node_y = snake_head.get_y_centre();
 			} else if (snake_head_dir == snake_utils::direction_e::UP) {
-				new_snake_node_y = (snake_head->get_y_centre() + node_height) % win_height;
-				new_snake_node_x = snake_head->get_x_centre();
+				new_snake_node_y = (snake_head.get_y_centre() + node_height) % win_height;
+				new_snake_node_x = snake_head.get_x_centre();
 			} else if (snake_head_dir == snake_utils::direction_e::DOWN) {
-				new_snake_node_y = (snake_head->get_y_centre() - node_height);
+				new_snake_node_y = (snake_head.get_y_centre() - node_height);
 				// If head is vry close to boarded, unit in front of it might be outside of window (negative X)
 				if (new_snake_node_y < 0) {
 					new_snake_node_y += win_height;
 				}
-				new_snake_node_x = snake_head->get_x_centre();
+				new_snake_node_x = snake_head.get_x_centre();
+			} else {
+				LOG_ERROR("Unkown direction ", snake_head_dir);
 			}
 
 			game_utils::add_snake_node(new_snake_node_x, new_snake_node_y, node_width, node_height, snake_head_dir, colour);
@@ -259,11 +263,11 @@ void game_graphics::idle_game_cb() {
 				game_utils::auto_change_dir();
 			}
 
-			snake_ptr->move(snake_speed, win_width, win_height, game_utils::get_head_dir());
+			snake_ptr.move(snake_speed, win_width, win_height, game_utils::get_head_dir());
 
 		}
 
-		snake_ptr->check_collision(win_width, win_height);
+		snake_ptr.check_collision(win_width, win_height);
 	} else if (game_status == settings::game_status_e::RESTART) {
 		game_utils::free_game_memory();
 		graphics::declare_game();

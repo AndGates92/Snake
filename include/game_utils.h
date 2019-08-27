@@ -112,25 +112,25 @@ namespace game_utils {
 	void free_window_list();
 
 	/**
-	 * @brief Function: snake_list::SnakeList * & get_snake_ptr()
+	 * @brief Function: snake_list::SnakeList & get_snake_ptr()
 	 *
 	 * \return Return the pointer to the head of the snake
 	 *
 	 * This function returns the pointer to the head of the snake
 	 */
-	snake_list::SnakeList * & get_snake_ptr();
+	snake_list::SnakeList & get_snake_ptr();
 
 	/**
-	 * @brief Function: obstacle_list::ObstacleList * & get_obstacle_ptr()
+	 * @brief Function: obstacle_list::ObstacleList & get_obstacle_ptr()
 	 *
 	 * \return Return the pointer to the head of the obstacle list
 	 *
 	 * This function returns the pointer to the head of the obstacle
 	 */
-	obstacle_list::ObstacleList * & get_obstacle_ptr();
+	obstacle_list::ObstacleList & get_obstacle_ptr();
 
 	/**
-	 * @brief Function: game_pixel_type * get_game_pixel_array(int & win_width, int & win_height)
+	 * @brief Function: game_pixel_type * get_game_pixel_array(const int & win_width, const int & win_height)
 	 *
 	 * \param win_width: width of the reshaped window
 	 * \param win_height: height of the reshaped window
@@ -142,10 +142,10 @@ namespace game_utils {
 	 * - returns the pointer to the array of pixels to draw
 	 */
 	template <typename game_pixel_type>
-	game_pixel_type * get_game_pixel_array(int & win_width, int & win_height);
+	game_pixel_type * get_game_pixel_array(const int & win_width, const int & win_height);
 
 	/**
-	 * @brief Function: void draw_snake(game_pixel_type * & win_width, int & win_height)
+	 * @brief Function: void draw_snake(game_pixel_type * & pixels, const int & win_width, const int & win_height)
 	 *
 	 * \param win_height: height of the reshaped window
 	 * \param win_width: width of the reshaped window
@@ -154,10 +154,10 @@ namespace game_utils {
 	 * This function returns the pointer to the array of pixels to draw
 	 */
 	template <typename game_pixel_type>
-	void draw_snake(game_pixel_type * & pixels, int & win_width, int & win_height);
+	void draw_snake(game_pixel_type * & pixels, const int & win_width, const int & win_height);
 
 	/**
-	 * @brief Function: void draw_obstacles(game_pixel_type * & win_width, int & win_height)
+	 * @brief Function: void draw_obstacles(game_pixel_type * & pixels, const int & win_width, const int & win_height)
 	 *
 	 * \param win_height: height of the reshaped window
 	 * \param win_width: width of the reshaped window
@@ -166,7 +166,7 @@ namespace game_utils {
 	 * This function returns the pointer to the array of pixels to draw
 	 */
 	template <typename game_pixel_type>
-	void draw_obstacles(game_pixel_type * & pixels, int & win_width, int & win_height);
+	void draw_obstacles(game_pixel_type * & pixels, const int & win_width, const int & win_height);
 
 	/**
 	 * @brief Function: bool contact_between_snake_obs()
@@ -459,7 +459,7 @@ namespace game_utils {
 /** @} */ // End of GameUtilsGroup group
 
 template <typename game_pixel_type>
-game_pixel_type * game_utils::get_game_pixel_array (int & win_width, int & win_height) {
+game_pixel_type * game_utils::get_game_pixel_array (const int & win_width, const int & win_height) {
 
 	int win_area = win_width*win_height;
 
@@ -499,24 +499,24 @@ game_pixel_type * game_utils::get_game_pixel_array (int & win_width, int & win_h
 }
 
 template <typename game_pixel_type>
-void game_utils::draw_snake(game_pixel_type * & pixels, int & win_width, int & win_height) {
+void game_utils::draw_snake(game_pixel_type * & pixels, const int & win_width, const int & win_height) {
 
 	int snake_units = snake_settings.get_snake_units();
-	std::vector<snake_unit::SnakeUnit> snake_vector (game_utils::get_snake_ptr());
-	for (auto && snake_ptr : snake_vector) {
-		snake_ptr.draw<game_pixel_type>(pixels, win_width, win_height, snake_units);
-	}
+
+	snake_list::SnakeList snake_ptr (game_utils::get_snake_ptr());
+
+	snake_ptr.draw<game_pixel_type>(pixels, win_width, win_height, snake_units);
 
 }
 
 template <typename game_pixel_type>
-void game_utils::draw_obstacles(game_pixel_type * & pixels, int & win_width, int & win_height) {
+void game_utils::draw_obstacles(game_pixel_type * & pixels, const int & win_width, const int & win_height) {
 
 	int obs_no = snake_settings.get_obs_no();
-	std::vector<obstacle_list::ObstacleList> obs_vector(game_utils::get_obstacle_ptr());
-	for (auto && obs_ptr : obs_vector) {
-		obs_ptr.draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
-	}
+
+	obstacle_list::ObstacleList obs_ptr (game_utils::get_obstacle_ptr());
+
+	obs_ptr.draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
 
 }
 #endif // GAME_UTILS_H

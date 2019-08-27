@@ -43,13 +43,13 @@ namespace game_utils {
 		 * @brief pointer to snake elements
 		 *
 		 */
-		static snake_list::SnakeList * snake;
+		static snake_list::SnakeList snake;
 
 		/**
 		 * @brief pointer to snake elements
 		 *
 		 */
-		static obstacle_list::ObstacleList * obstacles;
+		static obstacle_list::ObstacleList obstacles;
 
 		/**
 		 * @brief Value of distance normalized by snake unit between head and unit width for which chanign direction is required
@@ -75,20 +75,14 @@ namespace game_utils {
 void game_utils::init_snake_list() {
 	std::string type("Snake");
 	game_utils::snake = new snake_list::SnakeList(type);
-	if (game_utils::snake == nullptr) {
-		LOG_ERROR("Can't allocate memory for snake list ", type, ".");
-	}
 }
 
 void game_utils::init_obstacle_list() {
 	std::string type("Obstacle");
-	game_utils::obstacles = new obstacle_list::ObstacleList(type);
-	if (game_utils::obstacles == nullptr) {
-		LOG_ERROR("Can't allocate memory for obstacle list ", type, ".");
-	}
+	game_utils::obstacles = obstacle_list::ObstacleList(type);
 }
 
-snake_list::SnakeList * & game_utils::get_snake_ptr() {
+snake_list::SnakeList & game_utils::get_snake_ptr() {
 	return game_utils::snake;
 }
 

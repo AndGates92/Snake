@@ -87,9 +87,9 @@ void snake_unit::SnakeUnit::move(const int & speed, const int & win_width, const
 }
 
 bool snake_unit::SnakeUnit::operator== (const snake_unit::SnakeUnit & rhs) {
-	return ((this->direction == rhs.direction) && (basic_object::BasicObject(this) == basic_object::BasicObject(rhs));
+	return ((this->direction == rhs.direction) && (static_cast<basic_object::BasicObject>(*this) == static_cast<basic_object::BasicObject>(rhs)));
 }
 
 bool snake_unit::SnakeUnit::operator!= (const snake_unit::SnakeUnit & rhs) {
-	return ((this->direction != rhs.direction) && (basic_object::BasicObject(this) != basic_object::BasicObject(rhs));
+	return ((this->direction != rhs.direction) && (static_cast<basic_object::BasicObject>(*this) != static_cast<basic_object::BasicObject>(rhs)));
 }

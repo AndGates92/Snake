@@ -120,7 +120,7 @@ void basic_obj_list::BasicObjList<class_element>::draw(pixel_type * & pixels, co
 
 	for (auto && obj : basic_obj) {
 
-		obj->draw(pixels, win_width, win_height);
+		obj.draw(pixels, win_width, win_height);
 
 		obj_cnt++;
 
