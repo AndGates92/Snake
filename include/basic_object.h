@@ -205,6 +205,24 @@ namespace basic_object {
 			 */
 			void save_data (iofile::File & savefile);
 
+			/**
+			 * @brief Function: bool operator== (const basic_object::BasicObject & rhs)
+			 *
+			 * \param rhs: base object to compare with
+			 *
+			 * Overload == operator
+			 */
+			bool operator== (const basic_object::BasicObject & rhs);
+
+			/**
+			 * @brief Function: bool operator!= (const basic_object::BasicObject & rhs)
+			 *
+			 * \param rhs: base object to compare with
+			 *
+			 * Overload != operator
+			 */
+			bool operator!= (const basic_object::BasicObject & rhs);
+
 		private:
 			/**
 			 * @brief Type

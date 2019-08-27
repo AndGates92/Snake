@@ -93,3 +93,23 @@ void basic_object::BasicObject::save_data (iofile::File & savefile) {
 	savefile.write_ofile("Height: ", this->height, "\n");
 	savefile.write_ofile("Colour: ", this->colour, "\n");
 }
+
+bool basic_object::BasicObject::operator== (const basic_object::BasicObject & rhs) {
+	bool same_type = (this->type == rhs.type);
+	bool same_x_centre = (this->x_centre == rhs.x_center);
+	bool same_y_centre = (this->y_centre == rhs.y_center);
+	bool same_width = (this->width == rhs.width);
+	bool same_height = (this->height == rhs.height);
+	bool same_colour = (this->colour == rhs.colour);
+	return (same_type && same_x_centre && same_y_centre && same_width && same_height && same_colour);
+}
+
+bool basic_object::BasicObject::operator!= (const basic_object::BasicObject & rhs) {
+	bool different_type = (this->type != rhs.type);
+	bool different_x_centre = (this->x_centre != rhs.x_center);
+	bool different_y_centre = (this->y_centre != rhs.y_center);
+	bool different_width = (this->width != rhs.width);
+	bool different_height = (this->height != rhs.height);
+	bool different_colour = (this->colour != rhs.colour);
+	return (different_type && different_x_centre && different_y_centre && different_width && different_height && different_colour);
+}

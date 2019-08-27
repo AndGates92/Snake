@@ -133,6 +133,24 @@ namespace snake_unit {
 			 */
 			void save_data (iofile::File & savefile);
 
+			/**
+			 * @brief Function: bool operator== (const snake_unit::SnakeUnit & rhs)
+			 *
+			 * \param rhs: base object to compare with
+			 *
+			 * Overload == operator
+			 */
+			bool operator== (const snake_unit::SnakeUnit & rhs);
+
+			/**
+			 * @brief Function: bool operator!= (const snake_unit::SnakeUnit & rhs)
+			 *
+			 * \param rhs: base object to compare with
+			 *
+			 * Overload != operator
+			 */
+			bool operator!= (const snake_unit::SnakeUnit & rhs);
+
 		private:
 
 			/**

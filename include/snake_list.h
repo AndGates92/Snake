@@ -102,7 +102,7 @@ namespace snake_list {
 			 *
 			 * Detect collision between snake and wall 
 			 */
-			int change_dir(snake_unit::SnakeUnit * & snake_unit, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir);
+			int change_dir(snake_unit::SnakeUnit & snake_unit, int win_dim, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int sign, snake_utils::direction_e prev_dir);
 
 			/**
 			 * @brief Function: int adj_snake(snake_unit::SnakeUnit * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov)
@@ -122,7 +122,7 @@ namespace snake_list {
 			 *
 			 * Adjust snake unit coordinate to ensure snake units are always aligned
 			 */
-			int adj_snake(snake_unit::SnakeUnit * & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov);
+			int adj_snake(snake_unit::SnakeUnit & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov);
 			/**
 			 * @brief Function: int compute_centre_distance(int coord1, int coord2, int win_dim, int exp_distance)
 			 *

@@ -85,3 +85,11 @@ void snake_unit::SnakeUnit::move(const int & speed, const int & win_width, const
 	this->set_y_centre(y_centre);
 	this->set_x_centre(x_centre);
 }
+
+bool snake_unit::SnakeUnit::operator== (const snake_unit::SnakeUnit & rhs) {
+	return ((this->direction == rhs.direction) && (basic_object::BasicObject(this) == basic_object::BasicObject(rhs));
+}
+
+bool snake_unit::SnakeUnit::operator!= (const snake_unit::SnakeUnit & rhs) {
+	return ((this->direction != rhs.direction) && (basic_object::BasicObject(this) != basic_object::BasicObject(rhs));
+}

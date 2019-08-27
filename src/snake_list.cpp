@@ -45,17 +45,14 @@ void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_wi
 	std::string name = this->get_name();
 
 	LOG_INFO(logging::verb_level_e::LOW, "[Add Unit] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
-	snake_unit::SnakeUnit * new_snake = new snake_unit::SnakeUnit(name, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
-	if (new_snake == nullptr) {
-		LOG_ERROR("Can't allocate memory for snake node Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
-	}
+	snake_unit::SnakeUnit new_snake(name, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
 
 	// Check whether snake_vector is empty
 	if(snake_vector.size() > 0) {
-		std::vector<snake_unit::SnakeUnit>::iterator snake_found();
-		std::vector<snake_unit::SnakeUnit>::iterator snake_prev();
-		std::vector<snake_unit::SnakeUnit>::iterator snake_head_it(snake_vector.begin());
-		std::vector<snake_unit::SnakeUnit>::iterator snake_tail(snake_vector.end());
+		snake_unit::SnakeUnit snake_found;
+		std::vector<snake_unit::SnakeUnit>::iterator snake_prev;
+		std::vector<snake_unit::SnakeUnit>::iterator snake_head_it = snake_vector.begin();
+		std::vector<snake_unit::SnakeUnit>::iterator snake_tail = snake_vector.end();
 
 		snake_unit::SnakeUnit snake_head(snake_vector.front());
 
@@ -71,20 +68,22 @@ void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_wi
 		snake_prev = element_it;
 
 		if (element_it != snake_tail) {
+			int index = std::distance(snake_vector.begin(), element_it);
 			if (element_it != snake_head_it) {
 				head_found = false;
-				snake_found = std::back(element_it, 1);
+				snake_found = snake_vector.at(index-1);
+				element_it = std::prev(element_it);
 			} else {
 				head_found = true;
 				// Set snake_found to the last element as snake_found will be appended at the end of the list
-				snake_found = element_it;
+				snake_found = snake_vector.at(index);
 			}
 		} else {
 			head_found = false;
 		}
 
-		if (found == true) {
-			snake_vector.insert(new_snake,0);
+		if (head_found == true) {
+			snake_vector.insert(snake_vector.begin(), new_snake);
 		} else {
 
 			int width_found = snake_found.get_width();
@@ -124,10 +123,10 @@ void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_wi
 			}
 
 			// Insert new snake unit
-			snake_vector.insert(new_snake,(snake_found - snake_vector.begin()));
+			snake_vector.insert(element_it, new_snake);
 		}
 	} else {
-		snake_vector.insert(new_snake,0);
+		snake_vector.insert(snake_vector.begin(), new_snake);
 	}
 
 }
@@ -158,7 +157,9 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 
 	int speed_int = speed;
 
-	for(auto && snake_el : snake_vector) {
+	for(std::vector<snake_unit::SnakeUnit>::iterator el = snake_vector.begin(); el != snake_vector.end(); ++el) {
+		int index = std::distance(snake_vector.begin(), el);
+		snake_unit::SnakeUnit snake_el(snake_vector.at(index));
 
 		// Store values of current element before updating its position and direction
 		direction_curr = snake_el.get_direction();
@@ -226,7 +227,11 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 					snake_el.set_y_centre(y_centre_prev);
 				}
 			} else {
-				snake_utils::direction_e direction_next = std::next(snake_el,1).get_direction();
+				std::vector<snake_unit::SnakeUnit>::iterator el_next = std::next(el, 1);
+
+				int index_next = std::distance(snake_vector.begin(), el_next);
+				snake_utils::direction_e direction_next = snake_vector.at(index_next).get_direction();
+
 				// If head and second unit have the same direction, the head can change again
 				if (direction_next == direction_curr) {
 					snake_el.set_direction(direction_prev);
@@ -398,7 +403,10 @@ void snake_list::SnakeList::check_snake_collision() {
 
 	std::vector<snake_unit::SnakeUnit> snake_vector (this->get_head());
 
-	for(std::vector<snake_unit::SnakeUnit>::iterator unit1 = snake_vector.begin(); unit1 != snake_vector.end(); ++unit1) {
+	for(std::vector<snake_unit::SnakeUnit>::iterator unit1_it = snake_vector.begin(); unit1_it != snake_vector.end(); ++unit1_it) {
+
+		int index_unit1 = std::distance(snake_vector.begin(), unit1_it);
+		snake_unit::SnakeUnit unit1(snake_vector.at(index_unit1));
 
 		snake_utils::direction_e direction1 = unit1.get_direction();
 		int x_centre1 = unit1.get_x_centre();
@@ -407,14 +415,21 @@ void snake_list::SnakeList::check_snake_collision() {
 		int width1 = unit1.get_width();
 
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Check Collision] Current Unit: X ", x_centre1, " Y ", y_centre1, " Height ", height1, " Width ", width1);
-		if (unit1 == (snake_vector.back()-1)) {
+
+		std::vector<snake_unit::SnakeUnit>::iterator unit1_next_it = std::next(unit1_it, 1);
+
+		if (unit1_next_it == snake_vector.end()) {
 
 			// Consecutive pointer distance check is already performed by move function.
 			// When the direction changes, the centres of consecutive snake units may be closer than the expected distance
-			for(std::vector<snake_unit::SnakeUnit>::iterator unit2 = std::next(unit1,2); unit2 != snake_vector.end(); ++unit2) {
+			for(std::vector<snake_unit::SnakeUnit>::iterator unit2_it = std::next(unit1_next_it,1); unit2_it != snake_vector.end(); ++unit2_it) {
+
+				int index_unit2 = std::distance(snake_vector.begin(), unit2_it);
+				snake_unit::SnakeUnit unit2(snake_vector.at(index_unit2));
+
 				// Store values of current element before updating its position and direction
 				int x_centre2 = unit2.get_x_centre();
-				int y_centre2 = unite2.get_y_centre();
+				int y_centre2 = unit2.get_y_centre();
 				int height2 = unit2.get_height();
 				int width2 = unit2.get_width();
 
@@ -466,3 +481,4 @@ int snake_list::SnakeList::compute_centre_distance(int coord1, int coord2, int w
 	LOG_INFO(logging::verb_level_e::DEBUG, "[Compute Centre Distance] Calculated distance: ", distance);
 	return distance;
 }
+

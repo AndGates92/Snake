@@ -51,13 +51,13 @@ namespace basic_list {
 			~BasicList();
 
 			/**
-			 * @brief Function: void remove_element(class_element * & element)
+			 * @brief Function: void remove_element(class_element & element)
 			 *
 			 * \param element: element to delete
 			 *
 			 * Delete element
 			 */
-			void remove_element(class_element * & element);
+			void remove_element(class_element & element);
 
 			/**
 			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)
@@ -70,7 +70,7 @@ namespace basic_list {
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 			/**
-			 * @brief Function: class_element * & get_head()
+			 * @brief Function: std::vector<class_element> & get_head()
 			 *
 			 * \return head of BasicList
 			 *
@@ -79,7 +79,7 @@ namespace basic_list {
 			std::vector<class_element> & get_head();
 
 			/**
-			 * @brief Function: void set_head(class_element * & new_head)
+			 * @brief Function: void set_head(std::vector<class_element> & new_head)
 			 *
 			 * \param new_head: set head of BasicList
 			 *
@@ -129,7 +129,7 @@ basic_list::BasicList<class_element>::~BasicList() {
 }
 
 template <class class_element>
-void basic_list::BasicList<class_element>::remove_element(class_element * & element) {
+void basic_list::BasicList<class_element>::remove_element(class_element & element) {
 
 	typename std::vector<class_element>::iterator element_it = std::find(this->head.begin(), this->head.end(), element);
 	if (element_it != this->head.end()) {

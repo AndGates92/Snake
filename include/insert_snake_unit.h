@@ -33,19 +33,17 @@ namespace insert_snake_unit {
 			InsertSnakeUnit(int x, int y, direction_type direction): snake_direction(direction), centre_x(x), centre_y(y) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
 
 			/**
-			 * @brief Function: bool is_neightbour(int curr_x, int curr_y, int new_x, int new_y, direction_type dir)
+			 * @brief Function: bool is_neightbour(int & curr_x, int & curr_y, direction_type dir)
 			 *
 			 * \param curr_x: current x coordinate
 			 * \param curr_y: current y coordinate
-			 * \param new_x: x coordinate of the new element to add
-			 * \param new_y: y coordinate of the new element to add
 			 * \param dir: direction
 			 *
 			 * \return new unit coodinates are close enough to current snake unit
 			 *
 			 * Look for neightbour
 			 */
-			bool is_neightbour(int curr_x, int curr_y, int new_x, int new_y, direction_type dir);
+			bool is_neightbour(int & curr_x, int & curr_y, direction_type dir) const;
 
 			/**
 			 * @brief Function: bool operator()(class_type unit) const
@@ -76,8 +74,8 @@ bool insert_snake_unit::InsertSnakeUnit<direction_type, class_type>::operator()(
 
 	bool found = false;
 
-	bool found_neightbour_same_dir = this->is_neightbour(curr_x, curr_y, this->centre_x, this->centre_y, this->snake_direction);
-	bool found_neightbour_diff_dir = this->is_neightbour(curr_x, curr_y, this->centre_x, this->centre_y, curr_snake_dir);
+	bool found_neightbour_same_dir = this->is_neightbour(curr_x, curr_y, this->snake_direction);
+	bool found_neightbour_diff_dir = this->is_neightbour(curr_x, curr_y, curr_snake_dir);
 
 	if (curr_snake_dir == this->snake_direction) {
 		if (found_neightbour_same_dir == true) {
@@ -93,19 +91,19 @@ bool insert_snake_unit::InsertSnakeUnit<direction_type, class_type>::operator()(
 }
 
 template <typename direction_type, class class_type>
-bool insert_snake_unit::InsertSnakeUnit<direction_type, class_type>::is_neightbour(int curr_x, int curr_y, int new_x, int new_y, direction_type dir) {
+bool insert_snake_unit::InsertSnakeUnit<direction_type, class_type>::is_neightbour(int & curr_x, int & curr_y, direction_type dir) const {
 
 	bool found_neightbour = false;
 
 	if (
 		// LEFT: X coordinate of the head is smaller that coordinate of other snake units
-		   ((curr_x >= new_x) && (curr_y == new_y) && (dir == direction_type::LEFT))
+		   ((curr_x >= this->centre_x) && (curr_y == this->centre_y) && (dir == direction_type::LEFT))
 		// RIGHT: X coordinate of the head is larger that coordinate of other snake units
-		|| ((curr_x < new_x)  && (curr_y == new_y) && (dir == direction_type::RIGHT))
+		|| ((curr_x < this->centre_x)  && (curr_y == this->centre_y) && (dir == direction_type::RIGHT))
 		// DOWN: Y coordinate of the head is smaller that coordinate of other snake units
-		|| ((curr_y >= new_y) && (curr_x == new_x) && (dir == direction_type::DOWN))
+		|| ((curr_y >= this->centre_y) && (curr_x == this->centre_x) && (dir == direction_type::DOWN))
 		// UP: Y coordinate of the head is larger that coordinate of other snake units
-		|| ((curr_y < new_y)  && (curr_x == new_x) && (dir == direction_type::UP))
+		|| ((curr_y < this->centre_y)  && (curr_x == this->centre_x) && (dir == direction_type::UP))
 	) {
 		found_neightbour = true;
 	} else {
