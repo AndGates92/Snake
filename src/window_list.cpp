@@ -7,6 +7,7 @@
  */
 
 #include <iostream>
+#include <algorithm>
 
 #include "window_list.h"
 #include "window_obj.h"
@@ -38,39 +39,26 @@ window_list::WindowList::~WindowList() {
 
 int window_list::WindowList::add_element(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, colours::palette_e background_colour) {
 
-	window_obj::WindowObj * head(this->get_head());
+	std::vector<window_obj::WindowObj> win_vector(this->get_head());
 
 	LOG_INFO(logging::verb_level_e::LOW, "[Add node] Create node at ", window_x_pos, ", ", window_y_pos, ". Dimensions: width ", window_width, " height ", window_height, ". Title: ", window_title, " Background colour: ", background_colour);
-	window_obj::WindowObj * new_window = new window_obj::WindowObj(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour);
-	if (new_window == nullptr) {
-		LOG_ERROR("Can't allocate memory for window node");
-	}
+	window_obj::WindowObj new_window = window_obj::WindowObj(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour);
 
-	this->head.insert(new_window);
+	win_vector.insert(win_vector.begin(), new_window);
 
-	int win_id = new_window->get_win_id();
+	int win_id = new_window.get_win_id();
 	return win_id;
 
 }
 
-bool window_list::WindowList::does_win_id_match(window_obj::WindowObj obj) {
-	// temporary node
-	int curr_win_id = node->get_win_id();
-
-	LOG_INFO(logging::verb_level_e::DEBUG,"[New search by windows ID] Window ID: current ", curr_win_id, " searched ", win_id);
-
-	// Current ID matches searched ID
-	return (curr_win_id == win_id);
-}
-
 void window_list::WindowList::delete_by_win_id(int &win_id) {
 
-	std::vector<window_obj::WindowObj> head(this->get_head());
+	std::vector<window_obj::WindowObj> win_vector(this->get_head());
 
 	// Delete all nodes with ID equal to win_id
-	std::vector<class_element>::iterator element_it = std::find_if(this->head.begin(), this->head.end(), is_matching::IsMatching(win_id));
-	if (element_it != this->head.end()) {
-		this->head.erase(element_it);
+	std::vector<window_obj::WindowObj>::iterator element_it = std::find_if(win_vector.begin(), win_vector.end(), is_matching::IsMatching<int, window_obj::WindowObj>(win_id));
+	if (element_it != win_vector.end()) {
+		win_vector.erase(element_it);
 	} else {
 		LOG_ERROR("Window with ID ", win_id, " has not been found");
 	}
@@ -78,27 +66,23 @@ void window_list::WindowList::delete_by_win_id(int &win_id) {
 	LOG_ERROR("Couldn't find window matching window ID ", win_id);
 }
 
-window_obj::WindowObj * window_list::WindowList::search_by_win_id(int &win_id) {
+window_obj::WindowObj window_list::WindowList::search_by_win_id(int &win_id) {
 
-	window_obj::WindowObj * head(this->get_head());
-	window_obj::WindowObj * window_obj (head);
+	std::vector<window_obj::WindowObj> win_vector(this->get_head());
 
 	// Delete all nodes with ID equal to win_id
-	std::vector<class_element>::iterator element_it = std::find_if(this->head.begin(), this->head.end(), is_matching::IsMatching(win_id));
-	if (element_it != this->head.end()) {
-		return element_it;
+	std::vector<window_obj::WindowObj>::iterator element_it = std::find_if(win_vector.begin(), win_vector.end(), is_matching::IsMatching<int, window_obj::WindowObj>(win_id));
+	if (element_it != win_vector.end()) {
+		return *element_it;
 	} else {
 		LOG_ERROR("Couldn't find window matching window ID ", win_id);
-		window_obj::WindowObj * node_err = new window_obj::WindowObj("Error");
-		if (node_err == nullptr) {
-			LOG_ERROR("Can't allocate memory for error node");
-		}
+		window_obj::WindowObj node_err = window_obj::WindowObj("Error");
 		return node_err;
 	}
 }
 
-void window_list::WindowList::delete_node(window_obj::WindowObj * & node) {
-	this->remove_node(node);
-	node->destroy_node();
+void window_list::WindowList::delete_element(window_obj::WindowObj & node) {
+	this->delete_element(node);
+	node.destroy_obj();
 }
 

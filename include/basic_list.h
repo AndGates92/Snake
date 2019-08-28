@@ -9,6 +9,7 @@
 */
 
 #include <vector>
+#include <algorithm>
 
 #include "logging.h"
 
@@ -135,7 +136,9 @@ void basic_list::BasicList<class_element>::remove_element(class_element & elemen
 	if (element_it != this->head.end()) {
 		this->head.erase(element_it);
 	} else {
-		LOG_ERROR("Node ", element, " has not been found");
+		std::string pretext ("Remove Element");
+		element.print_info(logging::verb_level_e::HIGH, pretext);
+		LOG_ERROR("Node has not been found");
 	}
 }
 

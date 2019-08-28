@@ -53,7 +53,7 @@ namespace is_matching {
 
 template <class element_type, class class_type>
 bool is_matching::IsMatching<element_type, class_type>::operator()(class_type cl) const {
-	element_type curr_win_id = cl->get_win_id();
+	element_type curr_win_id = cl.get_win_id();
 
 	LOG_INFO(logging::verb_level_e::DEBUG,"[New search by windows ID] Window ID: current ", curr_win_id, " searched ", this->reference_id);
 

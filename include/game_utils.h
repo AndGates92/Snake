@@ -212,7 +212,7 @@ namespace game_utils {
 	 *
 	 * This function add a new node to the snake list
 	 */
-	void add_snake_node (int centre_x, int centre_y, int node_width, int node_height, snake_utils::direction_e dir, colours::palette_e colour);
+	void add_snake_node(int centre_x, int centre_y, int node_width, int node_height, snake_utils::direction_e dir, colours::palette_e colour);
 
 	/**
 	 * @brief Function: void add_obs_node (int centre_x, int centre_y, int node_width, int node_height, colours::palette_e colour);
@@ -225,7 +225,7 @@ namespace game_utils {
 	 *
 	 * This function add a new node to the obstacle list
 	 */
-	void add_obs_node (int centre_x, int centre_y, int node_width, int node_height, colours::palette_e colour);
+	void add_obs_node(int centre_x, int centre_y, int node_width, int node_height, colours::palette_e colour);
 
 	/**
 	 * @brief Function: void set_snake_settings();
@@ -367,7 +367,7 @@ namespace game_utils {
 	bool unit_in_trajectory(snake_utils::direction_e dir, std::vector<snake_utils::direction_e> dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist);
 
 	/**
-	 * @brief Function: void game_utils::get_boundaries(ptr_t * ptr, int & x_centre, int & x_min, int & x_max, int & y_centre, int & y_min, int & y_max)
+	 * @brief Function: void game_utils::get_boundaries(ptr_t ptr, int & x_centre, int & x_min, int & x_max, int & y_centre, int & y_min, int & y_max)
 	 *
 	 * \param ptr: pointer to extract informations from
 	 * \param x_centre: x coordinate of the centre
@@ -380,7 +380,7 @@ namespace game_utils {
 	 * This function computes the boundaries of an object
 	 */
 	template <typename ptr_t>
-	void get_boundaries(ptr_t * ptr, int & x_centre, int & x_min, int & x_max, int & y_centre, int & y_min, int & y_max);
+	void get_boundaries(ptr_t ptr, int & x_centre, int & x_min, int & x_max, int & y_centre, int & y_min, int & y_max);
 
 	/**
 	 * @brief Function: void game_utils::get_coord_range(int centre, int dim, int & min_coord, int & max_coord)
@@ -470,8 +470,8 @@ game_pixel_type * game_utils::get_game_pixel_array (const int & win_width, const
 
 	int win_id = glutGetWindow();
 
-	window_obj::WindowObj * node (graphics_utils::search_win_id(win_id));
-	colours::palette_e background_colour = node->get_colour_bg();
+	window_obj::WindowObj node (graphics_utils::search_win_id(win_id));
+	colours::palette_e background_colour = node.get_colour_bg();
 
 	game_pixel_type * colour = colours::get_pixel_colour<game_pixel_type> (background_colour);
 

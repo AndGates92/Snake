@@ -325,8 +325,8 @@ void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int
 			int win_id = 0;
 			win_id = glutGetWindow();
 
-			window_obj::WindowObj * node (graphics_utils::search_win_id(win_id));
-			colour_name = node->get_colour_bg();
+			window_obj::WindowObj node (graphics_utils::search_win_id(win_id));
+			colour_name = node.get_colour_bg();
 
 		} else {
 			colour_name = char_lut::colour_true;
