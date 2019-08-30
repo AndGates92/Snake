@@ -368,7 +368,7 @@ void snake_list::SnakeList::check_wall_collision(const int & win_width, const in
 
 	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_head();
 
-	for(auto && snake_el : snake) {
+	for(auto && snake_el : snake_vector) {
 
 		int x_centre = snake_el.get_x_centre();
 		int y_centre = snake_el.get_y_centre();
