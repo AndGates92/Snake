@@ -418,49 +418,52 @@ void snake_list::SnakeList::check_snake_collision() {
 
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Check Collision] Current Unit: X ", x_centre1, " Y ", y_centre1, " Height ", height1, " Width ", width1);
 
-		std::vector<snake_unit::SnakeUnit>::iterator unit1_next_it = std::next(unit1_it, 1);
+		if (unit1_it != snake_vector.end()) {
 
-		if (unit1_next_it == snake_vector.end()) {
+			std::vector<snake_unit::SnakeUnit>::iterator unit1_next_it = std::next(unit1_it, 1);
 
-			// Consecutive pointer distance check is already performed by move function.
-			// When the direction changes, the centres of consecutive snake units may be closer than the expected distance
-			for(std::vector<snake_unit::SnakeUnit>::iterator unit2_it = std::next(unit1_next_it,1); unit2_it != snake_vector.end(); ++unit2_it) {
+			if (unit1_next_it != snake_vector.end()) {
 
-				int index_unit2 = std::distance(snake_vector.begin(), unit2_it);
-				snake_unit::SnakeUnit unit2(snake_vector.at(index_unit2));
+				// Consecutive pointer distance check is already performed by move function.
+				// When the direction changes, the centres of consecutive snake units may be closer than the expected distance
+				for(std::vector<snake_unit::SnakeUnit>::iterator unit2_it = std::next(unit1_next_it,1); unit2_it != snake_vector.end(); ++unit2_it) {
 
-				// Store values of current element before updating its position and direction
-				int x_centre2 = unit2.get_x_centre();
-				int y_centre2 = unit2.get_y_centre();
-				int height2 = unit2.get_height();
-				int width2 = unit2.get_width();
+					int index_unit2 = std::distance(snake_vector.begin(), unit2_it);
+					snake_unit::SnakeUnit unit2(snake_vector.at(index_unit2));
 
-				LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Check Collision] Previous Unit: X ", x_centre2, " Y ", y_centre2, " Height ", height2, " Width ", width2);
+					// Store values of current element before updating its position and direction
+					int x_centre2 = unit2.get_x_centre();
+					int y_centre2 = unit2.get_y_centre();
+					int height2 = unit2.get_height();
+					int width2 = unit2.get_width();
 
-				int y_centre_distance = (height1 + height2)/2;
-				int x_centre_distance = (width1 + width2)/2;
-				int total_centre_distance = x_centre_distance + y_centre_distance;
+					LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Check Collision] Previous Unit: X ", x_centre2, " Y ", y_centre2, " Height ", height2, " Width ", width2);
 
-				int x_dist = (int) abs(x_centre1 - x_centre2);
-				int y_dist = (int) abs(y_centre1 - y_centre2);
-				int tot_dist = x_dist + y_dist;
+					int y_centre_distance = (height1 + height2)/2;
+					int x_centre_distance = (width1 + width2)/2;
+					int total_centre_distance = x_centre_distance + y_centre_distance;
 
-				if ((x_dist < x_centre_distance) && (y_dist < y_centre_distance)) {
-					// Unit1 and Unit2 are getting closer to each other on the x axis
-					if (((x_centre1 >= x_centre2) && (direction1 == snake_utils::direction_e::RIGHT)) || ((x_centre1 <= x_centre2) && (direction1 == snake_utils::direction_e::LEFT))) {
-						if (tot_dist < total_centre_distance) {
-							GAME_OVER("Collision on the X axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
+					int x_dist = (int) abs(x_centre1 - x_centre2);
+					int y_dist = (int) abs(y_centre1 - y_centre2);
+					int tot_dist = x_dist + y_dist;
+
+					if ((x_dist < x_centre_distance) && (y_dist < y_centre_distance)) {
+						// Unit1 and Unit2 are getting closer to each other on the x axis
+						if (((x_centre1 >= x_centre2) && (direction1 == snake_utils::direction_e::RIGHT)) || ((x_centre1 <= x_centre2) && (direction1 == snake_utils::direction_e::LEFT))) {
+							if (tot_dist < total_centre_distance) {
+								GAME_OVER("Collision on the X axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
+							}
+						}
+
+						// Unit1 and Unit2 are getting closer to each other on the y axis
+						if (((y_centre1 >= y_centre2) && (direction1 == snake_utils::direction_e::DOWN)) || ((y_centre1 <= y_centre2) && (direction1 == snake_utils::direction_e::UP))) {
+							if (tot_dist < total_centre_distance) {
+								GAME_OVER("Collision on the Y axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
+							}
 						}
 					}
 
-					// Unit1 and Unit2 are getting closer to each other on the y axis
-					if (((y_centre1 >= y_centre2) && (direction1 == snake_utils::direction_e::DOWN)) || ((y_centre1 <= y_centre2) && (direction1 == snake_utils::direction_e::UP))) {
-						if (tot_dist < total_centre_distance) {
-							GAME_OVER("Collision on the Y axis. X coordinates: Unit1 -> ", x_centre1, " - Unit2 -> ", x_centre2, " Y coordinates: Unit1 -> ", y_centre1, " - Unit2 -> ", y_centre2, ". Calculated distance: X axis ", x_dist, ", Y axis ", y_dist);
-						}
-					}
 				}
-
 			}
 
 
