@@ -41,6 +41,22 @@
 
 namespace game_utils {
 
+	namespace {
+
+		/**
+		 * @brief pointer to snake elements
+		 *
+		 */
+		static snake_list::SnakeList snake;
+
+		/**
+		 * @brief pointer to snake elements
+		 *
+		 */
+		static obstacle_list::ObstacleList obstacles;
+
+	}
+
 	/**
 	 * @brief Function: void declare_game_var()
 	 *
@@ -367,7 +383,7 @@ namespace game_utils {
 	bool unit_in_trajectory(snake_utils::direction_e dir, std::vector<snake_utils::direction_e> dirs, int snake_left_dist, int snake_right_dist, int snake_up_dist, int snake_down_dist, int obs_left_dist, int obs_right_dist, int obs_up_dist, int obs_down_dist);
 
 	/**
-	 * @brief Function: void game_utils::get_boundaries(ptr_t ptr, int & x_centre, int & x_min, int & x_max, int & y_centre, int & y_min, int & y_max)
+	 * @brief Function: void get_boundaries(ptr_t ptr, int & x_centre, int & x_min, int & x_max, int & y_centre, int & y_min, int & y_max)
 	 *
 	 * \param ptr: pointer to extract informations from
 	 * \param x_centre: x coordinate of the centre
@@ -383,7 +399,7 @@ namespace game_utils {
 	void get_boundaries(ptr_t ptr, int & x_centre, int & x_min, int & x_max, int & y_centre, int & y_min, int & y_max);
 
 	/**
-	 * @brief Function: void game_utils::get_coord_range(int centre, int dim, int & min_coord, int & max_coord)
+	 * @brief Function: void get_coord_range(int centre, int dim, int & min_coord, int & max_coord)
 	 *
 	 * \param centre: coordinate of the centre
 	 * \param min_coord: minimum coordinate
@@ -505,7 +521,7 @@ void game_utils::draw_snake(game_pixel_type * & pixels, const int & win_width, c
 
 	snake_list::SnakeList * snake_ptr = &(game_utils::get_snake_ptr());
 
-	snake_ptr->draw<game_pixel_type>(pixels, win_width, win_height, snake_units);
+	game_utils::snake.draw<game_pixel_type>(pixels, win_width, win_height, snake_units);
 
 }
 
@@ -516,7 +532,7 @@ void game_utils::draw_obstacles(game_pixel_type * & pixels, const int & win_widt
 
 	obstacle_list::ObstacleList * obs_ptr = &(game_utils::get_obstacle_ptr());
 
-	obs_ptr->draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
+	game_utils::obstacles.draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
 
 }
 #endif // GAME_UTILS_H

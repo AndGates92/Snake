@@ -40,18 +40,6 @@ namespace game_utils {
 		int auto_ride_count;
 
 		/**
-		 * @brief pointer to snake elements
-		 *
-		 */
-		static snake_list::SnakeList snake;
-
-		/**
-		 * @brief pointer to snake elements
-		 *
-		 */
-		static obstacle_list::ObstacleList obstacles;
-
-		/**
 		 * @brief Value of distance normalized by snake unit between head and unit width for which chanign direction is required
 		 *
 		 */
