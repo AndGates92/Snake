@@ -519,8 +519,6 @@ void game_utils::draw_snake(game_pixel_type * & pixels, const int & win_width, c
 
 	int snake_units = snake_settings.get_snake_units();
 
-	snake_list::SnakeList * snake_ptr = &(game_utils::get_snake_ptr());
-
 	game_utils::snake.draw<game_pixel_type>(pixels, win_width, win_height, snake_units);
 
 }
@@ -529,8 +527,6 @@ template <typename game_pixel_type>
 void game_utils::draw_obstacles(game_pixel_type * & pixels, const int & win_width, const int & win_height) {
 
 	int obs_no = snake_settings.get_obs_no();
-
-	obstacle_list::ObstacleList * obs_ptr = &(game_utils::get_obstacle_ptr());
 
 	game_utils::obstacles.draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
 
