@@ -47,6 +47,8 @@ void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_wi
 	LOG_INFO(logging::verb_level_e::LOW, "[Add Unit] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
 	snake_unit::SnakeUnit new_snake(name, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
 
+cout << "Snake size " << snake_vector->size() << endl;
+
 	// Check whether snake_vector is empty
 	if(snake_vector->size() > 0) {
 		snake_unit::SnakeUnit snake_found;

@@ -41,22 +41,6 @@
 
 namespace game_utils {
 
-	namespace {
-
-		/**
-		 * @brief pointer to snake elements
-		 *
-		 */
-		static snake_list::SnakeList snake;
-
-		/**
-		 * @brief pointer to snake elements
-		 *
-		 */
-		static obstacle_list::ObstacleList obstacles;
-
-	}
-
 	/**
 	 * @brief Function: void declare_game_var()
 	 *
@@ -519,7 +503,9 @@ void game_utils::draw_snake(game_pixel_type * & pixels, const int & win_width, c
 
 	int snake_units = snake_settings.get_snake_units();
 
-	game_utils::snake.draw<game_pixel_type>(pixels, win_width, win_height, snake_units);
+	snake_list::SnakeList * snake_ptr = &(game_utils::get_snake_ptr());
+
+	snake_ptr->draw<game_pixel_type>(pixels, win_width, win_height, snake_units);
 
 }
 
@@ -528,7 +514,8 @@ void game_utils::draw_obstacles(game_pixel_type * & pixels, const int & win_widt
 
 	int obs_no = snake_settings.get_obs_no();
 
-	game_utils::obstacles.draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
+	obstacle_list::ObstacleList * obs_ptr = &(game_utils::get_obstacle_ptr());
+	obs_ptr->draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
 
 }
 #endif // GAME_UTILS_H

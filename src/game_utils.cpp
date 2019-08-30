@@ -40,6 +40,18 @@ namespace game_utils {
 		int auto_ride_count;
 
 		/**
+		 * @brief pointer to snake elements
+		 *
+		 */
+		static snake_list::SnakeList snake;
+
+		/**
+		 * @brief pointer to snake elements
+		 *
+		 */
+		static obstacle_list::ObstacleList obstacles;
+
+		/**
 		 * @brief Value of distance normalized by snake unit between head and unit width for which chanign direction is required
 		 *
 		 */
@@ -129,6 +141,7 @@ void game_utils::add_obs_node (int centre_x, int centre_y, int node_width, int n
 void game_utils::populate_obstacle_list() {
 
 	int obs_no = snake_settings.get_obs_no();
+cout << "Obs no " << obs_no << endl;
 
 	for (int obs=0; obs < obs_no; obs++) {
 		game_utils::add_obstacle();
