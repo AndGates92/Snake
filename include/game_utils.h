@@ -503,9 +503,9 @@ void game_utils::draw_snake(game_pixel_type * & pixels, const int & win_width, c
 
 	int snake_units = snake_settings.get_snake_units();
 
-	snake_list::SnakeList snake_ptr (game_utils::get_snake_ptr());
+	snake_list::SnakeList * snake_ptr = &(game_utils::get_snake_ptr());
 
-	snake_ptr.draw<game_pixel_type>(pixels, win_width, win_height, snake_units);
+	snake_ptr->draw<game_pixel_type>(pixels, win_width, win_height, snake_units);
 
 }
 
@@ -514,9 +514,9 @@ void game_utils::draw_obstacles(game_pixel_type * & pixels, const int & win_widt
 
 	int obs_no = snake_settings.get_obs_no();
 
-	obstacle_list::ObstacleList obs_ptr (game_utils::get_obstacle_ptr());
+	obstacle_list::ObstacleList * obs_ptr = &(game_utils::get_obstacle_ptr());
 
-	obs_ptr.draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
+	obs_ptr->draw<game_pixel_type>(pixels, win_width, win_height, obs_no);
 
 }
 #endif // GAME_UTILS_H
