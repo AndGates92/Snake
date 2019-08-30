@@ -41,20 +41,20 @@ snake_list::SnakeList::~SnakeList() {
 // Add nodes from the head down
 void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour) {
 
-	std::vector<snake_unit::SnakeUnit> snake_vector (this->get_head());
+	std::vector<snake_unit::SnakeUnit> * snake_vector = &(this->get_head());
 	std::string name = this->get_name();
 
 	LOG_INFO(logging::verb_level_e::LOW, "[Add Unit] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
 	snake_unit::SnakeUnit new_snake(name, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
 
 	// Check whether snake_vector is empty
-	if(snake_vector.size() > 0) {
+	if(snake_vector->size() > 0) {
 		snake_unit::SnakeUnit snake_found;
 		std::vector<snake_unit::SnakeUnit>::iterator snake_prev;
-		std::vector<snake_unit::SnakeUnit>::iterator snake_head_it = snake_vector.begin();
-		std::vector<snake_unit::SnakeUnit>::iterator snake_tail = snake_vector.end();
+		std::vector<snake_unit::SnakeUnit>::iterator snake_head_it = snake_vector->begin();
+		std::vector<snake_unit::SnakeUnit>::iterator snake_tail = snake_vector->end();
 
-		snake_unit::SnakeUnit snake_head(snake_vector.front());
+		snake_unit::SnakeUnit snake_head(snake_vector->front());
 
 		int width_head = snake_head.get_width();
 		ASSERT(width_head == snake_width)
@@ -64,26 +64,26 @@ void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_wi
 
 		bool head_found = false;
 
-		std::vector<snake_unit::SnakeUnit>::iterator element_it = std::find_if(snake_vector.begin(), snake_vector.end(), insert_snake_unit::InsertSnakeUnit<snake_utils::direction_e,snake_unit::SnakeUnit>(centre_x, centre_y, snake_direction));
+		std::vector<snake_unit::SnakeUnit>::iterator element_it = std::find_if(snake_vector->begin(), snake_vector->end(), insert_snake_unit::InsertSnakeUnit<snake_utils::direction_e,snake_unit::SnakeUnit>(centre_x, centre_y, snake_direction));
 		snake_prev = element_it;
 
 		if (element_it != snake_tail) {
-			int index = std::distance(snake_vector.begin(), element_it);
+			int index = std::distance(snake_vector->begin(), element_it);
 			if (element_it != snake_head_it) {
 				head_found = false;
-				snake_found = snake_vector.at(index-1);
+				snake_found = snake_vector->at(index-1);
 				element_it = std::prev(element_it);
 			} else {
 				head_found = true;
 				// Set snake_found to the last element as snake_found will be appended at the end of the list
-				snake_found = snake_vector.at(index);
+				snake_found = snake_vector->at(index);
 			}
 		} else {
 			head_found = false;
 		}
 
 		if (head_found == true) {
-			snake_vector.insert(snake_vector.begin(), new_snake);
+			snake_vector->insert(snake_vector->begin(), new_snake);
 		} else {
 
 			int width_found = snake_found.get_width();
@@ -123,10 +123,10 @@ void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_wi
 			}
 
 			// Insert new snake unit
-			snake_vector.insert(element_it, new_snake);
+			snake_vector->insert(element_it, new_snake);
 		}
 	} else {
-		snake_vector.insert(snake_vector.begin(), new_snake);
+		snake_vector->insert(snake_vector->begin(), new_snake);
 	}
 
 }
