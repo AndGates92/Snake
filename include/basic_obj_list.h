@@ -114,7 +114,7 @@ void basic_obj_list::BasicObjList<class_element>::set_name(std::string new_name)
 
 template <class class_element> template <typename pixel_type>
 void basic_obj_list::BasicObjList<class_element>::draw(pixel_type * & pixels, const int & win_width, const int & win_height, const int & exp_no) {
-	std::vector<class_element> basic_obj = this->get_head();
+	std::vector<class_element> & basic_obj = this->get_head();
 
 	int obj_cnt = 0;
 
