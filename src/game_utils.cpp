@@ -112,7 +112,7 @@ void game_utils::populate_snake_list() {
 
 	// Colour snake_head differently to ease debug
 	std::vector<snake_unit::SnakeUnit> & snake_vector = game_utils::snake.get_vector();
-	snake_unit::SnakeUnit snake_head = snake_vector.at(0);
+	snake_unit::SnakeUnit & snake_head = snake_vector.at(0);
 	snake_head.set_colour(colours::palette_e::YELLOW);
 
 }
