@@ -47,8 +47,6 @@ void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_wi
 	LOG_INFO(logging::verb_level_e::LOW, "[Add Unit] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
 	snake_unit::SnakeUnit new_snake(name, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
 
-cout << "Snake size " << snake_vector.size() << endl;
-
 	// Check whether snake_vector is empty
 	if(snake_vector.size() > 0) {
 		snake_unit::SnakeUnit snake_found;
@@ -159,9 +157,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 
 	int speed_int = speed;
 
-	for(std::vector<snake_unit::SnakeUnit>::iterator el = snake_vector.begin(); el != snake_vector.end(); ++el) {
-		int index = std::distance(snake_vector.begin(), el);
-		snake_unit::SnakeUnit snake_el(snake_vector.at(index));
+	for(std::vector<snake_unit::SnakeUnit>::iterator & snake_el = snake_vector.begin(); snake_el != snake_vector.end(); ++snake_el) {
 
 		// Store values of current element before updating its position and direction
 		direction_curr = snake_el.get_direction();
@@ -229,10 +225,9 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 					snake_el.set_y_centre(y_centre_prev);
 				}
 			} else {
-				std::vector<snake_unit::SnakeUnit>::iterator el_next = std::next(el, 1);
+				std::vector<snake_unit::SnakeUnit>::iterator snake_el_next = std::next(snake_el, 1);
 
-				int index_next = std::distance(snake_vector.begin(), el_next);
-				snake_utils::direction_e direction_next = snake_vector.at(index_next).get_direction();
+				snake_utils::direction_e direction_next = snake_el_next.get_direction();
 
 				// If head and second unit have the same direction, the head can change again
 				if (direction_next == direction_curr) {
@@ -368,7 +363,7 @@ void snake_list::SnakeList::check_wall_collision(const int & win_width, const in
 
 	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_head();
 
-	for(auto && snake_el : snake_vector) {
+	for(auto snake_el : snake_vector) {
 
 		int x_centre = snake_el.get_x_centre();
 		int y_centre = snake_el.get_y_centre();
