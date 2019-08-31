@@ -71,13 +71,13 @@ namespace basic_list {
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 			/**
-			 * @brief Function: std::vector<class_element> & get_head()
+			 * @brief Function: std::vector<class_element> & get_vector()
 			 *
 			 * \return head of BasicList
 			 *
 			 * Return a pointer to te head of the list 
 			 */
-			std::vector<class_element> & get_head();
+			std::vector<class_element> & get_vector();
 
 			/**
 			 * @brief Function: void set_head(std::vector<class_element> & new_head)
@@ -151,7 +151,7 @@ void basic_list::BasicList<class_element>::print_info(logging::verb_level_e verb
 }
 
 template <class class_element>
-std::vector<class_element> & basic_list::BasicList<class_element>::get_head() {
+std::vector<class_element> & basic_list::BasicList<class_element>::get_vector() {
 	return this->head;
 }
 

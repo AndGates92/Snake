@@ -39,7 +39,7 @@ window_list::WindowList::~WindowList() {
 
 int window_list::WindowList::add_element(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, colours::palette_e background_colour) {
 
-	std::vector<window_obj::WindowObj> & win_vector = this->get_head();
+	std::vector<window_obj::WindowObj> & win_vector = this->get_vector();
 
 	LOG_INFO(logging::verb_level_e::LOW, "[Add node] Create node at ", window_x_pos, ", ", window_y_pos, ". Dimensions: width ", window_width, " height ", window_height, ". Title: ", window_title, " Background colour: ", background_colour);
 	window_obj::WindowObj new_window = window_obj::WindowObj(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour);
@@ -53,7 +53,7 @@ int window_list::WindowList::add_element(std::string window_title, std::string w
 
 void window_list::WindowList::delete_by_win_id(int &win_id) {
 
-	std::vector<window_obj::WindowObj> & win_vector = this->get_head();
+	std::vector<window_obj::WindowObj> & win_vector = this->get_vector();
 
 	// Delete all nodes with ID equal to win_id
 	std::vector<window_obj::WindowObj>::iterator element_it = std::find_if(win_vector.begin(), win_vector.end(), is_matching::IsMatching<int, window_obj::WindowObj>(win_id));
@@ -68,7 +68,7 @@ void window_list::WindowList::delete_by_win_id(int &win_id) {
 
 window_obj::WindowObj window_list::WindowList::search_by_win_id(int &win_id) {
 
-	std::vector<window_obj::WindowObj> & win_vector = this->get_head();
+	std::vector<window_obj::WindowObj> & win_vector = this->get_vector();
 
 	// Delete all nodes with ID equal to win_id
 	std::vector<window_obj::WindowObj>::iterator element_it = std::find_if(win_vector.begin(), win_vector.end(), is_matching::IsMatching<int, window_obj::WindowObj>(win_id));

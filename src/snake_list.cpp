@@ -41,7 +41,7 @@ snake_list::SnakeList::~SnakeList() {
 // Add nodes from the head down
 void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_width, int snake_height, snake_utils::direction_e snake_direction, colours::palette_e snake_colour) {
 
-	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_head();
+	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_vector();
 	std::string name = this->get_name();
 
 	LOG_INFO(logging::verb_level_e::LOW, "[Add Unit] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
@@ -134,7 +134,7 @@ void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_wi
 void snake_list::SnakeList::move(const int & speed, const int & win_width, const int & win_height, const snake_utils::direction_e & head_dir) {
 	LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Window dimensions: Width ", win_width, " Height ", win_height, " Speed: ", speed);
 
-	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_head();
+	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_vector();
 
 	snake_unit::SnakeUnit & snake_head = snake_vector.front();
 
@@ -297,7 +297,7 @@ int snake_list::SnakeList::change_dir(snake_unit::SnakeUnit & snake_el, int win_
 }
 
 int snake_list::SnakeList::adj_snake(snake_unit::SnakeUnit & snake_el, int curr_dim, int prev_dim, int curr_coord_mov_dir, int prev_coord_mov_dir, int curr_coord_perp_dir, int prev_coord_perp_dir, int speed, snake_utils::direction_e dir1, snake_utils::direction_e dir2, snake_utils::direction_e curr_dir, int win_dim_mov) {
-	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_head();
+	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_vector();
 
 	int centre_distance = ((curr_dim + prev_dim)/2);
 	int adjustment = 0;
@@ -366,7 +366,7 @@ void snake_list::SnakeList::check_collision(const int & win_width, const int & w
 #ifdef HARD_WALL
 void snake_list::SnakeList::check_wall_collision(const int & win_width, const int & win_height) {
 
-	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_head();
+	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_vector();
 
 	for(auto snake_el : snake_vector) {
 
@@ -404,7 +404,7 @@ void snake_list::SnakeList::check_wall_collision(const int & win_width, const in
 
 void snake_list::SnakeList::check_snake_collision() {
 
-	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_head();
+	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_vector();
 
 	for(std::vector<snake_unit::SnakeUnit>::iterator unit1_it = snake_vector.begin(); unit1_it != snake_vector.end(); ++unit1_it) {
 
