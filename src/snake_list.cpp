@@ -136,7 +136,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 
 	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_head();
 
-	snake_unit::SnakeUnit snake_head (snake_vector.front());
+	snake_unit::SnakeUnit & snake_head = snake_vector.front();
 
 	snake_utils::direction_e direction_prev = head_dir;
 	int x_centre_prev = snake_head.get_x_centre();
@@ -157,7 +157,8 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 
 	int speed_int = speed;
 
-	for(std::vector<snake_unit::SnakeUnit>::iterator & snake_el = snake_vector.begin(); snake_el != snake_vector.end(); ++snake_el) {
+	for(std::vector<snake_unit::SnakeUnit>::iterator el = snake_vector.begin(); el != snake_vector.end(); ++el) {
+		snake_unit::SnakeUnit & snake_el = *el;
 
 		// Store values of current element before updating its position and direction
 		direction_curr = snake_el.get_direction();
@@ -170,7 +171,7 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 		LOG_INFO(logging::verb_level_e::DEBUG, "[Snake List Move] Previous Unit: X ", x_centre_prev, " Y ", y_centre_prev, " Direction ", direction_prev);
 
 		if (direction_prev != direction_curr) {
-			if (snake_el != snake_head) {
+			if (el != snake_vector.begin()) {
 				int sign = 0;
 				// UP
 				if ((direction_prev == snake_utils::direction_e::UP) || (direction_prev == snake_utils::direction_e::RIGHT)) {
@@ -225,13 +226,17 @@ void snake_list::SnakeList::move(const int & speed, const int & win_width, const
 					snake_el.set_y_centre(y_centre_prev);
 				}
 			} else {
-				std::vector<snake_unit::SnakeUnit>::iterator snake_el_next = std::next(snake_el, 1);
+				// If snake has more than one element
+				if (el != snake_vector.end()) {
+					std::vector<snake_unit::SnakeUnit>::iterator el_next = std::next(el, 1);
+					snake_unit::SnakeUnit snake_el_next = *el_next;
 
-				snake_utils::direction_e direction_next = snake_el_next.get_direction();
+					snake_utils::direction_e direction_next = snake_el_next.get_direction();
 
-				// If head and second unit have the same direction, the head can change again
-				if (direction_next == direction_curr) {
-					snake_el.set_direction(direction_prev);
+					// If head and second unit have the same direction, the head can change again
+					if (direction_next == direction_curr) {
+						snake_el.set_direction(direction_prev);
+					}
 				}
 			}
 		} else {
