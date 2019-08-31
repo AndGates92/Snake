@@ -51,7 +51,7 @@ int window_list::WindowList::add_element(std::string window_title, std::string w
 
 }
 
-void window_list::WindowList::delete_by_win_id(int &win_id) {
+void window_list::WindowList::delete_by_win_id(int win_id) {
 
 	std::vector<window_obj::WindowObj> & win_vector = this->get_vector();
 
@@ -66,7 +66,7 @@ void window_list::WindowList::delete_by_win_id(int &win_id) {
 	LOG_ERROR("Couldn't find window matching window ID ", win_id);
 }
 
-window_obj::WindowObj window_list::WindowList::search_by_win_id(int &win_id) {
+window_obj::WindowObj window_list::WindowList::search_by_win_id(int win_id) {
 
 	std::vector<window_obj::WindowObj> & win_vector = this->get_vector();
 

@@ -46,13 +46,13 @@ void graphics_utils::init_window_list() {
 }
 
 // Delete window having the ID passed as input
-void graphics_utils::delete_win_id(int& win_id) {
+void graphics_utils::delete_win_id(int win_id) {
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Delete window ID] Delete window with ID: ", win_id);
 	windows.delete_by_win_id(win_id);
 }
 
 // Search window having the ID passed as input
-window_obj::WindowObj graphics_utils::search_win_id(int& win_id) {
+window_obj::WindowObj graphics_utils::search_win_id(int win_id) {
 	return windows.search_by_win_id(win_id);
 }
 

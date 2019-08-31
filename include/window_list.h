@@ -67,7 +67,7 @@ namespace window_list {
 			int add_element(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, colours::palette_e background_colour);
 
 			/**
-			 * @brief Function: window_obj::WindowObj search_by_win_id(int &win_id)
+			 * @brief Function: window_obj::WindowObj search_by_win_id(int win_id)
 			 *
 			 * \param win_id: Window ID to search for
 			 *
@@ -75,16 +75,16 @@ namespace window_list {
 			 *
 			 * Find WindowObj matching ID win_id
 			 */
-			window_obj::WindowObj search_by_win_id(int &win_id);
+			window_obj::WindowObj search_by_win_id(int win_id);
 
 			/**
-			 * @brief Function: void delete_by_win_id(int &win_id)
+			 * @brief Function: void delete_by_win_id(int win_id)
 			 *
 			 * \param win_id: Window ID to delete
 			 *
 			 * Delete WindowObj matching ID win_id
 			 */
-			void delete_by_win_id(int &win_id);
+			void delete_by_win_id(int win_id);
 
 		protected:
 
