@@ -196,3 +196,15 @@ void menu::Menu::save_data (iofile::File & savefile) {
 	savefile.write_ofile("Type: Menu\n");
 	savefile.write_ofile("Title: ", this->title, "\n");
 }
+
+bool menu::Menu::operator== (const menu::Menu & rhs) {
+	bool same_title = (this->title.compare(rhs.title) == 0);
+	bool same_id = (this->id == rhs.id);
+	return (same_title && same_id);
+}
+
+bool menu::Menu::operator!= (const menu::Menu & rhs) {
+	bool different_title = (this->title.compare(rhs.title) != 0);
+	bool different_id = (this->id != rhs.id);
+	return (different_title && different_id);
+}

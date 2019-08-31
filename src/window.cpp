@@ -105,3 +105,15 @@ void window::Window::save_data (iofile::File & savefile) {
 	savefile.write_ofile("Title: ", this->title, "\n");
 	savefile.write_ofile("\n");
 }
+
+bool window::Window::operator== (const window::Window & rhs) {
+	bool same_title = (this->title.compare(rhs.title) == 0);
+	bool same_id = (this->id == rhs.id);
+	return (same_title && same_id && (static_cast<basic_object::BasicObject>(*this) == static_cast<basic_object::BasicObject>(rhs)));
+}
+
+bool window::Window::operator!= (const window::Window & rhs) {
+	bool different_title = (this->title.compare(rhs.title) != 0);
+	bool different_id = (this->id != rhs.id);
+	return (different_title && different_id && (static_cast<basic_object::BasicObject>(*this) != static_cast<basic_object::BasicObject>(rhs)));
+}

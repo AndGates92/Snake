@@ -125,6 +125,24 @@ namespace window_obj {
 			 */
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
+			/**
+			 * @brief Function: bool operator== (const window_obj::WindowObj & rhs)
+			 *
+			 * \param rhs: base object to compare with
+			 *
+			 * Overload == operator
+			 */
+			bool operator== (const window_obj::WindowObj & rhs);
+
+			/**
+			 * @brief Function: bool operator!= (const window_obj::WindowObj & rhs)
+			 *
+			 * \param rhs: base object to compare with
+			 *
+			 * Overload != operator
+			 */
+			bool operator!= (const window_obj::WindowObj & rhs);
+
 		protected:
 
 		private:

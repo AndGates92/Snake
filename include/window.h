@@ -125,6 +125,24 @@ namespace window {
 			 */
 			void destroy_window();
 
+			/**
+			 * @brief Function: bool operator== (const window_obj::WindowObj & rhs)
+			 *
+			 * \param rhs: base object to compare with
+			 *
+			 * Overload == operator
+			 */
+			bool operator== (const window::Window & rhs);
+
+			/**
+			 * @brief Function: bool operator!= (const window_obj::WindowObj & rhs)
+			 *
+			 * \param rhs: base object to compare with
+			 *
+			 * Overload != operator
+			 */
+			bool operator!= (const window::Window & rhs);
+
 		protected:
 
 			/**

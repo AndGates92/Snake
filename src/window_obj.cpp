@@ -56,3 +56,11 @@ void window_obj::WindowObj::save_data (iofile::File & savefile) {
 	drawing.save_data(savefile);
 	action_list.save_data(savefile);
 }
+
+bool window_obj::WindowObj::operator== (const window_obj::WindowObj & rhs) {
+	return ((this->drawing == rhs.drawing) && (this->action_list == rhs.action_list));
+}
+
+bool window_obj::WindowObj::operator!= (const window_obj::WindowObj & rhs) {
+	return ((this->drawing != rhs.drawing) && (this->action_list != rhs.action_list));
+}

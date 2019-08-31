@@ -204,6 +204,24 @@ namespace menu {
 			 */
 			void destroy_menu();
 
+			/**
+			 * @brief Function: bool operator== (const window_obj::WindowObj & rhs)
+			 *
+			 * \param rhs: base object to compare with
+			 *
+			 * Overload == operator
+			 */
+			bool operator== (const menu::Menu & rhs);
+
+			/**
+			 * @brief Function: bool operator!= (const window_obj::WindowObj & rhs)
+			 *
+			 * \param rhs: base object to compare with
+			 *
+			 * Overload != operator
+			 */
+			bool operator!= (const menu::Menu & rhs);
+
 		protected:
 
 			/**
