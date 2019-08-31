@@ -85,9 +85,9 @@ void graphics_utils::refresh_window(int value) {
 	std::vector<window_obj::WindowObj> & win_vector = graphics_utils::windows.get_vector();
 
 	// Refresh windows
-	for (auto && node : win_vector) {
+	for (auto win_node : win_vector) {
 
-		int curr_win_id = node.get_win_id();
+		int curr_win_id = win_node.get_win_id();
 
 		LOG_INFO(logging::verb_level_e::DEBUG,"[Refresh window] Window ID: current ", curr_win_id);
 
@@ -108,11 +108,11 @@ void graphics_utils::save_window(iofile::File & savefile) {
 
 	std::vector<window_obj::WindowObj> & win_vector = graphics_utils::windows.get_vector();
 
-	for (auto && curr_win_node : win_vector) {
+	for (auto win_node : win_vector) {
 		savefile.write_ofile("//******************************\n");
 		savefile.write_ofile("// Window ", win_node_cnt, "\n");
 		savefile.write_ofile("//******************************\n");
-		curr_win_node.save_data(savefile);
+		win_node.save_data(savefile);
 
 		savefile.write_ofile("\n");
 

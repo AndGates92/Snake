@@ -119,7 +119,7 @@ void game_utils::populate_snake_list() {
 
 void game_utils::set_snake_settings() {
 
-	std::vector<snake_unit::SnakeUnit> & snake_vector = game_utils::snake.get_vector();
+	std::vector<snake_unit::SnakeUnit> snake_vector = game_utils::snake.get_vector();
 	snake_unit::SnakeUnit snake_head = snake_vector.at(0);
 	snake_utils::direction_e snake_head_dir = snake_head.get_direction();
 	snake_settings.set_head_dir(snake_head_dir);
@@ -182,7 +182,7 @@ bool game_utils::contact_between_snake_obs() {
 
 	bool contact = false;
 
-	for (auto && curr_node : obs_vector) {
+	for (auto curr_node : obs_vector) {
 		int obs_x = curr_node.get_x_centre();
 		int obs_width = curr_node.get_width();
 		int obs_x_min = obs_x - obs_width/2;
@@ -278,7 +278,7 @@ void game_utils::save_game(std::string filename) {
 
 	graphics_utils::save_window(save);
 
-	for (auto && curr_snake_node : snake_vector) {
+	for (auto curr_snake_node : snake_vector) {
 		save.write_ofile("//******************************\n");
 		save.write_ofile("// Snake Node ", snake_node_cnt, "\n");
 		save.write_ofile("//******************************\n");
@@ -297,7 +297,7 @@ void game_utils::save_game(std::string filename) {
 
 	int obs_node_cnt = 0;
 
-	for (auto && curr_obs_node : obs_vector) {
+	for (auto curr_obs_node : obs_vector) {
 
 		save.write_ofile("//******************************\n");
 		save.write_ofile("// Obstacle Node ", obs_node_cnt, "\n");
@@ -776,7 +776,7 @@ void game_utils::populate_flags_obs(int & left_dist, int & right_dist, int & up_
 	}
 	#endif // HARD_WALL
 
-	for (auto && curr_node : obs_vector) {
+	for (auto curr_node : obs_vector) {
 
 		int obs_head_x = curr_node.get_x_centre();
 		int obs_head_width = curr_node.get_width();

@@ -145,7 +145,7 @@ void basic_list::BasicList<class_element>::remove_element(class_element & elemen
 template <class class_element>
 void basic_list::BasicList<class_element>::print_info(logging::verb_level_e verbosity, std::string pretext) {
 
-	for(auto && element : this->head) {
+	for(auto element : this->head) {
 		element.print_info(verbosity, pretext);
 	}
 }

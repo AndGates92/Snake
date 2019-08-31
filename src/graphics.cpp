@@ -123,7 +123,7 @@ void graphics::idle_cb() {
 	window_list::WindowList &  head_list = graphics_utils::get_window_ptr();
 	std::vector<window_obj::WindowObj> & window = head_list.get_vector();
 
-	for (auto && node : window) {
+	for (auto node : window) {
 
 		int curr_win_id = node.get_win_id();
 		std::string curr_win_title = node.get_win_title();
