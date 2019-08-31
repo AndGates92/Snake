@@ -118,15 +118,11 @@ void basic_obj_list::BasicObjList<class_element>::draw(pixel_type * & pixels, co
 
 	int obj_cnt = 0;
 
-cout << "size" << basic_obj.size() << endl;
-
 	for (auto && obj : basic_obj) {
 
 		obj.draw(pixels, win_width, win_height);
 
 		obj_cnt++;
-
-cout << "draw" << endl;
 
 	}
 
