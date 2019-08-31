@@ -139,7 +139,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 void game_graphics::specialkey_game_cb(int key, int x, int y) {
 
 	snake_list::SnakeList & snake_ptr (game_utils::get_snake_ptr());
-	std::vector<snake_unit::SnakeUnit> snake_vector(snake_ptr.get_head());
+	std::vector<snake_unit::SnakeUnit> &  snake_vector = snake_ptr.get_head();
 	snake_unit::SnakeUnit snake_head = snake_vector.at(0);;
 	snake_utils::direction_e snake_head_dir = snake_head.get_direction();
 
@@ -218,7 +218,7 @@ void game_graphics::idle_game_cb() {
 
 			game_utils::add_obstacle();
 
-			std::vector<snake_unit::SnakeUnit> snake_vector(snake_ptr.get_head());
+			std::vector<snake_unit::SnakeUnit> &  snake_vector = snake_ptr.get_head();
 			snake_unit::SnakeUnit snake_head = snake_vector.at(0);;
 			int new_snake_node_x = snake_head.get_x_centre();
 			int new_snake_node_y = snake_head.get_y_centre();
