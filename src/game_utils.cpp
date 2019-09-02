@@ -586,11 +586,13 @@ std::vector<snake_utils::direction_e> game_utils::populate_dirs(std::vector<snak
 	int dir_list_size = dir_list.size();
 
 	for (int dir_no = 0; dir_no < game_utils::num_useful_dirs; dir_no++) {
+		snake_utils::direction_e dir = snake_utils::direction_e::UNKNOWN;
 		if (dir_no < dir_list_size) {
-			dirs.at(dir_no) = dir_list.at(dir_no);
+			dir = dir_list.at(dir_no);
 		} else {
-			dirs.at(dir_no) = snake_utils::direction_e::UNKNOWN;
+			dir = snake_utils::direction_e::UNKNOWN;
 		}
+		dirs.insert(dirs.end(), dir);
 	}
 
 	return dirs;
