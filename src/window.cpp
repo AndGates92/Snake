@@ -10,6 +10,7 @@
 #include <string>
 #include <cstring>
 #include <iostream>
+#include <exception>
 
 // include graphical libraries (OPENGL)
 #include <GL/glut.h>
@@ -62,10 +63,12 @@ int window::Window::create_window(std::string title, int width, int height, int 
 
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
 
+	char * win_name = nullptr;
 	// Create window
-	char * win_name = new char [WIN_NAME_LENGTH_MAX];
-	if (win_name == nullptr) {
-		LOG_ERROR("Can't allocate memory for window name");
+	try {
+		win_name = new char [WIN_NAME_LENGTH_MAX];
+	} catch (exception& alloc_e) {
+		LOG_ERROR("Caught exception ", alloc_e.what(), " when allocating memory for window name");
 	}
 	ASSERT(title.length() < WIN_NAME_LENGTH_MAX)
 

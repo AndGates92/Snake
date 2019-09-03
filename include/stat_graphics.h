@@ -8,6 +8,8 @@
  * @brief Stat graphics header file
 */
 
+#include <exception>
+
 #include "colours.h"
 #include "char_lut.h"
 #include "settings.h"
@@ -113,9 +115,11 @@ stat_pixel_type * stat_graphics::get_stat_pixel_array (int & win_width, int & wi
 
 	int win_area = win_width*win_height;
 
-	stat_pixel_type * pixels = new stat_pixel_type[colours::no_colours*win_area];
-	if (pixels == nullptr) {
-		LOG_ERROR("Can't allocate memory for stat pixels array");
+	stat_pixel_type * pixels = nullptr;
+	try {
+		pixels = new stat_pixel_type[colours::no_colours*win_area];
+	} catch (exception& alloc_e) {
+		LOG_ERROR("Caught exception ", alloc_e.what(), " when allocating memory for stat pixel array");
 	}
 
 	int win_id = 0;

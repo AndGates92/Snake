@@ -9,6 +9,7 @@
 */
 
 #include <vector>
+#include <exception>
 
 #include "graphics_utils.h"
 #include "snake_list.h"
@@ -463,9 +464,11 @@ game_pixel_type * game_utils::get_game_pixel_array (const int & win_width, const
 
 	int win_area = win_width*win_height;
 
-	game_pixel_type * pixels = new game_pixel_type[colours::no_colours*win_area];
-	if (pixels == nullptr) {
-		LOG_ERROR("Can't allocate memory for game pixels array");
+	game_pixel_type * pixels = nullptr;
+	try {
+		pixels = new game_pixel_type[colours::no_colours*win_area];
+	} catch (exception& alloc_e) {
+		LOG_ERROR("Caught exception ", alloc_e.what(), " when allocating memory for game pixel array");
 	}
 
 	int win_id = glutGetWindow();

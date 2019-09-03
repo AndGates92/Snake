@@ -9,6 +9,7 @@
 */
 
 #include <limits>
+#include <exception>
 
 #include "logging.h"
 
@@ -96,9 +97,12 @@ template <typename pixel_type>
 pixel_type * colours::get_pixel_colour (colours::palette_e colour_name) {
 
 	ASSERT((colours::no_colours == 3) || (colours::no_colours == 1));
-	pixel_type * colour = new pixel_type[colours::no_colours];
-	if (colour == nullptr) {
-		LOG_ERROR("Can't allocate memory for colour array");
+
+	pixel_type * colour = nullptr;
+	try {
+		colour = new pixel_type[colours::no_colours];
+	} catch (exception& alloc_e) {
+		LOG_ERROR("Caught exception ", alloc_e.what(), " when allocating memory for colour array");
 	}
 
 	static pixel_type max_value_pixel_type = std::numeric_limits<pixel_type>::max();
