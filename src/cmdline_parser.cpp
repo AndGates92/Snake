@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <string>
 #include <cmath>
 
 #include "graphics.h"
@@ -248,13 +249,13 @@ void cmdline_parser::assign_common_var(std::string var_name, std::string var_val
 	} else if ((var_name.compare("TITLE") == 0) || (var_name.compare("Title") == 0) || (var_name.compare("title") == 0)) {
 		title = var_value;
 	} else if ((var_name.compare("X") == 0) || (var_name.compare("x") == 0)) {
-		x_centre = utility::str_to_int(var_value);
+		x_centre = std::stoi(var_value);
 	} else if ((var_name.compare("Y") == 0) || (var_name.compare("y") == 0)) {
-		y_centre = utility::str_to_int(var_value);
+		y_centre = std::stoi(var_value);
 	} else if ((var_name.compare("WIDTH") == 0) || (var_name.compare("Width") == 0) || (var_name.compare("width") == 0)) {
-		width = utility::str_to_int(var_value);
+		width = std::stoi(var_value);
 	} else if ((var_name.compare("HEIGHT") == 0) || (var_name.compare("Height") == 0) || (var_name.compare("height") == 0)) {
-		height = utility::str_to_int(var_value);
+		height = std::stoi(var_value);
 	} else if ((var_name.compare("COLOUR") == 0) || (var_name.compare("Colour") == 0) || (var_name.compare("colour") == 0)) {
 		colour = colours::str_to_colour(var_value);
 	} else if ((var_name.compare("DIRECTION") == 0) || (var_name.compare("Direction") == 0) || (var_name.compare("direction") == 0)) {
@@ -264,15 +265,15 @@ void cmdline_parser::assign_common_var(std::string var_name, std::string var_val
 	} else if ((var_name.compare("SAVE") == 0) || (var_name.compare("Save") == 0) || (var_name.compare("save") == 0)) {
 		snake_settings.set_save_filename(var_value);
 	} else if ((var_name.compare("SPEED") == 0) || (var_name.compare("Speed") == 0) || (var_name.compare("speed") == 0)) {
-		snake_settings.set_speed(utility::str_to_int(var_value));
+		snake_settings.set_speed(std::stoi(var_value));
 	} else if ((var_name.compare("WALL") == 0) || (var_name.compare("Wall") == 0) || (var_name.compare("wall") == 0)) {
 		snake_settings.set_hard_wall_flag(utility::str_to_bool(var_value));
 	} else if ((var_name.compare("SNAKEUNITS") == 0) || (var_name.compare("SnakeUnits") == 0) || (var_name.compare("Snakeunits") == 0) || (var_name.compare("snakeunits") == 0)) {
-		snake_settings.set_snake_units(utility::str_to_int(var_value));
+		snake_settings.set_snake_units(std::stoi(var_value));
 	} else if ((var_name.compare("OBSTACLES") == 0) || (var_name.compare("Obstacles") == 0) || (var_name.compare("obstacles") == 0)) {
-		snake_settings.set_obs_no(utility::str_to_int(var_value));
+		snake_settings.set_obs_no(std::stoi(var_value));
 	} else if ((var_name.compare("SCORE") == 0) || (var_name.compare("Score") == 0) || (var_name.compare("score") == 0)) {
-		snake_settings.set_score(utility::str_to_int(var_value));
+		snake_settings.set_score(std::stoi(var_value));
 	} else {
 		LOG_ERROR("Unknown variable name: ", var_name);
 	}

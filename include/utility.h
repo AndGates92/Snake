@@ -35,17 +35,6 @@
 namespace utility {
 
 	/**
-	 * @brief Function: int str_to_int(std::string str)
-	 *
-	 * \param str: string to convert to an integer
-	 *
-	 * \return integer value of the string
-	 *
-	 * Convert a string to an integer
-	 */
-	int str_to_int(std::string str);
-
-	/**
 	 * @brief Function: int str_to_bool(std::string str)
 	 *
 	 * \param str: string to convert to a boolean
