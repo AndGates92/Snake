@@ -9,6 +9,7 @@
 */
 
 #include <iostream>
+#include <mutex>
 
 #include "file.h"
 #include "utility.h"
@@ -133,11 +134,14 @@ namespace logging {
 	template <typename file_type, typename str_type>
 	void print_str(file_type& file, str_type str);
 
-	/**
-	 * @brief Global variable logfile
-	 *
-	 */
-	static iofile::File logfile(STRINGIFY(LOGFILE), iofile::mode_e::WO);
+	namespace {
+		/**
+		 * @brief Global variable logfile
+		 *
+		 */
+		static iofile::File logfile(STRINGIFY(LOGFILE), iofile::mode_e::WO);
+
+	}
 
 }
 /** @} */ // End of LogGroup group
@@ -155,17 +159,20 @@ void logging::print_str(file_type& file, first_str_type first_str, other_str_typ
 
 template <typename... err_type>
 void logging::log_error(err_type... err) {
-	using std::cerr;
-
+//	logging::err_mtx.lock();
 	logging::print_str(std::cerr, err...);
+//	logging::err_mtx.unlock();
 
 	exit(1);
 }
 
 template <typename... info_type>
 void logging::log_info (logging::verb_level_e verbosity, info_type... info) {
+	// Locking mutex to avoid other accesses to the logfile for write
 	if (verbosity <= static_cast<logging::verb_level_e>(VERBOSITY)) {
+		logging::logfile.file_mtx.lock();
 		logging::logfile.write_ofile(info...);
+		logging::logfile.file_mtx.unlock();
 	}
 }
 

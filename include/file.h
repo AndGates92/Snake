@@ -9,6 +9,7 @@
 */
 
 #include <fstream>
+#include <mutex>
 
 /** @defgroup FileGroup File Doxygen Group
  *  File functions and classes
@@ -72,15 +73,22 @@ namespace iofile {
 			 */
 			~File();
 
+			/**
+			 * @brief logging mutex
+			 *
+			 */
+			std::mutex file_mtx;
+
 			// Set functions
 			/**
-			 * @brief Function: void set_filename(std::string filename)
+			 * @brief Function: void set_name(std::string filename)
 			 *
 			 * \param filename: name of the file
 			 *
 			 * Set filename
 			 */
-			void set_filename(std::string filename);
+			void set_name(std::string filename);
+
 			/**
 			 * @brief Function: void set_access_mode(iofile::mode_e access_mode)
 			 *
@@ -99,6 +107,7 @@ namespace iofile {
 			 * Get filename
 			 */
 			std::string get_name();
+
 			/**
 			 * @brief Function: iofile::mode_e get_access_mode()
 			 *
@@ -107,6 +116,7 @@ namespace iofile {
 			 * Get access permissions
 			 */
 			iofile::mode_e get_access_mode();
+
 			/**
 			 * @brief Function: std::ifstream & get_ifile()
 			 *
@@ -202,22 +212,26 @@ namespace iofile {
 			 *
 			 */
 			iofile::mode_e mode;
+
 			/**
 			 * @brief Read flag
 			 *
 			 */
 			bool read_flag;
+
 			/**
 			 * @brief Write flag 
 			 *
 			 */
 			bool write_flag;
+
 			/**
 			 * @brief Function: void set_read_access()
 			 *
 			 * Set read permission 
 			 */
 			void set_read_access();
+
 			/**
 			 * @brief Function: void set_write_access()
 			 *

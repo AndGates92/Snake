@@ -9,6 +9,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <mutex>
 
 #include "file.h"
 #include "logging.h"
@@ -136,7 +137,7 @@ std::ifstream & iofile::File::get_ifile() {
 // ================================================================
 // Set functions
 // ================================================================
-void iofile::File::set_filename(std::string filename) {
+void iofile::File::set_name(std::string filename) {
 	LOG_INFO(logging::verb_level_e::ZERO, "[Access Mode] Changing name of file ", this->name, " to " , filename, ". File ", this->name, " will be closed.");
 	// Set filename
 	this->name.assign(filename);
