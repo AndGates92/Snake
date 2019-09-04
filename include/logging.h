@@ -9,6 +9,7 @@
 */
 
 #include <iostream>
+#include <sstream>
 #include <mutex>
 
 #include "file.h"
@@ -160,7 +161,10 @@ void logging::print_str(file_type& file, first_str_type first_str, other_str_typ
 template <typename... err_type>
 void logging::log_error(err_type... err) {
 //	logging::err_mtx.lock();
-	logging::print_str(std::cerr, err...);
+	std::ostringstream err_oss;
+	logging::print_str(err_oss, err...);
+	std::string err_str (err_oss.str());
+	std::cerr << err_str;
 //	logging::err_mtx.unlock();
 
 	exit(1);
