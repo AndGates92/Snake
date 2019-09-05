@@ -34,7 +34,7 @@ namespace custom_exception {
 			 * CustomException constructor
 			 */
 			explicit CustomException(const std::string exception_message) : message (exception_message) {
-				LOG_INFO(logging::verb_level_e::LOW, "Constructor")
+
 			};
 
 			// Destructor

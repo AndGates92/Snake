@@ -14,6 +14,7 @@
 
 #include "file.h"
 #include "utility.h"
+#include "custom_exception.h"
 
 /**
  * @brief log filename
@@ -164,7 +165,8 @@ void logging::log_error(err_type... err) {
 	std::ostringstream err_oss;
 	logging::print_str(err_oss, err...);
 	std::string err_str (err_oss.str());
-	std::cerr << err_str;
+	custom_exception::CustomException snake_error(err_str);
+	throw snake_error;
 //	logging::err_mtx.unlock();
 
 	exit(1);
