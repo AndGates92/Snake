@@ -98,7 +98,7 @@ basic_obj_list::BasicObjList<class_element>::~BasicObjList() {
 	std::string pretext ("Destructor");
 	this->print_info(logging::verb_level_e::LOW, pretext);
 
-	LOG_INFO(logging::verb_level_e::HIGH, "Basic Object list destroyed");
+	LOG_INFO(logging::verb_level_e::HIGH, "Basic Object List destroyed");
 
 }
 
