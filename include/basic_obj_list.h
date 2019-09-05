@@ -43,11 +43,11 @@ namespace basic_obj_list {
 
 			// Destructor
 			/**
-			 * @brief Function: ~BasicObjList()
+			 * @brief Function: virtual ~BasicObjList()
 			 *
 			 * Destructor of BasicObjList
 			 */
-			~BasicObjList();
+			virtual ~BasicObjList();
 
 			/**
 			 * @brief Function: std::string get_name()

@@ -180,11 +180,11 @@ namespace basic_object {
 
 			// Destructor
 			/**
-			 * @brief Function: ~BasicObject()
+			 * @brief Function: virtual ~BasicObject()
 			 *
 			 * Destructor of BasicObject
 			 */
-			~BasicObject();
+			virtual ~BasicObject();
 
 			/**
 			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)

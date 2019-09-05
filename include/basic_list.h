@@ -45,11 +45,11 @@ namespace basic_list {
 
 			// Destructor
 			/**
-			 * @brief Function: ~BasicList()
+			 * @brief Function: virtual ~BasicList()
 			 *
 			 * Destructor of BasicList
 			 */
-			~BasicList();
+			virtual ~BasicList();
 
 			/**
 			 * @brief Function: void remove_element(class_element & element)
