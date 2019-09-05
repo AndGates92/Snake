@@ -20,13 +20,6 @@
 #include "logging.h"
 #include "insert_snake_unit.h"
 
-using namespace std;
-using namespace logging;
-using namespace snake_list;
-using namespace snake_unit;
-using namespace colours;
-using namespace game_utils;
-
 snake_list::SnakeList::~SnakeList() {
 
 	std::string pretext ("Destructor");

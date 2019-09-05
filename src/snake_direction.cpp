@@ -12,10 +12,6 @@
 #include "snake_utils.h"
 #include "logging.h"
 
-using namespace std;
-using namespace snake_direction;
-using namespace logging;
-
 // ================================================================
 // Destructor
 // ================================================================

@@ -27,14 +27,6 @@
 #include "snake_unit.h"
 #include "snake_utils.h"
 
-using namespace std;
-using namespace logging;
-using namespace menu;
-using namespace graphics;
-using namespace game_graphics;
-using namespace graphics_utils;
-using namespace snake_utils;
-
 void game_graphics::display_game_cb() {
 	glClear( GL_COLOR_BUFFER_BIT );
 

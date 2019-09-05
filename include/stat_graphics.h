@@ -14,8 +14,6 @@
 #include "char_lut.h"
 #include "settings.h"
 
-using namespace char_lut;
-
 /** @defgroup StatGraphicsGroup Statistics graphics Doxygen Group
  *  Statistics graphics functions and classes
  *  @{
@@ -118,7 +116,7 @@ stat_pixel_type * stat_graphics::get_stat_pixel_array (int & win_width, int & wi
 	stat_pixel_type * pixels = nullptr;
 	try {
 		pixels = new stat_pixel_type[colours::no_colours*win_area];
-	} catch (exception& alloc_e) {
+	} catch (std::exception& alloc_e) {
 		LOG_ERROR("Caught exception ", alloc_e.what(), " when allocating memory for stat pixel array");
 	}
 
@@ -155,7 +153,7 @@ stat_pixel_type * stat_graphics::get_stat_pixel_array (int & win_width, int & wi
 	start_x += (obj_name.length()*(char_lut::num_tiles_width*tile_width));
 
 	int score = snake_settings.get_score();
-	std::string score_s (to_string(score));
+	std::string score_s (std::to_string(score));
 	char_lut::draw_string<stat_pixel_type> (pixels, win_width, win_height, start_x, start_y, score_s);
 
 	return pixels;

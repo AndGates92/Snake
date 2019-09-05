@@ -14,10 +14,6 @@
 #include "file.h"
 #include "logging.h"
 
-using namespace std;
-using namespace iofile;
-using namespace logging;
-
 // ================================================================
 // Output stream (write)
 // ================================================================

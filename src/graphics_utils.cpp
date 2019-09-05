@@ -20,12 +20,6 @@
 #include "window_obj.h"
 #include "graphics_utils.h"
 
-using namespace std;
-using namespace logging;
-using namespace window_list;
-using namespace window_obj;
-using namespace graphics_utils;
-
 /** @addtogroup GraphicsUtilsGroup
  *
  *  @{

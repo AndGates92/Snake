@@ -13,11 +13,6 @@
 #include "logging.h"
 #include "file.h"
 
-using namespace std;
-using namespace basic_object;
-using namespace logging;
-using namespace iofile;
-
 // ================================================================
 // Destructor
 // ================================================================

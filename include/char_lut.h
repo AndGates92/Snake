@@ -283,7 +283,7 @@ namespace char_lut {
 	const bool * get_char_tiles(const char & char_print);
 
 	/**
-	 * @brief Function: void draw_string(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const string & str)
+	 * @brief Function: void draw_string(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const std::string & str)
 	 *
 	 * \param win_height: height of the reshaped window
 	 * \param win_width: width of the reshaped window
@@ -295,7 +295,7 @@ namespace char_lut {
 	 * This function returns the pointer to the array of pixels to draw
 	 */
 	template <typename stat_pixel_type>
-	void draw_string(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const string & str);
+	void draw_string(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const std::string & str);
 
 }
 /** @} */ // End of CharLUTGroup group
@@ -354,7 +354,7 @@ void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int
 }
 
 template <typename stat_pixel_type>
-void char_lut::draw_string(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const string & str) {
+void char_lut::draw_string(stat_pixel_type * & pixels, const int & win_width, const int & win_height, const int & init_x, const int & init_y, const std::string & str) {
 
 	int tile_width = snake_settings.get_tile_width();
 	//int tile_height = snake_settings.get_tile_height();

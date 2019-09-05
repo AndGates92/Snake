@@ -18,9 +18,6 @@
 #include "utility.h"
 #include "logging.h"
 
-using namespace std;
-using namespace utility;
-
 bool utility::str_to_bool (std::string str) {
 
 	int value_int = std::stoi(str);

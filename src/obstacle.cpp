@@ -13,10 +13,6 @@
 #include "graphics_utils.h"
 #include "basic_object.h"
 
-using namespace std;
-using namespace obstacle;
-using namespace logging;
-
 // ================================================================
 // Destructor
 // ================================================================

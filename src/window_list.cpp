@@ -19,13 +19,6 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
-using namespace std;
-using namespace logging;
-using namespace is_matching;
-using namespace window_list;
-using namespace window_obj;
-using namespace window_obj;
-
 window_list::WindowList::~WindowList() {
 
 	std::string pretext ("Destructor");

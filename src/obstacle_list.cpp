@@ -15,12 +15,6 @@
 #include "obstacle.h"
 #include "logging.h"
 
-using namespace std;
-using namespace logging;
-using namespace obstacle_list;
-using namespace obstacle;
-using namespace colours;
-
 obstacle_list::ObstacleList::~ObstacleList() {
 
 	std::string pretext ("Destructor");

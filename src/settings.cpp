@@ -13,10 +13,6 @@
 #include "logging.h"
 #include "snake_utils.h"
 
-using namespace std;
-using namespace logging;
-using namespace settings;
-
 settings::Settings snake_settings;
 
 // ================================================================

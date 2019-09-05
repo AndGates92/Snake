@@ -23,14 +23,6 @@
 #include "stat_graphics.h"
 #include "window_obj.h"
 
-using namespace std;
-using namespace logging;
-using namespace menu;
-using namespace graphics;
-using namespace stat_graphics;
-using namespace graphics_utils;
-using namespace window_obj;
-
 void stat_graphics::display_stat_cb() {
 	glClear( GL_COLOR_BUFFER_BIT );
 

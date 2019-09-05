@@ -11,11 +11,6 @@
 #include "window_obj.h"
 #include "logging.h"
 
-using namespace std;
-using namespace logging;
-using namespace window_obj;
-
-
 void window_obj::WindowObj::destroy_obj() {
 	LOG_INFO(logging::verb_level_e::DEBUG, "Destroy Window Object");
 	this->drawing.destroy_window();

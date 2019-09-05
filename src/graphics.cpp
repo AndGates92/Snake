@@ -28,15 +28,6 @@
 #include "stat_graphics.h"
 #include "cmdline_parser.h"
 
-using namespace std;
-using namespace logging;
-using namespace menu;
-using namespace graphics;
-using namespace graphics_utils;
-using namespace game_graphics;
-using namespace game_utils;
-using namespace cmdline_parser;
-
 /** @addtogroup GraphicsGroup
  *
  *  @{

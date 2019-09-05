@@ -378,7 +378,7 @@ void game_utils::auto_change_dir() {
 	}
 	#endif // HARD_WALL
 
-//cout << "snake " << snake_head_dir << " curr_dir " << game_utils::head_dir << endl;
+//std::cout << "snake " << snake_head_dir << " curr_dir " << game_utils::head_dir << std::endl;
 	ASSERT(auto_ride_count <= max_auto_ride_count);
 
 }
@@ -421,8 +421,8 @@ void game_utils::check_wall_collision(snake_utils::direction_e snake_head_dir) {
 		crossing = game_utils::wall_crossing(snake_head_y_min, 0, speed, true);
 	}
 
-cout << "Wall crossing " << crossing << " curr_dir " << curr_dir << " snake_head_dir " << snake_head_dir << endl;
-cout << "X min " << snake_head_x_min << " max " << snake_head_x_max << " centre " << snake_head_x <<  " Y min " << snake_head_y_min << " max " << snake_head_y_max << " centre " << snake_head_y << endl;
+std::cout << "Wall crossing " << crossing << " curr_dir " << curr_dir << " snake_head_dir " << snake_head_dir << std::endl;
+std::cout << "X min " << snake_head_x_min << " max " << snake_head_x_max << " centre " << snake_head_x <<  " Y min " << snake_head_y_min << " max " << snake_head_y_max << " centre " << snake_head_y << std::endl;
 
 	if (crossing == true) {
 		std::vector<snake_utils::direction_e> snake_dir_list;
@@ -477,7 +477,7 @@ cout << "X min " << snake_head_x_min << " max " << snake_head_x_max << " centre 
 			game_utils::set_dir_no_collision(dir1, snake_dist_dir1, obs_dist_dir1, dir2, snake_dist_dir2, obs_dist_dir2, dirs, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist, obs_left_dist, obs_right_dist, obs_up_dist, obs_down_dist);
 		}
 
-cout << " Change dir to " << game_utils::head_dir << endl;
+std::cout << " Change dir to " << game_utils::head_dir << std::endl;
 	}
 }
 
@@ -493,7 +493,7 @@ bool game_utils::wall_crossing(int coord_obj, int reference, int speed, bool min
 		crossing = (upd_coord >= reference);
 	}
 
-//	cout << "coord_obj " << coord_obj << " speed " << speed << " reference " << reference << " min? " << min << endl;
+//	std::cout << "coord_obj " << coord_obj << " speed " << speed << " reference " << reference << " min? " << min << std::endl;
 
 	return crossing;
 }
@@ -538,8 +538,8 @@ void game_utils::check_snake_collision(snake_utils::direction_e snake_head_dir) 
 	bool collision_risk_new_dir = game_utils::unit_in_trajectory(curr_dir, dirs, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist, obs_left_dist, obs_right_dist, obs_up_dist, obs_down_dist);
 	bool collision_risk_old_dir = game_utils::unit_in_trajectory(snake_head_dir, dirs, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist, obs_left_dist, obs_right_dist, obs_up_dist, obs_down_dist);
 
-//	cout << "Game_head_dir " << curr_dir << " ditances left:" << snake_unit_left_dist << " right: " << snake_unit_right_dist << " up: " << snake_unit_up_dist << " down: " << snake_unit_down_dist << " collision_risk " << collision_risk << endl;
-//	cout << "Obstacle ditances left:" << obs_left_dist << " right: " << obs_right_dist << " up: " << obs_up_dist << " down: " << obs_down_dist << endl;
+//	std::cout << "Game_head_dir " << curr_dir << " ditances left:" << snake_unit_left_dist << " right: " << snake_unit_right_dist << " up: " << snake_unit_up_dist << " down: " << snake_unit_down_dist << " collision_risk " << collision_risk << std::endl;
+//	std::cout << "Obstacle ditances left:" << obs_left_dist << " right: " << obs_right_dist << " up: " << obs_up_dist << " down: " << obs_down_dist << std::endl;
 
 	// If there is risk of collision in the new direction
 	if (collision_risk_new_dir == true) {
@@ -612,9 +612,9 @@ void game_utils::set_dir_no_collision(snake_utils::direction_e dir1, int snake_d
 		bool dir1_valid = (((snake_dist_dir1 == game_utils::min_dist_force_change_dir) && (((snake_dist_dir1 < obs_dist_dir1) && (obs_dist_dir1 != game_utils::dist_init_val)) || (obs_dist_dir1 == game_utils::dist_init_val))) || (dir2 != dirs.at(1)) || (opposite_dirs == false));
 		bool dir2_valid = (((snake_dist_dir2 == game_utils::min_dist_force_change_dir) && (((snake_dist_dir2 < obs_dist_dir2) && (obs_dist_dir2 != game_utils::dist_init_val)) || (obs_dist_dir1 == game_utils::dist_init_val))) || (dir1 != dirs.at(1)) || (opposite_dirs == false));
 
-cout << "Snake ditances left:" << snake_left_dist << " right: " << snake_right_dist << " up: " << snake_up_dist << " down: " << snake_down_dist << endl;
-cout << "Obstacle ditances left:" << obs_left_dist << " right: " << obs_right_dist << " up: " << obs_up_dist << " down: " << obs_down_dist << endl;
-cout << "dir1_valid (" << dir1 << ") " << dir1_valid << " dir2_valid (" << dir2 << ") " << dir2_valid << " opposite_dirs " << opposite_dirs << " collision dir1." << collision_risk_dir1 << " dir2." << collision_risk_dir2 << endl;
+		std::cout << "Snake ditances left:" << snake_left_dist << " right: " << snake_right_dist << " up: " << snake_up_dist << " down: " << snake_down_dist << std::endl;
+		std::cout << "Obstacle ditances left:" << obs_left_dist << " right: " << obs_right_dist << " up: " << obs_up_dist << " down: " << obs_down_dist << std::endl;
+		std::cout << "dir1_valid (" << dir1 << ") " << dir1_valid << " dir2_valid (" << dir2 << ") " << dir2_valid << " opposite_dirs " << opposite_dirs << " collision dir1." << collision_risk_dir1 << " dir2." << collision_risk_dir2 << std::endl;
 
 		// Assert that distance on direction1 and distance on direction2 are not 1 at the same time
 		ASSERT((snake_dist_dir1 != 1) || (snake_dist_dir2 != 1));
@@ -730,14 +730,14 @@ void game_utils::populate_flags_snake(std::vector<snake_utils::direction_e> & di
 			) {
 				LOG_INFO(logging::verb_level_e::DEBUG,"[Populate Flags] Y coordinates: Snake Head.", snake_head_y, ", Snake Unit.", snake_unit_y, " Distance: Up.", up_dist, " Down.", down_dist);
 				game_utils::update_dist(snake_head_y, snake_unit_y, avg_height, down_dist, up_dist);
-	//cout << "X axis alignment Snake." << snake_head_y << ", Unit."<< snake_unit_y <<" Distance: Up." << up_dist<< " Down."<< down_dist << endl;
+	//std::cout << "X axis alignment Snake." << snake_head_y << ", Unit."<< snake_unit_y <<" Distance: Up." << up_dist<< " Down."<< down_dist << std::endl;
 			} else if (
 				// head and unit are aligned on the Y axis
 				game_utils::coord_overlap(snake_head_y_min, snake_head_y_max, snake_unit_y_min, snake_unit_y_max) == true
 			) {
 				LOG_INFO(logging::verb_level_e::DEBUG,"[Populate Flags] X coordinates: Snake Head.", snake_head_x, ", Snake Unit.", snake_unit_x, ", Distance: Left.", left_dist, " Right.", right_dist);
 				game_utils::update_dist(snake_head_x, snake_unit_x, avg_width, left_dist, right_dist);
-	//cout << "Y axis alignment Snake." << snake_head_x << ", Unit."<< snake_unit_x <<" Distance: left." << left_dist<< " right."<< right_dist << endl;
+	//std::cout << "Y axis alignment Snake." << snake_head_x << ", Unit."<< snake_unit_x <<" Distance: left." << left_dist<< " right."<< right_dist << std::endl;
 			}
 
 			curr_dir = unit->get_direction();
@@ -805,7 +805,7 @@ void game_utils::get_boundaries(ptr_t ptr, int & x_centre, int & x_min, int & x_
 	int height = ptr.get_height();
 	game_utils::get_coord_range(y_centre, height, y_min, y_max);
 
-//cout << "X min " << x_min << " max " << x_max << " centre " << x_centre <<  " Y min " << y_min << " max " << y_max << " centre " << y_centre << endl;
+//std::cout << "X min " << x_min << " max " << x_max << " centre " << x_centre <<  " Y min " << y_min << " max " << y_max << " centre " << y_centre << std::endl;
 }
 
 void game_utils::get_coord_range(int centre, int dim, int & min_coord, int & max_coord) {
@@ -814,7 +814,7 @@ void game_utils::get_coord_range(int centre, int dim, int & min_coord, int & max
 }
 
 bool game_utils::coord_overlap(int coord1_min, int coord1_max, int coord2_min, int coord2_max) {
-//cout << "Coord1: min " << coord1_min << " max " << coord1_max << " Coord2: min " << coord2_min << " max " << coord2_max << endl;
+//std::cout << "Coord1: min " << coord1_min << " max " << coord1_max << " Coord2: min " << coord2_min << " max " << coord2_max << std::endl;
 	LOG_INFO(logging::verb_level_e::DEBUG,"[Coordinate Overlap] Coordinate1: minimum->", coord1_min, ", maximum->", coord1_max, " Coordinate2: minimum->", coord2_min, ", maximum->", coord2_max);
 	bool overlap = ((coord1_min >= coord2_min) && (coord1_min < coord2_max)) || ((coord1_max > coord2_min) && (coord1_max <= coord2_max));
 	return overlap;

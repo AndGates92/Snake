@@ -12,8 +12,6 @@
 
 #include "window_list.h"
 
-using namespace std;
-
 /** @defgroup GraphicsUtilsGroup Graphics Utils Doxygen Group
  *  Graphic utility functions and classes
  *  @{

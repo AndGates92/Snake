@@ -13,10 +13,6 @@
 #include "snake_utils.h"
 #include "logging.h"
 
-using namespace std;
-using namespace snake_unit;
-using namespace logging;
-
 // ================================================================
 // Destructor
 // ================================================================

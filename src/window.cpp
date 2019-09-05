@@ -25,11 +25,6 @@
 #include "game_graphics.h"
 #include "stat_graphics.h"
 
-using namespace std;
-using namespace window;
-using namespace logging;
-using namespace graphics;
-
 #define __STD_WANT_LIB_EXT1__ 1
 
 namespace window {
@@ -67,7 +62,7 @@ int window::Window::create_window(std::string title, int width, int height, int 
 	// Create window
 	try {
 		win_name = new char [WIN_NAME_LENGTH_MAX];
-	} catch (exception& alloc_e) {
+	} catch (std::exception& alloc_e) {
 		LOG_ERROR("Caught exception ", alloc_e.what(), " when allocating memory for window name");
 	}
 	ASSERT(title.length() < WIN_NAME_LENGTH_MAX)

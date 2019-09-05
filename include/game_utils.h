@@ -467,7 +467,7 @@ game_pixel_type * game_utils::get_game_pixel_array (const int & win_width, const
 	game_pixel_type * pixels = nullptr;
 	try {
 		pixels = new game_pixel_type[colours::no_colours*win_area];
-	} catch (exception& alloc_e) {
+	} catch (std::exception& alloc_e) {
 		LOG_ERROR("Caught exception ", alloc_e.what(), " when allocating memory for game pixel array");
 	}
 

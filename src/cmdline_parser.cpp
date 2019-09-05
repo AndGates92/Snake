@@ -23,12 +23,6 @@
 #include "cmdline_parser.h"
 #include "shared_constants.h"
 
-using namespace std;
-using namespace logging;
-using namespace iofile;
-using namespace snake_list;
-using namespace obstacle;
-
 /** @addtogroup CmdlineParserGroup
  *
  *  @{
@@ -57,13 +51,13 @@ namespace cmdline_parser {
 		 * @brief input file name
 		 *
 		 */
-		string input_filename("");
+		std::string input_filename("");
 
 		/**
 		 * @brief default value for strings
 		 *
 		 */
-		string string_default("");
+		std::string string_default("");
 
 		/**
 		 * @brief default value for integers

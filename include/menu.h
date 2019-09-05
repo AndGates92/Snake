@@ -19,9 +19,6 @@
 #include "logging.h"
 #include "shared_constants.h"
 
-using namespace std;
-using namespace logging;
-
 /** @defgroup MenuGroup Menu Doxygen Group
  *  Menu functions and classes
  *  @{

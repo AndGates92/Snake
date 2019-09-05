@@ -16,10 +16,6 @@
 #include "logging.h"
 #include "settings.h"
 
-using namespace std;
-using namespace menu;
-using namespace logging;
-
 // ================================================================
 // Create menu
 // ================================================================
