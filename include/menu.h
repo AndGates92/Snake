@@ -138,7 +138,7 @@ namespace menu {
 			 *
 			 * Menu constructor
 			 */
-			Menu(std::string window_title = ""): title(window_title), id(create_menu(EntryFunc[window_title], ItemsFunc[window_title])) {
+			explicit Menu(std::string window_title = ""): title(window_title), id(create_menu(EntryFunc[window_title], ItemsFunc[window_title])) {
 				std::string pretext ("Menu Constructor");
 				menu::Menu::print_info(logging::verb_level_e::LOW, pretext);
 			}

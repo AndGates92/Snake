@@ -32,7 +32,7 @@ namespace basic_list {
 			 *
 			 * BasicList constructor
 			 */
-			BasicList(): head() { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
+			explicit BasicList(): head() { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
 
 			/**
 			 * @brief Function: BasicList(const BasicList& copy)

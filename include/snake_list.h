@@ -32,7 +32,7 @@ namespace snake_list {
 			 *
 			 * SnakeList constructor
 			 */
-			SnakeList(std::string name_snake = "Snake"): basic_obj_list::BasicObjList<snake_unit::SnakeUnit>(name_snake) { LOG_INFO(logging::verb_level_e::LOW, "Contructor") };
+			explicit SnakeList(std::string name_snake = "Snake"): basic_obj_list::BasicObjList<snake_unit::SnakeUnit>(name_snake) { LOG_INFO(logging::verb_level_e::LOW, "Contructor") };
 
 			/**
 			 * @brief Function: SnakeList(const SnakeList& copy)

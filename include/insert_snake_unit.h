@@ -30,7 +30,7 @@ namespace insert_snake_unit {
 			 *
 			 * InsertSnakeUnit constructor
 			 */
-			InsertSnakeUnit(int x, int y, direction_type direction): snake_direction(direction), centre_x(x), centre_y(y) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
+			explicit InsertSnakeUnit(int x, int y, direction_type direction): snake_direction(direction), centre_x(x), centre_y(y) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
 
 			/**
 			 * @brief Function: bool is_neightbour(int & curr_x, int & curr_y, direction_type dir)

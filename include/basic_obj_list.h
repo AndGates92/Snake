@@ -30,7 +30,7 @@ namespace basic_obj_list {
 			 *
 			 * BasicObjList constructor
 			 */
-			BasicObjList(std::string name_obj = "Unknown"): basic_list::BasicList<class_element>(), name(name_obj) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
+			explicit BasicObjList(std::string name_obj = "Unknown"): basic_list::BasicList<class_element>(), name(name_obj) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
 
 			/**
 			 * @brief Function: BasicObjList(const BasicObjList& copy)

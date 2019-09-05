@@ -58,7 +58,7 @@ namespace snake_unit {
 			 *
 			 * SnakeUnit constructor
 			 */
-			SnakeUnit(std::string name_unit = "Snake Unit", int centre_x = 0, int centre_y = 0, int snake_width = snake_unit::init_node_width, int snake_height = snake_unit::init_node_height, snake_utils::direction_e snake_direction = snake_unit::init_direction, colours::palette_e snake_colour = colours::palette_e::BLACK): basic_object::BasicObject(name_unit, centre_x, centre_y, snake_width, snake_height, snake_colour), direction(snake_direction) {
+			explicit SnakeUnit(std::string name_unit = "Snake Unit", int centre_x = 0, int centre_y = 0, int snake_width = snake_unit::init_node_width, int snake_height = snake_unit::init_node_height, snake_utils::direction_e snake_direction = snake_unit::init_direction, colours::palette_e snake_colour = colours::palette_e::BLACK): basic_object::BasicObject(name_unit, centre_x, centre_y, snake_width, snake_height, snake_colour), direction(snake_direction) {
 				std::string pretext ("Constructor");
 				snake_unit::SnakeUnit::print_info(logging::verb_level_e::LOW, pretext);
 			};

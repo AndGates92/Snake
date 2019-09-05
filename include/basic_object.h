@@ -49,7 +49,7 @@ namespace basic_object {
 			 *
 			 * BasicObject constructor
 			 */
-			BasicObject(std::string type_obj = "Unknown", int centre_x = 0, int centre_y = 0, int obj_width = basic_object::init_obj_width, int obj_height = basic_object::init_obj_height, colours::palette_e obj_colour = colours::palette_e::BLACK): type(type_obj),  x_centre(centre_x), y_centre(centre_y), width(obj_width), height(obj_height), colour(obj_colour) {
+			explicit BasicObject(std::string type_obj = "Unknown", int centre_x = 0, int centre_y = 0, int obj_width = basic_object::init_obj_width, int obj_height = basic_object::init_obj_height, colours::palette_e obj_colour = colours::palette_e::BLACK): type(type_obj),  x_centre(centre_x), y_centre(centre_y), width(obj_width), height(obj_height), colour(obj_colour) {
 				std::string pretext ("Constructor");
 				basic_object::BasicObject::print_info(logging::verb_level_e::LOW, pretext);
 			};

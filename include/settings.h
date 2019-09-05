@@ -168,7 +168,7 @@ namespace settings {
 			 *
 			 * Constructor of Settings
 			 */
-			Settings(): auto_ride(settings::init_auto_ride), hard_wall(settings::init_hard_wall), dump_filename(settings::init_dumpfilename), save_filename(settings::init_savefilename), game_status(init_game_status), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_colour(settings::init_snake_colour), obs_colour(settings::init_obs_colour), tile_height(settings::init_tile_height), tile_width(settings::init_tile_width), score(settings::init_score) {
+			explicit Settings(): auto_ride(settings::init_auto_ride), hard_wall(settings::init_hard_wall), dump_filename(settings::init_dumpfilename), save_filename(settings::init_savefilename), game_status(init_game_status), speed(settings::init_speed), speed_incr(settings::init_speed_incr), node_height(settings::init_node_height), node_width(settings::init_node_width), snake_units(settings::init_snake_units), obs_no(settings::init_obs_no), head_centre_x(settings::init_head_centre_x), head_centre_y(settings::init_head_centre_y), head_dir(settings::init_head_dir), snake_colour(settings::init_snake_colour), obs_colour(settings::init_obs_colour), tile_height(settings::init_tile_height), tile_width(settings::init_tile_width), score(settings::init_score) {
 				std::string pretext ("Settings Constructor");
 				settings::Settings::print_info(logging::verb_level_e::LOW, pretext);
 

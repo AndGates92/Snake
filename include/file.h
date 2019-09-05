@@ -61,7 +61,7 @@ namespace iofile {
 			 *
 			 * File constructor
 			 */
-			File(std::string const & filename = "", mode_e access_mode = iofile::mode_e::NO_ACCESS): name(filename), mode(access_mode) {
+			explicit File(std::string const & filename = "", mode_e access_mode = iofile::mode_e::NO_ACCESS): name(filename), mode(access_mode) {
 				set_access_flags();
 			};
 

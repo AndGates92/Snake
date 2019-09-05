@@ -31,7 +31,7 @@ namespace obstacle_list {
 			 *
 			 * ObstacleList constructor
 			 */
-			ObstacleList(std::string name_obs = "Obstacle List"): basic_obj_list::BasicObjList<obstacle::Obstacle>(name_obs) { LOG_INFO(logging::verb_level_e::LOW, "Contructed") };
+			explicit ObstacleList(std::string name_obs = "Obstacle List"): basic_obj_list::BasicObjList<obstacle::Obstacle>(name_obs) { LOG_INFO(logging::verb_level_e::LOW, "Contructed") };
 
 			/**
 			 * @brief Function: ObstacleList(const ObstacleList& copy)

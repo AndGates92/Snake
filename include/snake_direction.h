@@ -40,7 +40,7 @@ namespace snake_direction {
 			 *
 			 * SnakeDirection constructor
 			 */
-			SnakeDirection(snake_utils::direction_e snake_direction = snake_direction::init_direction): direction(snake_direction) {
+			explicit SnakeDirection(snake_utils::direction_e snake_direction = snake_direction::init_direction): direction(snake_direction) {
 				std::string pretext ("Constructor");
 				snake_direction::SnakeDirection::print_info(logging::verb_level_e::LOW, pretext);
 			};
