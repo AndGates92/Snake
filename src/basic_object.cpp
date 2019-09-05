@@ -23,8 +23,8 @@ using namespace iofile;
 // ================================================================
 basic_object::BasicObject::~BasicObject() {
 	LOG_INFO(logging::verb_level_e::LOW, "Basic Object Destructor")
-//	std::string pretext ("");
-//	this->print_info(logging::verb_level_e::LOW, pretext);
+	std::string pretext ("");
+	this->print_info(logging::verb_level_e::LOW, pretext);
 }
 
 void basic_object::BasicObject::print_info(logging::verb_level_e verbosity, std::string pretext) {
