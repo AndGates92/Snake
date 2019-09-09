@@ -95,6 +95,16 @@ namespace basic_list {
 			 */
 			void add_element();
 
+			/**
+			 * @brief Function: std::ostream& operator<< (std::ostream& os, basic_list::BasicList list)
+			 *
+			 * \param os: output stream
+			 * \param list: list to print
+			 *
+			 * Overload << operator to print window details
+			 */
+//			std::ostream& operator<< (std::ostream& os, basic_list::BasicList list);
+
 		protected:
 
 		private:
@@ -164,5 +174,14 @@ template <class class_element>
 void basic_list::BasicList<class_element>::add_element() {
 	LOG_ERROR("add_element function was not implemented in BasicList class. Please code it up in the derived class");
 }
+
+/*std::ostream& operator<< (std::ostream& os, basic_list::BasicList list) {
+	
+	for(auto element : this->head) {
+		element.print_info(verbosity, pretext);
+	}
+
+	return os;
+};*/
 
 #endif // BASIC_LIST_H

@@ -22,9 +22,9 @@ snake_unit::SnakeUnit::~SnakeUnit() {
 }
 
 void snake_unit::SnakeUnit::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	basic_object::BasicObject::print_info(verbosity, pretext);
 	std::string type = this->get_type();
-	LOG_INFO(verbosity, "[", type, " ", pretext, "] Direction ", this->direction, ".");
+	LOG_INFO(verbosity, "[", type, " ", pretext, "] ", this, ".");
+
 }
 
 void snake_unit::SnakeUnit::save_data (iofile::File & savefile) {
@@ -35,7 +35,7 @@ void snake_unit::SnakeUnit::save_data (iofile::File & savefile) {
 // ================================================================
 // Get functions
 // ================================================================
-snake_utils::direction_e snake_unit::SnakeUnit::get_direction() {
+snake_utils::direction_e snake_unit::SnakeUnit::get_direction() const {
 	return this->direction;
 }
 
@@ -88,4 +88,11 @@ bool snake_unit::SnakeUnit::operator== (const snake_unit::SnakeUnit & rhs) {
 
 bool snake_unit::SnakeUnit::operator!= (const snake_unit::SnakeUnit & rhs) {
 	return ((this->direction != rhs.direction) && (static_cast<basic_object::BasicObject>(*this) != static_cast<basic_object::BasicObject>(rhs)));
+}
+
+std::ostream& operator<< (std::ostream& os, const snake_unit::SnakeUnit & unit) {
+
+	os << static_cast<const basic_object::BasicObject &>(unit) << " Direction " << unit.get_direction();
+
+	return os;
 }

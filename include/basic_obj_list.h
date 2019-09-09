@@ -80,6 +80,16 @@ namespace basic_obj_list {
 			template <typename pixel_type>
 			void draw(pixel_type * & pixels, const int & win_width, const int & win_height, const int & exp_no);
 
+			/**
+			 * @brief Function: std::ostream& operator<< (std::ostream& os, basic_obj_list::BasicObjList object_list)
+			 *
+			 * \param os: output stream
+			 * \param object_list: object list to print
+			 *
+			 * Overload << operator to print window details
+			 */
+//			std::ostream& operator<< (std::ostream& os, basic_obj_list::BasicObjList object_list);
+
 		protected:
 
 		private:

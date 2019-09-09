@@ -85,16 +85,14 @@ void window::Window::destroy_window() {
 }
 
 void window::Window::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	basic_object::BasicObject::print_info(verbosity, pretext);
-	std::string type = this->get_type();
-	LOG_INFO(verbosity, "[", pretext, "] ", type, " with ID ", this->id, " Title: ", this->title);
+	LOG_INFO(verbosity, "[", pretext, "] ", this);
 }
 
-int window::Window::get_id() {
+int window::Window::get_id() const {
 	return this->id;
 }
 
-std::string window::Window::get_title() {
+std::string window::Window::get_title() const {
 	return this->title;
 }
 
@@ -114,4 +112,12 @@ bool window::Window::operator!= (const window::Window & rhs) {
 	bool different_title = (this->title.compare(rhs.title) != 0);
 	bool different_id = (this->id != rhs.id);
 	return (different_title && different_id && (static_cast<basic_object::BasicObject>(*this) != static_cast<basic_object::BasicObject>(rhs)));
+}
+
+std::ostream& operator<< (std::ostream& os, const window::Window & win) {
+	basic_object::BasicObject basic_obj(static_cast<const basic_object::BasicObject &>(win));
+
+	os << basic_obj << " Title " << win.get_title() << " ID " << win.get_id();
+
+	return os;
 }

@@ -77,13 +77,13 @@ namespace snake_unit {
 
 			// Get functions
 			/**
-			 * @brief Function: snake_utils::direction_e get_direction()
+			 * @brief Function: snake_utils::direction_e get_direction() const
 			 *
 			 * \return Direction of the SnakeUnit
 			 *
 			 * Get the direction of the SnakeUnit
 			 */
-			snake_utils::direction_e get_direction();
+			snake_utils::direction_e get_direction() const;
 
 			// Set functions
 			/**
@@ -151,6 +151,16 @@ namespace snake_unit {
 			 */
 			bool operator!= (const snake_unit::SnakeUnit & rhs);
 
+			/**
+			 * @brief Function: std::ostream& operator<< (std::ostream& os, const snake_unit::SnakeUnit & unit)
+			 *
+			 * \param os: output stream
+			 * \param unit: snake unit to print
+			 *
+			 * Overload << operator to print window details
+			 */
+			friend std::ostream& operator<< (std::ostream& os, const snake_unit::SnakeUnit & unit);
+
 		private:
 
 			/**
@@ -161,6 +171,7 @@ namespace snake_unit {
 
 		protected:
 	};
+
 }
 /** @} */ // End of SnakeUnitGroup group
 

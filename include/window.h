@@ -91,22 +91,22 @@ namespace window {
 			void save_data (iofile::File & savefile);
 
 			/**
-			 * @brief Function: int get_id()
+			 * @brief Function: int get_id() const
 			 *
 			 * \return window ID
 			 *
 			 * Get window ID
 			 */
-			int get_id();
+			int get_id() const;
 
 			/**
-			 * @brief Function: std::string get_title()
+			 * @brief Function: std::string get_title() const
 			 *
 			 * \return title of the window
 			 *
 			 * Get title of the window
 			 */
-			std::string get_title();
+			std::string get_title() const;
 
 			/**
 			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)
@@ -143,6 +143,16 @@ namespace window {
 			 */
 			bool operator!= (const window::Window & rhs);
 
+			/**
+			 * @brief Function: friend std::ostream& operator<< (std::ostream& os, const window::Window & win)
+			 *
+			 * \param os: output stream
+			 * \param win: window
+			 *
+			 * Overload << operator to print window details
+			 */
+			friend std::ostream& operator<< (std::ostream& os, const window::Window & win);
+
 		protected:
 
 			/**
@@ -176,6 +186,7 @@ namespace window {
 			int id;
 
 	};
+
 }
 /** @} */ // End of WindowGroup group
 

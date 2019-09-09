@@ -23,33 +23,33 @@ basic_object::BasicObject::~BasicObject() {
 }
 
 void basic_object::BasicObject::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", this->type, " ",  pretext, "] Centre coordinares: (X ", this->x_centre, ", Y ", this->y_centre, "), width ", this->width, ", height ", this->height, " colour ", this->colour, ".");
+	LOG_INFO(verbosity, "[", this->type, " ",  pretext, "] ", this, ".");
 }
 
 // ================================================================
 // Get functions
 // ================================================================
-int basic_object::BasicObject::get_x_centre() {
+int basic_object::BasicObject::get_x_centre() const {
 	return this->x_centre;
 }
 
-int basic_object::BasicObject::get_y_centre() {
+int basic_object::BasicObject::get_y_centre() const {
 	return this->y_centre;
 }
 
-int basic_object::BasicObject::get_width() {
+int basic_object::BasicObject::get_width() const {
 	return this->width;
 }
 
-int basic_object::BasicObject::get_height() {
+int basic_object::BasicObject::get_height() const {
 	return this->height;
 }
 
-colours::palette_e basic_object::BasicObject::get_colour() {
+colours::palette_e basic_object::BasicObject::get_colour() const {
 	return this->colour;
 }
 
-std::string basic_object::BasicObject::get_type() {
+std::string basic_object::BasicObject::get_type() const {
 	return this->type;
 }
 
@@ -107,4 +107,10 @@ bool basic_object::BasicObject::operator!= (const basic_object::BasicObject & rh
 	bool different_height = (this->height != rhs.height);
 	bool different_colour = (this->colour != rhs.colour);
 	return (different_type && different_x_centre && different_y_centre && different_width && different_height && different_colour);
+}
+
+std::ostream& operator<< (std::ostream& os, const basic_object::BasicObject & object) {
+	os << " Type " << object.get_type() << " Centre coordinares: (X " << object.get_x_centre() << ", Y " << object.get_y_centre() << "), width " << object.get_width() << ", height " << object.get_height() << " colour " << object.get_colour();
+
+	return os;
 }

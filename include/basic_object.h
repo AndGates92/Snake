@@ -68,53 +68,53 @@ namespace basic_object {
 
 			// Get functions
 			/**
-			 * @brief Function: std::string get_type()
+			 * @brief Function: std::string get_type() const
 			 *
 			 * \return object type
 			 *
 			 * Get type of the BasicObject
 			 */
-			std::string get_type();
+			std::string get_type() const;
 			/**
-			 * @brief Function: int get_x_centre()
+			 * @brief Function: int get_x_centre() const
 			 *
 			 * \return x coordinate of the object
 			 *
 			 * Get x coordinate of the BasicObject
 			 */
-			int get_x_centre();
+			int get_x_centre() const;
 			/**
-			 * @brief Function: int get_y_centre()
+			 * @brief Function: int get_y_centre() const
 			 *
 			 * \return y coordinate of the object
 			 *
 			 * Get y coordinate of the BasicObject
 			 */
-			int get_y_centre();
+			int get_y_centre() const;
 			/**
-			 * @brief Function: int get_width()
+			 * @brief Function: int get_width() const
 			 *
 			 * \return width of the object
 			 *
 			 * Get width of the BasicObject
 			 */
-			int get_width();
+			int get_width() const;
 			/**
-			 * @brief Function: int get_height()
+			 * @brief Function: int get_height() const
 			 *
 			 * \return height of the object
 			 *
 			 * Get height of the BasicObject
 			 */
-			int get_height();
+			int get_height() const;
 			/**
-			 * @brief Function: int get_colour()
+			 * @brief Function: int get_colour() const
 			 *
 			 * \return colour of the object
 			 *
 			 * Get colour of the BasicObject
 			 */
-			colours::palette_e get_colour();
+			colours::palette_e get_colour() const;
 
 			// Set functions
 			/**
@@ -258,17 +258,30 @@ namespace basic_object {
 		protected:
 	};
 
+
 }
+
+			/**
+			 * @brief Function: friend std::ostream& operator<< (std::ostream& os, const basic_object::BasicObject & object)
+			 *
+			 * \param os: output stream
+			 * \param object: object to print
+			 *
+			 * Overload << operator to print window details
+			 */
+			std::ostream& operator<< (std::ostream& os, const basic_object::BasicObject & object);
+
+
 /** @} */ // End of BasicObjectGroup group
 
 template <typename pixel_type>
 void basic_object::BasicObject::draw(pixel_type * & pixels, const int & win_width, const int & win_height) {
 
-	pixel_type * colour_ptr = colours::get_pixel_colour<pixel_type> (this->get_colour());
-	int width = this->get_width();
-	int height = this->get_height();
-	int y_centre = this->get_y_centre();
-	int x_centre = this->get_x_centre();
+	const pixel_type * colour_ptr = colours::get_pixel_colour<pixel_type> (this->get_colour());
+	const int width = this->get_width();
+	const int height = this->get_height();
+	const int y_centre = this->get_y_centre();
+	const int x_centre = this->get_x_centre();
 
 	for (int x_coord = (-(width/2)); x_coord < (width/2); x_coord++) {
 		int x_abs = (x_centre + x_coord);
