@@ -258,18 +258,17 @@ namespace basic_object {
 		protected:
 	};
 
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const basic_object::BasicObject & object)
+	 *
+	 * \param os: output stream
+	 * \param object: object to print
+	 *
+	 * Overload << operator to print window details
+	 */
+	std::ostream& operator<< (std::ostream& os, const basic_object::BasicObject & object);
 
 }
-
-			/**
-			 * @brief Function: friend std::ostream& operator<< (std::ostream& os, const basic_object::BasicObject & object)
-			 *
-			 * \param os: output stream
-			 * \param object: object to print
-			 *
-			 * Overload << operator to print window details
-			 */
-			std::ostream& operator<< (std::ostream& os, const basic_object::BasicObject & object);
 
 
 /** @} */ // End of BasicObjectGroup group

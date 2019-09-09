@@ -114,7 +114,7 @@ bool window::Window::operator!= (const window::Window & rhs) {
 	return (different_title && different_id && (static_cast<basic_object::BasicObject>(*this) != static_cast<basic_object::BasicObject>(rhs)));
 }
 
-std::ostream& operator<< (std::ostream& os, const window::Window & win) {
+std::ostream& window::operator<< (std::ostream& os, const window::Window & win) {
 	basic_object::BasicObject basic_obj(static_cast<const basic_object::BasicObject &>(win));
 
 	os << basic_obj << " Title " << win.get_title() << " ID " << win.get_id();

@@ -109,7 +109,7 @@ bool basic_object::BasicObject::operator!= (const basic_object::BasicObject & rh
 	return (different_type && different_x_centre && different_y_centre && different_width && different_height && different_colour);
 }
 
-std::ostream& operator<< (std::ostream& os, const basic_object::BasicObject & object) {
+std::ostream& basic_object::operator<< (std::ostream& os, const basic_object::BasicObject & object) {
 	os << " Type " << object.get_type() << " Centre coordinares: (X " << object.get_x_centre() << ", Y " << object.get_y_centre() << "), width " << object.get_width() << ", height " << object.get_height() << " colour " << object.get_colour();
 
 	return os;

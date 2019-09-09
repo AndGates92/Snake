@@ -13,6 +13,8 @@
 #include "snake_utils.h"
 #include "logging.h"
 
+using namespace basic_object;
+
 // ================================================================
 // Destructor
 // ================================================================
@@ -90,9 +92,10 @@ bool snake_unit::SnakeUnit::operator!= (const snake_unit::SnakeUnit & rhs) {
 	return ((this->direction != rhs.direction) && (static_cast<basic_object::BasicObject>(*this) != static_cast<basic_object::BasicObject>(rhs)));
 }
 
-std::ostream& operator<< (std::ostream& os, const snake_unit::SnakeUnit & unit) {
+std::ostream& snake_unit::operator<< (std::ostream& os, const snake_unit::SnakeUnit & unit) {
+	basic_object::BasicObject basic_obj(static_cast<const basic_object::BasicObject &>(unit));
 
-	os << static_cast<const basic_object::BasicObject &>(unit) << " Direction " << unit.get_direction();
+	os << basic_obj << " Direction " << unit.get_direction();
 
 	return os;
 }
