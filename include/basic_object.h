@@ -262,7 +262,7 @@ namespace basic_object {
 	 * \param os: output stream
 	 * \param object: object to print
 	 *
-	 * Overload << operator to print window details
+	 * Overload << operator to print basic object details
 	 */
 	std::ostream& operator<< (std::ostream& os, const basic_object::BasicObject & object);
 
