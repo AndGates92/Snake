@@ -17,13 +17,11 @@
 // Destructor
 // ================================================================
 basic_object::BasicObject::~BasicObject() {
-	LOG_INFO(logging::verb_level_e::LOW, "Basic Object Destructor")
-	std::string pretext ("");
-	this->print_info(logging::verb_level_e::LOW, pretext);
+	LOG_INFO(logging::verb_level_e::HIGH, "Basic Object Destructor of object type ", this->type)
 }
 
 void basic_object::BasicObject::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", this->type, " ",  pretext, "] ", this, ".");
+	LOG_INFO(verbosity, "[", this->type, " ",  pretext, "] ", *this, ".");
 }
 
 // ================================================================
@@ -111,6 +109,5 @@ bool basic_object::BasicObject::operator!= (const basic_object::BasicObject & rh
 
 std::ostream& basic_object::operator<< (std::ostream& os, const basic_object::BasicObject & object) {
 	os << " Type " << object.get_type() << " Centre coordinares: (X " << object.get_x_centre() << ", Y " << object.get_y_centre() << "), width " << object.get_width() << ", height " << object.get_height() << " colour " << object.get_colour();
-
 	return os;
 }

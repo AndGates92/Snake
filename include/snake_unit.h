@@ -59,8 +59,7 @@ namespace snake_unit {
 			 * SnakeUnit constructor
 			 */
 			explicit SnakeUnit(std::string name_unit = "Snake Unit", int centre_x = 0, int centre_y = 0, int snake_width = snake_unit::init_node_width, int snake_height = snake_unit::init_node_height, snake_utils::direction_e snake_direction = snake_unit::init_direction, colours::palette_e snake_colour = colours::palette_e::BLACK): basic_object::BasicObject(name_unit, centre_x, centre_y, snake_width, snake_height, snake_colour), direction(snake_direction) {
-				std::string pretext ("Constructor");
-				snake_unit::SnakeUnit::print_info(logging::verb_level_e::LOW, pretext);
+				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of snake unit at (X ", centre_x, ", Y ", centre_y, ")")
 			};
 
 			/**
@@ -71,8 +70,7 @@ namespace snake_unit {
 			 * SnakeUnit copy constructor
 			 */
 			SnakeUnit(const SnakeUnit& copy) : basic_object::BasicObject(copy), direction(copy.direction) {
-				std::string pretext ("Copy Constructor");
-				snake_unit::SnakeUnit::print_info(logging::verb_level_e::LOW, pretext);
+				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of snake unit at (X ", copy.get_x_centre(), ", Y ", copy.get_y_centre(), ")")
 			};
 
 			// Get functions

@@ -19,13 +19,12 @@ using namespace basic_object;
 // Destructor
 // ================================================================
 snake_unit::SnakeUnit::~SnakeUnit() {
-	std::string pretext ("");
-	this->print_info(logging::verb_level_e::LOW, pretext);
+	LOG_INFO(logging::verb_level_e::HIGH, "Destructor of snake unit at (X ", this->get_x_centre(), ", Y ", this->get_y_centre(), ")")
 }
 
 void snake_unit::SnakeUnit::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	std::string type = this->get_type();
-	LOG_INFO(verbosity, "[", type, " ", pretext, "] ", this, ".");
+	LOG_INFO(verbosity, "[", type, " ", pretext, "] ", *this, ".");
 
 }
 

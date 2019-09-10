@@ -30,7 +30,9 @@ namespace window_list {
 			 *
 			 * WindowList constructor
 			 */
-			explicit WindowList(std::string name_win = "Window"): basic_obj_list::BasicObjList<window_obj::WindowObj>(name_win) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
+			explicit WindowList(std::string name_win = "Window"): basic_obj_list::BasicObjList<window_obj::WindowObj>(name_win) {
+				LOG_INFO(logging::verb_level_e::LOW, "Constructor")
+			};
 
 			/**
 			 * @brief Function: WindowList(const WindowList& copy)
@@ -39,7 +41,9 @@ namespace window_list {
 			 *
 			 * WindowList copy constructor
 			 */
-			WindowList(const WindowList& copy): basic_obj_list::BasicObjList<window_obj::WindowObj>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
+			WindowList(const WindowList& copy): basic_obj_list::BasicObjList<window_obj::WindowObj>(copy) {
+				LOG_INFO(logging::verb_level_e::LOW, "Copy contructor")
+			};
 
 			// Destructor
 			/**

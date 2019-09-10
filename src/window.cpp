@@ -42,8 +42,7 @@ namespace window {
 // Destructor
 // ================================================================
 window::Window::~Window() {
-	std::string pretext ("Window Destructor");
-	this->print_info(logging::verb_level_e::LOW, pretext);
+	LOG_INFO(logging::verb_level_e::HIGH, "Window Destructor of window ", this->title)
 }
 
 // ================================================================
@@ -85,7 +84,7 @@ void window::Window::destroy_window() {
 }
 
 void window::Window::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] ", this);
+	LOG_INFO(verbosity, "[", pretext, "] ", *this);
 }
 
 int window::Window::get_id() const {
