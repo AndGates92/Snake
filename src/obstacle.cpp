@@ -17,11 +17,10 @@
 // Destructor
 // ================================================================
 obstacle::Obstacle::~Obstacle() {
-	std::string pretext ("Destructor");
-	this->print_info(logging::verb_level_e::LOW, pretext);
+	LOG_INFO(logging::verb_level_e::HIGH, "Destructor of obstacle at (X ", this->get_x_centre(), ", Y ", this->get_y_centre(), ")")
 }
 
 void obstacle::Obstacle::print_info(logging::verb_level_e verbosity, std::string pretext) {
 	std::string type = this->get_type();
-	LOG_INFO(verbosity, "[", type, " ", pretext, "] ", this, ".");
+	LOG_INFO(verbosity, "[", type, " ", pretext, "] ", *this, ".");
 }
