@@ -173,7 +173,7 @@ namespace menu {
 			 *
 			 * Get menu ID
 			 */
-			int get_id();
+			int get_id() const;
 
 			/**
 			 * @brief Function: std::string get_title()
@@ -182,7 +182,7 @@ namespace menu {
 			 *
 			 * Get title of the menu
 			 */
-			std::string get_title();
+			std::string get_title() const;
 
 			/**
 			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)
@@ -249,6 +249,16 @@ namespace menu {
 			int id;
 
 	};
+
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const menu::Menu & win_menu)
+	 *
+	 * \param os: output stream
+	 * \param win_menu: window menu to print
+	 *
+	 * Overload << operator to print window menu details
+	 */
+	std::ostream& operator<< (std::ostream& os, const menu::Menu & win_menu);
 
 }
 /** @} */ // End of MenuGroup group

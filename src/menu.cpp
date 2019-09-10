@@ -180,11 +180,11 @@ void menu::Menu::print_info(logging::verb_level_e verbosity, std::string pretext
 	LOG_INFO(verbosity, "[", pretext, "] Menu title ", this->title, " ID: ", this->id);
 }
 
-int menu::Menu::get_id() {
+int menu::Menu::get_id() const {
 	return id;
 }
 
-std::string menu::Menu::get_title() {
+std::string menu::Menu::get_title() const {
 	return title;
 }
 
@@ -203,4 +203,9 @@ bool menu::Menu::operator!= (const menu::Menu & rhs) {
 	bool different_title = (this->title.compare(rhs.title) != 0);
 	bool different_id = (this->id != rhs.id);
 	return (different_title && different_id);
+}
+
+std::ostream& menu::operator<< (std::ostream& os, const menu::Menu & win_menu) {
+	os << "Menu Title " << win_menu.get_title() << " ID " << win_menu.get_id();
+	return os;
 }

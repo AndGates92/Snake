@@ -86,7 +86,7 @@ namespace window_obj {
 			 *
 			 * Get window ID
 			 */
-			int get_win_id();
+			int get_win_id() const;
 
 			/**
 			 * @brief Function: std::string get_win_title()
@@ -95,7 +95,7 @@ namespace window_obj {
 			 *
 			 * Get window title
 			 */
-			std::string get_win_title();
+			std::string get_win_title() const;
 
 			/**
 			 * @brief Function: int get_menu_id()
@@ -104,7 +104,7 @@ namespace window_obj {
 			 *
 			 * Get menu ID
 			 */
-			int get_menu_id();
+			int get_menu_id() const;
 
 			/**
 			 * @brief Function: colours::palette_e get_colour_bg()
@@ -113,7 +113,25 @@ namespace window_obj {
 			 *
 			 * Get background colour of the window
 			 */
-			colours::palette_e get_colour_bg();
+			colours::palette_e get_colour_bg() const;
+
+			/**
+			 * @brief Function: window::Window get_window()
+			 *
+			 * \return window class
+			 *
+			 * Get window class related to this window object
+			 */
+			window::Window get_window() const;
+
+			/**
+			 * @brief Function: menu::Menu get_menu()
+			 *
+			 * \return menu class
+			 *
+			 * Get menu class related to this window object
+			 */
+			menu::Menu get_menu() const;
 
 			/**
 			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)
@@ -160,6 +178,17 @@ namespace window_obj {
 			 */
 			menu::Menu action_list;
 	};
+
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const window_obj::WindowObj & window_object)
+	 *
+	 * \param os: output stream
+	 * \param window_object: window object (Window + Menu) to print
+	 *
+	 * Overload << operator to print window object (Window + Menu) details
+	 */
+	std::ostream& operator<< (std::ostream& os, const window_obj::WindowObj & window_object);
+
 }
 /** @} */ // End of WindowObjectGroup group
 
