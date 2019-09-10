@@ -171,13 +171,12 @@ void menu::Menu::destroy_menu() {
 // Destructor
 // ================================================================
 menu::Menu::~Menu() {
-	std::string pretext ("Menu Destructor");
-	menu::Menu::print_info(logging::verb_level_e::LOW, pretext);
+	LOG_INFO(logging::verb_level_e::HIGH, "Destructor of menu ", this->title, " ID: ", this->id);
 //	this->destroy_menu();
 }
 
 void menu::Menu::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Menu title ", this->title, " ID: ", this->id);
+	LOG_INFO(verbosity, "[", pretext, "] ", *this);
 }
 
 int menu::Menu::get_id() const {

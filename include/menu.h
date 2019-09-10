@@ -136,8 +136,7 @@ namespace menu {
 			 * Menu constructor
 			 */
 			explicit Menu(std::string window_title = ""): title(window_title), id(create_menu(EntryFunc[window_title], ItemsFunc[window_title])) {
-				std::string pretext ("Menu Constructor");
-				menu::Menu::print_info(logging::verb_level_e::LOW, pretext);
+				LOG_INFO(logging::verb_level_e::HIGH, "Destructor of menu ", window_title);
 			}
 
 			/**
@@ -147,7 +146,9 @@ namespace menu {
 			 *
 			 * Menu copy constructor
 			 */
-			Menu(const Menu& copy): title(copy.title), id(copy.id) {};
+			Menu(const Menu& copy): title(copy.title), id(copy.id) {
+				LOG_INFO(logging::verb_level_e::HIGH, "Copy constructor of menu ", copy.get_title(), " ID: ", copy.get_id());
+			};
 
 			// Destructor
 			/**
