@@ -30,7 +30,9 @@ namespace basic_obj_list {
 			 *
 			 * BasicObjList constructor
 			 */
-			explicit BasicObjList(std::string name_obj = "Unknown"): basic_list::BasicList<class_element>(), name(name_obj) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
+			explicit BasicObjList(std::string name_obj = "Unknown"): basic_list::BasicList<class_element>(), name(name_obj) {
+				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of basic list");
+			}
 
 			/**
 			 * @brief Function: BasicObjList(const BasicObjList& copy)
@@ -39,7 +41,9 @@ namespace basic_obj_list {
 			 *
 			 * BasicObjList copy constructor
 			 */
-			BasicObjList(const BasicObjList& copy): basic_list::BasicList<class_element>(copy), name(copy.name) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
+			BasicObjList(const BasicObjList& copy): basic_list::BasicList<class_element>(copy), name(copy.name) {
+				LOG_INFO(logging::verb_level_e::HIGH, "Copy constructor of basic object list");
+			}
 
 			// Destructor
 			/**
@@ -80,16 +84,6 @@ namespace basic_obj_list {
 			template <typename pixel_type>
 			void draw(pixel_type * & pixels, const int & win_width, const int & win_height, const int & exp_no);
 
-			/**
-			 * @brief Function: std::ostream& operator<< (std::ostream& os, basic_obj_list::BasicObjList object_list)
-			 *
-			 * \param os: output stream
-			 * \param object_list: object list to print
-			 *
-			 * Overload << operator to print window details
-			 */
-//			std::ostream& operator<< (std::ostream& os, basic_obj_list::BasicObjList object_list);
-
 		protected:
 
 		private:
@@ -99,6 +93,18 @@ namespace basic_obj_list {
 			 */
 			std::string name;
 	};
+
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const basic_obj_list::BasicObjList & object_list)
+	 *
+	 * \param os: output stream
+	 * \param object_list: object list to print
+	 *
+	 * Overload << operator to print object list details
+	 */
+	template <class class_element>
+	std::ostream& operator<< (std::ostream& os, const basic_obj_list::BasicObjList<class_element> & object_list);
+
 }
 /** @} */ // End of BasicObjListGroup group
 
@@ -129,14 +135,31 @@ void basic_obj_list::BasicObjList<class_element>::draw(pixel_type * & pixels, co
 	int obj_cnt = 0;
 
 	for (auto obj : basic_obj) {
-
 		obj.draw(pixels, win_width, win_height);
-
 		obj_cnt++;
-
 	}
 
 	ASSERT(exp_no == obj_cnt);
+
+}
+
+
+template <class class_element>
+std::ostream& basic_obj_list::operator<< (std::ostream& os, const basic_obj_list::BasicObjList<class_element> & object_list) {
+
+	std::string name (object_list.get_name());
+	std::vector<class_element> basic_list_vector (object_list.get_vector());
+
+	for(typename std::vector<class_element>::iterator element_it = basic_list_vector.begin(); element_it != basic_list_vector.end(); ++element_it) {
+		// Convert iterator to index
+		int index = std::distance(basic_list_vector.begin(), element_it);
+
+		// Create an class_element that references the desired element
+		class_element & element (basic_list_vector.at(index));
+		os << "[Name] Element number " << index << ": " << element << std::endl;
+	}
+
+	return os;
 
 }
 #endif // BASIC_OBJ_LIST_H

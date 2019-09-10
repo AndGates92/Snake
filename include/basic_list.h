@@ -32,7 +32,9 @@ namespace basic_list {
 			 *
 			 * BasicList constructor
 			 */
-			explicit BasicList(): head() { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
+			explicit BasicList(): head() {
+				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of basic list");
+			};
 
 			/**
 			 * @brief Function: BasicList(const BasicList& copy)
@@ -41,7 +43,9 @@ namespace basic_list {
 			 *
 			 * BasicList copy constructor
 			 */
-			BasicList(const BasicList& copy): head(copy.head) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
+			BasicList(const BasicList& copy): head(copy.head) {
+				LOG_INFO(logging::verb_level_e::HIGH, "Copy constructor of basic list");
+			};
 
 			// Destructor
 			/**
@@ -95,16 +99,6 @@ namespace basic_list {
 			 */
 			void add_element();
 
-			/**
-			 * @brief Function: std::ostream& operator<< (std::ostream& os, basic_list::BasicList list)
-			 *
-			 * \param os: output stream
-			 * \param list: list to print
-			 *
-			 * Overload << operator to print window details
-			 */
-//			std::ostream& operator<< (std::ostream& os, basic_list::BasicList list);
-
 		protected:
 
 		private:
@@ -115,6 +109,19 @@ namespace basic_list {
 			std::vector<class_element> head;
 
 	};
+
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const basic_list::BasicList & list)
+	 *
+	 * \param os: output stream
+	 * \param list: list to print
+	 *
+	 * Overload << operator to print window details
+	 */
+	template <class class_element>
+	std::ostream& operator<< (std::ostream& os, const basic_list::BasicList<class_element> & list);
+
+
 }
 /** @} */ // End of BasicListGroup group
 
@@ -175,13 +182,21 @@ void basic_list::BasicList<class_element>::add_element() {
 	LOG_ERROR("add_element function was not implemented in BasicList class. Please code it up in the derived class");
 }
 
-/*std::ostream& operator<< (std::ostream& os, basic_list::BasicList list) {
+template <class class_element>
+std::ostream& basic_list::operator<< (std::ostream& os, const basic_list::BasicList<class_element> & list) {
 	
-	for(auto element : this->head) {
-		element.print_info(verbosity, pretext);
+	std::vector<class_element> basic_list_vector (list.get_vector());
+
+	for(typename std::vector<class_element>::iterator element_it = basic_list_vector.begin(); element_it != basic_list_vector.end(); ++element_it) {
+		// Convert iterator to index
+		int index = std::distance(basic_list_vector.begin(), element_it);
+
+		// Create an class_element that references the desired element
+		class_element & element (basic_list_vector.at(index));
+		os << "Element number " << index << ": " << element << std::endl;
 	}
 
 	return os;
-};*/
+}
 
 #endif // BASIC_LIST_H
