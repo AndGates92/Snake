@@ -30,7 +30,9 @@ namespace is_matching {
 			 *
 			 * IsMatching constructor
 			 */
-			explicit IsMatching(element_type element): reference_id(element) { LOG_INFO(logging::verb_level_e::LOW, "Constructor") };
+			explicit IsMatching(element_type element): reference_id(element) { 
+				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of object IsMatching. Searched element: ", element);
+			};
 
 			/**
 			 * @brief Function: bool operator()(class_type cl) const
