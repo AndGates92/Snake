@@ -70,7 +70,7 @@ namespace snake_unit {
 			 * SnakeUnit copy constructor
 			 */
 			SnakeUnit(const SnakeUnit& copy) : basic_object::BasicObject(copy), direction(copy.direction) {
-				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of snake unit at (X ", copy.get_x_centre(), ", Y ", copy.get_y_centre(), ")")
+				LOG_INFO(logging::verb_level_e::HIGH, "Copy constructor of snake unit at (X ", copy.get_x_centre(), ", Y ", copy.get_y_centre(), ")")
 			};
 
 			// Get functions
