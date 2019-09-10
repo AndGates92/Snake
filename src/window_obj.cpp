@@ -14,7 +14,8 @@
 #include "logging.h"
 
 void window_obj::WindowObj::destroy_obj() {
-	LOG_INFO(logging::verb_level_e::DEBUG, "Destroy Window Object");
+	std::string pretext ("Destroy Window Object");
+	this->print_info(logging::verb_level_e::HIGH, pretext);
 	this->drawing.destroy_window();
 	this->action_list.destroy_menu();
 }
