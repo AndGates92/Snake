@@ -17,7 +17,7 @@
 // Destructor
 // ================================================================
 obstacle::Obstacle::~Obstacle() {
-	LOG_INFO(logging::verb_level_e::HIGH, "Destructor of obstacle at (X ", this->get_x_centre(), ", Y ", this->get_y_centre(), ")")
+	LOG_INFO(logging::verb_level_e::DEBUG, "Destructor of obstacle at (X ", this->get_x_centre(), ", Y ", this->get_y_centre(), ")")
 }
 
 void obstacle::Obstacle::print_info(logging::verb_level_e verbosity, std::string pretext) {

@@ -54,13 +54,13 @@ namespace basic_obj_list {
 			virtual ~BasicObjList();
 
 			/**
-			 * @brief Function: std::string get_name()
+			 * @brief Function: std::string get_name() const
 			 *
 			 * \return name of the BasicObjList instance
 			 *
 			 * Return the name of the object list
 			 */
-			std::string get_name();
+			std::string get_name() const;
 
 			/**
 			 * @brief Function: void set_name(std::string new_name)
@@ -116,7 +116,7 @@ basic_obj_list::BasicObjList<class_element>::~BasicObjList() {
 }
 
 template <class class_element>
-std::string basic_obj_list::BasicObjList<class_element>::get_name() {
+std::string basic_obj_list::BasicObjList<class_element>::get_name() const {
 	return this->name;
 }
 

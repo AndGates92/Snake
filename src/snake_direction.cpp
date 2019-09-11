@@ -16,18 +16,17 @@
 // Destructor
 // ================================================================
 snake_direction::SnakeDirection::~SnakeDirection() {
-	std::string pretext ("");
-	this->print_info(logging::verb_level_e::LOW, pretext);
+	LOG_INFO(logging::verb_level_e::DEBUG, "Snake Direction Destructor");
 }
 
 void snake_direction::SnakeDirection::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	LOG_INFO(verbosity, "[", pretext, "] Direction ", this->direction, ".");
+	LOG_INFO(verbosity, "[", pretext, "] ", *this, ".");
 }
 
 // ================================================================
 // Get functions
 // ================================================================
-snake_utils::direction_e snake_direction::SnakeDirection::get_direction() {
+snake_utils::direction_e snake_direction::SnakeDirection::get_direction() const {
 	return this->direction;
 }
 
@@ -36,4 +35,9 @@ snake_utils::direction_e snake_direction::SnakeDirection::get_direction() {
 // ================================================================
 void snake_direction::SnakeDirection::set_direction(snake_utils::direction_e new_direction) {
 	this->direction = new_direction;
+}
+
+std::ostream& snake_direction::operator<< (std::ostream& os, const snake_direction::SnakeDirection & dir) {
+	os << "Direction " << dir.get_direction();
+	return os;
 }

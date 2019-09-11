@@ -22,7 +22,7 @@ void window_obj::WindowObj::destroy_obj() {
 
 window_obj::WindowObj::~WindowObj() {
 	std::string pretext ("Window Object Destructor");
-	this->print_info(logging::verb_level_e::HIGH, pretext);
+	this->print_info(logging::verb_level_e::DEBUG, pretext);
 	this->drawing.~Window();
 	this->action_list.~Menu();
 }

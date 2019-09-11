@@ -42,7 +42,7 @@ namespace window {
 // Destructor
 // ================================================================
 window::Window::~Window() {
-	LOG_INFO(logging::verb_level_e::HIGH, "Window Destructor of window ", this->title)
+	LOG_INFO(logging::verb_level_e::DEBUG, "Window Destructor of window ", this->title)
 }
 
 // ================================================================

@@ -67,13 +67,13 @@ namespace snake_direction {
 
 			// Get functions
 			/**
-			 * @brief Function: snake_utils::direction_e get_direction()
+			 * @brief Function: snake_utils::direction_e get_direction() const
 			 *
 			 * \return Direction of the SnakeDirection
 			 *
 			 * Get the direction of the SnakeDirection
 			 */
-			snake_utils::direction_e get_direction();
+			snake_utils::direction_e get_direction() const;
 
 			// Set functions
 			/**
@@ -106,6 +106,15 @@ namespace snake_direction {
 		protected:
 	};
 
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const snake_direction::SnakeDirection & dir)
+	 *
+	 * \param os: output stream
+	 * \param dir: direction to print
+	 *
+	 * Overload << operator to print direction
+	 */
+	std::ostream& operator<< (std::ostream& os, const snake_direction::SnakeDirection & dir);
 }
 /** @} */ // End of SnakeDirectionGroup group
 #endif // SNAKE_DIRECTION_H

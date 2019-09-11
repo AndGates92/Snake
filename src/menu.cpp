@@ -171,7 +171,7 @@ void menu::Menu::destroy_menu() {
 // Destructor
 // ================================================================
 menu::Menu::~Menu() {
-	LOG_INFO(logging::verb_level_e::HIGH, "Destructor of menu ", this->title, " ID: ", this->id);
+	LOG_INFO(logging::verb_level_e::DEBUG, "Destructor of menu ", this->title, " ID: ", this->id);
 //	this->destroy_menu();
 }
 

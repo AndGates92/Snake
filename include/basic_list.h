@@ -75,6 +75,15 @@ namespace basic_list {
 			void print_info(logging::verb_level_e verbosity, std::string pretext);
 
 			/**
+			 * @brief Function: std::vector<class_element> get_vector() const
+			 *
+			 * \return head of BasicList
+			 *
+			 * Return a pointer to te head of the list 
+			 */
+			std::vector<class_element> get_vector() const;
+
+			/**
 			 * @brief Function: std::vector<class_element> & get_vector()
 			 *
 			 * \return head of BasicList
@@ -116,7 +125,7 @@ namespace basic_list {
 	 * \param os: output stream
 	 * \param list: list to print
 	 *
-	 * Overload << operator to print window details
+	 * Overload << operator to print basic list details
 	 */
 	template <class class_element>
 	std::ostream& operator<< (std::ostream& os, const basic_list::BasicList<class_element> & list);
@@ -167,7 +176,14 @@ void basic_list::BasicList<class_element>::print_info(logging::verb_level_e verb
 }
 
 template <class class_element>
+std::vector<class_element> basic_list::BasicList<class_element>::get_vector() const {
+	LOG_INFO(logging::verb_level_e::DEBUG, "[Get Vector] Get const vector");
+	return this->head;
+}
+
+template <class class_element>
 std::vector<class_element> & basic_list::BasicList<class_element>::get_vector() {
+	LOG_INFO(logging::verb_level_e::DEBUG, "[Get Vector] Get reference to vector");
 	return this->head;
 }
 

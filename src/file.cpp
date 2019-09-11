@@ -78,6 +78,7 @@ bool iofile::File::ifile_is_open() {
 // Destructors
 // ================================================================
 iofile::File::~File() {
+	LOG_INFO(logging::verb_level_e::DEBUG, "Destructor of file ", this->name)
 	this->close_ifile();
 	this->close_ofile();
 }

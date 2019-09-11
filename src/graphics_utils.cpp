@@ -41,12 +41,13 @@ void graphics_utils::init_window_list() {
 
 // Delete window having the ID passed as input
 void graphics_utils::delete_win_id(int win_id) {
-	LOG_INFO(logging::verb_level_e::DEBUG,"[Delete window ID] Delete window with ID: ", win_id);
+	LOG_INFO(logging::verb_level_e::HIGH,"[Delete window ID] Delete window with ID: ", win_id);
 	windows.delete_by_win_id(win_id);
 }
 
 // Search window having the ID passed as input
 window_obj::WindowObj graphics_utils::search_win_id(int win_id) {
+	LOG_INFO(logging::verb_level_e::HIGH,"[Search window] Search window with ID: ", win_id);
 	return windows.search_by_win_id(win_id);
 }
 
@@ -54,12 +55,14 @@ void graphics_utils::delete_window() {
 	int win_id = 0;
 	win_id = glutGetWindow();
 
-	LOG_INFO(logging::verb_level_e::DEBUG,"[Delete window] Delete window with ID: ", win_id);
+	LOG_INFO(logging::verb_level_e::HIGH,"[Delete window] Delete window with ID: ", win_id);
 
 	graphics_utils::delete_win_id(win_id);
 }
 
 void graphics_utils::delete_all_windows() {
+	LOG_INFO(logging::verb_level_e::LOW, "[Delete all window] Delete all windows");
+	LOG_INFO(logging::verb_level_e::LOW, windows);
 	windows.~WindowList();
 //	delete windows;
 }

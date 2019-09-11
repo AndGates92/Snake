@@ -358,175 +358,175 @@ w
 
 			// Get functions
 			/**
-			 * @brief Function: bool get_auto_ride_flag()
+			 * @brief Function: bool get_auto_ride_flag() const
 			 *
 			 * \return value of auto ride flag
 			 *
 			 * Provide value of auto ride flag
 			 */
-			bool get_auto_ride_flag();
+			bool get_auto_ride_flag() const;
 
 			/**
-			 * @brief Function: bool get_hard_wall_flag()
+			 * @brief Function: bool get_hard_wall_flag() const
 			 *
 			 * \return value of hard wall flag
 			 *
 			 * Provide value of hard wall flag
 			 */
-			bool get_hard_wall_flag();
+			bool get_hard_wall_flag() const;
 
 			/**
-			 * @brief Function: std::string get_dump_filename()
+			 * @brief Function: std::string get_dump_filename() const
 			 *
 			 * \return value of dump_filename
 			 *
 			 * Provide value of dump_filename
 			 */
-			std::string get_dump_filename();
+			std::string get_dump_filename() const;
 
 			/**
-			 * @brief Function: std::string get_save_filename()
+			 * @brief Function: std::string get_save_filename() const
 			 *
 			 * \return value of save_filename
 			 *
 			 * Provide value of save_filename
 			 */
-			std::string get_save_filename();
+			std::string get_save_filename() const;
 
 			/**
-			 * @brief Function: settings::game_status_e get_game_status()
+			 * @brief Function: settings::game_status_e get_game_status() const
 			 *
 			 * \return value of game_status
 			 *
 			 * Provide value of game_status
 			 */
-			settings::game_status_e get_game_status();
+			settings::game_status_e get_game_status() const;
 
 			/**
-			 * @brief Function: int get_speed()
+			 * @brief Function: int get_speed() const
 			 *
 			 * \return value of speed
 			 *
 			 * Provide value of speed
 			 */
-			int get_speed();
+			int get_speed() const;
 
 			/**
-			 * @brief Function: int get_speed_incr()
+			 * @brief Function: int get_speed_incr() const
 			 *
 			 * \return value of speed increment
 			 *
 			 * Provide value of speed increment
 			 */
-			int get_speed_incr();
+			int get_speed_incr() const;
 
 			/**
-			 * @brief Function: int get_node_height()
+			 * @brief Function: int get_node_height() const
 			 *
 			 * \return value of the height of a node
 			 *
 			 * Provide value of the height of a node
 			 */
-			int get_node_height();
+			int get_node_height() const;
 
 			/**
-			 * @brief Function: int get_node_width()
+			 * @brief Function: int get_node_width() const
 			 *
 			 * \return value of the width of a node
 			 *
 			 * Provide value of the width of a node
 			 */
-			int get_node_width();
+			int get_node_width() const;
 
 			/**
-			 * @brief Function: int get_snake_units()
+			 * @brief Function: int get_snake_units() const
 			 *
 			 * \return value of number of snake units
 			 *
 			 * Provide value of number of snake units
 			 */
-			int get_snake_units();
+			int get_snake_units() const;
 
 			/**
-			 * @brief Function: int get_obs_no()
+			 * @brief Function: int get_obs_no() const
 			 *
 			 * \return value of the number of obstacles
 			 *
 			 * Provide value of the number of obstacles
 			 */
-			int get_obs_no();
+			int get_obs_no() const;
 
 			/**
-			 * @brief Function: int get_head_centre_x()
+			 * @brief Function: int get_head_centre_x() const
 			 *
 			 * \return value of the x coordinate of the snake head
 			 *
 			 * Provide value of the x coordinate of the snake head
 			 */
-			int get_head_centre_x();
+			int get_head_centre_x() const;
 
 			/**
-			 * @brief Function: int get_head_centre_y()
+			 * @brief Function: int get_head_centre_y() const
 			 *
 			 * \return value of the y coordinate of the snake head
 			 *
 			 * Provide value of the y coordinate of the snake head
 			 */
-			int get_head_centre_y();
+			int get_head_centre_y() const;
 
 			/**
-			 * @brief Function: snake_utils::direction_e get_head_dir()
+			 * @brief Function: snake_utils::direction_e get_head_dir() const
 			 *
 			 * \return value of direction of the snake head
 			 *
 			 * Provide value of direction of the snake head
 			 */
-			snake_utils::direction_e get_head_dir();
+			snake_utils::direction_e get_head_dir() const;
 
 			/**
-			 * @brief Function: colours::palette_e get_snake_colour()
+			 * @brief Function: colours::palette_e get_snake_colour() const
 			 *
 			 * \return value of colour of snakes
 			 *
 			 * Provide value of colour of snakes
 			 */
-			colours::palette_e get_snake_colour();
+			colours::palette_e get_snake_colour() const;
 
 			/**
-			 * @brief Function: colours::palette_e get_obs_colour()
+			 * @brief Function: colours::palette_e get_obs_colour() const
 			 *
 			 * \return value of colour of obstacles
 			 *
 			 * Provide value of colour of obstacles
 			 */
-			colours::palette_e get_obs_colour();
+			colours::palette_e get_obs_colour() const;
 
 			/**
-			 * @brief Function: int get_tile_height()
+			 * @brief Function: int get_tile_height() const
 			 *
 			 * \return value of the height of tiles
 			 *
 			 * Provide value of the height of tiles
 			 */
-			int get_tile_height();
+			int get_tile_height() const;
 
 			/**
-			 * @brief Function: int get_tile_width()
+			 * @brief Function: int get_tile_width() const
 			 *
 			 * \return value of the width of tiles
 			 *
 			 * Provide value of the width of tiles
 			 */
-			int get_tile_width();
+			int get_tile_width() const;
 
 			/**
-			 * @brief Function: int get_score()
+			 * @brief Function: int get_score() const
 			 *
 			 * \return value of score
 			 *
 			 * Provide value of score
 			 */
-			int get_score();
+			int get_score() const;
 
 			/**
 			 * @brief Function: void print_info(logging::verb_level_e verbosity, std::string pretext)
@@ -664,6 +664,16 @@ w
 
 		protected:
 	};
+
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const settings::Settings & game_settings)
+	 *
+	 * \param os: output stream
+	 * \param game_settings: settings to print
+	 *
+	 * Overload << operator to print settings details
+	 */
+	std::ostream& operator<< (std::ostream& os, const settings::Settings & game_settings);
 }
 /** @} */ // End of SettingsGroup group
 

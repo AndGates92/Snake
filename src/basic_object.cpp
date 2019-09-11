@@ -17,7 +17,7 @@
 // Destructor
 // ================================================================
 basic_object::BasicObject::~BasicObject() {
-	LOG_INFO(logging::verb_level_e::HIGH, "Basic Object Destructor of object type ", this->type)
+	LOG_INFO(logging::verb_level_e::DEBUG, "Basic Object Destructor of object type ", this->type)
 }
 
 void basic_object::BasicObject::print_info(logging::verb_level_e verbosity, std::string pretext) {

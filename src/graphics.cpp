@@ -111,8 +111,8 @@ void graphics::reshape_cb(int width, int height) {
 
 void graphics::idle_cb() {
 
-	window_list::WindowList &  head_list = graphics_utils::get_window_ptr();
-	std::vector<window_obj::WindowObj> & window = head_list.get_vector();
+	const window_list::WindowList & head_list (graphics_utils::get_window_ptr());
+	const std::vector<window_obj::WindowObj> & window (head_list.get_vector());
 
 	for (auto node : window) {
 

@@ -12,7 +12,7 @@
 #include "custom_exception.h"
 
 custom_exception::CustomException::~CustomException() throw() {
-	LOG_INFO(logging::verb_level_e::LOW, "Destructor")
+	LOG_INFO(logging::verb_level_e::DEBUG, "Destructor of custom exception")
 }
 
 const char * custom_exception::CustomException::what() const throw() {
