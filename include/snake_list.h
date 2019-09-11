@@ -32,7 +32,9 @@ namespace snake_list {
 			 *
 			 * SnakeList constructor
 			 */
-			explicit SnakeList(std::string name_snake = "Snake"): basic_obj_list::BasicObjList<snake_unit::SnakeUnit>(name_snake) { LOG_INFO(logging::verb_level_e::LOW, "Contructor") };
+			explicit SnakeList(std::string name_snake = "Snake"): basic_obj_list::BasicObjList<snake_unit::SnakeUnit>(name_snake) {
+				LOG_INFO(logging::verb_level_e::DEBUG, "Snake List Contructor")
+			};
 
 			/**
 			 * @brief Function: SnakeList(const SnakeList& copy)
@@ -41,7 +43,9 @@ namespace snake_list {
 			 *
 			 * SnakeList copy constructor
 			 */
-			SnakeList(const SnakeList& copy): basic_obj_list::BasicObjList<snake_unit::SnakeUnit>(copy) { LOG_INFO(logging::verb_level_e::LOW, "Copy contructor") };
+			SnakeList(const SnakeList& copy): basic_obj_list::BasicObjList<snake_unit::SnakeUnit>(copy) {
+				LOG_INFO(logging::verb_level_e::DEBUG, "Snake List Copy contructor")
+			};
 
 			// Destructor
 			/**

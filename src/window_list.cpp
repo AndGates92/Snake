@@ -21,12 +21,9 @@
 
 window_list::WindowList::~WindowList() {
 
-	std::string pretext ("Destructor");
-	this->print_info(logging::verb_level_e::LOW, pretext);
-
 	this->~BasicObjList();
 
-	LOG_INFO(logging::verb_level_e::HIGH, "Window list destroyed");
+	LOG_INFO(logging::verb_level_e::HIGH, "Window list destructor");
 
 }
 
@@ -34,8 +31,8 @@ int window_list::WindowList::add_element(std::string window_title, std::string w
 
 	std::vector<window_obj::WindowObj> & win_vector = this->get_vector();
 
-	LOG_INFO(logging::verb_level_e::LOW, "[Add node] Create node at ", window_x_pos, ", ", window_y_pos, ". Dimensions: width ", window_width, " height ", window_height, ". Title: ", window_title, " Background colour: ", background_colour);
 	window_obj::WindowObj new_window = window_obj::WindowObj(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour);
+	LOG_INFO(logging::verb_level_e::LOW, "[Add Window] Name: ", new_window, ".");
 
 	win_vector.insert(win_vector.begin(), new_window);
 

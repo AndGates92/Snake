@@ -17,12 +17,8 @@
 
 obstacle_list::ObstacleList::~ObstacleList() {
 
-	std::string pretext ("Destructor");
-	this->print_info(logging::verb_level_e::LOW, pretext);
-
+	LOG_INFO(logging::verb_level_e::DEBUG, "Obstacle list destructor");
 	this->~BasicObjList();
-
-	LOG_INFO(logging::verb_level_e::HIGH, "Obstacle list destroyed");
 
 }
 
@@ -31,8 +27,8 @@ void obstacle_list::ObstacleList::add_element(int centre_x, int centre_y, int ob
 	std::string name = this->get_name();
 	std::vector<obstacle::Obstacle> & obs_vector = this->get_vector();
 
-	LOG_INFO(logging::verb_level_e::LOW, "[Add Object] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", obstacle_width, ", height ", obstacle_height, " colour ", obstacle_colour, ".");
 	obstacle::Obstacle new_obstacle = obstacle::Obstacle(name, centre_x, centre_y, obstacle_width, obstacle_height, obstacle_colour);
+	LOG_INFO(logging::verb_level_e::LOW, "[Add Obstacle] Name: ", name, new_obstacle, ".");
 
 	obs_vector.insert(obs_vector.begin(), new_obstacle);
 }

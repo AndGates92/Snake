@@ -33,7 +33,7 @@ namespace basic_list {
 			 * BasicList constructor
 			 */
 			explicit BasicList(): head() {
-				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of basic list");
+				LOG_INFO(logging::verb_level_e::DEBUG, "Constructor of basic list");
 			};
 
 			/**
@@ -44,7 +44,7 @@ namespace basic_list {
 			 * BasicList copy constructor
 			 */
 			BasicList(const BasicList& copy): head(copy.head) {
-				LOG_INFO(logging::verb_level_e::HIGH, "Copy constructor of basic list");
+				LOG_INFO(logging::verb_level_e::DEBUG, "Copy constructor of basic list");
 			};
 
 			// Destructor
@@ -129,7 +129,7 @@ template <class class_element>
 basic_list::BasicList<class_element>::~BasicList() {
 
 	std::string pretext ("Destructor");
-	this->print_info(logging::verb_level_e::LOW, pretext);
+	LOG_INFO(logging::verb_level_e::DEBUG, "Basic List Destructor");
 
 	for(typename std::vector<class_element>::iterator element_it = this->head.begin(); element_it != this->head.end(); ++element_it) {
 		// Convert iterator to index
@@ -139,7 +139,7 @@ basic_list::BasicList<class_element>::~BasicList() {
 		class_element & element (this->head.at(index));
 
 		// Print informations about the element to be deleted
-		element.print_info(logging::verb_level_e::HIGH, pretext);
+		element.print_info(logging::verb_level_e::DEBUG, pretext);
 		this->head.erase(element_it);
 	}
 	LOG_INFO(logging::verb_level_e::HIGH, "Basic list destroyed");
@@ -154,7 +154,7 @@ void basic_list::BasicList<class_element>::remove_element(class_element & elemen
 		this->head.erase(element_it);
 	} else {
 		std::string pretext ("Remove Element");
-		element.print_info(logging::verb_level_e::HIGH, pretext);
+		element.print_info(logging::verb_level_e::MEDIUM, pretext);
 		LOG_ERROR("Node has not been found");
 	}
 }
@@ -162,9 +162,8 @@ void basic_list::BasicList<class_element>::remove_element(class_element & elemen
 template <class class_element>
 void basic_list::BasicList<class_element>::print_info(logging::verb_level_e verbosity, std::string pretext) {
 
-	for(auto element : this->head) {
-		element.print_info(verbosity, pretext);
-	}
+	LOG_INFO(verbosity, "[",  pretext, "] Print information");
+	LOG_INFO(verbosity, *this);
 }
 
 template <class class_element>

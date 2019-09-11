@@ -111,10 +111,7 @@ namespace basic_obj_list {
 template <class class_element>
 basic_obj_list::BasicObjList<class_element>::~BasicObjList() {
 
-	std::string pretext ("Destructor");
-	this->print_info(logging::verb_level_e::LOW, pretext);
-
-	LOG_INFO(logging::verb_level_e::HIGH, "Basic Object List destroyed");
+	LOG_INFO(logging::verb_level_e::HIGH, "Basic Object List ", this->name, " Destructor");
 
 }
 
@@ -156,7 +153,7 @@ std::ostream& basic_obj_list::operator<< (std::ostream& os, const basic_obj_list
 
 		// Create an class_element that references the desired element
 		class_element & element (basic_list_vector.at(index));
-		os << "[Name] Element number " << index << ": " << element << std::endl;
+		os << "[" << name << "] Element number " << index << ": " << element << std::endl;
 	}
 
 	return os;

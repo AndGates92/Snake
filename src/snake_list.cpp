@@ -22,12 +22,10 @@
 
 snake_list::SnakeList::~SnakeList() {
 
-	std::string pretext ("Destructor");
-	this->print_info(logging::verb_level_e::LOW, pretext);
+	LOG_INFO(logging::verb_level_e::HIGH, "Snake List Destructor");
 
 	this->~BasicObjList();
 
-	LOG_INFO(logging::verb_level_e::HIGH, "Snake list destroyed");
 
 }
 
@@ -37,8 +35,8 @@ void snake_list::SnakeList::add_element(int centre_x, int centre_y, int snake_wi
 	std::vector<snake_unit::SnakeUnit> & snake_vector = this->get_vector();
 	std::string name = this->get_name();
 
-	LOG_INFO(logging::verb_level_e::LOW, "[Add Unit] Name: ", name, " Centre coordinares: (X ", centre_x, ", Y ", centre_y, "), width ", snake_width, ", height ", snake_height, ",  direction ", snake_direction, " colour ", snake_colour, ".");
 	snake_unit::SnakeUnit new_snake(name, centre_x, centre_y, snake_width, snake_height, snake_direction, snake_colour);
+	LOG_INFO(logging::verb_level_e::LOW, "[Add Snake Unit] Name: ", name, new_snake, ".");
 
 	// Check whether snake_vector is empty
 	if(snake_vector.size() > 0) {
