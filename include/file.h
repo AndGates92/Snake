@@ -100,22 +100,22 @@ namespace iofile {
 
 			// Get functions
 			/**
-			 * @brief Function: std::string get_name()
+			 * @brief Function: std::string get_name() const
 			 *
 			 * \return the filename
 			 *
 			 * Get filename
 			 */
-			std::string get_name();
+			std::string get_name() const;
 
 			/**
-			 * @brief Function: iofile::mode_e get_access_mode()
+			 * @brief Function: iofile::mode_e get_access_mode() const
 			 *
 			 * \return file permissions
 			 *
 			 * Get access permissions
 			 */
-			iofile::mode_e get_access_mode();
+			iofile::mode_e get_access_mode() const;
 
 			/**
 			 * @brief Function: std::ifstream & get_ifile()
@@ -247,6 +247,17 @@ namespace iofile {
 			 */
 			void set_access_flags();
 	};
+
+	/**
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const iofile::File & file)
+	 *
+	 * \param os: output stream
+	 * \param file: file whose information are to be printed
+	 *
+	 * Overload << operator to print file information
+	 */
+	std::ostream& operator<< (std::ostream& os, const iofile::File & file);
+
 }
 /** @} */ // End of FileGroup group
 

@@ -116,12 +116,12 @@ void iofile::File::set_access_flags() {
 // ================================================================
 // Get functions
 // ================================================================
-std::string iofile::File::get_name() {
+std::string iofile::File::get_name() const {
 	// Return filename
 	return this->name;
 }
 
-iofile::mode_e iofile::File::get_access_mode() {
+iofile::mode_e iofile::File::get_access_mode() const {
 	// Return access mode
 	return this->mode;
 }
@@ -176,4 +176,12 @@ std::ostream& iofile::operator<< (std::ostream& os, iofile::mode_e mode) {
 	}
 
 	return os;
+}
+
+std::ostream& iofile::operator<< (std::ostream& os, const iofile::File & file) {
+
+	os << "FIle: name " << file.get_name() << " Access mode " << file.get_access_mode();
+
+	return os;
+
 }
