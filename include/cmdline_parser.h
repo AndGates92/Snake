@@ -148,7 +148,7 @@ namespace cmdline_parser {
 
 	// Overload << operator for obj_e
 	/**
-	 * @brief Function: std::ostream& operator<< (std::ostream& os, cmdline_parser::obj_e obj)
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const cmdline_parser::obj_e & obj)
 	 *
 	 * \param obj: type of object to create (See values supported by enumerated type obj_e)
 	 * \param os: output stream
@@ -157,7 +157,7 @@ namespace cmdline_parser {
 	 *
 	 * Overload << operator for type obj_e
 	 */
-	std::ostream& operator<< (std::ostream& os, cmdline_parser::obj_e obj);
+	std::ostream& operator<< (std::ostream& os, const cmdline_parser::obj_e & obj);
 
 	/**
 	 * @brief Function: void create_obj (cmdline_parser::obj_e object, std::string type, std::string title, int x_centre, int y_centre, int width, int height, colours::palette_e colour, snake_utils::direction_e direction)

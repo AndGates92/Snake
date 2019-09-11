@@ -207,7 +207,7 @@ void settings::Settings::save_data(iofile::File & savefile) {
 // ================================================================
 // Overload << operator for game_status_e
 // ================================================================
-std::ostream& settings::operator<< (std::ostream& os, settings::game_status_e game_status) {
+std::ostream& settings::operator<< (std::ostream& os, const settings::game_status_e & game_status) {
 
 	switch (game_status) {
 		case settings::game_status_e::RUNNING:

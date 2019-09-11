@@ -12,7 +12,7 @@
 // ================================================================
 // Overload << operator for direction_e
 // ================================================================
-std::ostream& snake_utils::operator<< (std::ostream& os, snake_utils::direction_e direction) {
+std::ostream& snake_utils::operator<< (std::ostream& os, const snake_utils::direction_e & direction) {
 
 	switch (direction) {
 		case snake_utils::direction_e::UP:

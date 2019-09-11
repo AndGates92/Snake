@@ -38,14 +38,14 @@ namespace menu {
 	} game_menu_e;
 
 	/**
-	 * @brief Function: std::ostream& operator<< (std::ostream& os, menu::game_menu_e menu_items)
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const menu::game_menu_e & menu_items)
 	 *
 	 * \param os: output stream
 	 * \param menu_items: menu items in game window
 	 *
 	 * Overload << operator to print game menu items
 	 */
-	std::ostream& operator<< (std::ostream& os, menu::game_menu_e menu_items);
+	std::ostream& operator<< (std::ostream& os, const menu::game_menu_e & menu_items);
 
 	/**
 	 * @brief Function: void menu_game(int entry)
@@ -72,14 +72,14 @@ namespace menu {
 	} stat_menu_e;
 
 	/**
-	 * @brief Function: std::ostream& operator<< (std::ostream& os, menu::stat_menu_e menu_items)
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const menu::stat_menu_e & menu_items)
 	 *
 	 * \param os: output stream
 	 * \param menu_items: menu items in stat window
 	 *
 	 * Overload << operator to print stat menu items
 	 */
-	std::ostream& operator<< (std::ostream& os, menu::stat_menu_e menu_items);
+	std::ostream& operator<< (std::ostream& os, const menu::stat_menu_e & menu_items);
 
 	/**
 	 * @brief Function: void menu_stat(int entry)

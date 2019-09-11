@@ -11,7 +11,7 @@
 #include "colours.h"
 
 // Overload << operator for palette_e
-std::ostream& colours::operator<< (std::ostream& os, colours::palette_e palette) {
+std::ostream& colours::operator<< (std::ostream& os, const colours::palette_e & palette) {
 
 	switch (palette) {
 		case colours::palette_e::RED:

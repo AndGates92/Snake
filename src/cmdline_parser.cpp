@@ -323,7 +323,7 @@ bool cmdline_parser::extract_word(std::string line, std::string::size_type start
 }
 
 // Overload << operator for obj_e
-std::ostream& cmdline_parser::operator<< (std::ostream& os, cmdline_parser::obj_e obj) {
+std::ostream& cmdline_parser::operator<< (std::ostream& os, const cmdline_parser::obj_e & obj) {
 
 	switch (obj) {
 		case cmdline_parser::obj_e::SNAKE:

@@ -45,14 +45,14 @@ namespace colours {
 	} palette_e;
 
 	/**
-	 * @brief Function: std::ostream& operator<< (std::ostream& os, colours::palette_e palette)
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const colours::palette_e & palette)
 	 *
 	 * \param os: output stream
 	 * \param palette: colour in the palette to print
 	 *
 	 * Overload << operator to print access mode 
 	 */
-	std::ostream& operator<< (std::ostream& os, colours::palette_e palette);
+	std::ostream& operator<< (std::ostream& os, const colours::palette_e & palette);
 
 	/**
 	 * @brief Function: colours::palette_e str_to_colour (std::string colour)

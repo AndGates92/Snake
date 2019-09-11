@@ -37,14 +37,14 @@ namespace iofile {
 	} mode_e;
 
 	/**
-	 * @brief Function: std::ostream& operator<< (std::ostream& os, iofile::mode_e mode)
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const iofile::mode_e & mode)
 	 *
 	 * \param os: output stream
 	 * \param mode: direction to be printed
 	 *
 	 * Overload << operator to print access mode 
 	 */
-	std::ostream& operator<< (std::ostream& os, iofile::mode_e mode);
+	std::ostream& operator<< (std::ostream& os, const iofile::mode_e & mode);
 
 	/**
 	 * @brief File class

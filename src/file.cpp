@@ -155,7 +155,7 @@ void iofile::File::set_access_mode(iofile::mode_e access_mode) {
 }
 
 // Overload << operator for mode_e
-std::ostream& iofile::operator<< (std::ostream& os, iofile::mode_e mode) {
+std::ostream& iofile::operator<< (std::ostream& os, const iofile::mode_e & mode) {
 
 	switch (mode) {
 		case iofile::mode_e::NO_ACCESS:

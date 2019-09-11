@@ -31,14 +31,14 @@ namespace settings {
 	} game_status_e;
 
 	/**
-	 * @brief Function: std::ostream& operator<< (std::ostream& os, settings::game_status_e game_status)
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const settings::game_status_e & game_status)
 	 *
 	 * \param os: output stream
 	 * \param game_status: game status to be printed
 	 *
 	 * Overload << operator to print game status
 	 */
-	std::ostream& operator<< (std::ostream& os, settings::game_status_e game_status);
+	std::ostream& operator<< (std::ostream& os, const settings::game_status_e & game_status);
 
 	namespace {
 		/**

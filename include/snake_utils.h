@@ -29,14 +29,14 @@ namespace snake_utils {
 	} direction_e;
 
 	/**
-	 * @brief Function: std::ostream& operator<< (std::ostream& os, game_menu::direction_e direction)
+	 * @brief Function: std::ostream& operator<< (std::ostream& os, const game_menu::direction_e & direction)
 	 *
 	 * \param os: output stream
 	 * \param direction: direction to be printed
 	 *
 	 * Overload << operator to print direction
 	 */
-	std::ostream& operator<< (std::ostream& os, snake_utils::direction_e direction);
+	std::ostream& operator<< (std::ostream& os, const snake_utils::direction_e & direction);
 
 	/**
 	 * @brief Function: snake_utils::direction_e str_to_direction (std::string dir)

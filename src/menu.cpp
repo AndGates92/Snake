@@ -101,7 +101,7 @@ void menu::menu_game_items() {
 }
 
 // Overload << operator for game_menu_e
-std::ostream& menu::operator<< (std::ostream& os, menu::game_menu_e menu_items) {
+std::ostream& menu::operator<< (std::ostream& os, const menu::game_menu_e & menu_items) {
 
 	switch (menu_items) {
 		case menu::game_menu_e::RESTART:
@@ -146,7 +146,7 @@ void menu::menu_stat_items() {
 }
 
 // Overload << operator for stat_menu_e
-std::ostream& menu::operator<< (std::ostream& os, menu::stat_menu_e menu_items) {
+std::ostream& menu::operator<< (std::ostream& os, const menu::stat_menu_e & menu_items) {
 
 	switch (menu_items) {
 		case menu::stat_menu_e::QUIT:
