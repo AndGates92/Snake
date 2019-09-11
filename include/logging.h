@@ -176,9 +176,9 @@ template <typename... info_type>
 void logging::log_info (logging::verb_level_e verbosity, info_type... info) {
 	// Locking mutex to avoid other accesses to the logfile for write
 	if (verbosity <= static_cast<logging::verb_level_e>(VERBOSITY)) {
-		logging::logfile.file_mtx.lock();
+//		logging::logfile.file_mtx.lock();
 		logging::logfile.write_ofile(info...);
-		logging::logfile.file_mtx.unlock();
+//		logging::logfile.file_mtx.unlock();
 	}
 }
 
