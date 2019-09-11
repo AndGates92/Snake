@@ -127,7 +127,7 @@ void basic_obj_list::BasicObjList<class_element>::set_name(std::string new_name)
 
 template <class class_element> template <typename pixel_type>
 void basic_obj_list::BasicObjList<class_element>::draw(pixel_type * & pixels, const int & win_width, const int & win_height, const int & exp_no) {
-	std::vector<class_element> & basic_obj = this->get_vector();
+	std::vector<class_element> & basic_obj (this->get_vector());
 
 	int obj_cnt = 0;
 
@@ -153,7 +153,7 @@ std::ostream& basic_obj_list::operator<< (std::ostream& os, const basic_obj_list
 
 		// Create an class_element that references the desired element
 		class_element & element (basic_list_vector.at(index));
-		os << "[" << name << "] Element number " << index << ": " << element << std::endl;
+		os << "[" << name << "] Element number " << index << ": " << element << "\n";
 	}
 
 	return os;
