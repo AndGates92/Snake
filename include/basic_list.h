@@ -142,7 +142,7 @@ basic_list::BasicList<class_element>::~BasicList() {
 		element.print_info(logging::verb_level_e::DEBUG, pretext);
 		this->head.erase(element_it);
 	}
-	LOG_INFO(logging::verb_level_e::HIGH, "Basic list destroyed");
+	LOG_INFO(logging::verb_level_e::DEBUG, "Basic list destroyed");
 
 }
 

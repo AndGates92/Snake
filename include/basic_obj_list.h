@@ -31,7 +31,7 @@ namespace basic_obj_list {
 			 * BasicObjList constructor
 			 */
 			explicit BasicObjList(std::string name_obj = "Unknown"): basic_list::BasicList<class_element>(), name(name_obj) {
-				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of basic list");
+				LOG_INFO(logging::verb_level_e::DEBUG, "Constructor of basic list");
 			}
 
 			/**
@@ -42,7 +42,7 @@ namespace basic_obj_list {
 			 * BasicObjList copy constructor
 			 */
 			BasicObjList(const BasicObjList& copy): basic_list::BasicList<class_element>(copy), name(copy.name) {
-				LOG_INFO(logging::verb_level_e::HIGH, "Copy constructor of basic object list");
+				LOG_INFO(logging::verb_level_e::DEBUG, "Copy constructor of basic object list");
 			}
 
 			// Destructor
@@ -111,7 +111,7 @@ namespace basic_obj_list {
 template <class class_element>
 basic_obj_list::BasicObjList<class_element>::~BasicObjList() {
 
-	LOG_INFO(logging::verb_level_e::HIGH, "Basic Object List ", this->name, " Destructor");
+	LOG_INFO(logging::verb_level_e::DEBUG, "Basic Object List ", this->name, " Destructor");
 
 }
 

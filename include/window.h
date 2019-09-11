@@ -57,7 +57,7 @@ namespace window {
 			 */
 			explicit Window(std::string window_title = "", std::string type = "Window", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, colours::palette_e background_colour=colours::palette_e::BLACK): basic_object::BasicObject(type, window_x_pos, window_y_pos, window_width, window_height, background_colour), title(window_title) {
 				id = window::Window::create_window(window_title, window_width, window_height, window_x_pos, window_y_pos);
-				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of window ", window_title)
+				LOG_INFO(logging::verb_level_e::DEBUG, "Constructor of window ", window_title)
 			};
 
 			/**
@@ -68,7 +68,7 @@ namespace window {
 			 * Window copy constructor
 			 */
 			Window(const Window& copy) : basic_object::BasicObject(copy), title(copy.title), id(copy.id) {
-				LOG_INFO(logging::verb_level_e::HIGH, "Copy constructor of window ", copy.title)
+				LOG_INFO(logging::verb_level_e::DEBUG, "Copy constructor of window ", copy.title)
 			};
 
 			// Destructor

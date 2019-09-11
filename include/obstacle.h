@@ -50,7 +50,7 @@ namespace obstacle {
 			 * Obstacle constructor
 			 */
 			explicit Obstacle(std::string type_obs = "Obstacle", int centre_x = 0, int centre_y = 0, int obs_width = obstacle::init_obs_width, int obs_height = obstacle::init_obs_height, colours::palette_e obs_colour = colours::palette_e::BLACK): basic_object::BasicObject(type_obs, centre_x, centre_y, obs_width, obs_height, obs_colour) {
-				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of obstacle at (X ", centre_x, ", Y ", centre_y, ")")
+				LOG_INFO(logging::verb_level_e::DEBUG, "Constructor of obstacle at (X ", centre_x, ", Y ", centre_y, ")")
 			};
 
 			/**
@@ -61,7 +61,7 @@ namespace obstacle {
 			 * Obstacle copy constructor
 			 */
 			Obstacle(const Obstacle& copy) : basic_object::BasicObject(copy) {
-				LOG_INFO(logging::verb_level_e::HIGH, "Copy constructor of obstacle at (X ", copy.get_x_centre(), ", Y ", copy.get_y_centre(), ")")
+				LOG_INFO(logging::verb_level_e::DEBUG, "Copy constructor of obstacle at (X ", copy.get_x_centre(), ", Y ", copy.get_y_centre(), ")")
 			};
 
 			// Destructor

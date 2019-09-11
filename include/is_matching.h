@@ -31,7 +31,7 @@ namespace is_matching {
 			 * IsMatching constructor
 			 */
 			explicit IsMatching(element_type element): reference_id(element) { 
-				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of object IsMatching. Searched element: ", element);
+				LOG_INFO(logging::verb_level_e::DEBUG, "Constructor of object IsMatching. Searched element: ", element);
 			};
 
 			/**

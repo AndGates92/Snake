@@ -40,7 +40,8 @@ namespace window_obj {
 			 */
 			explicit WindowObj(std::string window_title = "", std::string window_type = "Window", int window_width = 0, int window_height = 0, int window_x_pos = WIN_POS_X, int window_y_pos = WIN_POS_Y, colours::palette_e background_colour=colours::palette_e::BLACK): drawing(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour), action_list(window_title) {
 				std::string pretext ("Window Object Constructor");
-				window_obj::WindowObj::print_info(logging::verb_level_e::HIGH, pretext);
+				window_obj::WindowObj::print_info(logging::verb_level_e::DEBUG, pretext);
+				LOG_INFO(logging::verb_level_e::DEBUG, "Constructor of Window Object: title ", window_title, " at (", window_x_pos, ", ", window_y_pos);
 			};
 
 			/**
@@ -51,8 +52,7 @@ namespace window_obj {
 			 * WindowObj copy constructor
 			 */
 			WindowObj(const WindowObj& copy): drawing(copy.drawing), action_list(copy.action_list) {
-				std::string pretext ("Window Object Constructor");
-				window_obj::WindowObj::print_info(logging::verb_level_e::HIGH, pretext);
+				LOG_INFO(logging::verb_level_e::DEBUG, "Constructor of Window Object: title ", copy.drawing.get_title(), " at (", copy.drawing.get_x_centre(), ", ", copy.drawing.get_y_centre());
 			};
 
 			// Destructor

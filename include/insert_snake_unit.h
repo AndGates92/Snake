@@ -31,7 +31,7 @@ namespace insert_snake_unit {
 			 * InsertSnakeUnit constructor
 			 */
 			explicit InsertSnakeUnit(int x, int y, direction_type direction): snake_direction(direction), centre_x(x), centre_y(y) {
-				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of object InsertSnakeUnit. Searched element: ", direction)
+				LOG_INFO(logging::verb_level_e::DEBUG, "Constructor of object InsertSnakeUnit. Searched element: ", direction)
 			};
 
 			/**

@@ -50,7 +50,7 @@ namespace basic_object {
 			 * BasicObject constructor
 			 */
 			explicit BasicObject(std::string type_obj = "Unknown", int centre_x = 0, int centre_y = 0, int obj_width = basic_object::init_obj_width, int obj_height = basic_object::init_obj_height, colours::palette_e obj_colour = colours::palette_e::BLACK): type(type_obj),  x_centre(centre_x), y_centre(centre_y), width(obj_width), height(obj_height), colour(obj_colour) {
-				LOG_INFO(logging::verb_level_e::HIGH, "Constructor of basic object ", type_obj)
+				LOG_INFO(logging::verb_level_e::DEBUG, "Constructor of basic object ", type_obj)
 			};
 
 			/**
@@ -61,7 +61,7 @@ namespace basic_object {
 			 * BasicObject copy constructor
 			 */
 			BasicObject(const BasicObject& copy) : type(copy.type), x_centre(copy.x_centre), y_centre(copy.y_centre), width(copy.width), height(copy.height), colour(copy.colour) {
-				LOG_INFO(logging::verb_level_e::HIGH, "Copy constructor of basic object ", copy.type)
+				LOG_INFO(logging::verb_level_e::DEBUG, "Copy constructor of basic object ", copy.type)
 			};
 
 			// Get functions
