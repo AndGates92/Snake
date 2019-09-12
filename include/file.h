@@ -273,6 +273,8 @@ void iofile::File::write_ofile(str_type str) {
 			this->open_ofile();
 		}
 		this->ofile << str;
+		// Flush content to ostream file
+		this->ofile.flush();
 	}
 }
 

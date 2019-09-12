@@ -151,6 +151,8 @@ namespace logging {
 template <typename file_type, typename str_type>
 void logging::print_str(file_type& file, str_type str) {
 	file << str;
+	// Flush content to file
+	file.flush();
 }
 
 template <typename file_type, typename first_str_type, typename... other_str_type>
