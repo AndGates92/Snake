@@ -116,7 +116,7 @@ bool window::Window::operator!= (const window::Window & rhs) {
 std::ostream& window::operator<< (std::ostream& os, const window::Window & win) {
 	basic_object::BasicObject basic_obj(static_cast<const basic_object::BasicObject &>(win));
 
-	os << basic_obj << " Title " << win.get_title() << " ID " << win.get_id();
+	os << "Title " << win.get_title() << " ID " << win.get_id() << basic_obj;
 
 	return os;
 }

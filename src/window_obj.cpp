@@ -76,6 +76,6 @@ bool window_obj::WindowObj::operator!= (const window_obj::WindowObj & rhs) {
 }
 
 std::ostream& window_obj::operator<< (std::ostream& os, const window_obj::WindowObj & window_object) {
-	os << "Drawing " << window_object.get_window() << " Menu " << window_object.get_menu();
+	os << "Drawing window " << window_object.get_window() << " Menu " << window_object.get_menu();
 	return os;
 }
