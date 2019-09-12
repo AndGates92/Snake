@@ -23,7 +23,7 @@ snake_unit::SnakeUnit::~SnakeUnit() {
 }
 
 void snake_unit::SnakeUnit::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	std::string type = this->get_type();
+	std::string type(this->get_type());
 	LOG_INFO(verbosity, "[", type, " ", pretext, "] ", *this, ".");
 
 }

@@ -158,7 +158,7 @@ basic_list::BasicList<class_element>::~BasicList() {
 template <class class_element>
 void basic_list::BasicList<class_element>::remove_element(class_element & element) {
 
-	typename std::vector<class_element>::iterator element_it = std::find(this->head.begin(), this->head.end(), element);
+	typename std::vector<class_element>::iterator element_it(std::find(this->head.begin(), this->head.end(), element));
 	if (element_it != this->head.end()) {
 		this->head.erase(element_it);
 	} else {

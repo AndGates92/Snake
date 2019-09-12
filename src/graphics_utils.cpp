@@ -79,7 +79,7 @@ int graphics_utils::win_node_add(std::string window_title, std::string window_ty
 
 void graphics_utils::refresh_window(int value) {
 
-	std::vector<window_obj::WindowObj> & win_vector = graphics_utils::windows.get_vector();
+	std::vector<window_obj::WindowObj> & win_vector(graphics_utils::windows.get_vector());
 
 	// Refresh windows
 	for (auto win_node : win_vector) {
@@ -103,7 +103,7 @@ void graphics_utils::save_window(iofile::File & savefile) {
 
 	int win_node_cnt = 0;
 
-	std::vector<window_obj::WindowObj> & win_vector = graphics_utils::windows.get_vector();
+	std::vector<window_obj::WindowObj> & win_vector(graphics_utils::windows.get_vector());
 
 	for (auto win_node : win_vector) {
 		savefile.write_ofile("//******************************\n");

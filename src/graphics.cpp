@@ -117,7 +117,7 @@ void graphics::idle_cb() {
 	for (auto node : window) {
 
 		int curr_win_id = node.get_win_id();
-		std::string curr_win_title = node.get_win_title();
+		std::string curr_win_title(node.get_win_title());
 
 		LOG_INFO(logging::verb_level_e::DEBUG,"[Idle Callback] Window ID: ", curr_win_id, " Title: ", curr_win_title);
 

@@ -90,7 +90,7 @@ bool cmdline_parser::parse(int argc, char** argv) {
 			LOG_INFO(logging::verb_level_e::DEBUG,"[Parse] Training Set argument number: ",  (input_file_pos/2));
 		} else if (!(strcmp(argv[arg_no],hard_wall_opt))) {
 			#ifdef HARD_WALL
-			std::string var_value = argv[arg_no+1];
+			std::string var_value(argv[arg_no+1]);
 			bool hard_wall = utility::str_to_bool(var_value);
 			snake_settings.set_hard_wall_flag(hard_wall);
 
@@ -100,7 +100,7 @@ bool cmdline_parser::parse(int argc, char** argv) {
 			snake_settings.set_hard_wall_flag(false);
 			#endif // HARD_WALL
 		} else if (!(strcmp(argv[arg_no],auto_ride_opt))) {
-			std::string var_value = argv[arg_no+1];
+			std::string var_value(argv[arg_no+1]);
 			bool auto_ride = utility::str_to_bool(var_value);
 			snake_settings.set_auto_ride_flag(auto_ride);
 			LOG_INFO(logging::verb_level_e::LOW,"[Parse] \tSetting automtic ride ", auto_ride);
@@ -211,16 +211,16 @@ void cmdline_parser::decode_line(std::string line, std::string & var_name, std::
 	var_value = words.at(1);*/
 	// Not a comment
 	// Start at the start of the line (position 1)
-	std::string::size_type var_name_start = 1;
-	std::string::size_type var_name_end = 0;
+	std::string::size_type var_name_start(1);
+	std::string::size_type var_name_end(0);
 	bool var_name_valid = cmdline_parser::extract_word(line, var_name_start, var_name, var_name_end);
 	ASSERT(var_name_valid == true);
 
 	cmdline_parser::delete_special_characters(var_name);
 
 	// Move to next character
-	std::string::size_type var_value_start = var_name_end + 1;
-	std::string::size_type var_value_end = 0;
+	std::string::size_type var_value_start(var_name_end + 1);
+	std::string::size_type var_value_end(0);
 
 	bool var_value_valid = cmdline_parser::extract_word(line, var_value_start, var_value, var_value_end);
 
@@ -294,10 +294,10 @@ bool cmdline_parser::extract_word(std::string line, std::string::size_type start
 	ASSERT(start_pos < line.length());
 
 	// Make a local copy of line and chop off the first start_ps characters
-	std::string line_cpy = line;
+	std::string line_cpy(line);
 	line_cpy.erase(0, (start_pos-1));
 
-	std::string::size_type char_cnt = 0;
+	std::string::size_type char_cnt(0);
 
 	// If line starting with search character, keep going
 	while (search_char.compare(line_cpy.substr(char_cnt,1)) == 0) {
@@ -358,7 +358,7 @@ std::ostream& cmdline_parser::operator<< (std::ostream& os, const cmdline_parser
 // Convert string to object type obj_e
 cmdline_parser::obj_e cmdline_parser::str_to_obj (std::string type) {
 
-	cmdline_parser::obj_e obj = cmdline_parser::obj_e::UNKNOWN;
+	cmdline_parser::obj_e obj(cmdline_parser::obj_e::UNKNOWN);
 
 	if ((type.compare("SNAKE") == 0) || (type.compare("Snake") == 0) || (type.compare("snake") == 0)) {
 		obj = cmdline_parser::obj_e::SNAKE;

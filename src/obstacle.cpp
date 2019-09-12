@@ -21,6 +21,6 @@ obstacle::Obstacle::~Obstacle() {
 }
 
 void obstacle::Obstacle::print_info(logging::verb_level_e verbosity, std::string pretext) {
-	std::string type = this->get_type();
+	std::string type(this->get_type());
 	LOG_INFO(verbosity, "[", type, " ", pretext, "] ", *this, ".");
 }

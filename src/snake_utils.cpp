@@ -41,7 +41,7 @@ std::ostream& snake_utils::operator<< (std::ostream& os, const snake_utils::dire
 // Convert string to object type direction_e
 snake_utils::direction_e snake_utils::str_to_direction (std::string dir) {
 
-	snake_utils::direction_e dir_tmp = snake_utils::direction_e::UNKNOWN;
+	snake_utils::direction_e dir_tmp(snake_utils::direction_e::UNKNOWN);
 
 	if ((dir.compare("UP") == 0) || (dir.compare("Up") == 0) || (dir.compare("up") == 0)) {
 		dir_tmp = snake_utils::direction_e::UP;

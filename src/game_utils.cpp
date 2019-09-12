@@ -97,8 +97,8 @@ void game_utils::populate_snake_list() {
 	int snake_units = snake_settings.get_snake_units();
 	int node_height = snake_settings.get_node_height();
 	int node_width = snake_settings.get_node_width();
-	snake_utils::direction_e snake_head_dir = snake_settings.get_head_dir();
-	colours::palette_e colour = snake_settings.get_snake_colour();
+	snake_utils::direction_e snake_head_dir(snake_settings.get_head_dir());
+	colours::palette_e colour(snake_settings.get_snake_colour());
 
 	for (int unit_no=0; unit_no < snake_units; unit_no++) {
 
@@ -111,17 +111,17 @@ void game_utils::populate_snake_list() {
 	}
 
 	// Colour snake_head differently to ease debug
-	std::vector<snake_unit::SnakeUnit> & snake_vector = game_utils::snake.get_vector();
-	snake_unit::SnakeUnit & snake_head = snake_vector.at(0);
+	std::vector<snake_unit::SnakeUnit> & snake_vector(game_utils::snake.get_vector());
+	snake_unit::SnakeUnit & snake_head(snake_vector.at(0));
 	snake_head.set_colour(colours::palette_e::YELLOW);
 
 }
 
 void game_utils::set_snake_settings() {
 
-	std::vector<snake_unit::SnakeUnit> snake_vector = game_utils::snake.get_vector();
-	snake_unit::SnakeUnit snake_head = snake_vector.at(0);
-	snake_utils::direction_e snake_head_dir = snake_head.get_direction();
+	std::vector<snake_unit::SnakeUnit> snake_vector(game_utils::snake.get_vector());
+	snake_unit::SnakeUnit snake_head(snake_vector.at(0));
+	snake_utils::direction_e snake_head_dir(snake_head.get_direction());
 	snake_settings.set_head_dir(snake_head_dir);
 	int snake_head_x = snake_head.get_x_centre();
 	snake_settings.set_head_centre_x(snake_head_x);
@@ -166,8 +166,8 @@ void game_utils::init_game() {
 bool game_utils::contact_between_snake_obs() {
 
 	// Retrieve snake head informations
-	std::vector<snake_unit::SnakeUnit> & snake_vector = game_utils::snake.get_vector();
-	snake_unit::SnakeUnit snake_head = snake_vector.at(0);
+	std::vector<snake_unit::SnakeUnit> & snake_vector(game_utils::snake.get_vector());
+	snake_unit::SnakeUnit snake_head(snake_vector.at(0));
 	int snake_head_x = snake_head.get_x_centre();
 	int snake_head_width = snake_head.get_width();
 	int snake_head_x_min = snake_head_x - snake_head_width/2;
@@ -178,7 +178,7 @@ bool game_utils::contact_between_snake_obs() {
 	int snake_head_y_max = snake_head_y + snake_head_height/2;
 
 	// obstacle pointer
-	std::vector<obstacle::Obstacle> & obs_vector = game_utils::obstacles.get_vector();
+	std::vector<obstacle::Obstacle> & obs_vector(game_utils::obstacles.get_vector());
 
 	bool contact = false;
 
@@ -193,7 +193,7 @@ bool game_utils::contact_between_snake_obs() {
 		int obs_y_max = obs_y + obs_height/2;
 
 		// Save temporary obstacle
-		obstacle::Obstacle node_tmp = curr_node;
+		obstacle::Obstacle node_tmp(curr_node);
 
 		if (
 			(
@@ -231,7 +231,7 @@ void game_utils::add_obstacle() {
 
 	int node_height = snake_settings.get_node_height();
 	int node_width = snake_settings.get_node_width();
-	colours::palette_e colour = snake_settings.get_obs_colour();
+	colours::palette_e colour(snake_settings.get_obs_colour());
 
 	// Random coordinates must be within node_width/2 and (win_width-node_width/2)
 	int centre_x = (rand() % (win_width_int - node_width)) + node_width/2;
@@ -262,7 +262,7 @@ void game_utils::free_window_list() {
 
 void game_utils::save_game(std::string filename) {
 	// obstacle pointer
-	std::vector<snake_unit::SnakeUnit> & snake_vector = game_utils::snake.get_vector();
+	std::vector<snake_unit::SnakeUnit> & snake_vector(game_utils::snake.get_vector());
 
 	std::string tmp_filename(filename);
 	tmp_filename.append(".tmp");
@@ -298,7 +298,7 @@ void game_utils::save_game(std::string filename) {
 	ASSERT(snake_node_cnt==snake_units);
 
 	// obstacle pointer
-	std::vector<obstacle::Obstacle> & obs_vector = game_utils::obstacles.get_vector();
+	std::vector<obstacle::Obstacle> & obs_vector(game_utils::obstacles.get_vector());
 
 	int obs_node_cnt = 0;
 
@@ -326,9 +326,9 @@ void game_utils::free_game_memory() {
 
 void game_utils::auto_change_dir() {
 
-	std::vector<snake_unit::SnakeUnit> & snake_vector = game_utils::snake.get_vector();
-	snake_unit::SnakeUnit snake_head = snake_vector.at(0);
-	snake_utils::direction_e snake_head_dir = snake_head.get_direction();
+	std::vector<snake_unit::SnakeUnit> & snake_vector(game_utils::snake.get_vector());
+	snake_unit::SnakeUnit snake_head(snake_vector.at(0));
+	snake_utils::direction_e snake_head_dir(snake_head.get_direction());
 
 	// Coordinates
 	int snake_head_x = snake_head.get_x_centre();
@@ -350,8 +350,8 @@ void game_utils::auto_change_dir() {
 		max_auto_ride_count = (int) floor(result);
 	}
 
-	std::vector<obstacle::Obstacle> & obs_vector = game_utils::obstacles.get_vector();
-	obstacle::Obstacle obs_node = obs_vector.at(0);
+	std::vector<obstacle::Obstacle> & obs_vector(game_utils::obstacles.get_vector());
+	obstacle::Obstacle obs_node(obs_vector.at(0));
 
 	int obs_head_x = obs_node.get_x_centre();
 	int obs_head_y = obs_node.get_y_centre();
@@ -397,10 +397,10 @@ void game_utils::check_wall_collision(snake_utils::direction_e snake_head_dir) {
 	double win_height_dle = glutGet(GLUT_WINDOW_HEIGHT);
 	int win_height = (int) win_height_dle;
 
-	snake_utils::direction_e curr_dir = game_utils::head_dir;
+	snake_utils::direction_e curr_dir(game_utils::head_dir);
 
-	std::vector<snake_unit::SnakeUnit> & snake_vector = game_utils::snake.get_vector();
-	snake_unit::SnakeUnit snake_head = snake_vector.at(0);
+	std::vector<snake_unit::SnakeUnit> & snake_vector(game_utils::snake.get_vector());
+	snake_unit::SnakeUnit snake_head(snake_vector.at(0));
 
 	int snake_head_x = 0;
 	int snake_head_x_min = 0;
@@ -445,11 +445,11 @@ std::cout << "X min " << snake_head_x_min << " max " << snake_head_x_max << " ce
 
 		game_utils::populate_flags_obs(obs_left_dist, obs_right_dist, obs_up_dist, obs_down_dist);
 
-		snake_utils::direction_e dir1 = snake_utils::direction_e::UNKNOWN;
+		snake_utils::direction_e dir1(snake_utils::direction_e::UNKNOWN);
 		int snake_dist_dir1 = game_utils::dist_init_val;
 		int obs_dist_dir1 = game_utils::dist_init_val;
 
-		snake_utils::direction_e dir2 = snake_utils::direction_e::UNKNOWN;
+		snake_utils::direction_e dir2(snake_utils::direction_e::UNKNOWN);
 		int snake_dist_dir2 = game_utils::dist_init_val;
 		int obs_dist_dir2 = game_utils::dist_init_val;
 
@@ -536,9 +536,9 @@ void game_utils::check_snake_collision(snake_utils::direction_e snake_head_dir) 
 
 	game_utils::populate_flags_obs(obs_left_dist, obs_right_dist, obs_up_dist, obs_down_dist);
 
-	std::vector<snake_utils::direction_e> dirs = game_utils::populate_dirs(snake_dir_list);
+	std::vector<snake_utils::direction_e> dirs(game_utils::populate_dirs(snake_dir_list));
 
-	snake_utils::direction_e curr_dir = game_utils::head_dir;
+	snake_utils::direction_e curr_dir(game_utils::head_dir);
 
 	bool collision_risk_new_dir = game_utils::unit_in_trajectory(curr_dir, dirs, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist, obs_left_dist, obs_right_dist, obs_up_dist, obs_down_dist);
 	bool collision_risk_old_dir = game_utils::unit_in_trajectory(snake_head_dir, dirs, snake_unit_left_dist, snake_unit_right_dist, snake_unit_up_dist, snake_unit_down_dist, obs_left_dist, obs_right_dist, obs_up_dist, obs_down_dist);
@@ -550,11 +550,11 @@ void game_utils::check_snake_collision(snake_utils::direction_e snake_head_dir) 
 	if (collision_risk_new_dir == true) {
 		// If there is risk of collision in the old direction
 		if (collision_risk_old_dir == true) {
-			snake_utils::direction_e dir1 = snake_utils::direction_e::UNKNOWN;
+			snake_utils::direction_e dir1(snake_utils::direction_e::UNKNOWN);
 			int snake_dist_dir1 = game_utils::dist_init_val;
 			int obs_dist_dir1 = game_utils::dist_init_val;
 
-			snake_utils::direction_e dir2 = snake_utils::direction_e::UNKNOWN;
+			snake_utils::direction_e dir2(snake_utils::direction_e::UNKNOWN);
 			int snake_dist_dir2 = game_utils::dist_init_val;
 			int obs_dist_dir2 = game_utils::dist_init_val;
 
@@ -591,7 +591,7 @@ std::vector<snake_utils::direction_e> game_utils::populate_dirs(std::vector<snak
 	int dir_list_size = dir_list.size();
 
 	for (int dir_no = 0; dir_no < game_utils::num_useful_dirs; dir_no++) {
-		snake_utils::direction_e dir = snake_utils::direction_e::UNKNOWN;
+		snake_utils::direction_e dir(snake_utils::direction_e::UNKNOWN);
 		if (dir_no < dir_list_size) {
 			dir = dir_list.at(dir_no);
 		} else {
@@ -638,7 +638,7 @@ bool game_utils::unit_in_trajectory(snake_utils::direction_e dir, std::vector<sn
 
 	int snake_dist = 0;
 	int obs_dist = 0;
-	snake_utils::direction_e opposite_dir = snake_utils::direction_e::UNKNOWN;
+	snake_utils::direction_e opposite_dir(snake_utils::direction_e::UNKNOWN);
 
 	bool unit_opposite_dirs = (((dirs.at(0) == snake_utils::direction_e::RIGHT) && (dirs.at(2) == snake_utils::direction_e::LEFT)) || ((dirs.at(0) == snake_utils::direction_e::LEFT) && (dirs.at(2) == snake_utils::direction_e::RIGHT)) || ((dirs.at(0) == snake_utils::direction_e::DOWN) && (dirs.at(2) == snake_utils::direction_e::UP)) || ((dirs.at(0) == snake_utils::direction_e::UP) && (dirs.at(2) == snake_utils::direction_e::DOWN)));
 
@@ -677,11 +677,11 @@ bool game_utils::unit_in_trajectory(snake_utils::direction_e dir, std::vector<sn
 }
 
 void game_utils::populate_flags_snake(std::vector<snake_utils::direction_e> & dir_list, int & left_dist, int & right_dist, int & up_dist, int & down_dist) {
-	std::vector<snake_unit::SnakeUnit> & snake_vector = game_utils::snake.get_vector();
-	snake_unit::SnakeUnit snake_head = snake_vector.at(0);
+	std::vector<snake_unit::SnakeUnit> & snake_vector(game_utils::snake.get_vector());
+	snake_unit::SnakeUnit snake_head(snake_vector.at(0));
 
-	snake_utils::direction_e prev_dir = snake_head.get_direction();
-	snake_utils::direction_e curr_dir = snake_head.get_direction();
+	snake_utils::direction_e prev_dir(snake_head.get_direction());
+	snake_utils::direction_e curr_dir(snake_head.get_direction());
 
 	dir_list.push_back(curr_dir);
 
@@ -758,9 +758,9 @@ void game_utils::populate_flags_snake(std::vector<snake_utils::direction_e> & di
 }
 
 void game_utils::populate_flags_obs(int & left_dist, int & right_dist, int & up_dist, int & down_dist) {
-	std::vector<obstacle::Obstacle> & obs_vector = game_utils::obstacles.get_vector();
-	std::vector<snake_unit::SnakeUnit> & snake_vector = game_utils::snake.get_vector();
-	snake_unit::SnakeUnit snake_head = snake_vector.at(0);
+	std::vector<obstacle::Obstacle> & obs_vector(game_utils::obstacles.get_vector());
+	std::vector<snake_unit::SnakeUnit> & snake_vector(game_utils::snake.get_vector());
+	snake_unit::SnakeUnit snake_head(snake_vector.at(0));
 
 	int snake_head_x = snake_head.get_x_centre();
 	int snake_head_width = snake_head.get_width();

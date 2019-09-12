@@ -55,7 +55,7 @@ std::ostream& colours::operator<< (std::ostream& os, const colours::palette_e & 
 // Convert string to object type colour_e
 colours::palette_e colours::str_to_colour (std::string colour) {
 
-	colours::palette_e colour_tmp = colours::palette_e::UNKNOWN;
+	colours::palette_e colour_tmp(colours::palette_e::UNKNOWN);
 
 	if ((colour.compare("RED") == 0) || (colour.compare("Up") == 0) || (colour.compare("up") == 0)) {
 		colour_tmp = colours::palette_e::RED;

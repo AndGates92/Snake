@@ -41,7 +41,7 @@ void menu::menu_game(int entry) {
 			LOG_INFO(logging::verb_level_e::ZERO,"[Menu snake] Start/Pause snake");
 			// Explicitely limit scope of variable game_status
 			{
-				settings::game_status_e game_status = snake_settings.get_game_status();
+				settings::game_status_e game_status(snake_settings.get_game_status());
 
 				if (game_status == settings::game_status_e::RUNNING) {
 					snake_settings.set_game_status(settings::game_status_e::PAUSED);

@@ -30,9 +30,9 @@ window_list::WindowList::~WindowList() {
 int window_list::WindowList::add_element(std::string window_title, std::string window_type, int window_width, int window_height, int window_x_pos, int window_y_pos, colours::palette_e background_colour) {
 
 	std::vector<window_obj::WindowObj> & win_vector (this->get_vector());
-	std::string name (this->.get_name());
+	std::string name (this->get_name());
 
-	window_obj::WindowObj new_window = window_obj::WindowObj(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour);
+	window_obj::WindowObj new_window(window_title, window_type, window_width, window_height, window_x_pos, window_y_pos, background_colour);
 	LOG_INFO(logging::verb_level_e::LOW, "[Add Window] List Name: ", name, new_window, ".");
 
 	win_vector.insert(win_vector.begin(), new_window);
@@ -67,7 +67,7 @@ window_obj::WindowObj window_list::WindowList::search_by_win_id(int win_id) {
 		return *element_it;
 	} else {
 		LOG_ERROR("Couldn't find window matching window ID ", win_id);
-		window_obj::WindowObj node_err = window_obj::WindowObj("Error");
+		window_obj::WindowObj node_err("Error");
 		return node_err;
 	}
 }
