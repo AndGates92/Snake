@@ -137,21 +137,7 @@ namespace basic_list {
 template <class class_element>
 basic_list::BasicList<class_element>::~BasicList() {
 
-	std::string pretext ("Destructor");
 	LOG_INFO(logging::verb_level_e::DEBUG, "Basic List Destructor");
-
-	for(typename std::vector<class_element>::iterator element_it = this->head.begin(); element_it != this->head.end(); ++element_it) {
-		// Convert iterator to index
-		int index = std::distance(this->head.begin(), element_it);
-
-		// Create an class_element that references the desired element
-		class_element & element (this->head.at(index));
-
-		// Print informations about the element to be deleted
-		element.print_info(logging::verb_level_e::DEBUG, pretext);
-		this->head.erase(element_it);
-	}
-	LOG_INFO(logging::verb_level_e::DEBUG, "Basic list destroyed");
 
 }
 

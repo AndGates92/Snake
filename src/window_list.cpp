@@ -21,8 +21,6 @@
 
 window_list::WindowList::~WindowList() {
 
-	this->~BasicObjList();
-
 	LOG_INFO(logging::verb_level_e::DEBUG, "Window list destructor");
 
 }

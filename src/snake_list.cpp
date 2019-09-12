@@ -24,9 +24,6 @@ snake_list::SnakeList::~SnakeList() {
 
 	LOG_INFO(logging::verb_level_e::DEBUG, "Snake List Destructor");
 
-	this->~BasicObjList();
-
-
 }
 
 // Add nodes from the head down

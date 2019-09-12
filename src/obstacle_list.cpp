@@ -18,7 +18,6 @@
 obstacle_list::ObstacleList::~ObstacleList() {
 
 	LOG_INFO(logging::verb_level_e::DEBUG, "Obstacle list destructor");
-	this->~BasicObjList();
 
 }
 

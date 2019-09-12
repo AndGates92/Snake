@@ -69,7 +69,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			{
 				int speed = snake_settings.get_speed();
 				int speed_incr = snake_settings.get_speed_incr();
-				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Speed up snake to ", speed, " because of pressing key ", key);
+				LOG_INFO(logging::verb_level_e::MEDIUM,"[Keyboard Game Callback] Speed up snake to ", speed, " because of pressing key ", key);
 				snake_settings.set_speed(speed + speed_incr);
 			}
 			// force glut to call the display function
@@ -84,14 +84,14 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 				if (speed > speed_incr) {
 					snake_settings.set_speed(speed - speed_incr);
 				}
-				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Slow down snake to ", speed, " because of pressing key ", key);
+				LOG_INFO(logging::verb_level_e::MEDIUM,"[Keyboard Game Callback] Slow down snake to ", speed, " because of pressing key ", key);
 				ASSERT(snake_settings.get_speed() > 0)
 				// force glut to call the display function
 			}
 			glutPostRedisplay();
 			break;
 		case 'm':
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Save game because of pressing key ", key);
+			LOG_INFO(logging::verb_level_e::MEDIUM,"[Keyboard Game Callback] Save game because of pressing key ", key);
 			// Explicitely limit scope of variable savefilename
 			{
 				std::string savefilename (snake_settings.get_save_filename());
@@ -99,7 +99,7 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 			}
 			break;
 		case 'p':
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Start/Pause game because of pressing key ", key);
+			LOG_INFO(logging::verb_level_e::MEDIUM,"[Keyboard Game Callback] Start/Pause game because of pressing key ", key);
 			// Explicitely limit scope of variable game_status
 			{
 				settings::game_status_e game_status(snake_settings.get_game_status());
@@ -109,15 +109,15 @@ void game_graphics::keyboard_game_cb(unsigned char key, int x, int y) {
 				} else if (game_status == settings::game_status_e::PAUSED) {
 					snake_settings.set_game_status(settings::game_status_e::RUNNING);
 				}
-				LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Game state: ", snake_settings.get_game_status());
+				LOG_INFO(logging::verb_level_e::MEDIUM,"[Keyboard Game Callback] Game state: ", snake_settings.get_game_status());
 			}
 			break;
 		case 'r':
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Restart game because of pressing key ", key);
+			LOG_INFO(logging::verb_level_e::MEDIUM,"[Keyboard Game Callback] Restart game because of pressing key ", key);
 			snake_settings.set_game_status(settings::game_status_e::RESTART);
 			break;
 		case 'q':
-			LOG_INFO(logging::verb_level_e::DEBUG,"[Keyboard Game Callback] Exit program because of pressing key ", key);
+			LOG_INFO(logging::verb_level_e::MEDIUM,"[Keyboard Game Callback] Exit program because of pressing key ", key);
 			snake_settings.set_game_status(settings::game_status_e::EXIT);
 			break;
 		default:
@@ -276,8 +276,6 @@ void game_graphics::idle_game_cb() {
 			std::string dumpfilename (snake_settings.get_dump_filename());
 			game_utils::save_game(dumpfilename);
 		}
-		graphics_utils::delete_window();
-		game_utils::free_game_memory();
 		exit(EXIT_SUCCESS);
 	} else {
 		ASSERT(game_status == settings::game_status_e::PAUSED);
