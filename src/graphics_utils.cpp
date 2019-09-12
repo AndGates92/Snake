@@ -63,7 +63,7 @@ void graphics_utils::delete_window() {
 void graphics_utils::delete_all_windows() {
 	LOG_INFO(logging::verb_level_e::LOW, "[Delete all window] Delete all windows");
 	LOG_INFO(logging::verb_level_e::LOW, windows);
-	windows.~WindowList();
+	windows.delete_all_elements();
 //	delete windows;
 }
 

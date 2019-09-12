@@ -56,6 +56,13 @@ namespace basic_list {
 			virtual ~BasicList();
 
 			/**
+			 * @brief Function: void delete_all_elements()
+			 *
+			 * Remove all elements from BasicList
+			 */
+			void delete_all_elements();
+
+			/**
 			 * @brief Function: void remove_element(class_element & element)
 			 *
 			 * \param element: element to delete
@@ -138,6 +145,18 @@ template <class class_element>
 basic_list::BasicList<class_element>::~BasicList() {
 
 	LOG_INFO(logging::verb_level_e::DEBUG, "Basic List Destructor");
+
+}
+
+ template <class class_element>
+void  basic_list::BasicList<class_element>::delete_all_elements() {
+ 
+	std::string pretext ("Delete Elements");
+	this->print_info(logging::verb_level_e::LOW, pretext);
+
+	// Delete all elements of previous vector by assigning an empty one
+	this->head = std::vector<class_element>();
+	LOG_INFO(logging::verb_level_e::DEBUG, "Basic list cleared");
 
 }
 

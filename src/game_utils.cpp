@@ -244,19 +244,19 @@ void game_utils::add_obstacle() {
 }
 
 void game_utils::free_obstacle_list() {
-	LOG_INFO(logging::verb_level_e::LOW, "Detroy all obstacles");
+	LOG_INFO(logging::verb_level_e::LOW, "Destroy all obstacles");
 	LOG_INFO(logging::verb_level_e::LOW, game_utils::obstacles);
-	game_utils::obstacles.~ObstacleList();
+	game_utils::obstacles.delete_all_elements();
 }
 
 void game_utils::free_snake_list() {
-	LOG_INFO(logging::verb_level_e::LOW, "Detroy all snakes");
+	LOG_INFO(logging::verb_level_e::LOW, "Destroy all snakes");
 	LOG_INFO(logging::verb_level_e::LOW, game_utils::snake);
-	game_utils::snake.~SnakeList();
+	game_utils::snake.delete_all_elements();
 }
 
 void game_utils::free_window_list() {
-	LOG_INFO(logging::verb_level_e::DEBUG, "Detroy all windows");
+	LOG_INFO(logging::verb_level_e::DEBUG, "Destroy all windows");
 	graphics_utils::delete_all_windows();
 }
 
