@@ -32,7 +32,7 @@ namespace basic_list {
 			 *
 			 * BasicList constructor
 			 */
-			explicit BasicList(): head() {
+			explicit BasicList(): element_vector() {
 				LOG_INFO(logging::verb_level_e::DEBUG, "Constructor of basic list");
 			};
 
@@ -43,7 +43,7 @@ namespace basic_list {
 			 *
 			 * BasicList copy constructor
 			 */
-			BasicList(const BasicList& copy): head(copy.head) {
+			BasicList(const BasicList& copy): element_vector(copy.element_vector) {
 				LOG_INFO(logging::verb_level_e::DEBUG, "Copy constructor of basic list");
 			};
 
@@ -84,29 +84,29 @@ namespace basic_list {
 			/**
 			 * @brief Function: std::vector<class_element> get_vector() const
 			 *
-			 * \return head of BasicList
+			 * \return vector of BasicList
 			 *
-			 * Return a pointer to te head of the list 
+			 * Return a pointer to te vector of the list 
 			 */
 			std::vector<class_element> get_vector() const;
 
 			/**
 			 * @brief Function: std::vector<class_element> & get_vector()
 			 *
-			 * \return head of BasicList
+			 * \return vector of BasicList
 			 *
-			 * Return a pointer to te head of the list 
+			 * Return a pointer to te vector of the list 
 			 */
 			std::vector<class_element> & get_vector();
 
 			/**
-			 * @brief Function: void set_head(std::vector<class_element> & new_head)
+			 * @brief Function: void set_vector(std::vector<class_element> & new_vector)
 			 *
-			 * \param new_head: set head of BasicList
+			 * \param new_vector: set vector of BasicList
 			 *
-			 * Set the head pointer of the list
+			 * Set the vector pointer of the list
 			 */
-			void set_head(std::vector<class_element> & new_head);
+			void set_vector(std::vector<class_element> & new_vector);
 
 			/**
 			 * @brief Function: void add_element()
@@ -122,7 +122,7 @@ namespace basic_list {
 			 * @brief Head of the list
 			 *
 			 */
-			std::vector<class_element> head;
+			std::vector<class_element> element_vector;
 
 	};
 
@@ -155,7 +155,7 @@ void  basic_list::BasicList<class_element>::delete_all_elements() {
 	this->print_info(logging::verb_level_e::LOW, pretext);
 
 	// Delete all elements of previous vector by assigning an empty one
-	this->head = std::vector<class_element>();
+	this->element_vector = std::vector<class_element>();
 	LOG_INFO(logging::verb_level_e::DEBUG, "Basic list cleared");
 
 }
@@ -163,9 +163,9 @@ void  basic_list::BasicList<class_element>::delete_all_elements() {
 template <class class_element>
 void basic_list::BasicList<class_element>::remove_element(class_element & element) {
 
-	typename std::vector<class_element>::iterator element_it(std::find(this->head.begin(), this->head.end(), element));
-	if (element_it != this->head.end()) {
-		this->head.erase(element_it);
+	typename std::vector<class_element>::iterator element_it(std::find(this->element_vector.begin(), this->element_vector.end(), element));
+	if (element_it != this->element_vector.end()) {
+		this->element_vector.erase(element_it);
 	} else {
 		std::string pretext ("Remove Element");
 		element.print_info(logging::verb_level_e::MEDIUM, pretext);
@@ -183,18 +183,18 @@ void basic_list::BasicList<class_element>::print_info(logging::verb_level_e verb
 template <class class_element>
 std::vector<class_element> basic_list::BasicList<class_element>::get_vector() const {
 	LOG_INFO(logging::verb_level_e::DEBUG, "[Get Vector] Get const vector");
-	return this->head;
+	return this->element_vector;
 }
 
 template <class class_element>
 std::vector<class_element> & basic_list::BasicList<class_element>::get_vector() {
 	LOG_INFO(logging::verb_level_e::DEBUG, "[Get Vector] Get reference to vector");
-	return this->head;
+	return this->element_vector;
 }
 
 template <class class_element>
-void basic_list::BasicList<class_element>::set_head(std::vector<class_element> & new_head) {
-	this->head = new_head;
+void basic_list::BasicList<class_element>::set_vector(std::vector<class_element> & new_vector) {
+	this->element_vector = new_vector;
 }
 
 template <class class_element>
