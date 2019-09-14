@@ -350,6 +350,8 @@ void char_lut::draw_char(pixel_type * & pixels, const int & win_width, const int
 				}
 			}
 		}
+
+		delete [] colour;
 	}
 }
 
