@@ -140,7 +140,6 @@ void basic_obj_list::BasicObjList<class_element>::draw(pixel_type * & pixels, co
 
 }
 
-
 template <class class_element>
 std::ostream& basic_obj_list::operator<< (std::ostream& os, const basic_obj_list::BasicObjList<class_element> & object_list) {
 
@@ -159,4 +158,5 @@ std::ostream& basic_obj_list::operator<< (std::ostream& os, const basic_obj_list
 	return os;
 
 }
+
 #endif // BASIC_OBJ_LIST_H

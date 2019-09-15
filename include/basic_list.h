@@ -108,13 +108,6 @@ namespace basic_list {
 			 */
 			void set_vector(std::vector<class_element> & new_vector);
 
-			/**
-			 * @brief Function: void add_element()
-			 *
-			 * Function to add a element. It must be implemented in the derived class
-			 */
-			void add_element();
-
 		protected:
 
 		private:
@@ -195,11 +188,6 @@ std::vector<class_element> & basic_list::BasicList<class_element>::get_vector() 
 template <class class_element>
 void basic_list::BasicList<class_element>::set_vector(std::vector<class_element> & new_vector) {
 	this->element_vector = new_vector;
-}
-
-template <class class_element>
-void basic_list::BasicList<class_element>::add_element() {
-	LOG_ERROR("add_element function was not implemented in BasicList class. Please code it up in the derived class");
 }
 
 template <class class_element>
