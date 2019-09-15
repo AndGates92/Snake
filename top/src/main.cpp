@@ -9,7 +9,9 @@
 #include <iostream>
 #include <ctime>
 #include <exception>
+#include <unistd.h>
 #include "logging.h"
+#include "trace_logging.h"
 #include "graphics.h"
 #include "file.h"
 #include "custom_exception.h"
@@ -53,6 +55,7 @@ int main (int argc, char ** argv) {
 
 		graphics::init_graphics(argc, argv);
 	} catch (custom_exception::CustomException cust_e) {
+		trace_logging::print_backtrace(STDERR_FILENO);
 		std::cerr << "Snake game exception: " << cust_e.what();
 	}
 
