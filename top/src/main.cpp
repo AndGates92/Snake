@@ -10,10 +10,12 @@
 #include <ctime>
 #include <exception>
 #include <unistd.h>
+#include <csignal>
 #include "logging.h"
 #include "trace_logging.h"
 #include "graphics.h"
 #include "file.h"
+#include "main.h"
 #include "custom_exception.h"
 
 using namespace std;
@@ -41,6 +43,11 @@ using namespace graphics;
  */
 int main (int argc, char ** argv) {
 
+	signal(SIGSEGV, signal_handler);
+	signal(SIGABRT, signal_handler);
+	signal(SIGTERM, signal_handler);
+	signal(SIGINT,  signal_handler);
+
 	try {
 		LOG_INFO(logging::verb_level_e::ZERO, "Start program Snake");
 
@@ -62,5 +69,15 @@ int main (int argc, char ** argv) {
 	LOG_INFO(logging::verb_level_e::ZERO, "End program Snake");
 
 	return EXIT_SUCCESS;
+}
+
+/** 
+ * @brief Function: void signal_handler()
+ *
+ * Signal handler. Prints backtrace
+ */
+void signal_handler(int sig_id) {
+	LOG_INFO(logging::verb_level_e::ZERO, "Got signal ", sig_id);
+	trace_logging::print_backtrace(STDERR_FILENO);
 }
 /** @} */ // End of addtogroup Main group
