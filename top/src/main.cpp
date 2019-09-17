@@ -18,10 +18,6 @@
 #include "main.h"
 #include "custom_exception.h"
 
-using namespace std;
-using namespace logging;
-using namespace graphics;
-
 /** @addtogroup MainGroup
  *  @{
  */
@@ -35,10 +31,9 @@ using namespace graphics;
  * Decodes the arguments and call functions for further processing
  *
  * Syntax:
- * --> -trs \<filename\> : training set file
- * --> -tes \<filename\> : test set file
- * --> -trl \<filename\> : training label file
- * --> -tel \<filename\> : test label file
+ * --> -i  \<filename\> : settings file
+ * --> -hw \<0|1\>      : hard wall flag
+ * --> -a  \<0|1\>      : auto-ride flag
  *
  */
 int main (int argc, char ** argv) {
